@@ -172,3 +172,51 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 2 complete. Added 6 high-value features + expanded callout content across 11 tutorials. Backend verified. Ready for next improvement pass (mobile polish, onboarding interests persistence, tutorial ratings, more content, etc.).
+
+---
+Task ID: PASS2-3
+Agent: webDevReview iteration 3
+Task: Premium styling polish, streak heatmap, tutorial ratings, resume banner, category counts
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 2 complete (daily challenge, AI study buddy, completion celebration, keyboard shortcuts, callouts, reading time). Identified highest-value next: styling polish (VLM feedback), streak calendar, tutorial ratings, resume banner, category counts.
+- QA via agent-browser + curl: all endpoints return 200. Lint clean. VLM analysis identified specific styling improvements (glassmorphism, radial glow, button shadows, nav underline, search focus ring).
+- Server OOM-crashes when Chrome loads (Turbopack + Chrome exceed 4GB). Verified via curl + DB queries instead.
+
+Features implemented:
+1. Premium styling polish (globals.css + home-view + header):
+   - New CSS utilities: .glass-pill (backdrop-blur glassmorphic pill), .bg-radial-glow (radial gradient glow), .shadow-glow-primary (colored glow shadow + hover lift), .nav-link-underline (sliding underline on hover/active), .search-focus-ring (focus ring on search).
+   - Hero: glassmorphic stats badge, radial glow background, headline tracking-tight (-0.02em), text-foreground/95, increased spacing (mb-10), button glow shadows.
+   - CTA button: shadow-glow-primary with hover lift.
+   - Header nav: sliding underline animation, data-active attribute for current view.
+   - Search: focus ring transition.
+   - Verified: all 5 CSS classes present in rendered HTML.
+2. Streak calendar heatmap (dashboard):
+   - New /api/streak-heatmap endpoint: returns 84 days (12 weeks) of activity data with XP per day and intensity levels (0-4). Portable — derives from ActivityLog, no external scheduler.
+   - StreakHeatmap component: GitHub-style heatmap grid with month labels, day labels, 5-level color intensity, legend, hover tooltips. Added to dashboard left column.
+   - Verified: returns 84 cells, 1 active day for test user (matches history).
+3. Tutorial ratings (thumbs up/down):
+   - New TutorialRating Prisma model (tutorialId, userId, value: 1/-1, unique constraint per user per tutorial).
+   - New /api/ratings endpoint: GET (aggregate upvotes/downvotes + user's rating), POST (upsert/toggle rating).
+   - TutorialRating component: thumbs up/down buttons with counts, active state highlighting, toggle behavior, toast feedback.
+   - Integrated into tutorial reader (after content, before quizzes).
+   - Verified via DB: rating created, aggregate counts correct.
+4. Reading progress resume banner (home):
+   - ResumeBanner component on homepage for returning users: shows last-read tutorial with progress bar, "Resume" button with glow shadow, dismissible.
+   - Only shows when user has continueLearning items.
+5. Category counts on browse:
+   - Browse view category filters now show subject counts per category in small badges.
+   - Active category filter has shadow-glow-primary.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- /api/streak-heatmap returns 200 with 84 cells, activeDays=1 (authed).
+- /api/ratings returns 401 unauthed (correct); DB test confirms rating upsert + aggregate counts work.
+- /api/daily-challenge returns 200 with tutorial + xpBonus.
+- /api/ai/status returns 200 with enabled=false (platform independence maintained).
+- All 5 new CSS classes (glass-pill, bg-radial-glow, shadow-glow-primary, nav-link-underline, search-focus-ring) present in rendered HTML.
+- Prisma schema updated with TutorialRating model, db:push successful.
+- Platform independence maintained: no new external dependencies, all features portable.
+
+Stage Summary:
+- Pass 2 iteration 3 complete. Added 5 high-value features + premium styling polish. Backend verified. Ready for next improvement pass (mobile responsive audit, onboarding interests persistence, more content, accessibility audit).

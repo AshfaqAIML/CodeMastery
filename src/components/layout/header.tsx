@@ -66,10 +66,11 @@ export function Header() {
             <button
               key={item.view}
               onClick={() => navigate(item.view)}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              data-active={curView === item.view}
+              className={`nav-link-underline px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                 curView === item.view
-                  ? "bg-secondary text-secondary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {item.label}
@@ -81,7 +82,7 @@ export function Header() {
         <div className="ml-auto flex items-center gap-2">
           <button
             onClick={() => setSearchOpen(true)}
-            className="hidden sm:flex items-center gap-2 h-9 w-44 lg:w-64 rounded-md border border-input bg-muted/40 px-3 text-sm text-muted-foreground hover:bg-muted transition-colors"
+            className="search-focus-ring hidden sm:flex items-center gap-2 h-9 w-44 lg:w-64 rounded-md border border-input bg-muted/40 px-3 text-sm text-muted-foreground hover:bg-muted transition-colors"
           >
             <Search className="size-4" />
             <span className="truncate">Search tutorials...</span>

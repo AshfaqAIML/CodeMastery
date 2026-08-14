@@ -5,15 +5,17 @@ import Link from "next/link"
 import {
   ArrowRight, Sparkles, Zap, Trophy, Flame, BookOpen, Compass, GraduationCap,
   Code2, Brain, Network, Layers, TrendingUp, Target, Users, Rocket, CheckCircle2,
+  X,
 } from "lucide-react"
 import { motion } from "framer-motion"
 import { useAppStore } from "@/lib/store"
-import { useSubjects, usePaths, useLeaderboard } from "@/hooks/use-api"
+import { useSubjects, usePaths, useLeaderboard, useMe } from "@/hooks/use-api"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
 import { LevelBadge } from "@/components/shared/level-badge"
+import type { ViewName } from "@/lib/store"
 
 const CATEGORIES = [
   { name: "Programming", icon: Code2, color: "oklch(0.62 0.15 162)" },
@@ -29,15 +31,22 @@ export function HomeView() {
   const { data: subjects } = useSubjects({ withCounts: true })
   const { data: paths } = usePaths()
   const { data: lb } = useLeaderboard("weekly")
+  const { data: meData } = useMe()
 
   const featured = (subjects ?? []).slice(0, 8)
   const totalTutorials = (subjects ?? []).reduce((s, x) => s + (x.tutorialCount ?? 0), 0)
+  const continueLearning = meData?.continueLearning ?? []
 
   return (
     <div className="flex-1">
+      {/* Resume banner for returning users */}
+      {continueLearning.length > 0 && (
+        <ResumeBanner items={continueLearning} onNavigate={navigate} />
+      )}
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
+        <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none" />
+        <div className="absolute inset-0 bg-radial-glow pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none" />
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 size-[600px] rounded-full bg-primary/10 blur-3xl pointer-events-none" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-20 pb-16 sm:pt-28 sm:pb-24">
@@ -47,25 +56,25 @@ export function HomeView() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground mb-6">
+            <div className="inline-flex items-center gap-2 rounded-full glass-pill px-3.5 py-1.5 text-xs font-medium text-muted-foreground mb-6">
               <Sparkles className="size-3.5 text-primary" />
               {totalTutorials}+ tutorials · {subjects?.length ?? 20} subjects · 100% free
             </div>
-            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight leading-[1.05] mb-6">
+            <h1 className="text-4xl sm:text-6xl font-bold tracking-[-0.02em] leading-[1.05] mb-6 text-foreground/95">
               Master Computer Science,
               <br />
               <span className="text-gradient">the structured way.</span>
             </h1>
-            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-muted-foreground/90 leading-relaxed mb-10 max-w-2xl mx-auto">
               From C and Python to Machine Learning, LLMs, and System Design. Learn with
               real tutorials, track your progress, earn XP, and build the skills that matter.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button size="lg" className="h-12 px-6 text-base" onClick={() => navigate("browse")}>
+              <Button size="lg" className="h-12 px-7 text-base shadow-glow-primary" onClick={() => navigate("browse")}>
                 Start learning
                 <ArrowRight className="ml-2 size-4" />
               </Button>
-              <Button size="lg" variant="outline" className="h-12 px-6 text-base" onClick={() => navigate("paths")}>
+              <Button size="lg" variant="outline" className="h-12 px-7 text-base" onClick={() => navigate("paths")}>
                 <Compass className="mr-2 size-4" />
                 Explore paths
               </Button>
@@ -292,7 +301,7 @@ export function HomeView() {
             Join CodeMastery today. Track your progress, earn achievements, and become a better engineer — one tutorial at a time.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button size="lg" className="h-12 px-6 text-base" onClick={() => openAuth("register")}>
+            <Button size="lg" className="h-12 px-7 text-base shadow-glow-primary" onClick={() => openAuth("register")}>
               Create free account <ArrowRight className="ml-2 size-4" />
             </Button>
             <Button size="lg" variant="outline" className="h-12 px-6 text-base" onClick={() => navigate("browse")}>
@@ -334,6 +343,55 @@ function Feature({ icon: Icon, title, desc, color }: { icon: any; title: string;
       <div>
         <h3 className="font-semibold">{title}</h3>
         <p className="text-sm text-muted-foreground mt-0.5">{desc}</p>
+      </div>
+    </div>
+  )
+}
+
+function ResumeBanner({ items, onNavigate }: { items: any[]; onNavigate: (view: ViewName, params?: any) => void }) {
+  const [dismissed, setDismissed] = React.useState(false)
+  if (dismissed || items.length === 0) return null
+
+  const top = items[0]
+  return (
+    <div className="border-b border-border/60 bg-gradient-to-r from-primary/5 via-primary/3 to-transparent">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3">
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex size-9 rounded-lg bg-primary/10 text-primary items-center justify-center shrink-0">
+            <BookOpen className="size-5" />
+          </div>
+          <div className="flex-1 min-w-0 flex items-center gap-3">
+            <div className="min-w-0">
+              <div className="text-xs text-muted-foreground">Continue where you left off</div>
+              <div className="font-medium text-sm truncate">{top.tutorial.title}</div>
+            </div>
+            <div className="hidden sm:flex items-center gap-2 shrink-0">
+              <div className="w-24 h-1.5 rounded-full bg-muted overflow-hidden">
+                <div className="h-full bg-primary" style={{ width: `${top.percentRead}%` }} />
+              </div>
+              <span className="text-xs text-muted-foreground">{top.percentRead}%</span>
+            </div>
+          </div>
+          <Button
+            size="sm"
+            className="shadow-glow-primary"
+            onClick={() =>
+              onNavigate("tutorial", {
+                subjectSlug: top.tutorial.subject.slug,
+                tutorialSlug: top.tutorial.slug,
+              })
+            }
+          >
+            Resume <ArrowRight className="ml-1.5 size-3.5" />
+          </Button>
+          <button
+            onClick={() => setDismissed(true)}
+            className="text-muted-foreground hover:text-foreground transition-colors p-1"
+            aria-label="Dismiss"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
       </div>
     </div>
   )

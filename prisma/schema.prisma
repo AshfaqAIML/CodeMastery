@@ -167,10 +167,29 @@ model Tutorial {
   notes       Note[]
   quizzes     Quiz[]
   pathSteps   LearningPathStep[]
+  ratings     TutorialRating[]
 
   @@unique([subjectId, slug])
   @@index([subjectId, moduleId])
   @@index([published])
+}
+
+// ============================================================
+// RATINGS: thumbs up/down feedback on tutorials
+// ============================================================
+
+model TutorialRating {
+  id          String   @id @default(cuid())
+  tutorialId  String
+  userId      String
+  value       Int      // 1 = upvote, -1 = downvote
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tutorial Tutorial @relation(fields: [tutorialId], references: [id], onDelete: Cascade)
+
+  @@unique([tutorialId, userId])
+  @@index([tutorialId])
 }
 
 // ============================================================

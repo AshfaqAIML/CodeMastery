@@ -20,6 +20,7 @@ import { MarkdownRenderer } from "@/components/markdown/markdown-renderer"
 import { StudyBuddy } from "@/components/tutorial/study-buddy"
 import { CompletionCelebration } from "@/components/tutorial/completion-celebration"
 import { KeyboardShortcuts } from "@/components/tutorial/keyboard-shortcuts"
+import { TutorialRating } from "@/components/tutorial/tutorial-rating"
 import { toast } from "sonner"
 
 export function TutorialView() {
@@ -236,6 +237,13 @@ export function TutorialView() {
           <div ref={contentRef} className="border-t border-border/60 pt-8">
             <MarkdownRenderer content={tutorial.content} />
           </div>
+
+          {/* Rating */}
+          {session && (
+            <div className="mt-10 flex items-center justify-center py-6 border-y border-border/60">
+              <TutorialRating tutorialId={tutorial.id} />
+            </div>
+          )}
 
           {/* Quizzes */}
           {tutorial.quizzes && tutorial.quizzes.length > 0 && (

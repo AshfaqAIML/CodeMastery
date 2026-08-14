@@ -149,6 +149,36 @@ export function useDailyChallenge() {
   })
 }
 
+// ---------- Streak Heatmap ----------
+export function useStreakHeatmap() {
+  return useQuery({
+    queryKey: ["streak-heatmap"],
+    queryFn: () => apiFetch<any>(`/api/streak-heatmap`),
+  })
+}
+
+// ---------- Tutorial Ratings ----------
+export function useRating(tutorialId: string | undefined) {
+  return useQuery({
+    queryKey: ["rating", tutorialId],
+    queryFn: () => apiFetch<any>(`/api/ratings?tutorialId=${tutorialId}`),
+    enabled: !!tutorialId,
+  })
+}
+export function useRateTutorial() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ tutorialId, value }: { tutorialId: string; value: 1 | -1 | 0 }) =>
+      apiFetch<any>(`/api/ratings`, {
+        method: "POST",
+        body: JSON.stringify({ tutorialId, value }),
+      }),
+    onSuccess: (_data, vars) => {
+      qc.invalidateQueries({ queryKey: ["rating", vars.tutorialId] })
+    },
+  })
+}
+
 // ---------- Achievements ----------
 export function useAchievements() {
   return useQuery({

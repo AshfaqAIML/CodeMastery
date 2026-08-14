@@ -86,21 +86,31 @@ export function BrowseView() {
         </div>
       ) : (
         <>
-          {/* Category filter */}
+          {/* Category filter with counts */}
           <div className="flex flex-wrap gap-2 mb-8">
-            {CATEGORIES.map((c) => (
-              <button
-                key={c}
-                onClick={() => setCat(c)}
-                className={`px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors border ${
-                  cat === c
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-background hover:bg-muted border-border text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {c}
-              </button>
-            ))}
+            {CATEGORIES.map((c) => {
+              const count = c === "All"
+                ? (subjects ?? []).length
+                : (subjects ?? []).filter((s: any) => s.category === c).length
+              return (
+                <button
+                  key={c}
+                  onClick={() => setCat(c)}
+                  className={`px-3.5 py-1.5 rounded-full text-sm font-medium transition-all border flex items-center gap-1.5 ${
+                    cat === c
+                      ? "bg-primary text-primary-foreground border-primary shadow-glow-primary"
+                      : "bg-background hover:bg-muted border-border text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {c}
+                  <span className={`text-[10px] rounded-full px-1.5 py-0.5 ${
+                    cat === c ? "bg-primary-foreground/20" : "bg-muted"
+                  }`}>
+                    {count}
+                  </span>
+                </button>
+              )
+            })}
           </div>
 
           {isLoading ? (
