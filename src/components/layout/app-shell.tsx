@@ -46,8 +46,15 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      {/* Skip to content link for screen readers and keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground focus:shadow-lg"
+      >
+        Skip to content
+      </a>
       <Header />
-      <main className="flex-1 flex flex-col">
+      <main id="main-content" className="flex-1 flex flex-col" tabIndex={-1}>
         <AnimatePresence mode="wait">
           <motion.div
             key={view + (JSON.stringify(useAppStore.getState().params) || "")}

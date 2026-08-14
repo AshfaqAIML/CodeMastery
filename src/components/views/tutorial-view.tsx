@@ -23,6 +23,7 @@ import { KeyboardShortcuts } from "@/components/tutorial/keyboard-shortcuts"
 import { TutorialRating } from "@/components/tutorial/tutorial-rating"
 import { ShareButton } from "@/components/tutorial/share-button"
 import { RelatedTutorials } from "@/components/tutorial/related-tutorials"
+import { FontSizeControl } from "@/components/tutorial/font-size-control"
 import { toast } from "sonner"
 
 export function TutorialView() {
@@ -248,7 +249,7 @@ export function TutorialView() {
           </div>
 
           {/* Content */}
-          <div ref={contentRef} className="border-t border-border/60 pt-8">
+          <div ref={contentRef} data-tutorial-content className="border-t border-border/60 pt-8 text-base transition-[font-size]">
             <MarkdownRenderer content={tutorial.content} />
           </div>
 
@@ -342,6 +343,13 @@ export function TutorialView() {
                 </ul>
               </div>
             )}
+            {/* Font size control */}
+            <div>
+              <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                Font size
+              </div>
+              <FontSizeControl />
+            </div>
             {session && (
               <div>
                 <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">

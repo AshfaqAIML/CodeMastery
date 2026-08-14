@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { levelFromXP } from "@/lib/gamification"
+import { levelFromXP, xpForLevel } from "@/lib/gamification"
 
 export function LevelBadge({ level, className }: { level: number; className?: string }) {
   return (
@@ -26,10 +26,12 @@ export function XPBar({
   totalXP,
   className,
   showLabel = true,
+  showMilestones = false,
 }: {
   totalXP: number
   className?: string
   showLabel?: boolean
+  showMilestones?: boolean
 }) {
   const info = levelFromXP(totalXP)
   return (
@@ -42,12 +44,26 @@ export function XPBar({
           </span>
         </div>
       )}
-      <div className="h-2 rounded-full bg-muted overflow-hidden">
+      <div className="relative h-2 rounded-full bg-muted overflow-hidden">
         <div
           className="h-full rounded-full bg-primary transition-all duration-500"
           style={{ width: `${Math.max(2, info.progress * 100)}%` }}
         />
+        {/* Milestone indicators at 25%, 50%, 75% */}
+        {showMilestones && (
+          <>
+            <div className="absolute top-0 bottom-0 left-1/4 w-px bg-background/50" />
+            <div className="absolute top-0 bottom-0 left-1/2 w-px bg-background/50" />
+            <div className="absolute top-0 bottom-0 left-3/4 w-px bg-background/50" />
+          </>
+        )}
       </div>
+      {showMilestones && (
+        <div className="flex justify-between mt-1 text-[10px] text-muted-foreground">
+          <span>L{info.level}</span>
+          <span>L{info.level + 1}</span>
+        </div>
+      )}
     </div>
   )
 }

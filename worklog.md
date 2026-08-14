@@ -310,3 +310,48 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 5 complete. Added 10 tutorials + 3 features. Total content now 67 tutorials across 20 subjects. Ready for next improvement pass (accessibility audit, performance optimization, more gamification features).
+
+---
+Task ID: PASS2-6
+Agent: webDevReview iteration 6
+Task: 10 more tutorials, accessibility (skip link), font size control, XP milestones
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 5 complete (10 tutorials, related tutorials, streak status, shimmer skeletons). Total was 67 tutorials. Identified highest-value next: more content (still-thin subjects), accessibility, font size control.
+- QA via curl: all endpoints return 200. Lint clean.
+
+Content + features implemented:
+1. Added 10 more tutorials (67 → 77 total):
+   - TypeScript (2→4): "Type Narrowing and Type Guards", "Utility Types and Mapped Types"
+   - Deep Learning (2→4): "Convolutional Neural Networks (CNNs)", "Transformers and Self-Attention"
+   - Technical Interview Prep (2→4): "Behavioral Interview Guide", "Time & Space Complexity Cheat Sheet"
+   - SQL (3→4): "Subqueries and Common Table Expressions (CTEs)"
+   - DBMS (3→4): "Concurrency Control and Locking"
+   - Computer Networks (3→5): "DNS — The Domain Name System", "HTTPS and the TLS Handshake"
+   - All with real markdown, code examples, and Tip/Warning/Note callouts.
+   - Verified via DB: TypeScript tutorial has 2343 chars + 3 callouts (2T 1N).
+2. Accessibility — skip-to-content link:
+   - Added skip link at top of app shell: sr-only, becomes visible on focus with primary background.
+   - Main element now has id="main-content" and tabIndex={-1} for focus management.
+   - Screen reader and keyboard users can skip navigation directly to content.
+   - Verified: "Skip to content" present in rendered HTML.
+3. Font size control (tutorial reader):
+   - New FontSizeControl component: 3 sizes (sm/base/lg) with +/-/default buttons.
+   - Persists preference to localStorage.
+   - Applies font size class to [data-tutorial-content] element.
+   - Integrated into tutorial reader TOC sidebar.
+   - Helps readers with visual impairments adjust text size.
+4. XP progress milestone indicators:
+   - XPBar component now supports showMilestones prop.
+   - Shows tick marks at 25%, 50%, 75% and level labels (L{n} → L{n+1}).
+   - Dashboard level card now uses showMilestones for visual progress tracking.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- Total tutorials: 77 across 20 subjects (verified via API + DB).
+- Skip-to-content link verified in rendered HTML.
+- New TypeScript tutorial verified via DB: 2343 chars, 3 callouts.
+- Platform independence maintained: no new external dependencies.
+
+Stage Summary:
+- Pass 2 iteration 6 complete. Added 10 tutorials + 3 features. Total content now 77 tutorials. All subjects have 3+ tutorials. Ready for next improvement pass (mobile TOC, performance optimization, more gamification).

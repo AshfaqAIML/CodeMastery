@@ -341,7 +341,7 @@ export function DashboardView() {
                   <div className="text-xs text-muted-foreground">{stats.totalXP.toLocaleString()} total XP</div>
                 </div>
               </div>
-              <XPBar totalXP={stats.totalXP} />
+              <XPBar totalXP={stats.totalXP} showMilestones />
             </CardContent>
           </Card>
 
