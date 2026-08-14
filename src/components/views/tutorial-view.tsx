@@ -22,6 +22,7 @@ import { CompletionCelebration } from "@/components/tutorial/completion-celebrat
 import { KeyboardShortcuts } from "@/components/tutorial/keyboard-shortcuts"
 import { TutorialRating } from "@/components/tutorial/tutorial-rating"
 import { ShareButton } from "@/components/tutorial/share-button"
+import { RelatedTutorials } from "@/components/tutorial/related-tutorials"
 import { toast } from "sonner"
 
 export function TutorialView() {
@@ -299,6 +300,12 @@ export function TutorialView() {
               </button>
             ) : <div />}
           </div>
+
+          {/* Related tutorials */}
+          <RelatedTutorials
+            subjectSlug={tutorial.subject.slug}
+            tutorialSlug={tutorial.slug}
+          />
         </div>
 
         {/* TOC sidebar */}

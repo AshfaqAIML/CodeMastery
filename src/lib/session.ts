@@ -34,6 +34,7 @@ export async function getCurrentUserWithStats() {
       level: true,
       currentStreak: true,
       longestStreak: true,
+      lastActivityDate: true,
       experience: true,
       goal: true,
       interests: true,

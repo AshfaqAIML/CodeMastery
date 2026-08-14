@@ -15,6 +15,7 @@ import { LevelBadge, XPBar } from "@/components/shared/level-badge"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
 import { StreakHeatmap } from "@/components/dashboard/streak-heatmap"
+import { StreakStatus } from "@/components/dashboard/streak-status"
 
 const ACTIVITY_LABELS: Record<string, string> = {
   tutorial_completed: "Completed a tutorial",
@@ -179,6 +180,13 @@ export function DashboardView() {
               )}
             </CardContent>
           </Card>
+
+          {/* Streak status */}
+          <StreakStatus
+            currentStreak={stats.currentStreak}
+            longestStreak={stats.longestStreak}
+            lastActivityDate={user.lastActivityDate}
+          />
 
           {/* Streak heatmap */}
           <StreakHeatmap currentStreak={stats.currentStreak} />

@@ -54,6 +54,14 @@ export function useTutorial(subjectSlug: string | undefined, tutorialSlug: strin
   })
 }
 
+export function useRelatedTutorials(subjectSlug: string | undefined, tutorialSlug: string | undefined) {
+  return useQuery({
+    queryKey: ["related", subjectSlug, tutorialSlug],
+    queryFn: () => apiFetch<any[]>(`/api/tutorials/${subjectSlug}/${tutorialSlug}/related`),
+    enabled: !!subjectSlug && !!tutorialSlug,
+  })
+}
+
 // ---------- Progress ----------
 export function useUpdateProgress() {
   const qc = useQueryClient()

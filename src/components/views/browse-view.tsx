@@ -116,7 +116,7 @@ export function BrowseView() {
           {isLoading ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {Array.from({ length: 9 }).map((_, i) => (
-                <div key={i} className="h-44 rounded-xl bg-muted/40 animate-pulse" />
+                <div key={i} className="h-44 rounded-xl skeleton-shimmer" />
               ))}
             </div>
           ) : (

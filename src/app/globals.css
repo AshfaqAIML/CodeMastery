@@ -251,6 +251,22 @@
     animation: fade-in-up 0.4s ease-out;
   }
 
+  /* Shimmer skeleton effect */
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--muted) 60%, transparent) 0%,
+      color-mix(in oklch, var(--muted) 90%, transparent) 50%,
+      color-mix(in oklch, var(--muted) 60%, transparent) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+  }
+
   /* Code block styling */
   .prose-code {
     font-family: var(--font-geist-mono), ui-monospace, monospace;
