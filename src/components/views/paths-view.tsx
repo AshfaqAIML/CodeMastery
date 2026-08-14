@@ -1,19 +1,23 @@
 "use client"
 
 import * as React from "react"
-import { Route, Target, Clock, ChevronRight, ArrowLeft, Compass } from "lucide-react"
+import { Route, Target, Clock, ChevronRight, ArrowLeft, Compass, CheckCircle2 } from "lucide-react"
 import { motion } from "framer-motion"
 import { useAppStore } from "@/lib/store"
-import { usePaths, usePath } from "@/hooks/use-api"
+import { usePaths, usePath, useEnrollPath } from "@/hooks/use-api"
+import { useSession } from "next-auth/react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
+import { toast } from "sonner"
 
 export function PathsView() {
   const { params, navigate } = useAppStore()
   const { data: paths, isLoading } = usePaths()
   const { data: path } = usePath(params.pathSlug)
+  const { data: session } = useSession()
+  const enroll = useEnrollPath()
 
   // Detail view
   if (params.pathSlug) {
@@ -53,21 +57,70 @@ export function PathsView() {
                 <span className="flex items-center gap-1.5"><Target className="size-3.5" /> {path.steps.length} steps</span>
                 <span className="flex items-center gap-1.5"><Clock className="size-3.5" /> {path.estimatedHours}h</span>
               </div>
+              {session && (
+                <div className="mt-5 flex items-center gap-3">
+                  {path.enrollment ? (
+                    <>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          enroll.mutate(
+                            { slug: path.slug, action: "unenroll" },
+                            { onSuccess: () => toast.success("Unenrolled") }
+                          )
+                        }
+                      >
+                        Unenroll
+                      </Button>
+                      <div className="flex-1 max-w-xs">
+                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                          <span>Your progress</span>
+                          <span className="font-medium text-foreground">
+                            {path.enrollment.completedSteps}/{path.enrollment.totalSteps} · {path.enrollment.percent}%
+                          </span>
+                        </div>
+                        <div className="h-2 rounded-full bg-background/60 overflow-hidden">
+                          <div
+                            className="h-full rounded-full transition-all duration-500"
+                            style={{ width: `${path.enrollment.percent}%`, background: path.color }}
+                          />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <Button
+                      size="sm"
+                      className="shadow-glow-primary"
+                      onClick={() =>
+                        enroll.mutate(
+                          { slug: path.slug, action: "enroll" },
+                          { onSuccess: () => toast.success("Enrolled! Start learning 🎉") }
+                        )
+                      }
+                    >
+                      Enroll for free
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         <h2 className="text-xl font-semibold mb-4">The journey</h2>
         <ol className="relative border-l-2 border-border/60 ml-4 space-y-6">
-          {path.steps.map((step: any, i: number) => (
+          {path.steps.map((step: any, i: number) => {
+            const isCompleted = step.tutorial?.progress?.[0]?.completed
+            return (
             <li key={step.id} className="ml-6 relative">
               <span
-                className="absolute -left-[34px] top-0 size-7 rounded-full border-2 border-background flex items-center justify-center text-xs font-bold"
-                style={{ background: path.color, color: "white" }}
+                className={`absolute -left-[34px] top-0 size-7 rounded-full border-2 border-background flex items-center justify-center text-xs font-bold ${isCompleted ? "" : ""}`}
+                style={{ background: isCompleted ? "var(--primary)" : path.color, color: "white" }}
               >
-                {i + 1}
+                {isCompleted ? <CheckCircle2 className="size-4" /> : i + 1}
               </span>
-              <Card className="hover:shadow-sm transition-shadow">
+              <Card className={`hover:shadow-sm transition-shadow ${isCompleted ? "border-primary/30" : ""}`}>
                 <CardContent className="py-4">
                   <div className="flex items-start gap-3">
                     <SubjectIcon
@@ -76,7 +129,10 @@ export function PathsView() {
                       className="size-10 rounded-lg shrink-0"
                     />
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold">{step.title}</h3>
+                      <h3 className="font-semibold flex items-center gap-2">
+                        {step.title}
+                        {isCompleted && <CheckCircle2 className="size-4 text-primary shrink-0" />}
+                      </h3>
                       {step.subtitle && <p className="text-sm text-muted-foreground mt-0.5">{step.subtitle}</p>}
                       <div className="mt-3">
                         {step.tutorial ? (
@@ -107,7 +163,8 @@ export function PathsView() {
                 </CardContent>
               </Card>
             </li>
-          ))}
+            )
+          })}
         </ol>
       </div>
     )

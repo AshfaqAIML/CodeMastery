@@ -433,3 +433,37 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 8 complete. Added print/export + level-up celebration + 5 tutorials. Total content: 82 tutorials. Ready for next improvement pass (performance optimization, accessibility audit, more gamification).
+
+---
+Task ID: PASS2-9
+Agent: webDevReview iteration 9
+Task: Learning path enrollment + progress, 5 more tutorials
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 8 complete (print/export, level-up celebration, 5 tutorials). Total was 82 tutorials. Identified highest-value next: learning path enrollment, more content.
+- QA via curl: all endpoints return 200. Lint clean.
+
+Features + content implemented:
+1. Learning path enrollment + progress tracking:
+   - New /api/paths/[slug]/enroll endpoint: POST to enroll, DELETE to unenroll. Idempotent (upsert). Logs enrollment activity.
+   - Updated /api/paths/[slug] endpoint: now includes enrollment status and per-step tutorial progress for authed users. Returns enrollment object with completedSteps, totalSteps, percent.
+   - New useEnrollPath hook (POST/DELETE with cache invalidation).
+   - Updated PathsView detail: "Enroll for free" button (with shadow-glow-primary), "Unenroll" button, progress bar showing completedSteps/totalSteps/percent with path color.
+   - Step rendering: completed steps show checkmark icon (CheckCircle2) in the step number circle (primary color) and next to the step title. Completed step cards have border-primary/30.
+   - Verified via DB: "Beginner to Programmer" path has 3 steps (Python, DSA, Algorithms), enrollment logic correct.
+2. Added 5 more tutorials (82 → 87 total):
+   - JavaScript: "Error Handling and Async Errors" (try/catch, custom errors, async handling)
+   - Machine Learning: "Clustering and Unsupervised Learning" (K-means, hierarchical, DBSCAN, PCA)
+   - Data Structures: "Hash Tables" (hash functions, collisions, load factor)
+   - Algorithms: "Graph Algorithms" (BFS, DFS, Dijkstra, topological sort, MST)
+   - Operating Systems: "Deadlocks" (four conditions, prevention, detection)
+   - Each with real markdown, code examples, and Tip/Warning/Note callouts.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- Total: 87 tutorials, 22 quizzes, 66 questions (verified via DB).
+- Path enrollment endpoint logic verified via DB.
+- Platform independence maintained: no new external dependencies.
+
+Stage Summary:
+- Pass 2 iteration 9 complete. Added learning path enrollment + progress tracking + 5 tutorials. Total content: 87 tutorials. Ready for next improvement pass (subject certificates, notification system, performance optimization).

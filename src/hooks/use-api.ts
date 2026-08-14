@@ -238,6 +238,21 @@ export function usePath(slug: string | undefined) {
   })
 }
 
+export function useEnrollPath() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ slug, action }: { slug: string; action: "enroll" | "unenroll" }) =>
+      apiFetch<any>(`/api/paths/${slug}/enroll`, {
+        method: action === "enroll" ? "POST" : "DELETE",
+      }),
+    onSuccess: (_data, vars) => {
+      qc.invalidateQueries({ queryKey: ["path", vars.slug] })
+      qc.invalidateQueries({ queryKey: ["me"] })
+      qc.invalidateQueries({ queryKey: ["paths"] })
+    },
+  })
+}
+
 // ---------- Quiz ----------
 export function useQuiz(id: string | undefined) {
   return useQuery({
