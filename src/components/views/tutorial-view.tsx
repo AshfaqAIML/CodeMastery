@@ -8,7 +8,7 @@ import {
 import { useAppStore } from "@/lib/store"
 import {
   useTutorial, useUpdateProgress, useToggleBookmark,
-  useNotes, useCreateNote, useDeleteNote,
+  useNotes, useCreateNote, useDeleteNote, useMe,
 } from "@/hooks/use-api"
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
@@ -24,12 +24,14 @@ import { TutorialRating } from "@/components/tutorial/tutorial-rating"
 import { ShareButton } from "@/components/tutorial/share-button"
 import { RelatedTutorials } from "@/components/tutorial/related-tutorials"
 import { FontSizeControl } from "@/components/tutorial/font-size-control"
+import { PrintButton } from "@/components/tutorial/print-button"
 import { toast } from "sonner"
 
 export function TutorialView() {
   const { params, navigate } = useAppStore()
   const { data, isLoading } = useTutorial(params.subjectSlug, params.tutorialSlug)
   const { data: session } = useSession()
+  const { data: meData } = useMe()
   const updateProgress = useUpdateProgress()
   const toggleBookmark = useToggleBookmark()
   const { data: notesData } = useNotes(data?.tutorial?.id)
@@ -106,17 +108,19 @@ export function TutorialView() {
   const markComplete = () => {
     if (!data?.tutorial) return
     const wasCompleted = data?.progress?.completed ?? false
+    const prevLevel = meData?.stats?.level ?? 1
     updateProgress.mutate(
       { tutorialId: data.tutorial.id, percentRead: 100, completed: true },
       {
         onSuccess: (res) => {
+          const newLevel = res.stats?.level ?? prevLevel
+          const leveledUp = newLevel > prevLevel
           // Only show celebration on first completion (when XP was awarded)
           if (!wasCompleted && res.xpAwarded > 0) {
-            // Check if an achievement was unlocked by looking at the stats
             setCelebration({
               show: true,
               xp: res.xpAwarded,
-              achievement: null,
+              achievement: leveledUp ? `Level ${newLevel} reached!` : null,
             })
           } else if (res.xpAwarded > 0) {
             toast.success(`+${res.xpAwarded} XP earned`)
@@ -247,10 +251,12 @@ export function TutorialView() {
                     Notes {(notesData?.length ?? 0) > 0 && `(${notesData.length})`}
                   </Button>
                   <ShareButton title={tutorial.title} slug={tutorial.slug} />
+                  <PrintButton title={tutorial.title} subject={tutorial.subject.name} />
                 </>
               ) : (
                 <div className="flex items-center gap-2">
                   <ShareButton title={tutorial.title} slug={tutorial.slug} />
+                  <PrintButton title={tutorial.title} subject={tutorial.subject.name} />
                 </div>
               )}
             </div>

@@ -396,3 +396,40 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 7 complete. Added mobile TOC + XP history chart + 7 quizzes. Total content: 77 tutorials, 22 quizzes. Ready for next improvement pass (print/export, performance optimization, more gamification).
+
+---
+Task ID: PASS2-8
+Agent: webDevReview iteration 8
+Task: Print/export tutorial, level-up celebration, 5 more tutorials
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 7 complete (mobile TOC, XP history chart, 7 quizzes). Total was 77 tutorials. Identified highest-value next: print/export, level-up celebration, more content.
+- QA via curl: all endpoints return 200. Lint clean.
+
+Features + content implemented:
+1. Print/export tutorial to PDF:
+   - New print CSS in globals.css: @media print rules that hide header/footer/nav/aside, reset backgrounds to white, show URLs after links, avoid page breaks inside code blocks, and show a print header with title/subject/date.
+   - New PrintButton component: triggers window.print() after injecting a print header. Toast notification. Works for both authed and unauthed users.
+   - Integrated into tutorial reader action bar next to ShareButton.
+   - Users can "Save as PDF" via the browser's print dialog.
+2. Level-up celebration:
+   - Updated markComplete handler to detect level-ups: compares previous level (from useMe) with new level (from progress response).
+   - When a level-up occurs, the completion celebration shows "Level N reached!" in the achievement badge.
+   - Uses existing CompletionCelebration component (confetti + modal).
+3. Added 5 more tutorials (77 → 82 total):
+   - SQL: "Window Functions" (rankings, partitions, LAG/LEAD)
+   - DBMS: "Database Indexing Strategies" (composite, covering, when to index)
+   - JavaScript: "Modules and Build Tools" (ESM, CommonJS, bundlers, Vite)
+   - LLMs: "Fine-Tuning and RLHF" (SFT, RLHF, DPO, LoRA/QLoRA)
+   - Machine Learning: "Overfitting, Underfitting, and Regularization" (bias-variance, L1/L2, dropout)
+   - Each with real markdown, code examples, and Tip/Warning/Note callouts.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- Total: 82 tutorials, 22 quizzes, 66 questions (verified via DB).
+- Window Functions tutorial verified: 1865 chars, SQL subject.
+- Print CSS added to globals.css.
+- Platform independence maintained: no new external dependencies.
+
+Stage Summary:
+- Pass 2 iteration 8 complete. Added print/export + level-up celebration + 5 tutorials. Total content: 82 tutorials. Ready for next improvement pass (performance optimization, accessibility audit, more gamification).
