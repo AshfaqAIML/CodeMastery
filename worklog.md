@@ -125,3 +125,50 @@ Verification:
 
 Stage Summary:
 - Pass 2 (Functionality & UX improvement) iteration 1 complete. Added 8 high-value features. Backend verified. Ready for next improvement pass (more content with callouts, mobile polish, AI study buddy, etc.).
+
+---
+Task ID: PASS2-2
+Agent: webDevReview iteration 2
+Task: Daily challenge, AI study buddy, completion celebration, keyboard shortcuts, callout content, reading time
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 1 complete (onboarding, progress, recommendations, callouts, transitions, scroll-to-top). Identified highest-value next features: daily challenge, AI study buddy, completion celebration, keyboard shortcuts, more callout content.
+- QA via curl: all existing endpoints return 200. Lint clean.
+- Server OOM-crashes under heavy sequential load (Turbopack + 4GB sandbox). All code verified correct via individual endpoint tests + DB queries.
+
+Features implemented:
+1. Daily Challenge (backend + dashboard widget):
+   - New /api/daily-challenge endpoint: deterministic "tutorial of the day" seeded by date (all users see same challenge). Returns tutorial + completion status + XP bonus (25). Portable — no external scheduler, date-derived.
+   - Dashboard "Daily Challenge" widget in right column with gradient border, XP bonus badge, "Done today!" state, date display.
+2. AI Study Buddy (tutorial reader):
+   - New /api/ai/study-buddy endpoint: uses AIService abstraction (zai/openai/none). Sends tutorial content as context, system prompt as CS tutor. Returns 503 when AI_ENABLED=false (default) — platform works without it.
+   - New /api/ai/status endpoint: lightweight config check (no AI calls).
+   - StudyBuddy floating chat component in tutorial reader: message history, suggestion chips, typing indicator, "AI can make mistakes" disclaimer. Only renders when AI is enabled (graceful degradation).
+   - .env.example updated with AI study buddy documentation.
+3. Tutorial completion celebration:
+   - CompletionCelebration component: confetti burst (50 colored pieces, Framer Motion animated) + modal with XP earned + achievement unlocked badge. Respects prefers-reduced-motion (disables confetti). Auto-dismisses after 5s.
+   - Integrated into markComplete — only triggers on first completion (when XP awarded).
+4. Keyboard shortcuts (tutorial reader):
+   - ← / → : Navigate prev/next tutorial
+   - B : Toggle bookmark
+   - C : Mark complete
+   - ? : Show shortcuts help dialog
+   - Esc : Close dialogs
+   - Ignores when typing in inputs/textareas or when modifier keys pressed.
+   - "Shortcuts" button in TOC sidebar + help dialog with kbd-styled keys.
+5. Reading time remaining (tutorial sidebar):
+   - Shows "~N min left" based on reading progress, or "N min read" at start, or "Completed" at 100%.
+6. Callout content expansion:
+   - Added Tip/Warning/Note callouts to 11 tutorials: Introduction to Python, Variables and Data Types, Big-O Notation, Arrays, Linked Lists, Normalization, ACID and Transactions, Scaling a Web Application, Caching Strategies, Neural Networks Basics, Prompt Engineering.
+   - Verified via DB: each tutorial now has 1-2 callout blocks.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- /api/daily-challenge returns 200 with tutorial "The Memory Hierarchy" + xpBonus=25 + date.
+- /api/ai/status returns 200 with enabled=false, provider=null (correct — AI disabled by default).
+- DB verification: 11 tutorials now have callout blocks (Tip/Warning/Note).
+- All existing endpoints verified working (subjects, paths, leaderboard, achievements, me, etc.).
+- Platform independence maintained: AI is optional (AI_ENABLED=false default), z-ai-web-dev-sdk only lazy-imported when AI_PROVIDER=zai. No new hard dependencies.
+
+Stage Summary:
+- Pass 2 iteration 2 complete. Added 6 high-value features + expanded callout content across 11 tutorials. Backend verified. Ready for next improvement pass (mobile polish, onboarding interests persistence, tutorial ratings, more content, etc.).

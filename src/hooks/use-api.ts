@@ -141,6 +141,14 @@ export function useLeaderboard(period: "all" | "weekly" = "all") {
   })
 }
 
+// ---------- Daily Challenge ----------
+export function useDailyChallenge() {
+  return useQuery({
+    queryKey: ["daily-challenge"],
+    queryFn: () => apiFetch<any>(`/api/daily-challenge`),
+  })
+}
+
 // ---------- Achievements ----------
 export function useAchievements() {
   return useQuery({
@@ -205,5 +213,25 @@ export function useSubmitQuiz() {
       qc.invalidateQueries({ queryKey: ["achievements"] })
       qc.invalidateQueries({ queryKey: ["leaderboard"] })
     },
+  })
+}
+
+// ---------- AI Study Buddy (optional, requires AI_ENABLED) ----------
+export function useStudyBuddy() {
+  return useMutation({
+    mutationFn: ({ tutorialId, question }: { tutorialId: string; question: string }) =>
+      apiFetch<any>(`/api/ai/study-buddy`, {
+        method: "POST",
+        body: JSON.stringify({ tutorialId, question }),
+      }),
+  })
+}
+
+// ---------- AI feature availability ----------
+export function useAICheck() {
+  return useQuery({
+    queryKey: ["ai-status"],
+    queryFn: () => apiFetch<{ enabled: boolean; provider: string | null }>(`/api/ai/status`),
+    staleTime: 5 * 60 * 1000,
   })
 }

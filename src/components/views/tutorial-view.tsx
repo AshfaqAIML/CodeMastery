@@ -17,6 +17,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { MarkdownRenderer } from "@/components/markdown/markdown-renderer"
+import { StudyBuddy } from "@/components/tutorial/study-buddy"
+import { CompletionCelebration } from "@/components/tutorial/completion-celebration"
+import { KeyboardShortcuts } from "@/components/tutorial/keyboard-shortcuts"
 import { toast } from "sonner"
 
 export function TutorialView() {
@@ -29,6 +32,9 @@ export function TutorialView() {
   const createNote = useCreateNote()
   const deleteNote = useDeleteNote()
   const [showNotes, setShowNotes] = React.useState(false)
+  const [celebration, setCelebration] = React.useState<{ show: boolean; xp: number; achievement: string | null }>({
+    show: false, xp: 0, achievement: null,
+  })
 
   const contentRef = React.useRef<HTMLDivElement>(null)
   const lastPercentSent = React.useRef(0)
@@ -84,14 +90,23 @@ export function TutorialView() {
   // Mark complete on click
   const markComplete = () => {
     if (!data?.tutorial) return
+    const wasCompleted = data?.progress?.completed ?? false
     updateProgress.mutate(
       { tutorialId: data.tutorial.id, percentRead: 100, completed: true },
       {
         onSuccess: (res) => {
-          if (res.xpAwarded > 0) {
-            toast.success(`Tutorial completed! +${res.xpAwarded} XP`, {
-              description: res.newStreak > (res as any).stats?.currentStreak ? "Streak extended!" : undefined,
+          // Only show celebration on first completion (when XP was awarded)
+          if (!wasCompleted && res.xpAwarded > 0) {
+            // Check if an achievement was unlocked by looking at the stats
+            setCelebration({
+              show: true,
+              xp: res.xpAwarded,
+              achievement: null,
             })
+          } else if (res.xpAwarded > 0) {
+            toast.success(`+${res.xpAwarded} XP earned`)
+          } else if (wasCompleted) {
+            toast.info("Already completed")
           } else {
             toast.success("Marked as complete.")
           }
@@ -305,6 +320,17 @@ export function TutorialView() {
                     style={{ width: `${Math.max(progress?.percentRead ?? readingPct, 2)}%` }}
                   />
                 </div>
+                {(() => {
+                  const pct = progress?.percentRead ?? readingPct
+                  const remaining = Math.max(0, Math.ceil(tutorial.estimatedMinutes * (1 - pct / 100)))
+                  if (pct >= 100) {
+                    return <div className="text-xs text-primary mt-2 flex items-center gap-1"><CheckCircle2 className="size-3" /> Completed</div>
+                  }
+                  if (pct > 0) {
+                    return <div className="text-xs text-muted-foreground mt-2 flex items-center gap-1"><Clock className="size-3" /> ~{remaining} min left</div>
+                  }
+                  return <div className="text-xs text-muted-foreground mt-2 flex items-center gap-1"><Clock className="size-3" /> {tutorial.estimatedMinutes} min read</div>
+                })()}
               </div>
             )}
           </div>
@@ -323,6 +349,27 @@ export function TutorialView() {
           onClose={() => setShowNotes(false)}
         />
       )}
+
+      {/* Completion celebration */}
+      <CompletionCelebration
+        show={celebration.show}
+        xpAwarded={celebration.xp}
+        achievementUnlocked={celebration.achievement}
+        onClose={() => setCelebration({ show: false, xp: 0, achievement: null })}
+      />
+
+      {/* AI Study Buddy (only renders if AI_ENABLED) */}
+      <StudyBuddy tutorialId={tutorial.id} tutorialTitle={tutorial.title} />
+
+      {/* Keyboard shortcuts */}
+      <KeyboardShortcuts
+        onPrev={() => prev && navigate("tutorial", { subjectSlug: tutorial.subject.slug, tutorialSlug: prev.slug })}
+        onNext={() => next && navigate("tutorial", { subjectSlug: tutorial.subject.slug, tutorialSlug: next.slug })}
+        onBookmark={onBookmark}
+        onComplete={markComplete}
+        hasPrev={!!prev}
+        hasNext={!!next}
+      />
     </div>
   )
 }
