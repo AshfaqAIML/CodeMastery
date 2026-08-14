@@ -1,53 +1,73 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import "./globals.css"
+import { Toaster } from "@/components/ui/sonner"
+import { ThemeProvider } from "@/components/providers/theme-provider"
+import { AppProviders } from "@/components/providers/app-providers"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
+})
 
 export const metadata: Metadata = {
-  title: "Z.ai Code Scaffold - AI-Powered Development",
-  description: "Modern Next.js scaffold optimized for AI-powered development with Z.ai. Built with TypeScript, Tailwind CSS, and shadcn/ui.",
-  keywords: ["Z.ai", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI development", "React"],
-  authors: [{ name: "Z.ai Team" }],
-  icons: {
-    icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
+  metadataBase: new URL("https://codemastery.dev"),
+  title: {
+    default: "CodeMastery — Learn Computer Science & AI Engineering",
+    template: "%s · CodeMastery",
   },
+  description:
+    "Master Computer Science from fundamentals to advanced AI engineering. Structured tutorials on C, C++, Java, Python, DSA, OS, Networks, DBMS, Machine Learning, Deep Learning, LLMs, System Design and more — with progress tracking, quizzes, streaks, and achievements.",
+  keywords: [
+    "Computer Science tutorials",
+    "Learn programming",
+    "Data Structures and Algorithms",
+    "Python tutorial",
+    "Java tutorial",
+    "C programming",
+    "Operating Systems",
+    "Computer Networks",
+    "Machine Learning",
+    "Deep Learning",
+    "LLMs",
+    "System Design",
+    "DBMS",
+    "SQL",
+  ],
+  authors: [{ name: "CodeMastery" }],
   openGraph: {
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
-    url: "https://chat.z.ai",
-    siteName: "Z.ai",
+    title: "CodeMastery — Learn Computer Science & AI Engineering",
+    description:
+      "Structured CS tutorials from fundamentals to advanced AI, with progress tracking, quizzes, streaks and achievements.",
+    siteName: "CodeMastery",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
+    title: "CodeMastery",
+    description: "Learn Computer Science & AI Engineering, the structured way.",
   },
-};
+  robots: { index: true, follow: true },
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        {children}
-        <Toaster />
+        <AppProviders>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+          <Toaster richColors position="bottom-right" />
+        </AppProviders>
       </body>
     </html>
-  );
+  )
 }

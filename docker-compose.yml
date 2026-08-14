@@ -1,0 +1,42 @@
+# CodeMastery — local development with Docker Compose
+# Usage:
+#   docker compose up        # app + postgres
+#   docker compose up app    # app only (uses SQLite by default)
+#
+# Override DATABASE_URL/.env to point at the postgres service for prod-like setup.
+
+services:
+  # ---------- App ----------
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      # When using the postgres service below, uncomment these:
+      # - DATABASE_PROVIDER=postgresql
+      # - DATABASE_URL=postgresql://codemastery:codemastery@postgres:5432/codemastery
+      - NODE_ENV=production
+    volumes:
+      - ./db:/app/db
+      - ./uploads:/app/uploads
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  # ---------- PostgreSQL (optional, for production-like local dev) ----------
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: codemastery
+      POSTGRES_PASSWORD: codemastery
+      POSTGRES_DB: codemastery
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:
