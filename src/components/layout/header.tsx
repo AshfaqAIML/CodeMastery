@@ -15,6 +15,7 @@ import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
   DropdownMenuSeparator, DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { NotificationBell } from "@/components/layout/notification-bell"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { useTheme } from "next-themes"
 import { useAppStore, type ViewName } from "@/lib/store"
@@ -97,6 +98,9 @@ export function Header() {
           >
             <Search className="size-5" />
           </Button>
+
+          {/* Notification bell */}
+          <NotificationBell />
 
           {/* Theme toggle */}
           <Button

@@ -173,6 +173,15 @@ export function useXpHistory() {
   })
 }
 
+// ---------- Notifications ----------
+export function useNotifications() {
+  return useQuery({
+    queryKey: ["notifications"],
+    queryFn: () => apiFetch<any>(`/api/notifications`),
+    refetchInterval: 60 * 1000, // refresh every minute
+  })
+}
+
 // ---------- Tutorial Ratings ----------
 export function useRating(tutorialId: string | undefined) {
   return useQuery({

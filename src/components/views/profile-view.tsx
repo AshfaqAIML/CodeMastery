@@ -4,7 +4,7 @@ import * as React from "react"
 import { useSession, signOut } from "next-auth/react"
 import {
   User as UserIcon, Bookmark, StickyNote, LogOut, Pencil, Save, X, Flame, Zap,
-  Trophy, BookOpen, Target, Loader2,
+  Trophy, BookOpen, Target, Loader2, Download,
 } from "lucide-react"
 import { useAppStore } from "@/lib/store"
 import { useMe, useBookmarks, useNotes, useDeleteNote, useOnboard } from "@/hooks/use-api"
@@ -216,6 +216,34 @@ export function ProfileView() {
         <TabsContent value="bookmarks">
           <Card>
             <CardContent className="pt-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold flex items-center gap-2">
+                  <Bookmark className="size-4 text-primary" />
+                  Bookmarks {bookmarks && bookmarks.length > 0 && `(${bookmarks.length})`}
+                </h3>
+                {bookmarks && bookmarks.length > 0 && (
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open("/api/bookmarks/export?format=markdown", "_blank")}
+                      className="gap-1.5"
+                    >
+                      <Download className="size-3.5" />
+                      Markdown
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open("/api/bookmarks/export?format=json", "_blank")}
+                      className="gap-1.5"
+                    >
+                      <Download className="size-3.5" />
+                      JSON
+                    </Button>
+                  </div>
+                )}
+              </div>
               {!bookmarks || bookmarks.length === 0 ? (
                 <EmptyText icon={Bookmark} text="No bookmarks yet. Save tutorials to revisit them later." />
               ) : (

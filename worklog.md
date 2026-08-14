@@ -467,3 +467,40 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 9 complete. Added learning path enrollment + progress tracking + 5 tutorials. Total content: 87 tutorials. Ready for next improvement pass (subject certificates, notification system, performance optimization).
+
+---
+Task ID: PASS2-10
+Agent: webDevReview iteration 10
+Task: Notification bell, bookmarks export, 5 more tutorials
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 9 complete (learning path enrollment, 5 tutorials). Total was 87 tutorials. Identified highest-value next: notification bell, bookmarks export, more content.
+- QA via curl: all endpoints return 200. Lint clean.
+
+Features + content implemented:
+1. Notification bell (header):
+   - New /api/notifications endpoint: returns recent notification-worthy activity (achievements, quiz passes, tutorial completions, streak milestones) enriched with titles, icons, colors. Includes unreadCount.
+   - NotificationBell component: dropdown in header with bell icon + unread badge. Shows notifications with icon, title, description, time-ago, XP delta. Empty state with CTA. Auto-refreshes every 60s.
+   - Integrated into header between search and theme toggle.
+   - Verified via DB: 4 notifications found for test user (2 achievements, 1 quiz, 1 tutorial completion).
+2. Bookmarks export:
+   - New /api/bookmarks/export endpoint: exports bookmarks as JSON or Markdown (format query param). Markdown includes headers with tutorial metadata. JSON includes structured data.
+   - Export buttons in profile bookmarks tab: "Markdown" and "JSON" buttons that open download in new tab.
+   - Users can export their saved tutorials for backup or use in other tools.
+3. Added 5 more tutorials (87 → 92 total):
+   - System Design: "Microservices Architecture" (monolith vs microservices, DDD, saga pattern)
+   - Web Development: "CSS Grid and Flexbox" (1D vs 2D layouts, auto-fit patterns)
+   - C Programming: "Functions and Recursion" (pass by value/reference, call stack, stack overflow)
+   - LLMs: "Vector Databases and Embeddings" (embeddings, cosine similarity, HNSW, pgvector)
+   - Software Engineering: "CI/CD and DevOps" (GitHub Actions, deployment strategies, IaC)
+   - Each with real markdown, code examples, and Tip/Warning/Note callouts.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- Total: 92 tutorials, 22 quizzes, 66 questions (verified via DB).
+- Notifications endpoint returns 401 unauthed (correct); 4 notifications found for test user.
+- Bookmarks export endpoint added (JSON + Markdown formats).
+- Platform independence maintained: no new external dependencies.
+
+Stage Summary:
+- Pass 2 iteration 10 complete. Added notification bell + bookmarks export + 5 tutorials. Total content: 92 tutorials. Ready for next improvement pass (subject certificates, performance optimization, accessibility audit).
