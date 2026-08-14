@@ -539,3 +539,43 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 11 complete. Added subject completion certificate + 8 quizzes. Total content: 92 tutorials, 30 quizzes. Ready for next improvement pass (performance optimization, accessibility audit, more content).
+
+---
+Task ID: PASS2-12
+Agent: webDevReview iteration 12
+Task: 100 tutorials milestone, more quizzes, active button states
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 11 complete (subject certificate, 8 quizzes). Total was 92 tutorials, 30 quizzes. Identified highest-value next: reach 100 tutorials, more quizzes, button active states.
+- QA via curl + agent-browser: all endpoints return 200. Lint clean. VLM analysis identified active button state feedback as a polish item.
+
+Content + features implemented:
+1. Added 8 more tutorials (92 → 100 total — MILESTONE!):
+   - Python: "Error Handling and Exceptions" (try/except, custom exceptions, finally)
+   - Java: "Generics and Wildcards" (PECS, type erasure, bounded types)
+   - System Design: "API Design Best Practices" (REST, versioning, pagination, errors)
+   - DBMS: "Database Backup and Recovery" (PITR, replication, 3-2-1 rule)
+   - Interview Prep: "System Design Interview Examples" (URL shortener, Twitter, chat)
+   - Machine Learning: "Feature Engineering" (encoding, scaling, feature selection)
+   - Web Development: "Forms and Validation" (HTML5 types, accessibility, validation)
+   - Operating Systems: "Inter-Process Communication (IPC)" (pipes, sockets, shared memory)
+   - Each with real markdown, code examples, and Tip/Warning/Note callouts.
+2. Added 4 more quizzes (30 → 34 total, 90 → 102 questions):
+   - Linear Regression Quiz (ML)
+   - JavaScript Introduction Quiz
+   - ACID Quiz (DBMS)
+   - Caching Strategies Quiz (System Design)
+   - Each has 3 questions with explanations.
+3. Active state button feedback (CSS polish):
+   - Added `:active` state to .shadow-glow-primary: transform: scale(0.98).
+   - Gives tactile "click" feedback when buttons are pressed.
+   - VLM-recommended improvement for interactive feedback.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- Total content: 100 tutorials, 34 quizzes, 102 questions, 20 subjects, 5 learning paths, 16 achievements (verified via DB).
+- Server returns HTTP 200.
+- Platform independence maintained: no new external dependencies.
+
+Stage Summary:
+- Pass 2 iteration 12 complete. Reached 100 tutorials milestone! Added 4 quizzes + active button states. Total: 100 tutorials, 34 quizzes. Ready for next improvement pass (performance optimization, accessibility audit, search improvements).

@@ -189,6 +189,9 @@
     box-shadow: 0 8px 25px -5px color-mix(in oklch, var(--primary) 55%, transparent);
     transform: translateY(-1px);
   }
+  .shadow-glow-primary:active {
+    transform: scale(0.98);
+  }
 
   /* Glassmorphic pill */
   .glass-pill {
