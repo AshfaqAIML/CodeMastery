@@ -579,3 +579,44 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 12 complete. Reached 100 tutorials milestone! Added 4 quizzes + active button states. Total: 100 tutorials, 34 quizzes. Ready for next improvement pass (performance optimization, accessibility audit, search improvements).
+
+---
+Task ID: PASS2-13
+Agent: webDevReview iteration 13
+Task: Recent searches, accessibility fixes, 7 more quizzes
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 12 complete (100 tutorials milestone, 4 quizzes, active button states). Identified highest-value next: recent searches, accessibility, more quizzes.
+- QA via agent-browser + curl: all endpoints return 200. Lint clean. Tutorial reader verified: callouts (TIP/WARNING), quizzes, related tutorials, code blocks with copy buttons all rendering correctly. Hydration mismatch warning from next-themes (expected, suppressHydrationWarning already on <html>).
+
+Features + content implemented:
+1. Recent searches in search palette (high-value UX improvement):
+   - Search palette now saves user's recent queries to localStorage (max 5, deduplicated).
+   - When palette opens with no query: shows "Recent searches" section (with clear button) + "Popular subjects" section (sorted by tutorial count as a proxy for trending).
+   - Clicking a recent search fills the query and triggers search.
+   - When a result is navigated to, the query is saved to recent.
+   - Enter key navigates to the first result (quick keyboard UX).
+   - aria-label="Search tutorials" added to the input.
+2. Accessibility fix:
+   - Added aria-label="Close notes panel" to the notes panel close button in tutorial view (was missing).
+   - All other icon-only buttons already have aria-labels (verified via grep).
+3. Added 7 more quizzes (34 → 41 total, 102 → 123 questions):
+   - Async/Await Quiz (JavaScript)
+   - Functions and Closures Quiz (JavaScript)
+   - Dynamic Programming Quiz (Algorithms)
+   - TCP vs UDP Quiz (Computer Networks)
+   - File Systems Quiz (Operating Systems)
+   - Microservices Quiz (System Design)
+   - Deadlocks Quiz (Operating Systems)
+   - Each has 3 questions with explanations, passingScore=70, xpReward=50.
+   - Quiz coverage: 41/100 tutorials (41%).
+
+Verification:
+- Lint clean (eslint . — no errors).
+- Total: 100 tutorials, 41 quizzes, 123 questions, 20 subjects (verified via DB).
+- Search palette verified: recent searches + trending subjects rendering correctly.
+- Server returns HTTP 200.
+- Platform independence maintained: no new external dependencies.
+
+Stage Summary:
+- Pass 2 iteration 13 complete. Added recent searches + accessibility fix + 7 quizzes. Total: 100 tutorials, 41 quizzes. Ready for next improvement pass (more quizzes, performance optimization, accessibility audit).

@@ -582,7 +582,7 @@ function NotesPanel({
             <CardTitle className="text-sm flex items-center gap-2">
               <StickyNote className="size-4 text-primary" /> My notes
             </CardTitle>
-            <Button variant="ghost" size="icon" className="size-7" onClick={onClose}>
+            <Button variant="ghost" size="icon" className="size-7" onClick={onClose} aria-label="Close notes panel">
               <X className="size-4" />
             </Button>
           </div>
