@@ -504,3 +504,38 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 10 complete. Added notification bell + bookmarks export + 5 tutorials. Total content: 92 tutorials. Ready for next improvement pass (subject certificates, performance optimization, accessibility audit).
+
+---
+Task ID: PASS2-11
+Agent: webDevReview iteration 11
+Task: Subject completion certificate, 8 more quizzes
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 10 complete (notification bell, bookmarks export, 5 tutorials). Total was 92 tutorials, 22 quizzes. Identified highest-value next: subject certificate, more quizzes.
+- QA via curl: all endpoints return 200. Lint clean.
+
+Features + content implemented:
+1. Subject completion certificate:
+   - New /api/subjects/[slug]/certificate endpoint: returns certificate data when user has completed ALL published tutorials in a subject. Includes: userName, subjectName, certificateId (deterministic CM-XXXX-XXXXXX format), completedAt, tutorialsCompleted, totalTutorials, totalXPEarned, totalTimeSpentMin, estimatedTotalHours.
+   - If not all completed, returns { earned: false, completedCount, totalCount, percent } for progress display.
+   - New SubjectCertificate component: animated modal with decorative border, Award icon (animated entrance), subject branding (color + icon), stats grid (tutorials, XP, hours), certificate ID, completion date, "Verified" badge, Share + Save as PDF buttons.
+   - "View Certificate" button appears on subject view header when certificate is earned (100% completion). Uses shadow-glow-primary.
+   - Verified via DB: C Programming certificate logic correct (1/5 completed = not earned, returns progress data).
+2. Added 8 more quizzes (22 → 30 total quizzes, 66 → 90 questions):
+   - C Programming: "C Variables and Types Quiz"
+   - Python: "Python Control Flow Quiz"
+   - Data Structures: "Linked Lists Quiz", "Stacks and Queues Quiz"
+   - Algorithms: "Sorting Algorithms Quiz"
+   - Java: "Java Introduction Quiz"
+   - TypeScript: "TypeScript Introduction Quiz"
+   - C++: "C++ Introduction Quiz"
+   - Each has 3 questions with explanations, passingScore=70, xpReward=50.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- Total: 92 tutorials, 30 quizzes, 90 questions (verified via DB).
+- Certificate endpoint returns 401 unauthed (correct); logic verified via DB (1/5 = not earned, returns progress).
+- Platform independence maintained: no new external dependencies.
+
+Stage Summary:
+- Pass 2 iteration 11 complete. Added subject completion certificate + 8 quizzes. Total content: 92 tutorials, 30 quizzes. Ready for next improvement pass (performance optimization, accessibility audit, more content).

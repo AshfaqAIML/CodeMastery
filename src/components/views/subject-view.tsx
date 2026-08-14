@@ -1,17 +1,22 @@
 "use client"
 
 import * as React from "react"
-import { ArrowLeft, Clock, ChevronRight, BookOpen, CheckCircle2, Circle } from "lucide-react"
+import { ArrowLeft, Clock, ChevronRight, BookOpen, CheckCircle2, Circle, Award } from "lucide-react"
 import { useAppStore } from "@/lib/store"
-import { useSubject } from "@/hooks/use-api"
+import { useSubject, useSubjectCertificate } from "@/hooks/use-api"
+import { useSession } from "next-auth/react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
+import { SubjectCertificate } from "@/components/shared/subject-certificate"
 
 export function SubjectView() {
   const { params, navigate } = useAppStore()
   const { data: subject, isLoading } = useSubject(params.subjectSlug)
+  const { data: session } = useSession()
+  const { data: certData } = useSubjectCertificate(params.subjectSlug)
+  const [certOpen, setCertOpen] = React.useState(false)
 
   if (isLoading) {
     return (
@@ -88,9 +93,29 @@ export function SubjectView() {
                 )}
               </div>
             )}
+            {/* Certificate button when subject is completed */}
+            {session && certData?.earned && (
+              <div className="mt-4">
+                <Button
+                  size="sm"
+                  className="shadow-glow-primary gap-1.5"
+                  onClick={() => setCertOpen(true)}
+                >
+                  <Award className="size-4" />
+                  View Certificate
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Certificate modal */}
+      <SubjectCertificate
+        open={certOpen}
+        onClose={() => setCertOpen(false)}
+        data={certData}
+      />
 
       {/* Difficulty filter */}
       <DifficultyFilter subject={subject} />

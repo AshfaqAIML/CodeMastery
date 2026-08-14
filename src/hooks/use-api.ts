@@ -44,6 +44,14 @@ export function useSubject(slug: string | undefined) {
   })
 }
 
+export function useSubjectCertificate(slug: string | undefined) {
+  return useQuery({
+    queryKey: ["subject-certificate", slug],
+    queryFn: () => apiFetch<any>(`/api/subjects/${slug}/certificate`),
+    enabled: !!slug,
+  })
+}
+
 // ---------- Tutorials ----------
 export function useTutorial(subjectSlug: string | undefined, tutorialSlug: string | undefined) {
   return useQuery({
