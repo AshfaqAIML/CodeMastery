@@ -165,6 +165,14 @@ export function useStreakHeatmap() {
   })
 }
 
+// ---------- XP History ----------
+export function useXpHistory() {
+  return useQuery({
+    queryKey: ["xp-history"],
+    queryFn: () => apiFetch<any>(`/api/xp-history`),
+  })
+}
+
 // ---------- Tutorial Ratings ----------
 export function useRating(tutorialId: string | undefined) {
   return useQuery({

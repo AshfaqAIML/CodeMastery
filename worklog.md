@@ -355,3 +355,44 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 6 complete. Added 10 tutorials + 3 features. Total content now 77 tutorials. All subjects have 3+ tutorials. Ready for next improvement pass (mobile TOC, performance optimization, more gamification).
+
+---
+Task ID: PASS2-7
+Agent: webDevReview iteration 7
+Task: Mobile TOC, XP history chart, 7 quizzes for new tutorials
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 6 complete (10 tutorials, skip link, font size control, XP milestones). Total was 77 tutorials. Identified highest-value next: mobile TOC, XP history chart, quizzes for new tutorials.
+- QA via curl: all endpoints return 200. Lint clean.
+
+Features + content implemented:
+1. Mobile TOC (collapsible table of contents):
+   - New MobileToc component: lg:hidden (mobile only), collapsible accordion-style.
+   - Shows current active section in the header button, expands to show all sections.
+   - Active section highlighted with border-primary + bg-primary/5.
+   - Clicking a section scrolls to it and collapses the TOC.
+   - Replaces the hidden-on-mobile sidebar TOC with an accessible mobile-friendly version.
+2. XP history chart (dashboard):
+   - New /api/xp-history endpoint: returns XP earned per day for last 7 days, with total and average.
+   - XpHistoryChart component: custom bar chart (no heavy library) with 7 daily bars, hover tooltips showing XP amount, today highlighted in primary color, weekday labels.
+   - Shows total and average per day in the header.
+   - Empty state: "Complete tutorials to start earning XP!" when total is 0.
+   - Verified via DB: 205 XP on Friday, 0 on other days, total=205, avg=29/day.
+   - Integrated into dashboard right column after the level card.
+3. Added 7 quizzes for new tutorials (15 → 22 total quizzes, 45 → 66 questions):
+   - TypeScript: Type Narrowing Quiz (3 questions)
+   - Deep Learning: CNNs Quiz (3 questions), Transformers Quiz (3 questions)
+   - Computer Networks: DNS Quiz (3 questions), HTTPS and TLS Quiz (3 questions)
+   - Interview Prep: Behavioral Interview Quiz (3 questions)
+   - C++: Smart Pointers Quiz (3 questions)
+   - Each quiz has 3 questions with explanations, passingScore=70, xpReward=50.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- Total: 77 tutorials, 22 quizzes, 66 questions (verified via DB).
+- XP history endpoint returns 401 unauthed (correct); logic verified via DB (7 days, correct aggregation).
+- Mobile TOC component added to tutorial view.
+- Platform independence maintained: no new external dependencies.
+
+Stage Summary:
+- Pass 2 iteration 7 complete. Added mobile TOC + XP history chart + 7 quizzes. Total content: 77 tutorials, 22 quizzes. Ready for next improvement pass (print/export, performance optimization, more gamification).

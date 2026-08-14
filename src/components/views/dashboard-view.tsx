@@ -16,6 +16,7 @@ import { SubjectIcon } from "@/components/shared/subject-icon"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
 import { StreakHeatmap } from "@/components/dashboard/streak-heatmap"
 import { StreakStatus } from "@/components/dashboard/streak-status"
+import { XpHistoryChart } from "@/components/dashboard/xp-history-chart"
 
 const ACTIVITY_LABELS: Record<string, string> = {
   tutorial_completed: "Completed a tutorial",
@@ -344,6 +345,9 @@ export function DashboardView() {
               <XPBar totalXP={stats.totalXP} showMilestones />
             </CardContent>
           </Card>
+
+          {/* XP history chart */}
+          <XpHistoryChart />
 
           <Card>
             <CardHeader>
