@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ArrowLeft, Clock, ChevronRight, BookOpen } from "lucide-react"
+import { ArrowLeft, Clock, ChevronRight, BookOpen, CheckCircle2, Circle } from "lucide-react"
 import { useAppStore } from "@/lib/store"
 import { useSubject } from "@/hooks/use-api"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -61,10 +61,33 @@ export function SubjectView() {
         </div>
         <div className="relative flex items-start gap-4">
           <SubjectIcon name={subject.icon} color={subject.color} className="size-14 rounded-2xl shrink-0" />
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{subject.name}</h1>
             <p className="text-lg text-muted-foreground mt-1">{subject.tagline}</p>
             <p className="text-sm text-muted-foreground mt-3 max-w-2xl">{subject.description}</p>
+            {subject.overallProgress && subject.overallProgress.total > 0 && (
+              <div className="mt-4 flex items-center gap-3 max-w-md">
+                <div className="flex-1">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                    <span>Your progress</span>
+                    <span className="font-medium text-foreground">
+                      {subject.overallProgress.completed}/{subject.overallProgress.total} · {subject.overallProgress.percent}%
+                    </span>
+                  </div>
+                  <div className="h-2 rounded-full bg-background/60 overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{ width: `${subject.overallProgress.percent}%`, background: subject.color }}
+                    />
+                  </div>
+                </div>
+                {subject.overallProgress.percent === 100 && (
+                  <span className="text-xs font-medium text-primary flex items-center gap-1 shrink-0">
+                    <CheckCircle2 className="size-4" /> Done!
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -133,19 +156,40 @@ export function SubjectView() {
 }
 
 function TutorialRow({ tutorial, onClick }: { tutorial: any; subjectSlug: string; onClick: () => void }) {
+  const completed = tutorial.progress?.[0]?.completed
+  const percent = tutorial.progress?.[0]?.percentRead ?? 0
   return (
     <button
       onClick={onClick}
       className="group flex items-center gap-4 rounded-xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-sm transition-all p-4 text-left"
     >
+      {completed !== undefined && (
+        completed ? (
+          <CheckCircle2 className="size-5 text-primary shrink-0" />
+        ) : percent > 0 ? (
+          <div className="relative size-5 shrink-0">
+            <Circle className="size-5 text-muted-foreground/40" />
+            <svg className="absolute inset-0 size-5 -rotate-90" viewBox="0 0 20 20">
+              <circle cx="10" cy="10" r="8" fill="none" stroke="var(--primary)" strokeWidth="2" strokeDasharray={`${(percent / 100) * 50.3} 50.3`} strokeLinecap="round" />
+            </svg>
+          </div>
+        ) : (
+          <Circle className="size-5 text-muted-foreground/30 shrink-0" />
+        )
+      )}
       <div className="flex-1 min-w-0">
-        <h3 className="font-semibold group-hover:text-primary transition-colors">{tutorial.title}</h3>
+        <h3 className={`font-semibold group-hover:text-primary transition-colors ${completed ? "text-foreground" : ""}`}>
+          {tutorial.title}
+        </h3>
         <p className="text-sm text-muted-foreground line-clamp-1 mt-0.5">{tutorial.summary}</p>
         <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
           <DifficultyBadge difficulty={tutorial.difficulty} />
           <span className="flex items-center gap-1">
             <Clock className="size-3" /> {tutorial.estimatedMinutes}m
           </span>
+          {percent > 0 && !completed && (
+            <span className="text-primary font-medium">{percent}% read</span>
+          )}
         </div>
       </div>
       <ChevronRight className="size-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />

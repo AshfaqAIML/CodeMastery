@@ -26,7 +26,7 @@ const CATEGORIES = [
 
 export function HomeView() {
   const { navigate, openAuth } = useAppStore()
-  const { data: subjects } = useSubjects(true)
+  const { data: subjects } = useSubjects({ withCounts: true })
   const { data: paths } = usePaths()
   const { data: lb } = useLeaderboard("weekly")
 

@@ -23,10 +23,16 @@ export async function apiFetch<T = unknown>(
 }
 
 // ---------- Subjects ----------
-export function useSubjects(withCounts = false) {
+export function useSubjects(opts?: { withCounts?: boolean; withProgress?: boolean }) {
+  const withCounts = opts?.withCounts
+  const withProgress = opts?.withProgress
+  const params = new URLSearchParams()
+  if (withCounts) params.set("withCounts", "true")
+  if (withProgress) params.set("withProgress", "true")
+  const qs = params.toString()
   return useQuery({
-    queryKey: ["subjects", withCounts],
-    queryFn: () => apiFetch<any[]>(`/api/subjects${withCounts ? "?withCounts=true" : ""}`),
+    queryKey: ["subjects", withCounts, withProgress],
+    queryFn: () => apiFetch<any[]>(`/api/subjects${qs ? `?${qs}` : ""}`),
   })
 }
 

@@ -5,8 +5,85 @@ import ReactMarkdown from "react-markdown"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { useTheme } from "next-themes"
-import { Check, Copy } from "lucide-react"
+import { Check, Copy, Lightbulb, AlertTriangle, Info, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+const CALLOUT_PATTERNS: { re: RegExp; icon: any; label: string; color: string; bg: string; border: string }[] = [
+  {
+    re: /^(tip|tip:|💡)/i,
+    icon: Lightbulb,
+    label: "Tip",
+    color: "oklch(0.75 0.16 85)",
+    bg: "color-mix(in oklch, oklch(0.75 0.16 85) 12%, transparent)",
+    border: "color-mix(in oklch, oklch(0.75 0.16 85) 35%, transparent)",
+  },
+  {
+    re: /^(warning|warning:|⚠️|caution)/i,
+    icon: AlertTriangle,
+    label: "Warning",
+    color: "oklch(0.68 0.2 30)",
+    bg: "color-mix(in oklch, oklch(0.68 0.2 30) 12%, transparent)",
+    border: "color-mix(in oklch, oklch(0.68 0.2 30) 35%, transparent)",
+  },
+  {
+    re: /^(note|note:|📝)/i,
+    icon: BookOpen,
+    label: "Note",
+    color: "oklch(0.7 0.13 200)",
+    bg: "color-mix(in oklch, oklch(0.7 0.13 200) 12%, transparent)",
+    border: "color-mix(in oklch, oklch(0.7 0.13 200) 35%, transparent)",
+  },
+  {
+    re: /^(info|info:|ℹ️)/i,
+    icon: Info,
+    label: "Info",
+    color: "oklch(0.62 0.15 162)",
+    bg: "color-mix(in oklch, oklch(0.62 0.15 162) 12%, transparent)",
+    border: "color-mix(in oklch, oklch(0.62 0.15 162) 35%, transparent)",
+  },
+]
+
+function extractCalloutText(children: React.ReactNode): string {
+  if (typeof children === "string") return children
+  if (Array.isArray(children)) return children.map(extractCalloutText).join("")
+  if (React.isValidElement(children)) {
+    return extractCalloutText((children.props as any).children)
+  }
+  return ""
+}
+
+function CalloutBlock({ children }: { children: React.ReactNode }) {
+  const text = extractCalloutText(children)
+  for (const c of CALLOUT_PATTERNS) {
+    if (c.re.test(text.trim())) {
+      const Icon = c.icon
+      // Strip the leading label/prefix from the children
+      const cleaned = text.replace(c.re, "").replace(/^\s*[-—:]\s*/, "")
+      return (
+        <div
+          className="my-6 rounded-xl p-4 flex gap-3 items-start not-prose"
+          style={{ background: c.bg, border: `1px solid ${c.border}` }}
+        >
+          <Icon className="size-5 shrink-0 mt-0.5" style={{ color: c.color }} />
+          <div className="flex-1 min-w-0">
+            <div className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: c.color }}>
+              {c.label}
+            </div>
+            <div className="text-sm leading-7 text-foreground/90 [&>p]:m-0 [&>p]:mb-2">
+              {cleaned || children}
+            </div>
+          </div>
+        </div>
+      )
+    }
+  }
+  // Default blockquote
+  return (
+    <blockquote className="my-6 border-l-4 border-primary/40 pl-4 py-1 text-muted-foreground italic">
+      {children}
+    </blockquote>
+  )
+}
 
 export function MarkdownRenderer({ content }: { content: string }) {
   const { resolvedTheme } = useTheme()
@@ -36,14 +113,11 @@ export function MarkdownRenderer({ content }: { content: string }) {
           ol: ({ children }) => (
             <ol className="my-4 space-y-1.5 list-decimal pl-6">{children}</ol>
           ),
-          li: ({ children, ...props }) => {
-            const isOrdered = (props as any).node?.position
-            return (
-              <li className={cn("leading-7 text-foreground/90", !props.className?.includes("task") && "marker:text-muted-foreground")}>
-                {children}
-              </li>
-            )
-          },
+          li: ({ children, ...props }) => (
+            <li className={cn("leading-7 text-foreground/90 marker:text-muted-foreground")}>
+              {children}
+            </li>
+          ),
           a: ({ children, href }) => (
             <a
               href={href}
@@ -54,11 +128,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
               {children}
             </a>
           ),
-          blockquote: ({ children }) => (
-            <blockquote className="my-6 border-l-4 border-primary/40 pl-4 py-1 text-muted-foreground italic">
-              {children}
-            </blockquote>
-          ),
+          blockquote: ({ children }) => <CalloutBlock>{children}</CalloutBlock>,
           hr: () => <hr className="my-8 border-border" />,
           table: ({ children }) => (
             <div className="my-6 overflow-x-auto scrollbar-thin rounded-lg border border-border">

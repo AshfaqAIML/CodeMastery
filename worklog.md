@@ -92,3 +92,36 @@ Platform Independence Audit:
 
 Stage Summary:
 - Pass 1 (Initial Production Implementation) COMPLETE. All features work end-to-end with real content. Ready for improvement passes.
+
+---
+Task ID: PASS2-1
+Agent: webDevReview iteration 1
+Task: QA + high-value features (onboarding, progress, recommendations, callouts, transitions)
+
+Work Log:
+- Reviewed worklog: Pass 1 complete. Identified highest-value gaps: no onboarding flow, no subject progress indicators, no recommendations, no recently viewed, no markdown callouts, abrupt view transitions.
+- QA via agent-browser + curl: quiz scoring works (100% → +50 XP), XP/achievements/streaks verified, all API endpoints return 200.
+- Found + fixed bug: /api/me had `lastReadAt: { not: null }` (invalid Prisma syntax for DateTime field with @default). Fixed by removing the filter since the field always has a value.
+- Found + fixed bug: subject route didn't include per-tutorial progress for signed-in users.
+
+Features implemented:
+1. Onboarding modal (3-step: experience → goal → interests) — appears for authenticated users with onboarded=false. Uses existing /api/onboarding endpoint. Step indicator, skip option, interest chips with checkmarks.
+2. Subject progress indicators on browse cards (% complete with colored progress bar matching subject color). New `withProgress` API param on /api/subjects.
+3. Subject view: overall progress bar in header + per-tutorial completion icons (checkmark for completed, partial ring for in-progress, empty circle for not started). Per-tutorial progress via enhanced /api/subjects/[slug] endpoint.
+4. Dashboard recommendations: "Recommended for you" card with up to 6 tutorials based on subjects the user has engaged with (falls back to difficulty-matched tutorials for new users based on their experience level).
+5. Dashboard recently viewed: "Recently viewed" card showing last 4 tutorials with completion checkmark and time-ago.
+6. Markdown callout blocks: blockquotes starting with Tip:/Warning:/Note:/Info: (or emojis 💡⚠️📝ℹ️) render as styled callout boxes with icons, colored borders, and labels. Added callouts to the "Pointers: The Basics" C tutorial as a demo.
+7. Page transition animations: Framer Motion AnimatePresence with fade+slide transitions between views.
+8. Scroll-to-top button: appears after scrolling 600px, smooth scroll back to top.
+
+Verification:
+- Lint clean (eslint . — no errors).
+- /api/me returns 200 with: recommendations=6, recentlyViewed=1, subjectProgress=20 (C Programming: 1/4 = 25%).
+- /api/subjects?withProgress=true returns per-subject completion counts.
+- /api/subjects/c-programming returns overallProgress + per-tutorial progress arrays.
+- Pointers tutorial content contains all 4 callout types (Tip, Warning, Note, Info).
+- All endpoints verified via curl with authenticated session.
+- Note: agent-browser visual verification limited by OOM (Turbopack + Chrome exceed 4GB system memory during page compilation). Page compiles and renders successfully (HTTP 200, 583ms render) but server process gets OOM-killed when Chrome loads. All API-level verification passed.
+
+Stage Summary:
+- Pass 2 (Functionality & UX improvement) iteration 1 complete. Added 8 high-value features. Backend verified. Ready for next improvement pass (more content with callouts, mobile polish, AI study buddy, etc.).

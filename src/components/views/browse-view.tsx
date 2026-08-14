@@ -13,7 +13,7 @@ const CATEGORIES = ["All", "Programming", "Data", "Systems", "AI/ML", "Web", "Ca
 
 export function BrowseView() {
   const { navigate } = useAppStore()
-  const { data: subjects, isLoading } = useSubjects(true)
+  const { data: subjects, isLoading } = useSubjects({ withCounts: true, withProgress: true })
   const [cat, setCat] = React.useState("All")
   const [q, setQ] = React.useState("")
   const debounced = useDebounced(q, 250)
@@ -138,12 +138,27 @@ export function BrowseView() {
                       <CardDescription className="line-clamp-2 text-sm">{s.description}</CardDescription>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>{s.tutorialCount ?? 0} tutorials</span>
-                        <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity font-medium">
-                          Explore →
-                        </span>
-                      </div>
+                      {s.progressPct !== undefined && s.progressPct > 0 ? (
+                        <div className="mb-2">
+                          <div className="flex items-center justify-between text-[11px] text-muted-foreground mb-1">
+                            <span>{s.completedCount}/{s.tutorialCount} completed</span>
+                            <span className="text-primary font-medium">{s.progressPct}%</span>
+                          </div>
+                          <div className="h-1 rounded-full bg-muted overflow-hidden">
+                            <div
+                              className="h-full rounded-full transition-all"
+                              style={{ width: `${s.progressPct}%`, background: s.color }}
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-between text-xs text-muted-foreground">
+                          <span>{s.tutorialCount ?? 0} tutorials</span>
+                          <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                            Explore →
+                          </span>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </motion.button>

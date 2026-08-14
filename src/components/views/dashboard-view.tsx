@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import {
   LayoutDashboard, Flame, Zap, Trophy, BookOpen, Bookmark, StickyNote,
   Clock, ArrowRight, Sparkles, Target, TrendingUp, Loader2, GraduationCap,
+  CheckCircle2,
 } from "lucide-react"
 import { useAppStore } from "@/lib/store"
 import { useMe, useSubjects } from "@/hooks/use-api"
@@ -63,7 +64,7 @@ export function DashboardView() {
 
   if (!meData) return null
 
-  const { user, stats, continueLearning, recentActivity } = meData
+  const { user, stats, continueLearning, recentActivity, recommendations = [], recentlyViewed = [] } = meData
   const dailyPct = Math.min(100, Math.round((stats.todayXP / stats.dailyXPCap) * 100))
 
   return (
@@ -216,6 +217,99 @@ export function DashboardView() {
               )}
             </CardContent>
           </Card>
+
+          {/* Recommended next */}
+          {recommendations.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Sparkles className="size-5 text-primary" /> Recommended for you
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  Based on what you've been learning.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {recommendations.slice(0, 4).map((r: any) => (
+                    <button
+                      key={r.id}
+                      onClick={() =>
+                        navigate("tutorial", {
+                          subjectSlug: r.subject.slug,
+                          tutorialSlug: r.slug,
+                        })
+                      }
+                      className="group flex flex-col gap-2 rounded-lg border border-border/60 hover:border-primary/40 hover:bg-muted/40 transition-all p-3 text-left"
+                    >
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <SubjectIcon
+                          name={r.subject.icon}
+                          color={r.subject.color}
+                          className="size-6 rounded"
+                        />
+                        <span className="truncate">{r.subject.name}</span>
+                      </div>
+                      <div className="font-medium text-sm leading-snug line-clamp-2 group-hover:text-primary transition-colors">
+                        {r.title}
+                      </div>
+                      <div className="flex items-center gap-2 mt-auto">
+                        <DifficultyBadge difficulty={r.difficulty} />
+                        <span className="text-[11px] text-muted-foreground flex items-center gap-0.5">
+                          <Clock className="size-3" />{r.estimatedMinutes}m
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Recently viewed */}
+          {recentlyViewed.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Clock className="size-5 text-primary" /> Recently viewed
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {recentlyViewed.slice(0, 4).map((p: any) => (
+                    <li key={p.id}>
+                      <button
+                        onClick={() =>
+                          navigate("tutorial", {
+                            subjectSlug: p.tutorial.subject.slug,
+                            tutorialSlug: p.tutorial.slug,
+                          })
+                        }
+                        className="w-full flex items-center gap-3 rounded-lg hover:bg-muted/40 transition-colors p-2 text-left group"
+                      >
+                        <SubjectIcon
+                          name={p.tutorial.subject.icon}
+                          color={p.tutorial.subject.color}
+                          className="size-8 rounded shrink-0"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium truncate group-hover:text-primary transition-colors">
+                            {p.tutorial.title}
+                          </div>
+                          <div className="text-[11px] text-muted-foreground">
+                            {p.percentRead}% · {timeAgo(p.lastReadAt)}
+                          </div>
+                        </div>
+                        {p.completed && (
+                          <CheckCircle2 className="size-4 text-primary shrink-0" />
+                        )}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {/* Right: Level + daily cap + quick links */}
