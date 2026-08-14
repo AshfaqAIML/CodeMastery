@@ -92,6 +92,9 @@ export function SubjectView() {
         </div>
       </div>
 
+      {/* Difficulty filter */}
+      <DifficultyFilter subject={subject} />
+
       {/* Modules */}
       <div className="space-y-8">
         {subject.modules?.map((m: any) => (
@@ -194,5 +197,49 @@ function TutorialRow({ tutorial, onClick }: { tutorial: any; subjectSlug: string
       </div>
       <ChevronRight className="size-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
     </button>
+  )
+}
+
+function DifficultyFilter({ subject }: { subject: any }) {
+  const [filter, setFilter] = React.useState<string>("all")
+
+  // Collect all difficulties present in this subject
+  const difficulties = React.useMemo(() => {
+    const set = new Set<string>()
+    const allTutorials = [
+      ...(subject.modules ?? []).flatMap((m: any) => m.tutorials ?? []),
+      ...(subject.tutorials ?? []),
+    ]
+    allTutorials.forEach((t: any) => set.add(t.difficulty))
+    return ["all", ...Array.from(set)]
+  }, [subject])
+
+  if (difficulties.length <= 2) return null // only "all" + 1 difficulty → no filter needed
+
+  const labelMap: Record<string, string> = {
+    all: "All levels",
+    beginner: "Beginner",
+    intermediate: "Intermediate",
+    advanced: "Advanced",
+  }
+
+  return (
+    <div className="flex flex-wrap items-center gap-2 mb-6">
+      <span className="text-xs text-muted-foreground mr-1">Filter:</span>
+      {difficulties.map((d) => (
+        <button
+          key={d}
+          onClick={() => setFilter(d)}
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-all border ${
+            filter === d
+              ? "bg-primary text-primary-foreground border-primary"
+              : "bg-background hover:bg-muted border-border text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          {labelMap[d] ?? d}
+        </button>
+      ))}
+      <span className="text-xs text-muted-foreground ml-auto" data-difficulty-filter={filter} />
+    </div>
   )
 }

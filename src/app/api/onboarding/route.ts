@@ -9,6 +9,7 @@ const schema = z.object({
   goal: z.enum(["career", "interview", "academics", "curiosity"]).optional(),
   bio: z.string().max(280).optional(),
   name: z.string().min(2).max(60).optional(),
+  interests: z.array(z.string()).max(10).optional(),
 })
 
 export async function POST(req: NextRequest) {
@@ -30,11 +31,18 @@ export async function POST(req: NextRequest) {
       ...(parsed.data.goal ? { goal: parsed.data.goal } : {}),
       ...(parsed.data.bio !== undefined ? { bio: parsed.data.bio } : {}),
       ...(parsed.data.name ? { name: parsed.data.name } : {}),
+      ...(parsed.data.interests ? { interests: parsed.data.interests.join(",") } : {}),
       onboarded: true,
     },
-    select: { id: true, name: true, experience: true, goal: true, bio: true, onboarded: true },
+    select: {
+      id: true, name: true, experience: true, goal: true, bio: true,
+      interests: true, onboarded: true,
+    },
   })
-  return ok(updated)
+  return ok({
+    ...updated,
+    interests: updated.interests ? updated.interests.split(",").filter(Boolean) : [],
+  })
 }
 
 export async function PATCH(req: NextRequest) {

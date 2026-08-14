@@ -60,14 +60,19 @@ export async function GET() {
   // Strategy:
   //  1. If user has history → recommend tutorials from subjects they've engaged with,
   //     that they haven't completed yet.
-  //  2. If no history → recommend beginner tutorials from popular subjects,
-  //     tailored by their stated experience/goal.
+  //  2. If no history but has interests → recommend tutorials from interested subjects.
+  //  3. Otherwise → recommend beginner tutorials tailored by their stated experience.
   const completedTutorialIds = (
     await db.tutorialProgress.findMany({
       where: { userId: user.id },
       select: { tutorialId: true },
     })
   ).map((p) => p.tutorialId)
+
+  // Parse the user's interests (comma-separated slugs)
+  const interestSlugs = user.interests
+    ? user.interests.split(",").filter(Boolean)
+    : []
 
   let recommendations: any[] = []
 
@@ -94,31 +99,63 @@ export async function GET() {
     })
   }
 
-  // If still not enough (new user), recommend based on experience level
+  // If still not enough (new user), try interests first, then experience level
   if (recommendations.length < 4) {
-    const difficultyMap: Record<string, string> = {
-      beginner: "beginner",
-      intermediate: "intermediate",
-      advanced: "advanced",
-    }
-    const targetDifficulty = difficultyMap[user.experience ?? "beginner"]
     const existing = new Set([
       ...completedTutorialIds,
       ...recommendations.map((r) => r.id),
     ])
-    const fillers = await db.tutorial.findMany({
-      where: {
-        published: true,
-        difficulty: targetDifficulty,
-        id: { notIn: [...existing] },
-      },
-      orderBy: [{ order: "asc" }],
-      take: 6 - recommendations.length,
-      include: {
-        subject: { select: { slug: true, name: true, color: true, icon: true } },
-      },
-    })
-    recommendations = [...recommendations, ...fillers]
+
+    // Try tutorials from the user's selected interests
+    if (interestSlugs.length > 0) {
+      const interestSubjects = await db.subject.findMany({
+        where: { slug: { in: interestSlugs } },
+        select: { id: true },
+      })
+      const interestSubjectIds = interestSubjects.map((s) => s.id)
+      if (interestSubjectIds.length > 0) {
+        const interestFillers = await db.tutorial.findMany({
+          where: {
+            published: true,
+            subjectId: { in: interestSubjectIds },
+            id: { notIn: [...existing] },
+          },
+          orderBy: [{ difficulty: "asc" }, { order: "asc" }],
+          take: 6 - recommendations.length,
+          include: {
+            subject: { select: { slug: true, name: true, color: true, icon: true } },
+          },
+        })
+        recommendations = [...recommendations, ...interestFillers]
+      }
+    }
+
+    // Final fallback: recommend based on experience level
+    if (recommendations.length < 4) {
+      const difficultyMap: Record<string, string> = {
+        beginner: "beginner",
+        intermediate: "intermediate",
+        advanced: "advanced",
+      }
+      const targetDifficulty = difficultyMap[user.experience ?? "beginner"]
+      const updatedExisting = new Set([
+        ...completedTutorialIds,
+        ...recommendations.map((r) => r.id),
+      ])
+      const fillers = await db.tutorial.findMany({
+        where: {
+          published: true,
+          difficulty: targetDifficulty,
+          id: { notIn: [...updatedExisting] },
+        },
+        orderBy: [{ order: "asc" }],
+        take: 6 - recommendations.length,
+        include: {
+          subject: { select: { slug: true, name: true, color: true, icon: true } },
+        },
+      })
+      recommendations = [...recommendations, ...fillers]
+    }
   }
 
   // Deduplicate subject-level progress for subject cards

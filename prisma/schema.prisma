@@ -38,6 +38,7 @@ model User {
   // Onboarding
   experience    String?   // beginner | intermediate | advanced
   goal          String?   // career | interview | academics | curiosity
+  interests     String    @default("") // comma-separated subject slugs
   onboarded     Boolean   @default(false)
 
   createdAt     DateTime  @default(now())

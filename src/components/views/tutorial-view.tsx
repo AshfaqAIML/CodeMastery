@@ -21,6 +21,7 @@ import { StudyBuddy } from "@/components/tutorial/study-buddy"
 import { CompletionCelebration } from "@/components/tutorial/completion-celebration"
 import { KeyboardShortcuts } from "@/components/tutorial/keyboard-shortcuts"
 import { TutorialRating } from "@/components/tutorial/tutorial-rating"
+import { ShareButton } from "@/components/tutorial/share-button"
 import { toast } from "sonner"
 
 export function TutorialView() {
@@ -41,6 +42,7 @@ export function TutorialView() {
   const lastPercentSent = React.useRef(0)
   const lastSentAt = React.useRef(0)
   const [readingPct, setReadingPct] = React.useState(0)
+  const [activeTocIndex, setActiveTocIndex] = React.useState<number>(-1)
 
   // Compute TOC from content
   const content = data?.tutorial?.content
@@ -53,7 +55,7 @@ export function TutorialView() {
     }))
   }, [content])
 
-  // Reading progress tracking
+  // Reading progress tracking + TOC scroll spy
   React.useEffect(() => {
     function onScroll() {
       const el = contentRef.current
@@ -63,6 +65,16 @@ export function TutorialView() {
       const scrolled = Math.min(Math.max(0, -rect.top), total)
       const pct = total > 0 ? Math.round((scrolled / total) * 100) : 0
       setReadingPct(pct)
+
+      // Scroll spy: find the heading closest to the top of the viewport
+      const headings = el.querySelectorAll("h2")
+      let activeIdx = -1
+      const triggerLine = 140 // px from top where a heading becomes "active"
+      headings.forEach((h, i) => {
+        const r = h.getBoundingClientRect()
+        if (r.top <= triggerLine) activeIdx = i
+      })
+      setActiveTocIndex(activeIdx)
     }
     window.addEventListener("scroll", onScroll, { passive: true })
     onScroll()
@@ -199,7 +211,7 @@ export function TutorialView() {
             <p className="text-lg text-muted-foreground mt-3">{tutorial.summary}</p>
 
             {/* Actions */}
-            <div className="flex items-center gap-2 mt-6">
+            <div className="flex flex-wrap items-center gap-2 mt-6">
               {session ? (
                 <>
                   <Button
@@ -224,11 +236,12 @@ export function TutorialView() {
                     <StickyNote className="mr-2 size-4" />
                     Notes {(notesData?.length ?? 0) > 0 && `(${notesData.length})`}
                   </Button>
+                  <ShareButton title={tutorial.title} slug={tutorial.slug} />
                 </>
               ) : (
-                <p className="text-sm text-muted-foreground">
-                  Sign in to track progress and bookmark tutorials.
-                </p>
+                <div className="flex items-center gap-2">
+                  <ShareButton title={tutorial.title} slug={tutorial.slug} />
+                </div>
               )}
             </div>
           </div>
@@ -297,22 +310,28 @@ export function TutorialView() {
                   <ListTree className="size-3.5" /> Contents
                 </div>
                 <ul className="space-y-1.5 text-sm">
-                  {toc.map((t) => (
-                    <li key={t.id}>
-                      <button
-                        className="text-muted-foreground hover:text-foreground transition-colors text-left line-clamp-1"
-                        onClick={() => {
-                          // best-effort scroll: find the heading text in page
-                          const headings = document.querySelectorAll("h2")
-                          headings.forEach((h) => {
-                            if (h.textContent?.trim() === t.text) h.scrollIntoView({ behavior: "smooth", block: "start" })
-                          })
-                        }}
-                      >
-                        {t.text}
-                      </button>
-                    </li>
-                  ))}
+                  {toc.map((t, idx) => {
+                    const isActive = idx === activeTocIndex
+                    return (
+                      <li key={t.id} className="relative">
+                        <button
+                          className={`text-left line-clamp-1 transition-colors w-full pl-3 border-l-2 ${
+                            isActive
+                              ? "border-primary text-primary font-medium"
+                              : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
+                          }`}
+                          onClick={() => {
+                            const headings = document.querySelectorAll("h2")
+                            headings.forEach((h) => {
+                              if (h.textContent?.trim() === t.text) h.scrollIntoView({ behavior: "smooth", block: "start" })
+                            })
+                          }}
+                        >
+                          {t.text}
+                        </button>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
             )}

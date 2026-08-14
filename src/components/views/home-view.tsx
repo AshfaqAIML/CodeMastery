@@ -127,7 +127,7 @@ export function HomeView() {
               onClick={() => navigate("subject", { subjectSlug: s.slug })}
               className="group text-left"
             >
-              <Card className="h-full hover:border-primary/40 hover:shadow-md transition-all overflow-hidden">
+              <Card className="h-full hover:border-primary/40 hover:shadow-md transition-all overflow-hidden card-lift">
                 <CardHeader className="pb-3">
                   <SubjectIcon name={s.icon} color={s.color} className="size-11 rounded-xl" />
                   <CardTitle className="text-base mt-3 group-hover:text-primary transition-colors">

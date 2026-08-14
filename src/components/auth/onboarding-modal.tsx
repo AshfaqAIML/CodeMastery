@@ -40,7 +40,7 @@ export function OnboardingModal({ open, onComplete }: { open: boolean; onComplet
 
   const finish = async () => {
     try {
-      await onboard.mutateAsync({ experience, goal })
+      await onboard.mutateAsync({ experience, goal, interests })
       toast.success("You're all set! Happy learning 🎉")
       onComplete()
       setStep(0)

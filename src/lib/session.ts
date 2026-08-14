@@ -36,6 +36,7 @@ export async function getCurrentUserWithStats() {
       longestStreak: true,
       experience: true,
       goal: true,
+      interests: true,
       onboarded: true,
       createdAt: true,
     },

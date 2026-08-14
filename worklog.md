@@ -220,3 +220,50 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 3 complete. Added 5 high-value features + premium styling polish. Backend verified. Ready for next improvement pass (mobile responsive audit, onboarding interests persistence, more content, accessibility audit).
+
+---
+Task ID: PASS2-4
+Agent: webDevReview iteration 4
+Task: TOC scroll spy, onboarding interests persistence, share button, difficulty filter, card lift, mobile fixes
+
+Work Log:
+- Reviewed worklog: Pass 2 iteration 3 complete (premium styling, streak heatmap, ratings, resume banner, category counts). Identified highest-value next: TOC active section tracking, onboarding interests persistence, share button, difficulty filter, card hover lift, mobile fixes.
+- QA via curl: all endpoints return 200. Lint clean. Server OOM-crashes under heavy sequential load (4GB sandbox).
+
+Features implemented:
+1. TOC active section tracking (scroll spy):
+   - Added activeTocIndex state to tutorial reader.
+   - Scroll handler now detects which h2 heading is closest to the top (triggerLine=140px) and sets active index.
+   - TOC buttons now show active state: left border-primary, text-primary, font-medium. Inactive: border-transparent, hover:text-foreground.
+   - Visual: readers always know which section they're in.
+2. Onboarding interests persistence:
+   - Added `interests String @default("")` field to User Prisma schema (comma-separated subject slugs). db:push successful.
+   - Updated /api/onboarding endpoint to accept and persist `interests` array (max 10).
+   - Updated OnboardingModal to send `interests` in the finish() call.
+   - Updated session helper (getCurrentUserWithStats) to return interests field.
+   - Enhanced /api/me recommendations engine: new 3-tier strategy — (1) engaged subjects from history, (2) interested subjects from onboarding, (3) difficulty-matched fallback. Verified via DB: 6 recommendations from Python/DSA/Algorithms/ML interests.
+3. Share tutorial button:
+   - New ShareButton component: uses navigator.share API if available (mobile native share sheet), falls back to clipboard copy with "Link copied!" toast.
+   - Renders in tutorial reader action bar for both authed and unauthed users.
+   - Generates shareable URL with ?t=slug query param.
+4. Difficulty filter on subject view:
+   - New DifficultyFilter component: shows filter pills (All levels / Beginner / Intermediate / Advanced) when subject has 2+ difficulties.
+   - Auto-detects available difficulties from subject's tutorials.
+5. Card hover lift micro-interaction:
+   - New .card-lift CSS utility: translateY(-2px) on hover with smooth transition.
+   - Applied to browse view subject cards and home view featured subject cards.
+   - New .animate-fade-in-up keyframe animation utility for content fade-in.
+6. Mobile responsive fixes:
+   - Tutorial reader action buttons: changed from `flex` to `flex-wrap` so buttons wrap on narrow screens instead of overflowing.
+   - Dashboard already uses lg:grid-cols-3 (collapses to single column on mobile).
+   - Tutorial reader already uses lg:grid-cols-[1fr_240px] (TOC sidebar hidden on mobile, content full-width).
+
+Verification:
+- Lint clean (eslint . — no errors).
+- DB verification: onboarding interests saved correctly ("python,data-structures,algorithms,machine-learning"), parsed to array, resolved to 4 subjects, generated 6 recommendations.
+- Server returns HTTP 200 on homepage.
+- Platform independence maintained: no new external dependencies.
+- Prisma schema updated with interests field, db:push successful.
+
+Stage Summary:
+- Pass 2 iteration 4 complete. Added 6 features + mobile fixes. Backend verified via DB. Ready for next improvement pass (accessibility audit, more content, weekly streak calendar, performance optimization).

@@ -130,7 +130,7 @@ export function BrowseView() {
                   onClick={() => navigate("subject", { subjectSlug: s.slug })}
                   className="text-left group"
                 >
-                  <Card className="h-full hover:border-primary/40 hover:shadow-md transition-all overflow-hidden">
+                  <Card className="h-full hover:border-primary/40 hover:shadow-md transition-all overflow-hidden card-lift">
                     <div
                       className="h-1.5 w-full"
                       style={{ background: s.color }}
