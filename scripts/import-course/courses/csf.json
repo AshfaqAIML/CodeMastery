@@ -1,0 +1,81 @@
+{
+  "course": {
+    "slug": "computer-science-foundations",
+    "name": "Computer Science Foundations",
+    "tagline": "The complete foundations course - from bits to the cloud.",
+    "description": "A full 35-part guided course covering everything from what a computer is to cloud computing and AI. Each part explains every term on first use, with worked examples, analogies, tables, diagrams, and self-assessment. Includes a course guide with the complete syllabus (Units A-I).",
+    "icon": "Cpu",
+    "color": "oklch(0.62 0.15 162)",
+    "category": "Foundations",
+    "order": 2,
+    "guideTitle": "Computer Science Foundations - Course Guide & Syllabus"
+  },
+  "path": {
+    "slug": "computer-science-foundation",
+    "title": "Computer Science Foundation",
+    "tagline": "The complete foundations roadmap - guide plus Parts 1-29 in order.",
+    "description": "Follow the course exactly as the book prescribes: orientation, representation, hardware, software, computation, systems and networks, data/security/engineering, and modern computing. Each step is one part of the Computer Science Foundations subject.",
+    "icon": "GraduationCap",
+    "color": "oklch(0.8 0.16 75)",
+    "estimatedHours": 60
+  },
+  "slugOverrides": {
+    "1": "introduction-to-computer-science"
+  },
+  "units": [
+    {
+      "slug": "unit-a-orientation",
+      "title": "Unit A - Orientation",
+      "summary": "How this course works and the very first concepts: what Computer Science is, what a computer is, and why it matters.",
+      "parts": [1]
+    },
+    {
+      "slug": "unit-b-representation",
+      "title": "Unit B - How Computers Represent Information",
+      "summary": "Number systems, bits and bytes, and how numbers, text, images, audio, and video all become binary.",
+      "parts": [2, 3, 4, 5, 6]
+    },
+    {
+      "slug": "unit-c-hardware",
+      "title": "Unit C - Computer Hardware",
+      "summary": "The physical machine: CPU, memory, storage, motherboard, and the boot process.",
+      "parts": [7, 8, 9, 10, 11, 12]
+    },
+    {
+      "slug": "unit-d-software",
+      "title": "Unit D - Software and Programming",
+      "summary": "Software fundamentals, programming fundamentals, and how code becomes running programs.",
+      "parts": [13, 14, 15]
+    },
+    {
+      "slug": "unit-e-computation",
+      "title": "Unit E - Problem Solving and Computation",
+      "summary": "Algorithms, computational thinking, complexity, and data structures.",
+      "parts": [16, 17, 18, 19]
+    },
+    {
+      "slug": "unit-f-systems-networks",
+      "title": "Unit F - Systems and Networks",
+      "summary": "Operating systems, files and file systems, computer networking, and the Internet.",
+      "parts": [20, 21, 22, 23]
+    },
+    {
+      "slug": "unit-g-data-security",
+      "title": "Unit G - Data, Security, and Software Engineering",
+      "summary": "Databases, security, software engineering practices, abstraction and architecture, and APIs.",
+      "parts": [24, 25, 26, 27, 28]
+    },
+    {
+      "slug": "unit-h-modern",
+      "title": "Unit H - Modern Computing",
+      "summary": "Cloud computing, virtualization and containers, parallelism and concurrency, and distributed systems - the modern computing landscape.",
+      "parts": [29, 30, 31, 32]
+    },
+    {
+      "slug": "unit-i-ai-integration",
+      "title": "Unit I - Artificial Intelligence and Integration",
+      "summary": "AI and machine learning foundations, modern AI engineering (transformers, LLMs, RAG, agents), and how everything connects.",
+      "parts": [33, 34, 35]
+    }
+  ]
+}
