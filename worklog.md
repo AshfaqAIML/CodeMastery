@@ -1147,3 +1147,66 @@ CodeMastery is a production-grade Computer Science learning platform. All major 
 5. Add service worker for offline support
 6. Add breadcrumb structured data to subject pages
 7. Performance profiling with Lighthouse in production
+
+---
+Task ID: DASHBOARD-SPLIT + TESTING
+Agent: World-Class Product Team
+Task: Split dashboard-view.tsx + set up vitest + playwright
+
+## Dashboard Split (527 → 136 lines)
+
+Extracted 8 sub-components from dashboard-view.tsx:
+
+| Component | Lines | Responsibility |
+|-----------|-------|---------------|
+| `stat-card.tsx` | 28 | Reusable stat card with icon, value, extra |
+| `quick-link.tsx` | 24 | Navigation link with icon, label, value |
+| `continue-learning.tsx` | 72 | In-progress tutorials with progress bars |
+| `recent-activity.tsx` | 67 | Activity feed with timeAgo + labels |
+| `recommendations.tsx` | 66 | AI-recommended tutorial cards |
+| `recently-viewed.tsx` | 66 | Recently viewed tutorials list |
+| `daily-challenge-widget.tsx` | 88 | Daily challenge card with XP bonus |
+| `daily-goal.tsx` | 35 | Daily XP goal progress bar |
+| `level-card.tsx` | 27 | Level badge + XP bar with milestones |
+| `quick-links.tsx` | 30 | Quick navigation links card |
+
+Main dashboard-view.tsx: **136 lines** (was 527, -74%)
+Each component is focused, reusable, and independently testable.
+
+## Automated Testing Setup
+
+### Vitest (Unit Tests)
+- Installed: vitest, @testing-library/react, @testing-library/jest-dom, jsdom, @vitejs/plugin-react
+- Config: `vitest.config.ts` (jsdom environment, path alias @/)
+- Setup: `tests/setup.ts` (jest-dom matchers, cleanup, mocks for next/router, next-auth, next-themes)
+- Test scripts: `bun run test` (run), `bun run test:watch` (watch mode)
+
+### Test Files (31 tests, all passing)
+| File | Tests | Coverage |
+|------|-------|----------|
+| `gamification.test.ts` | 15 | XP/level math, streak computation |
+| `utils.test.ts` | 4 | cn() utility class merging |
+| `stat-card.test.tsx` | 3 | Dashboard stat card rendering |
+| `quick-link.test.tsx` | 3 | Dashboard quick link + onClick |
+| `daily-goal.test.tsx` | 3 | Daily goal progress + messages |
+| `empty-state.test.tsx` | 3 | Empty state component rendering |
+
+### Playwright (E2E Tests)
+- Installed: @playwright/test
+- Config: `playwright.config.ts` (Chromium, auto-start dev server)
+- Test scripts: `bun run test:e2e` (run), `bun run test:e2e:ui` (UI mode)
+
+### E2E Test Files (4 files, 25 tests)
+| File | Tests | Coverage |
+|------|-------|----------|
+| `homepage.spec.ts` | 8 | Hero, subjects, nav, search, theme, footer, SEO |
+| `browse.spec.ts` | 2 | Subject cards, search filtering |
+| `auth.spec.ts` | 3 | Sign in modal, register modal, invalid credentials |
+| `api.spec.ts` | 10 | Health, subjects, leaderboard, daily-challenge, AI status, protected endpoints, search, sitemap, robots, manifest |
+
+## Verification
+- ✅ Lint clean
+- ✅ 31 unit tests pass
+- ✅ Server returns HTTP 200
+- ✅ Dashboard refactored (527 → 136 lines)
+- ✅ Platform independence maintained
