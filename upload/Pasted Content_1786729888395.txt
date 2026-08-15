@@ -1,0 +1,2173 @@
+# Master Prompt: Build a Complete Computer Science Tutorial & Learning Platform
+
+Design and develop a **modern, production-ready Computer Science Learning & Tutorial Platform** where users can learn Computer Science, Programming, Data Science, Artificial Intelligence, Machine Learning, Deep Learning, Generative AI, AI Agents, Agentic AI, Software Engineering, and System Design through structured, easy-to-read tutorials.
+
+The platform should feel like a combination of a **Computer Science documentation website, interactive learning platform, personal learning dashboard, and gamified reading application**.
+
+The primary goal is:
+
+> **Help users learn Computer Science from beginner level to advanced level through structured tutorials while motivating them to learn consistently using streaks, points, levels, ranks, achievements, progress tracking, and learning analytics.**
+
+---
+
+# 1. Platform Vision
+
+Create a website where a user can visit and learn almost any major Computer Science topic from a single platform.
+
+The learning journey should be structured from:
+
+**C Programming → C++ → Java → Python → Data Structures → Algorithms → Databases → Operating Systems → Computer Networks → Software Engineering → Web Development → Data Science → Machine Learning → Deep Learning → Computer Vision → NLP → Generative AI → LLMs → AI Agents → Agentic AI → MLOps → Cloud → Distributed Systems → System Design**
+
+The platform should support both:
+
+* Beginners who are starting Computer Science
+* Advanced learners preparing for technical interviews, jobs, projects, and professional development
+
+---
+
+# 2. Core Website Concept
+
+Build the platform around five major experiences:
+
+### Learn
+
+Users browse and read structured tutorials.
+
+### Track
+
+Users can see their learning progress, completed tutorials, pages read, subjects completed, streaks, points, levels, and achievements.
+
+### Practice
+
+Users can solve quizzes, coding questions, exercises, and knowledge checks related to tutorials.
+
+### Compete
+
+Users earn points and ranks based on meaningful learning activity.
+
+### Build
+
+Users can use project-based learning paths to apply what they learn.
+
+---
+
+# 3. Main Website Navigation
+
+Create a clean navigation system containing:
+
+* Home
+* Tutorials
+* Learning Paths
+* Subjects
+* Practice
+* Projects
+* Leaderboard
+* Roadmaps
+* Resources
+* Community
+* Dashboard
+
+Authenticated users should additionally see:
+
+* My Learning
+* Bookmarks
+* Notes
+* Achievements
+* Progress
+* Profile
+* Settings
+
+---
+
+# 4. Homepage
+
+Create a highly polished landing page.
+
+The hero section should communicate the platform's purpose clearly.
+
+Example messaging:
+
+**Learn Computer Science. One Tutorial at a Time.**
+
+Supporting text:
+
+> Master programming, algorithms, databases, AI, machine learning, system design, and modern Computer Science through structured tutorials designed for practical learning.
+
+Primary CTA:
+
+**Start Learning**
+
+Secondary CTA:
+
+**Explore Tutorials**
+
+The homepage should contain:
+
+### Hero Section
+
+* Large headline
+* Supporting description
+* Start Learning button
+* Explore Subjects button
+* Animated/interactive Computer Science visual
+* Learning statistics
+
+### Popular Subjects
+
+Display subject cards such as:
+
+* C Programming
+* C++
+* Python
+* Java
+* DSA
+* SQL
+* DBMS
+* Operating Systems
+* Computer Networks
+* Web Development
+* Data Science
+* Machine Learning
+* Deep Learning
+* Generative AI
+* LLMs
+* AI Agents
+* System Design
+
+### Learning Paths
+
+Show curated paths such as:
+
+* Beginner Computer Science
+* Python Developer
+* Data Analyst
+* Data Scientist
+* Machine Learning Engineer
+* AI Engineer
+* Generative AI Engineer
+* Full Stack Developer
+* Backend Developer
+* Software Engineer
+* System Design Interview Preparation
+
+### Why Learn Here?
+
+Explain:
+
+* Structured tutorials
+* Beginner-friendly explanations
+* Practical examples
+* Code examples
+* Visual explanations
+* Quizzes
+* Progress tracking
+* Learning streaks
+* Gamification
+* Projects
+* Career-oriented learning
+
+### Platform Statistics
+
+Display metrics such as:
+
+* Tutorials
+* Subjects
+* Learning Paths
+* Code Examples
+* Projects
+* Active Learners
+
+---
+
+# 5. Subject Architecture
+
+The platform must organize tutorials hierarchically.
+
+Use the structure:
+
+**Category → Subject → Module → Chapter → Tutorial → Sections**
+
+For example:
+
+Computer Science
+→ Programming
+→ Python
+→ Python Basics
+→ Variables and Data Types
+→ Tutorial
+
+Another example:
+
+Artificial Intelligence
+→ Machine Learning
+→ Supervised Learning
+→ Regression
+→ Linear Regression
+→ Tutorial
+
+Another:
+
+Artificial Intelligence
+→ Generative AI
+→ LLMs
+→ Transformer Architecture
+→ Self-Attention
+→ Tutorial
+
+---
+
+# 6. Complete Subject Categories
+
+Create a scalable subject taxonomy.
+
+## Programming
+
+Include:
+
+* C
+* C++
+* Java
+* Python
+* JavaScript
+* TypeScript
+* Go
+* Rust
+* PHP
+* Kotlin
+* Swift
+
+## Data Structures & Algorithms
+
+Include:
+
+* Arrays
+* Strings
+* Linked Lists
+* Stack
+* Queue
+* Hash Tables
+* Trees
+* Binary Trees
+* BST
+* Heaps
+* Graphs
+* Tries
+* Recursion
+* Backtracking
+* Sorting
+* Searching
+* Greedy Algorithms
+* Dynamic Programming
+* Graph Algorithms
+* Advanced Algorithms
+* Competitive Programming
+
+## Computer Science Fundamentals
+
+Include:
+
+* Computer Organization
+* Operating Systems
+* Computer Networks
+* DBMS
+* Database Design
+* SQL
+* OOP
+* Software Engineering
+* Compiler Design
+* Distributed Systems
+* Computer Architecture
+
+## Web Development
+
+Include:
+
+* HTML
+* CSS
+* JavaScript
+* React
+* Next.js
+* Node.js
+* Express
+* REST APIs
+* GraphQL
+* Authentication
+* Web Security
+* Backend Development
+* Full Stack Development
+
+## Data Science
+
+Include:
+
+* Python for Data Science
+* NumPy
+* Pandas
+* Matplotlib
+* Seaborn
+* Statistics
+* Probability
+* Data Cleaning
+* Exploratory Data Analysis
+* Feature Engineering
+* Data Visualization
+* SQL for Data Science
+* Business Analytics
+
+## Machine Learning
+
+Include:
+
+* ML Fundamentals
+* Linear Regression
+* Logistic Regression
+* Decision Trees
+* Random Forest
+* SVM
+* KNN
+* Naive Bayes
+* Clustering
+* PCA
+* Ensemble Learning
+* Feature Selection
+* Model Evaluation
+* Hyperparameter Tuning
+* Cross Validation
+* Recommendation Systems
+* Time Series
+
+## Deep Learning
+
+Include:
+
+* Neural Networks
+* Perceptron
+* Activation Functions
+* Backpropagation
+* Optimization
+* CNN
+* RNN
+* LSTM
+* GRU
+* Autoencoders
+* GANs
+* Transformers
+* Transfer Learning
+
+## Computer Vision
+
+Include:
+
+* Image Processing
+* OpenCV
+* Image Classification
+* Object Detection
+* Segmentation
+* YOLO
+* CNN
+* Vision Transformers
+* Image Retrieval
+* Explainable AI
+* Multimodal Vision
+
+## NLP
+
+Include:
+
+* Text Processing
+* Tokenization
+* Embeddings
+* Word2Vec
+* RNN/LSTM
+* Attention
+* Transformers
+* BERT
+* Text Classification
+* Named Entity Recognition
+* Question Answering
+* Information Retrieval
+
+## Generative AI
+
+Include:
+
+* Generative AI Fundamentals
+* LLMs
+* Transformers
+* Prompt Engineering
+* Embeddings
+* Vector Databases
+* RAG
+* Fine-Tuning
+* LoRA
+* Function Calling
+* Structured Outputs
+* Multimodal AI
+* AI Safety
+* LLM Evaluation
+
+## AI Agents
+
+Include:
+
+* AI Agents Fundamentals
+* Agent Architecture
+* Tool Calling
+* Function Calling
+* Planning
+* Memory
+* Reflection
+* Reasoning
+* Agent Loops
+* Multi-Agent Systems
+* Agent Frameworks
+* Agent Evaluation
+* Agent Safety
+
+## Agentic AI
+
+Include:
+
+* Agentic Workflows
+* Autonomous Agents
+* Multi-Agent Collaboration
+* Human-in-the-Loop
+* Agent Orchestration
+* Long-Term Memory
+* Tool Use
+* Planning Systems
+* Agentic RAG
+* Enterprise Agents
+* Agentic AI Architecture
+
+## MLOps
+
+Include:
+
+* ML Lifecycle
+* Model Deployment
+* Docker
+* Kubernetes
+* MLflow
+* DVC
+* CI/CD
+* Model Monitoring
+* Model Versioning
+* Feature Stores
+* Cloud ML
+* Production ML Systems
+
+## Cloud & DevOps
+
+Include:
+
+* Linux
+* Git
+* GitHub
+* Docker
+* Kubernetes
+* AWS
+* Azure
+* Google Cloud
+* CI/CD
+* Infrastructure
+* Monitoring
+
+## System Design
+
+Include:
+
+* System Design Fundamentals
+* Scalability
+* Availability
+* Reliability
+* CAP Theorem
+* Load Balancing
+* Caching
+* Databases
+* Replication
+* Sharding
+* Message Queues
+* Microservices
+* Event-Driven Architecture
+* Distributed Systems
+* API Design
+* Security
+* Observability
+* High-Level Design
+* Low-Level Design
+* System Design Interview Problems
+
+---
+
+# 7. Tutorial Reading Experience
+
+This is the most important part of the platform.
+
+Create a professional tutorial reading interface similar to high-quality technical documentation platforms.
+
+Layout:
+
+**Left Sidebar**
+
+* Subject
+* Modules
+* Chapters
+* Tutorial navigation
+* Progress indicators
+
+**Center Content**
+
+* Tutorial title
+* Difficulty
+* Estimated reading time
+* Author
+* Last updated date
+* Main tutorial content
+
+**Right Sidebar**
+
+* Table of contents
+* Current progress
+* Related tutorials
+* Quick navigation
+
+The center content should support:
+
+* Headings
+* Paragraphs
+* Code blocks
+* Syntax highlighting
+* Tables
+* Images
+* Diagrams
+* Mathematical formulas
+* Callout boxes
+* Tips
+* Warnings
+* Examples
+* Definitions
+* Interview questions
+* Exercises
+* Quizzes
+
+---
+
+# 8. Tutorial Page Structure
+
+Every tutorial should follow a consistent structure.
+
+Example:
+
+### What You Will Learn
+
+### Introduction
+
+### Prerequisites
+
+### Concept Explanation
+
+### Real-World Analogy
+
+### Syntax
+
+### Example
+
+### Code Example
+
+### Expected Output
+
+### How It Works
+
+### Common Mistakes
+
+### Best Practices
+
+### Real-World Applications
+
+### Interview Questions
+
+### Practice Questions
+
+### Quick Quiz
+
+### Summary
+
+### Key Takeaways
+
+### Next Tutorial
+
+At the bottom provide:
+
+**Previous Tutorial | Mark as Complete | Next Tutorial**
+
+---
+
+# 9. Reading Progress Tracking
+
+The platform must track reading progress automatically.
+
+Track:
+
+* Pages opened
+* Pages completed
+* Tutorials started
+* Tutorials completed
+* Reading time
+* Scroll/read percentage
+* Subjects started
+* Subjects completed
+* Learning paths completed
+* Daily activity
+* Weekly activity
+* Monthly activity
+
+A tutorial should not be counted as completely read simply because the user opens it.
+
+Use meaningful completion logic such as:
+
+* Reading progress reaches a threshold
+* User reaches the bottom
+* User spends reasonable time on the tutorial
+* User optionally marks it complete
+
+Avoid allowing users to easily exploit the points system by repeatedly opening pages.
+
+---
+
+# 10. Gamification System
+
+Build a comprehensive gamification system.
+
+## Points
+
+Users earn points for meaningful learning activities.
+
+Example:
+
+* Read tutorial page: +5 points
+* Complete tutorial: +25 points
+* Complete quiz: +20 points
+* Pass quiz: bonus points
+* Complete learning path: +500 points
+* Daily learning activity: bonus
+* Maintain streak: bonus
+* Complete project: large bonus
+
+Add daily and weekly point limits where appropriate to prevent abuse.
+
+---
+
+# 11. Streak System
+
+Create a learning streak system.
+
+Display:
+
+**Current Streak**
+
+Example:
+
+🔥 12 Days
+
+Also display:
+
+* Longest streak
+* Today's activity
+* Weekly activity
+* Monthly activity
+* Streak calendar
+
+A day should count toward the streak when the user performs meaningful learning activity, such as completing a tutorial section, reading a sufficient number of pages, or passing a quiz.
+
+Do not reward meaningless repeated page refreshes.
+
+---
+
+# 12. Ranking System
+
+Create a ranking system based primarily on learning progress.
+
+Rank users based on:
+
+* Total pages meaningfully read
+* Tutorials completed
+* Points earned
+* Quizzes completed
+* Learning paths completed
+
+Create multiple leaderboards:
+
+### Global Leaderboard
+
+All users.
+
+### Weekly Leaderboard
+
+Reset/recalculate weekly.
+
+### Monthly Leaderboard
+
+Monthly ranking.
+
+### Subject Leaderboard
+
+Example:
+
+* Python leaderboard
+* Machine Learning leaderboard
+* DSA leaderboard
+* AI leaderboard
+
+### Friends Leaderboard
+
+Allow users to compare progress with friends.
+
+---
+
+# 13. User Levels
+
+Create a progression system.
+
+Example:
+
+**Level 1 — Beginner**
+
+**Level 2 — Explorer**
+
+**Level 3 — Learner**
+
+**Level 4 — Developer**
+
+**Level 5 — Problem Solver**
+
+**Level 6 — Engineer**
+
+**Level 7 — Specialist**
+
+**Level 8 — Advanced Engineer**
+
+**Level 9 — Expert**
+
+**Level 10 — Computer Scientist**
+
+Use XP/points thresholds to unlock levels.
+
+Display:
+
+* Current level
+* XP
+* XP required for next level
+* Progress bar
+
+---
+
+# 14. Achievements
+
+Create achievement badges.
+
+Examples:
+
+* First Tutorial
+* First 100 Pages
+* 1,000 Pages Read
+* 10 Tutorials Completed
+* 7-Day Streak
+* 30-Day Streak
+* 100-Day Streak
+* Python Beginner
+* DSA Explorer
+* SQL Master
+* ML Explorer
+* AI Explorer
+* LLM Learner
+* Agent Builder
+* System Design Learner
+* Night Learner
+* Weekend Learner
+* Consistent Learner
+* Quiz Master
+* Learning Path Completed
+
+---
+
+# 15. User Dashboard
+
+Create a highly polished personalized dashboard.
+
+The dashboard should show:
+
+### Welcome Section
+
+"Good evening, Kamraan."
+
+or dynamically use the user's name.
+
+### Today's Progress
+
+Show:
+
+* Pages read today
+* Tutorials completed
+* Minutes learned
+* Points earned
+* Current streak
+
+### Learning Streak
+
+Display a visual streak card.
+
+### Level
+
+Show:
+
+* Current level
+* XP
+* Progress toward next level
+
+### Continue Learning
+
+Show tutorials that the user has started but not completed.
+
+### Recommended Tutorials
+
+Recommend content based on:
+
+* Previous reading
+* Subjects followed
+* Skill level
+* Learning paths
+* User interests
+
+### Weekly Learning Activity
+
+Show a GitHub-style activity heatmap.
+
+### Subject Progress
+
+Example:
+
+Python — 68%
+
+DSA — 42%
+
+Machine Learning — 31%
+
+SQL — 74%
+
+### Recent Achievements
+
+Show recently unlocked badges.
+
+### Leaderboard Position
+
+Example:
+
+**Global Rank: #247**
+
+### Learning Statistics
+
+Show:
+
+* Total pages read
+* Total tutorials completed
+* Total learning time
+* Total points
+* Longest streak
+* Quizzes completed
+
+---
+
+# 16. User Profile
+
+Create public user profiles.
+
+Profile should include:
+
+* Avatar
+* Name
+* Username
+* Bio
+* Level
+* Points
+* Rank
+* Streak
+* Tutorials completed
+* Pages read
+* Achievements
+* Learning paths
+* Skills
+* Activity graph
+
+Privacy controls should allow users to choose whether their profile and statistics are public.
+
+---
+
+# 17. Bookmarks
+
+Users should be able to bookmark:
+
+* Tutorials
+* Individual sections
+* Code examples
+* Important concepts
+
+Create a dedicated:
+
+**My Bookmarks**
+
+page.
+
+Allow:
+
+* Search
+* Filter
+* Sort
+* Remove bookmark
+* Add personal notes
+
+---
+
+# 18. Notes
+
+Allow users to create notes while learning.
+
+Users should be able to:
+
+* Highlight text
+* Add notes
+* Edit notes
+* Delete notes
+* View all notes
+* Search notes
+* Link notes to tutorials
+
+---
+
+# 19. Search
+
+Implement powerful global search.
+
+Search across:
+
+* Tutorials
+* Subjects
+* Topics
+* Code examples
+* Learning paths
+* Projects
+* Questions
+
+Search should support:
+
+* Keyword search
+* Fuzzy search
+* Filters
+* Difficulty
+* Subject
+* Technology
+* Tutorial type
+
+Example:
+
+Searching for:
+
+**"attention"**
+
+should return:
+
+* Self-Attention
+* Multi-Head Attention
+* Attention Mechanism
+* Transformer Attention
+* Attention in NLP
+* Attention in Vision Transformers
+
+---
+
+# 20. Learning Paths
+
+Create structured learning journeys.
+
+Examples:
+
+### Computer Science Beginner Path
+
+C → Data Structures → Algorithms → DBMS → OS → Networks → Software Engineering
+
+### Data Analyst Path
+
+Python → NumPy → Pandas → SQL → Statistics → Data Cleaning → Visualization → Projects
+
+### Machine Learning Engineer Path
+
+Python → Mathematics → Statistics → ML → Deep Learning → Deployment → MLOps
+
+### AI Engineer Path
+
+Python → ML → Deep Learning → NLP → Transformers → LLMs → RAG → Agents → Deployment
+
+### Generative AI Engineer Path
+
+Python → LLM Fundamentals → Prompt Engineering → Embeddings → Vector DB → RAG → Fine-Tuning → Agents → Production
+
+### System Design Path
+
+Networking → Databases → Distributed Systems → Scalability → Caching → Queues → Microservices → System Design Problems
+
+---
+
+# 21. Difficulty Levels
+
+Every tutorial should have:
+
+* Beginner
+* Intermediate
+* Advanced
+* Expert
+
+Display difficulty visually but accessibly.
+
+---
+
+# 22. Practice System
+
+Every major tutorial should optionally contain practice.
+
+Include:
+
+* Multiple choice questions
+* True/False
+* Fill in the blanks
+* Output prediction
+* Concept questions
+* Coding questions
+* Interview questions
+
+After completing a quiz show:
+
+* Score
+* Correct answers
+* Explanations
+* Points earned
+* Improvement suggestions
+
+---
+
+# 23. Coding Playground
+
+Where relevant, include an interactive coding environment.
+
+For example:
+
+Python tutorial:
+
+```python
+print("Hello, World!")
+```
+
+Allow users to edit and execute code when technically feasible.
+
+Support future integration with:
+
+* Python
+* JavaScript
+* C
+* C++
+* Java
+* SQL
+
+The execution environment must be sandboxed securely.
+
+---
+
+# 24. Admin Dashboard
+
+Create a complete admin CMS.
+
+Admin should be able to manage:
+
+### Tutorials
+
+* Create
+* Edit
+* Delete
+* Publish
+* Unpublish
+* Draft
+* Schedule
+
+### Subjects
+
+* Create categories
+* Create subjects
+* Reorder modules
+* Reorder tutorials
+
+### Users
+
+* View users
+* Search users
+* Suspend users
+* Manage roles
+
+### Analytics
+
+Show:
+
+* Daily active users
+* Monthly active users
+* Tutorial views
+* Tutorials completed
+* Pages read
+* Average reading time
+* Popular subjects
+* Popular tutorials
+* Retention
+* Streak statistics
+* Quiz performance
+
+### Gamification
+
+Admin can configure:
+
+* Points
+* XP
+* Levels
+* Achievements
+* Ranking rules
+
+---
+
+# 25. Content Management System
+
+Build the content architecture so thousands of tutorials can eventually be hosted.
+
+Each tutorial should contain metadata:
+
+```text
+title
+slug
+description
+category
+subject
+module
+difficulty
+estimated_reading_time
+author
+tags
+content
+prerequisites
+learning_objectives
+published_at
+updated_at
+status
+```
+
+Support Markdown or a rich content editor.
+
+---
+
+# 26. Recommended Database Entities
+
+Design a scalable database containing entities such as:
+
+```text
+User
+Profile
+Role
+Category
+Subject
+Module
+Tutorial
+TutorialSection
+TutorialPage
+LearningPath
+LearningPathItem
+Progress
+ReadingSession
+Bookmark
+Note
+Quiz
+Question
+QuizAttempt
+Achievement
+UserAchievement
+PointsTransaction
+Streak
+UserLevel
+Leaderboard
+Project
+UserProject
+Notification
+UserSettings
+```
+
+Use proper relationships and indexes.
+
+---
+
+# 27. Recommended Tech Stack
+
+Build the application using a modern production-ready stack.
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+* Responsive design
+* Dark/light mode
+
+### Backend
+
+Use either:
+
+* Next.js server architecture
+
+or
+
+* FastAPI / Node.js backend
+
+depending on architecture requirements.
+
+### Database
+
+Use:
+
+* PostgreSQL
+
+### Authentication
+
+Support:
+
+* Email/password
+* Google login
+* GitHub login
+
+Use secure authentication and session management.
+
+### Content
+
+Use Markdown/MDX or a CMS-style database-backed content system.
+
+### Deployment
+
+Design for:
+
+* Vercel
+* Docker
+* PostgreSQL hosting
+* Cloud object storage where required
+
+---
+
+# 28. UI/UX Design
+
+The interface should feel like a premium modern developer education platform.
+
+Design principles:
+
+* Clean
+* Minimal
+* Professional
+* Fast
+* Developer-focused
+* Accessible
+* Mobile responsive
+
+Use:
+
+* Cards
+* Soft borders
+* Clear typography
+* Code blocks
+* Progress bars
+* Charts
+* Activity heatmaps
+* Badges
+* Tooltips
+* Tabs
+* Breadcrumbs
+* Sidebars
+* Search
+
+Avoid excessive visual clutter.
+
+The tutorial reading experience should prioritize **readability over decoration**.
+
+---
+
+# 29. Dark Mode
+
+Dark mode is especially important because developers frequently study at night.
+
+Provide:
+
+* Light mode
+* Dark mode
+* System preference
+
+Code blocks should use a professional syntax-highlighting theme.
+
+---
+
+# 30. Responsive Design
+
+The website must work perfectly on:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile
+
+On mobile:
+
+* Convert sidebars into collapsible drawers
+* Keep reading experience comfortable
+* Keep progress visible
+* Make navigation easy
+* Optimize code blocks horizontally
+* Keep dashboard cards responsive
+
+---
+
+# 31. Notifications
+
+Create a notification system for:
+
+* Streak reminders
+* Achievement unlocked
+* Level up
+* Tutorial completion
+* Learning path completion
+* Weekly progress
+* Leaderboard changes
+* Recommended tutorials
+
+Allow users to control notification preferences.
+
+---
+
+# 32. Personalized Recommendations
+
+Build a recommendation system.
+
+Recommend tutorials based on:
+
+* Recently read subjects
+* Completed tutorials
+* Skill level
+* Bookmarks
+* Learning paths
+* Quiz results
+* Reading history
+
+Example:
+
+If a user completes:
+
+**Python Functions**
+
+recommend:
+
+**Python Modules → Exception Handling → File Handling → OOP**
+
+---
+
+# 33. SEO
+
+Make the tutorial platform highly SEO-friendly.
+
+Every tutorial should have:
+
+* SEO title
+* Meta description
+* Canonical URL
+* Open Graph metadata
+* Structured data
+* Clean URL
+* Sitemap
+* Robots configuration
+
+Example URL:
+
+```text
+/tutorials/python/variables
+/tutorials/python/functions
+/tutorials/machine-learning/linear-regression
+/tutorials/deep-learning/cnn
+/tutorials/llms/self-attention
+/tutorials/ai-agents/tool-calling
+/tutorials/system-design/load-balancing
+```
+
+Tutorial pages should be indexable by search engines.
+
+---
+
+# 34. Performance
+
+Optimize for:
+
+* Fast page loading
+* Server-side rendering where appropriate
+* Static generation for tutorials
+* Image optimization
+* Lazy loading
+* Code splitting
+* Database indexing
+* Caching
+
+Target excellent Core Web Vitals.
+
+---
+
+# 35. Accessibility
+
+Follow accessibility best practices.
+
+Support:
+
+* Keyboard navigation
+* Screen readers
+* Proper heading hierarchy
+* ARIA labels
+* Sufficient contrast
+* Focus states
+* Accessible forms
+* Accessible code blocks
+
+---
+
+# 36. Security
+
+Implement:
+
+* Secure authentication
+* Password hashing
+* CSRF protection where applicable
+* Rate limiting
+* Input validation
+* XSS protection
+* SQL injection protection
+* Secure API endpoints
+* Role-based access control
+* Sandboxed code execution
+* Secure file uploads
+
+Never trust client-side points or progress values.
+
+All gamification calculations should be validated server-side.
+
+---
+
+# 37. Anti-Cheating System
+
+Because the platform uses pages read, points, streaks, and ranks, prevent users from manipulating the system.
+
+Do not award points simply for:
+
+* Refreshing pages
+* Opening the same tutorial repeatedly
+* Rapidly clicking pages
+* Automated requests
+
+Use:
+
+* Reading sessions
+* Completion thresholds
+* Time thresholds
+* Server-side validation
+* Daily limits
+* Duplicate activity detection
+* Suspicious activity detection
+
+---
+
+# 38. Analytics Dashboard
+
+Provide users with personal analytics.
+
+Display:
+
+### Learning Time
+
+Daily / weekly / monthly.
+
+### Pages Read
+
+Daily / weekly / monthly.
+
+### Tutorials Completed
+
+Track progress over time.
+
+### Subject Distribution
+
+Show what areas the user studies most.
+
+### Learning Consistency
+
+Display calendar heatmap.
+
+### Performance
+
+Show quiz scores and improvement.
+
+---
+
+# 39. Leaderboard Design
+
+Create a visually attractive leaderboard.
+
+Columns:
+
+```text
+Rank
+User
+Level
+Pages Read
+Tutorials Completed
+Points
+Streak
+```
+
+Highlight the current user.
+
+Include filters:
+
+* Global
+* Weekly
+* Monthly
+* Subject
+* Friends
+
+---
+
+# 40. Tutorial Completion Experience
+
+When a user completes a tutorial, display a completion card:
+
+**Tutorial Completed!**
+
+Show:
+
+* Points earned
+* XP earned
+* New achievements
+* Current streak
+* Updated rank
+* Next recommended tutorial
+
+Example:
+
+> You completed "Python Functions"
+> +25 XP
+> +10 Points
+> 🔥 8 Day Streak
+> Global Rank: #342
+
+---
+
+# 41. Career-Oriented Features
+
+Eventually add career-focused learning.
+
+Include:
+
+* Interview preparation
+* Coding interview tutorials
+* System design interview preparation
+* Resume resources
+* Project ideas
+* Skill assessments
+* Career roadmaps
+* Job-oriented learning paths
+
+---
+
+# 42. Project Library
+
+Create project-based learning.
+
+Examples:
+
+### Python
+
+* Calculator
+* File Organizer
+* Web Scraper
+* REST API
+
+### Data Science
+
+* Sales Dashboard
+* Customer Churn Prediction
+* House Price Prediction
+
+### Machine Learning
+
+* Recommendation System
+* Spam Classifier
+* Image Classifier
+
+### Deep Learning
+
+* Image Classification
+* Object Detection
+
+### Generative AI
+
+* RAG Chatbot
+* Document Q&A
+* AI Assistant
+
+### Agentic AI
+
+* Research Agent
+* Coding Agent
+* Multi-Agent Research System
+
+### System Design
+
+* URL Shortener
+* Chat System
+* Ride Sharing System
+* Video Streaming Platform
+
+---
+
+# 43. Community Features
+
+Design the architecture so a community can be added later.
+
+Potential features:
+
+* Discussions
+* Questions & Answers
+* Tutorial comments
+* User posts
+* Study groups
+* Follow users
+* Friends
+* Shared learning progress
+
+---
+
+# 44. Global Search Experience
+
+Create a command-palette style search.
+
+Shortcut:
+
+```text
+Ctrl + K
+```
+
+Search:
+
+```text
+Python
+Machine Learning
+SQL Joins
+Transformers
+RAG
+AI Agents
+System Design
+```
+
+Show categorized results.
+
+---
+
+# 45. Onboarding
+
+When a new user registers, provide an onboarding flow.
+
+Ask:
+
+### What is your current level?
+
+* Beginner
+* Intermediate
+* Advanced
+
+### What do you want to learn?
+
+Allow multiple selections:
+
+* Programming
+* Web Development
+* Data Science
+* AI
+* ML
+* Deep Learning
+* GenAI
+* System Design
+* Interview Preparation
+
+### What is your goal?
+
+* Learn Computer Science
+* Get a Job
+* Prepare for Interviews
+* Build Projects
+* Become an AI Engineer
+* Become a Software Engineer
+* Academic Learning
+
+Then generate a personalized starting learning path.
+
+---
+
+# 46. Dashboard Information Architecture
+
+The dashboard should have these sections:
+
+```text
+Welcome
+Today's Progress
+Current Streak
+Level & XP
+Continue Learning
+Recommended Tutorials
+Weekly Activity
+Subject Progress
+Achievements
+Leaderboard Position
+Learning Statistics
+Recent Activity
+```
+
+Make the dashboard visually impressive without overwhelming the user.
+
+---
+
+# 47. Mobile Navigation
+
+Use a mobile bottom navigation bar:
+
+```text
+Home
+Learn
+Practice
+Progress
+Profile
+```
+
+---
+
+# 48. Design Personality
+
+The platform should feel like:
+
+**"A modern GitHub + technical documentation platform + learning management system + Duolingo-style gamification for Computer Science."**
+
+But do not copy the visual design of any existing platform.
+
+Create a unique visual identity.
+
+---
+
+# 49. Important Product Principle
+
+Do not make gamification the main purpose.
+
+The primary purpose is:
+
+> **Learning.**
+
+Points, streaks, ranks, levels, and badges should encourage consistent learning rather than encourage users to artificially maximize page views.
+
+Prioritize:
+
+**Learning Quality > Reading Quantity > Points**
+
+---
+
+# 50. Future AI Features
+
+Design the architecture so AI features can be added later.
+
+Potential features:
+
+### AI Tutor
+
+Users can ask:
+
+> Explain recursion in simple words.
+
+### AI Tutorial Assistant
+
+Allow questions about the current tutorial.
+
+### AI Quiz Generator
+
+Generate quizzes from tutorial content.
+
+### AI Learning Path Generator
+
+Create personalized learning paths.
+
+### AI Study Planner
+
+Create daily learning plans.
+
+### AI Progress Coach
+
+Analyze progress and recommend improvements.
+
+### AI Code Explainer
+
+Explain code line by line.
+
+### AI Interview Coach
+
+Generate interview questions based on learned topics.
+
+### AI Revision Assistant
+
+Generate revision notes from completed tutorials.
+
+---
+
+# 51. Admin Content Workflow
+
+The content workflow should support:
+
+```text
+Draft
+↓
+Review
+↓
+Approved
+↓
+Published
+↓
+Updated
+```
+
+Each tutorial should have versioning capability.
+
+Admins should be able to see:
+
+* Author
+* Editor
+* Publication date
+* Last updated
+* Version
+* Status
+
+---
+
+# 52. Recommended Project Structure
+
+Use a scalable architecture.
+
+Example:
+
+```text
+app/
+├── (marketing)/
+│   ├── page.tsx
+│   ├── tutorials/
+│   ├── subjects/
+│   ├── paths/
+│   └── projects/
+│
+├── dashboard/
+│   ├── page.tsx
+│   ├── progress/
+│   ├── achievements/
+│   ├── bookmarks/
+│   ├── notes/
+│   └── settings/
+│
+├── tutorials/
+│   └── [category]/
+│       └── [subject]/
+│           └── [slug]/
+│
+├── practice/
+├── leaderboard/
+├── profile/
+├── admin/
+│
+components/
+├── tutorial/
+├── dashboard/
+├── gamification/
+├── navigation/
+├── charts/
+└── ui/
+│
+lib/
+├── auth/
+├── database/
+├── progress/
+├── gamification/
+├── recommendations/
+├── search/
+└── analytics/
+│
+database/
+├── schema/
+└── migrations/
+```
+
+---
+
+# 53. API Architecture
+
+Create clean APIs for:
+
+```text
+/auth
+/users
+/tutorials
+/subjects
+/categories
+/progress
+/reading-sessions
+/bookmarks
+/notes
+/quizzes
+/achievements
+/points
+/streaks
+/leaderboards
+/learning-paths
+/recommendations
+/analytics
+/notifications
+/admin
+```
+
+Use proper authentication and authorization for every protected endpoint.
+
+---
+
+# 54. Seed Content
+
+Create realistic seed data so the application does not look empty.
+
+Include at least:
+
+* 10+ subjects
+* 30+ tutorials
+* Multiple learning paths
+* Sample quizzes
+* Sample achievements
+* Sample leaderboard users
+* Sample progress data
+
+Use real Computer Science topics rather than placeholder content such as "Lorem ipsum."
+
+---
+
+# 55. Demo User Experience
+
+Create demo/sample data that demonstrates:
+
+```text
+User Level: 12
+XP: 8,420
+Points: 12,850
+Current Streak: 18 days
+Longest Streak: 42 days
+Pages Read: 2,846
+Tutorials Completed: 87
+Global Rank: #128
+```
+
+Make sure the demo dashboard visually demonstrates the full platform.
+
+---
+
+# 56. Error & Empty States
+
+Design proper states for:
+
+* No tutorials
+* No bookmarks
+* No notes
+* No achievements
+* No learning activity
+* Search with no results
+* Failed API requests
+* Offline state
+* Unauthorized access
+* 404 pages
+
+Do not leave blank screens.
+
+---
+
+# 57. Notifications & Feedback
+
+Use subtle toast notifications.
+
+Examples:
+
+**Tutorial bookmarked**
+
+**Tutorial completed**
+
+**Achievement unlocked**
+
+**Level up!**
+
+**7-day streak achieved**
+
+Avoid excessive notifications.
+
+---
+
+# 58. Final Quality Requirements
+
+The final website must be:
+
+* Production-ready
+* Responsive
+* Accessible
+* SEO optimized
+* Secure
+* Fast
+* Scalable
+* Modular
+* Maintainable
+* Cleanly designed
+* Database-backed
+* Authentication-enabled
+* Gamified
+* Content-driven
+
+Do not build only a static frontend mockup.
+
+Build the foundation as a **real learning platform** with a scalable backend, database, authentication, content architecture, progress tracking, gamification, leaderboard, and admin system.
+
+---
+
+# 59. Development Priorities
+
+Implement the project in phases.
+
+## Phase 1 — Foundation
+
+Build:
+
+* Landing page
+* Authentication
+* Navigation
+* Subject structure
+* Tutorial system
+* Tutorial reader
+* Responsive design
+* Dark mode
+
+## Phase 2 — User Learning
+
+Build:
+
+* Dashboard
+* Progress tracking
+* Bookmarks
+* Notes
+* Continue Learning
+* Reading history
+
+## Phase 3 — Gamification
+
+Build:
+
+* Points
+* XP
+* Levels
+* Streaks
+* Achievements
+* Leaderboards
+* Ranks
+
+## Phase 4 — Practice
+
+Build:
+
+* Quizzes
+* Questions
+* Coding exercises
+* Assessments
+
+## Phase 5 — Learning Paths
+
+Build:
+
+* Career paths
+* Subject paths
+* Progress-based paths
+* Personalized recommendations
+
+## Phase 6 — Admin
+
+Build:
+
+* CMS
+* Tutorial management
+* User management
+* Analytics
+* Gamification management
+
+## Phase 7 — Advanced Features
+
+Build:
+
+* AI Tutor
+* AI recommendations
+* AI quiz generation
+* AI study planner
+* Community
+* Coding playground
+
+---
+
+# 60. Final Instruction to the Development AI
+
+You are acting as a **senior product designer, UX designer, frontend engineer, backend engineer, database architect, and learning-platform architect**.
+
+Do not create a generic blog.
+
+Build a complete **Computer Science Tutorial & Learning Platform**.
+
+The application should make a visitor think:
+
+> "I can learn almost everything I need for Computer Science from this one website."
+
+The experience should take the user from:
+
+**"I don't know where to start."**
+
+to:
+
+**"I have a structured learning path."**
+
+to:
+
+**"I am consistently learning."**
+
+to:
+
+**"I can see my progress."**
+
+to:
+
+**"I have built real skills."**
+
+to:
+
+**"I am ready for a job, project, interview, or advanced Computer Science topic."**
+
+The architecture must be designed so that thousands of tutorials, millions of reading sessions, and a large user base can be supported in the future.
+
+Most importantly, make the platform **content-first, learning-focused, highly readable, technically excellent, and motivating without becoming a superficial points-based application.**

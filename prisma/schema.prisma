@@ -1,0 +1,476 @@
+// CodeMastery — Computer Science Learning Platform
+// Comprehensive schema: auth, content, learning, gamification, community
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// AUTHENTICATION (NextAuth v4 + credentials)
+// ============================================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  username      String?   @unique
+  passwordHash  String?
+  image         String?
+  bio           String?
+  role          String    @default("USER") // USER | ADMIN
+  emailVerified DateTime?
+
+  // Gamification
+  totalXP       Int       @default(0)
+  points        Int       @default(0)
+  level         Int       @default(1)
+  currentStreak Int      @default(0)
+  longestStreak Int      @default(0)
+  lastActivityDate String? // YYYY-MM-DD
+  dailyXPEarned Int      @default(0) // resets daily, caps farming
+  dailyXPDate   String?  // YYYY-MM-DD of current daily cap window
+
+  // Onboarding
+  experience    String?   // beginner | intermediate | advanced
+  goal          String?   // career | interview | academics | curiosity
+  interests     String    @default("") // comma-separated subject slugs
+  onboarded     Boolean   @default(false)
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  accounts        Account[]
+  sessions        Session[]
+  progress        TutorialProgress[]
+  bookmarks       Bookmark[]
+  notes           Note[]
+  quizAttempts    QuizAttempt[]
+  achievements    UserAchievement[]
+  pathProgress     LearningPathProgress[]
+  activityLogs    ActivityLog[]
+
+  @@index([totalXP])
+  @@index([points])
+  @@index([currentStreak])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ============================================================
+// CONTENT TAXONOMY: Domain > Subject > Module > Tutorial
+// Plus Learning Path > Part (optional) > Step
+// ============================================================
+
+model Domain {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  tagline     String
+  description String
+  icon        String   // lucide icon name
+  color       String   // hex/oklch accent
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  subjects    Subject[]
+
+  @@index([order])
+}
+
+model Subject {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  tagline     String
+  description String
+  icon        String   // lucide icon name
+  color       String   // hex/oklch accent
+  category    String   // Programming | Systems | AI/ML | Data | Web | Career (legacy grouping)
+  domainId    String?  // FK to Domain (nullable for backwards compat)
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  domain      Domain?  @relation(fields: [domainId], references: [id], onDelete: SetNull)
+  modules       Module[]
+  tutorials     Tutorial[]
+  pathSteps     LearningPathStep[]
+
+  @@index([category])
+  @@index([domainId])
+  @@index([order])
+}
+
+model Module {
+  id          String   @id @default(cuid())
+  subjectId   String
+  slug        String
+  title       String
+  summary     String?
+  order       Int      @default(0)
+  difficulty  String   @default("beginner") // beginner | intermediate | advanced
+  estimatedMinutes Int @default(30)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  subject  Subject   @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  tutorials Tutorial[]
+
+  @@unique([subjectId, slug])
+  @@index([subjectId])
+}
+
+model Tutorial {
+  id          String   @id @default(cuid())
+  subjectId   String
+  moduleId    String?
+  slug        String
+  title       String
+  summary     String
+  content     String   // markdown
+  difficulty  String   @default("beginner")
+  estimatedMinutes Int @default(15)
+  tags        String   @default("") // comma separated
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  coverImage  String?
+  // --- Pedagogical metadata (curriculum-aware architecture) ---
+  // JSON-encoded array of measurable learning objective strings, e.g.
+  // ["Explain what a variable is","Create variables using valid syntax"]
+  learningObjectives String @default("")
+  // JSON-encoded array of prerequisite refs, each {label, subjectSlug?, tutorialSlug?}
+  prerequisites   String @default("")
+  // Short prose explaining where this tutorial fits in the learning path
+  whereItFits     String @default("")
+  // JSON-encoded array of key takeaway strings
+  keyTakeaways    String @default("")
+  // JSON-encoded self-assessment checklist strings
+  selfAssessment  String @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  subject     Subject    @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  module      Module?    @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  progress    TutorialProgress[]
+  bookmarks   Bookmark[]
+  notes       Note[]
+  quizzes     Quiz[]
+  pathSteps   LearningPathStep[]
+  ratings     TutorialRating[]
+
+  @@unique([subjectId, slug])
+  @@index([subjectId, moduleId])
+  @@index([published])
+}
+
+// ============================================================
+// RATINGS: thumbs up/down feedback on tutorials
+// ============================================================
+
+model TutorialRating {
+  id          String   @id @default(cuid())
+  tutorialId  String
+  userId      String
+  value       Int      // 1 = upvote, -1 = downvote
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tutorial Tutorial @relation(fields: [tutorialId], references: [id], onDelete: Cascade)
+
+  @@unique([tutorialId, userId])
+  @@index([tutorialId])
+}
+
+// ============================================================
+// LEARNING: progress, bookmarks, notes
+// ============================================================
+
+model TutorialProgress {
+  id          String   @id @default(cuid())
+  userId      String
+  tutorialId  String
+  percentRead Int      @default(0) // 0-100
+  scrollY     Int      @default(0)
+  completed    Boolean  @default(false)
+  completedAt DateTime?
+  timeSpentSec Int     @default(0)
+  xpAwarded   Int      @default(0)
+  lastReadAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tutorial Tutorial @relation(fields: [tutorialId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tutorialId])
+  @@index([userId])
+  @@index([tutorialId])
+}
+
+model Bookmark {
+  id         String   @id @default(cuid())
+  userId     String
+  tutorialId String
+  createdAt  DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tutorial Tutorial @relation(fields: [tutorialId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tutorialId])
+  @@index([userId])
+}
+
+model Note {
+  id         String   @id @default(cuid())
+  userId     String
+  tutorialId String
+  content    String
+  anchor     String? // heading slug the note is attached to
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tutorial Tutorial @relation(fields: [tutorialId], references: [id], onDelete: Cascade)
+
+  @@index([userId, tutorialId])
+}
+
+// ============================================================
+// QUIZZES
+// ============================================================
+
+model Quiz {
+  id         String   @id @default(cuid())
+  tutorialId String?
+  title      String
+  description String?
+  passingScore Int    @default(70) // percent
+  xpReward   Int      @default(50)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  tutorial  Tutorial?    @relation(fields: [tutorialId], references: [id], onDelete: SetNull)
+  questions QuizQuestion[]
+  attempts  QuizAttempt[]
+
+  @@index([tutorialId])
+}
+
+model QuizQuestion {
+  id       String @id @default(cuid())
+  quizId   String
+  prompt   String
+  options  String // JSON-encoded array of strings
+  answerIndex Int
+  explanation String?
+  order    Int    @default(0)
+
+  quiz     Quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  attempts QuizAnswer[]
+
+  @@index([quizId])
+}
+
+model QuizAttempt {
+  id         String   @id @default(cuid())
+  userId     String
+  quizId     String
+  score      Int      // percent
+  passed     Boolean
+  xpAwarded  Int      @default(0)
+  startedAt  DateTime @default(now())
+  completedAt DateTime?
+
+  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz     Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  answers  QuizAnswer[]
+
+  @@index([userId])
+  @@index([quizId])
+}
+
+model QuizAnswer {
+  id          String @id @default(cuid())
+  attemptId   String
+  questionId  String
+  selectedIndex Int
+  correct     Boolean
+
+  attempt  QuizAttempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([attemptId])
+}
+
+// ============================================================
+// LEARNING PATHS (with optional Parts)
+// ============================================================
+
+model LearningPath {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  tagline     String
+  description String
+  icon        String
+  color       String
+  difficulty  String   @default("beginner")
+  estimatedHours Int   @default(40)
+  domainId    String?  // optional domain this path belongs to
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  steps    LearningPathStep[]
+  parts    LearningPathPart[]
+  progress LearningPathProgress[]
+
+  @@index([published])
+  @@index([domainId])
+}
+
+// Optional large-scale subdivision of a very large learning path.
+// Part I — Foundations, Part II — Core Concepts, etc.
+model LearningPathPart {
+  id          String   @id @default(cuid())
+  pathId      String
+  slug        String
+  title       String
+  summary     String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  path     LearningPath      @relation(fields: [pathId], references: [id], onDelete: Cascade)
+  steps    LearningPathStep[]
+
+  @@unique([pathId, slug])
+  @@index([pathId])
+}
+
+model LearningPathStep {
+  id        String @id @default(cuid())
+  pathId    String
+  partId    String?  // optional link to a Part within the path
+  tutorialId String?
+  subjectId String?
+  title     String
+  subtitle  String?
+  order     Int    @default(0)
+
+  path     LearningPath      @relation(fields: [pathId], references: [id], onDelete: Cascade)
+  part     LearningPathPart? @relation(fields: [partId], references: [id], onDelete: SetNull)
+  tutorial Tutorial?    @relation(fields: [tutorialId], references: [id], onDelete: SetNull)
+  subject  Subject?     @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+
+  @@index([pathId])
+  @@index([partId])
+}
+
+model LearningPathProgress {
+  id        String  @id @default(cuid())
+  userId    String
+  pathId    String
+  enrolledAt DateTime @default(now())
+  completedSteps Int @default(0)
+
+  user User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  path LearningPath  @relation(fields: [pathId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, pathId])
+  @@index([userId])
+}
+
+// ============================================================
+// GAMIFICATION: achievements, streaks, activity log
+// ============================================================
+
+model Achievement {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  title       String
+  description String
+  icon        String  // lucide name
+  color       String  // hex accent
+  category    String  // learning | streak | skill | social | milestone
+  xpReward    Int     @default(0)
+  threshold   Int     @default(1) // e.g. complete N tutorials
+  metric      String  // tutorials_completed | quizzes_passed | streak_days | xp | notes_created
+  createdAt   DateTime @default(now())
+
+  users UserAchievement[]
+}
+
+model UserAchievement {
+  id            String   @id @default(cuid())
+  userId        String
+  achievementId String
+  earnedAt      DateTime @default(now())
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+  @@index([userId])
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // tutorial_completed | quiz_passed | bookmark_added | note_created | achievement_earned | streak_milestone
+  refId     String?
+  xpDelta   Int      @default(0)
+  pointsDelta Int    @default(0)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([type])
+}

@@ -1,0 +1,2008 @@
+# Master Prompt: Complete Engineer Learning Roadmap — Beginner to Advanced
+
+Act as a **world-class engineering curriculum architect, senior software engineer, AI/ML engineer, systems architect, educator, and technical interviewer**.
+
+Your task is to design a **complete, comprehensive, industry-oriented learning curriculum for becoming a highly skilled modern Software Engineer + AI/ML Engineer + Full-Stack Engineer**.
+
+The curriculum must start from absolute programming fundamentals and progress systematically toward advanced software engineering, AI/ML, Generative AI, LLM engineering, AI agents, Agentic AI, backend engineering, APIs, FastAPI, databases, cloud, DevOps, system design, and full-stack development.
+
+The goal is not to create a shallow list of technologies.
+
+The goal is to create a **complete engineering knowledge map** showing what an engineer should learn, in what order, and what concepts exist inside every subject.
+
+---
+
+# CORE RULE — ONE SUBJECT AT A TIME
+
+Do NOT explain all subjects at once.
+
+First create the **complete master subject roadmap**.
+
+Then, when I say:
+
+> START SUBJECT: [subject name]
+
+teach ONLY that subject.
+
+For every subject, go from:
+
+**Absolute Beginner → Fundamentals → Intermediate → Advanced → Expert → Industry → Projects → Interview Preparation**
+
+Do not move to another subject until the current subject has been completely covered.
+
+If a subject is extremely large, divide it into multiple parts/volumes while keeping it as ONE subject.
+
+Example:
+
+Python
+
+* Python Fundamentals
+* Python Intermediate
+* Python Advanced
+* Python for Software Engineering
+* Python for Data Science
+* Python for AI/ML
+* Python for Backend Development
+* Python Performance
+* Python Testing
+* Python Production Engineering
+
+These are still part of the **Python subject**.
+
+---
+
+# PART 1 — MASTER ENGINEERING SUBJECT MAP
+
+First build the complete subject map.
+
+Organize the curriculum into logical stages.
+
+## Stage 1 — Programming Foundations
+
+Include at minimum:
+
+* Computer fundamentals
+* How computers work
+* Binary and hexadecimal
+* Number systems
+* Memory
+* CPU
+* Storage
+* Processes
+* Files
+* Compilation
+* Interpretation
+* Programming paradigms
+* Algorithms
+* Debugging
+* Problem solving
+* Git
+* GitHub
+* Command line
+* Linux fundamentals
+* Developer tools
+* IDEs
+* VS Code
+* Software development lifecycle
+
+---
+
+# Stage 2 — C Programming
+
+Cover C from absolute beginner to advanced.
+
+Include:
+
+* C history and purpose
+* C environment
+* Compiler
+* Linker
+* Preprocessor
+* Variables
+* Constants
+* Data types
+* Type conversion
+* Operators
+* Expressions
+* Input/output
+* Conditions
+* Loops
+* Functions
+* Scope
+* Storage classes
+* Arrays
+* Strings
+* Pointers
+* Pointer arithmetic
+* Pointers and arrays
+* Function pointers
+* Structures
+* Unions
+* Enumerations
+* typedef
+* Dynamic memory
+* malloc
+* calloc
+* realloc
+* free
+* Memory layout
+* Stack
+* Heap
+* File handling
+* Bit manipulation
+* Preprocessor macros
+* Header files
+* Modular programming
+* Static libraries
+* Dynamic libraries
+* Error handling
+* Debugging
+* Undefined behavior
+* Memory safety
+* Compilation pipeline
+* C data structures
+* Low-level programming
+* Performance
+* Systems programming
+* Networking basics in C
+* Multithreading basics
+* POSIX concepts
+* C projects
+* C interview preparation
+
+---
+
+# Stage 3 — C++
+
+Cover modern C++ comprehensively.
+
+Include:
+
+* C++ fundamentals
+* C vs C++
+* Compilation
+* Variables
+* Data types
+* Operators
+* Control flow
+* Functions
+* References
+* Pointers
+* Arrays
+* Strings
+* Classes
+* Objects
+* Constructors
+* Destructors
+* Encapsulation
+* Abstraction
+* Inheritance
+* Polymorphism
+* Virtual functions
+* Interfaces
+* Operator overloading
+* Friend functions
+* Templates
+* Generic programming
+* Exception handling
+* STL
+* Iterators
+* Algorithms
+* Containers
+* vector
+* list
+* deque
+* stack
+* queue
+* priority_queue
+* set
+* multiset
+* map
+* unordered_map
+* unordered_set
+* smart pointers
+* RAII
+* move semantics
+* rvalue references
+* lvalue/rvalue
+* copy/move constructors
+* lambdas
+* function objects
+* modern C++ standards
+* C++11
+* C++14
+* C++17
+* C++20
+* C++23
+* concurrency
+* multithreading
+* synchronization
+* atomics
+* memory model
+* performance
+* debugging
+* build systems
+* CMake
+* testing
+* design patterns
+* production C++
+* advanced C++
+* C++ projects
+* C++ interview preparation
+
+---
+
+# Stage 4 — Data Structures & Algorithms in C++
+
+Create a complete DSA curriculum using C++.
+
+Cover:
+
+## Complexity
+
+* Time complexity
+* Space complexity
+* Big O
+* Big Omega
+* Big Theta
+* Amortized analysis
+* Best/average/worst case
+
+## Data Structures
+
+* Arrays
+* Strings
+* Linked lists
+* Doubly linked lists
+* Circular linked lists
+* Stacks
+* Queues
+* Deques
+* Hash tables
+* Sets
+* Maps
+* Trees
+* Binary trees
+* BST
+* AVL trees
+* Red-black trees
+* Heaps
+* Priority queues
+* Tries
+* Graphs
+* Disjoint Set Union
+* Segment trees
+* Fenwick trees
+* Sparse tables
+
+## Algorithms
+
+* Searching
+* Sorting
+* Two pointers
+* Sliding window
+* Prefix sums
+* Difference arrays
+* Recursion
+* Backtracking
+* Divide and conquer
+* Greedy
+* Dynamic programming
+* Graph traversal
+* BFS
+* DFS
+* Topological sorting
+* Shortest paths
+* Dijkstra
+* Bellman-Ford
+* Floyd-Warshall
+* Minimum spanning tree
+* Kruskal
+* Prim
+* Union-Find
+* Network flow
+* String algorithms
+* KMP
+* Rabin-Karp
+* Z algorithm
+* Bit manipulation
+* Mathematical algorithms
+* Randomized algorithms
+
+Include:
+
+* Pattern recognition
+* Problem-solving strategies
+* Competitive programming concepts
+* LeetCode-style problems
+* Interview problems
+* Complexity analysis
+* Practice progression
+
+---
+
+# Stage 5 — Python
+
+Cover Python from beginner to advanced and production level.
+
+Include:
+
+* Python fundamentals
+* Syntax
+* Variables
+* Data types
+* Operators
+* Conditions
+* Loops
+* Functions
+* Scope
+* Modules
+* Packages
+* Exceptions
+* File handling
+* Strings
+* Lists
+* Tuples
+* Sets
+* Dictionaries
+* Comprehensions
+* Iterators
+* Generators
+* Decorators
+* Closures
+* Context managers
+* OOP
+* Dataclasses
+* Type hints
+* Generics
+* Async programming
+* asyncio
+* threading
+* multiprocessing
+* concurrency
+* memory management
+* garbage collection
+* Python internals
+* performance optimization
+* testing
+* pytest
+* logging
+* packaging
+* virtual environments
+* dependency management
+* Poetry/uv/pip
+* clean code
+* design patterns
+* Python for automation
+* Python for APIs
+* Python for backend
+* Python for data
+* Python for AI
+* Python for ML
+* Python for GenAI
+
+---
+
+# Stage 6 — Java
+
+Cover Java comprehensively.
+
+Include:
+
+* Java fundamentals
+* JVM
+* JDK
+* JRE
+* compilation
+* bytecode
+* variables
+* types
+* operators
+* conditions
+* loops
+* methods
+* arrays
+* strings
+* OOP
+* inheritance
+* polymorphism
+* abstraction
+* interfaces
+* packages
+* exceptions
+* collections
+* generics
+* streams
+* lambdas
+* functional programming
+* multithreading
+* concurrency
+* synchronization
+* JVM memory
+* garbage collection
+* performance
+* reflection
+* annotations
+* JDBC
+* Maven
+* Gradle
+* testing
+* JUnit
+* Spring
+* Spring Boot
+* REST APIs
+* microservices
+* production Java
+* Java interview preparation
+
+---
+
+# Stage 7 — Mathematics for Computer Science & AI
+
+Create a complete mathematics foundation.
+
+Include:
+
+## Arithmetic
+
+* Number systems
+* Ratios
+* Percentages
+* Exponents
+* Logarithms
+
+## Algebra
+
+* Equations
+* Functions
+* Polynomials
+* Sequences
+* Series
+
+## Geometry
+
+* Coordinate geometry
+* Distance
+* Angles
+* Vectors
+
+## Probability
+
+* Probability basics
+* Conditional probability
+* Bayes theorem
+* Random variables
+* Distributions
+* Expectation
+* Variance
+* Covariance
+
+## Statistics
+
+* Mean
+* Median
+* Mode
+* Variance
+* Standard deviation
+* Correlation
+* Regression
+* Sampling
+* Hypothesis testing
+* Confidence intervals
+
+## Linear Algebra
+
+* Scalars
+* Vectors
+* Matrices
+* Matrix operations
+* Dot products
+* Norms
+* Linear transformations
+* Eigenvalues
+* Eigenvectors
+* Matrix decomposition
+* SVD
+* PCA
+
+## Calculus
+
+* Limits
+* Derivatives
+* Partial derivatives
+* Gradients
+* Chain rule
+* Integrals
+* Optimization
+* Gradient descent
+
+## Discrete Mathematics
+
+* Logic
+* Sets
+* Relations
+* Functions
+* Combinatorics
+* Graph theory
+* Recurrence relations
+* Proof techniques
+
+Explain mathematics specifically in terms of:
+
+**Programming → Algorithms → ML → DL → AI**
+
+---
+
+# Stage 8 — Operating Systems
+
+Cover OS comprehensively.
+
+Include:
+
+* OS fundamentals
+* Kernel
+* System calls
+* Processes
+* Threads
+* Process states
+* Scheduling
+* CPU scheduling
+* Context switching
+* IPC
+* Synchronization
+* Mutex
+* Semaphore
+* Deadlock
+* Memory management
+* Virtual memory
+* Paging
+* Segmentation
+* Page replacement
+* File systems
+* Storage
+* I/O
+* Interrupts
+* Device drivers
+* Security
+* Permissions
+* Linux internals
+* Windows internals
+* Containers
+* OS performance
+* OS interview preparation
+
+---
+
+# Stage 9 — Computer Organization & Architecture
+
+Cover COA deeply.
+
+Include:
+
+* Digital logic
+* Boolean algebra
+* Logic gates
+* Combinational circuits
+* Sequential circuits
+* CPU architecture
+* ALU
+* Control unit
+* Registers
+* Instruction cycle
+* ISA
+* Assembly
+* Machine code
+* Memory hierarchy
+* Cache
+* RAM
+* ROM
+* Virtual memory
+* Pipelines
+* Branch prediction
+* Superscalar processors
+* Out-of-order execution
+* SIMD
+* GPU architecture
+* CPU vs GPU
+* Parallel computing
+* ARM
+* x86
+* RISC vs CISC
+* Performance
+* Modern processor architecture
+
+---
+
+# Stage 10 — Computer Networking
+
+Cover networking from fundamentals to advanced.
+
+Include:
+
+* Network fundamentals
+* OSI model
+* TCP/IP model
+* Ethernet
+* MAC
+* IP
+* IPv4
+* IPv6
+* Subnetting
+* ARP
+* DNS
+* DHCP
+* NAT
+* TCP
+* UDP
+* HTTP
+* HTTPS
+* TLS
+* HTTP/1.1
+* HTTP/2
+* HTTP/3
+* QUIC
+* WebSockets
+* REST
+* gRPC
+* Proxies
+* Reverse proxies
+* Load balancers
+* Firewalls
+* VPN
+* CDN
+* Routing
+* Switching
+* Network security
+* Network troubleshooting
+* Network programming
+
+---
+
+# Stage 11 — Databases
+
+Cover databases comprehensively.
+
+Include:
+
+* Database fundamentals
+* Relational databases
+* SQL
+* PostgreSQL
+* MySQL
+* SQLite
+* Data modeling
+* ER diagrams
+* Normalization
+* Transactions
+* ACID
+* Isolation levels
+* Indexing
+* Query optimization
+* Joins
+* Views
+* Stored procedures
+* Triggers
+* Constraints
+* PostgreSQL internals
+* NoSQL
+* MongoDB
+* Redis
+* Key-value databases
+* Document databases
+* Graph databases
+* Search databases
+* Vector databases
+* Database scaling
+* Replication
+* Sharding
+* Partitioning
+* Backup
+* Recovery
+* Distributed databases
+
+---
+
+# Stage 12 — Software Engineering
+
+Cover professional software engineering.
+
+Include:
+
+* SDLC
+* Requirements engineering
+* Software architecture
+* Clean code
+* SOLID
+* DRY
+* KISS
+* YAGNI
+* Design patterns
+* Refactoring
+* Code review
+* Testing
+* Unit testing
+* Integration testing
+* End-to-end testing
+* TDD
+* BDD
+* Debugging
+* Logging
+* Monitoring
+* Documentation
+* Version control
+* Git
+* GitHub
+* Branching
+* Pull requests
+* CI/CD
+* Code quality
+* Security
+* Performance
+* Maintainability
+
+---
+
+# Stage 13 — APIs & Backend Engineering
+
+Cover backend engineering deeply.
+
+Include:
+
+* What is an API?
+* API architecture
+* REST
+* HTTP
+* Request/response
+* Headers
+* Status codes
+* Authentication
+* Authorization
+* JWT
+* OAuth
+* Sessions
+* Cookies
+* API keys
+* Rate limiting
+* Pagination
+* Filtering
+* Sorting
+* Validation
+* Serialization
+* Error handling
+* API versioning
+* Documentation
+* OpenAPI
+* Swagger
+* WebSockets
+* GraphQL
+* gRPC
+* Microservices
+* Message queues
+* Event-driven architecture
+
+---
+
+# Stage 14 — FastAPI
+
+Create a complete FastAPI curriculum.
+
+Include:
+
+* FastAPI fundamentals
+* Project structure
+* Routing
+* Path parameters
+* Query parameters
+* Request bodies
+* Pydantic
+* Validation
+* Response models
+* Dependency injection
+* Authentication
+* Authorization
+* JWT
+* OAuth
+* Middleware
+* CORS
+* Background tasks
+* Async programming
+* Database integration
+* SQLAlchemy
+* PostgreSQL
+* Alembic
+* Redis
+* Celery/background workers
+* WebSockets
+* Testing
+* OpenAPI
+* Swagger
+* Security
+* Logging
+* Docker
+* Deployment
+* Production architecture
+* Performance
+* Monitoring
+
+---
+
+# Stage 15 — Full-Stack Development
+
+Create a complete modern full-stack curriculum.
+
+## Frontend
+
+Include:
+
+* HTML
+* Semantic HTML
+* CSS
+* Responsive design
+* Flexbox
+* Grid
+* Animations
+* Accessibility
+* JavaScript
+* DOM
+* Events
+* Fetch
+* Async JavaScript
+* Promises
+* Modules
+* TypeScript
+* React
+* React hooks
+* State management
+* Context
+* Forms
+* Routing
+* API integration
+* Authentication
+* Performance
+* Testing
+
+## Modern Frontend
+
+Include:
+
+* Next.js
+* Server-side rendering
+* Static generation
+* Server components
+* Client components
+* Routing
+* Middleware
+* API routes
+* Authentication
+* Optimization
+* SEO
+* Deployment
+
+## Backend
+
+Include:
+
+* Node.js
+* Express
+* FastAPI
+* Django
+* REST
+* WebSockets
+* Databases
+* Authentication
+* Authorization
+* Caching
+* Queues
+* Background jobs
+
+## Full-Stack
+
+Include:
+
+* Frontend/backend communication
+* Authentication
+* Authorization
+* File uploads
+* Payments
+* Emails
+* Search
+* Notifications
+* Real-time applications
+* Dashboards
+* Admin panels
+* Deployment
+* Production architecture
+
+---
+
+# Stage 16 — DevOps & Cloud
+
+Cover:
+
+* Linux
+* Shell scripting
+* Git
+* GitHub
+* CI/CD
+* Docker
+* Docker Compose
+* Kubernetes
+* Containers
+* Nginx
+* Reverse proxies
+* Cloud fundamentals
+* AWS
+* Azure
+* Google Cloud
+* Compute
+* Storage
+* Databases
+* Networking
+* IAM
+* Serverless
+* Monitoring
+* Logging
+* Infrastructure as Code
+* Terraform
+* Secrets management
+* Cloud security
+
+---
+
+# Stage 17 — System Design
+
+Create a complete system design curriculum.
+
+Start from fundamentals.
+
+Cover:
+
+* What is system design?
+* Requirements
+* Functional requirements
+* Non-functional requirements
+* Scalability
+* Availability
+* Reliability
+* Performance
+* Latency
+* Throughput
+* CAP theorem
+* PACELC
+* Consistency
+* Availability
+* Partition tolerance
+* Load balancing
+* Caching
+* CDNs
+* Databases
+* Replication
+* Sharding
+* Partitioning
+* Message queues
+* Kafka
+* Redis
+* Distributed systems
+* Microservices
+* Event-driven architecture
+* API gateways
+* Service discovery
+* Rate limiting
+* Fault tolerance
+* Observability
+* Security
+
+Then design systems such as:
+
+* URL shortener
+* Chat application
+* Social media platform
+* Video streaming platform
+* Food delivery system
+* Ride-sharing system
+* E-commerce platform
+* Payment system
+* Notification system
+* Search engine
+* Recommendation system
+* File storage system
+* Distributed task scheduler
+* AI application
+* LLM application
+
+For every system design example explain:
+
+**Requirements → Architecture → Components → Data Flow → Database → APIs → Scaling → Failure Handling → Security → Trade-offs**
+
+---
+
+# Stage 18 — AI Foundations
+
+Cover:
+
+* What is AI?
+* AI history
+* Intelligent agents
+* Search
+* Planning
+* Knowledge representation
+* Logic
+* Probability
+* Optimization
+* Machine reasoning
+* AI problem solving
+* Classical AI
+* Symbolic AI
+* Expert systems
+* Neural networks
+* Modern AI
+
+---
+
+# Stage 19 — Machine Learning
+
+Create a complete ML curriculum.
+
+Include:
+
+* ML fundamentals
+* Supervised learning
+* Unsupervised learning
+* Semi-supervised learning
+* Self-supervised learning
+* Reinforcement learning fundamentals
+
+Algorithms:
+
+* Linear regression
+* Logistic regression
+* KNN
+* Naive Bayes
+* Decision trees
+* Random forests
+* Gradient boosting
+* XGBoost
+* LightGBM
+* CatBoost
+* SVM
+* K-Means
+* DBSCAN
+* Hierarchical clustering
+* PCA
+* Dimensionality reduction
+* Anomaly detection
+* Recommendation systems
+
+Also cover:
+
+* Feature engineering
+* Data preprocessing
+* Missing values
+* Encoding
+* Scaling
+* Feature selection
+* Cross-validation
+* Hyperparameter tuning
+* Metrics
+* Model selection
+* Bias/variance
+* Overfitting
+* Underfitting
+* Explainability
+* SHAP
+* LIME
+* Model deployment
+* ML pipelines
+* MLOps
+
+---
+
+# Stage 20 — Deep Learning
+
+Cover:
+
+* Neural networks
+* Perceptrons
+* Activation functions
+* Forward propagation
+* Backpropagation
+* Loss functions
+* Optimization
+* Gradient descent
+* Regularization
+* Batch normalization
+* Dropout
+* Initialization
+* CNN
+* RNN
+* LSTM
+* GRU
+* Autoencoders
+* GANs
+* Attention
+* Transformers
+* Vision Transformers
+* Transfer learning
+* Fine-tuning
+* PyTorch
+* TensorFlow
+* Model training
+* GPU computing
+* Distributed training
+* Deep learning deployment
+
+---
+
+# Stage 21 — Computer Vision
+
+Cover:
+
+* Image processing
+* OpenCV
+* Image classification
+* Object detection
+* Segmentation
+* CNN architectures
+* ResNet
+* EfficientNet
+* YOLO
+* Faster R-CNN
+* Mask R-CNN
+* Vision Transformers
+* CLIP
+* Feature extraction
+* Image embeddings
+* Image retrieval
+* OCR
+* Face recognition
+* Explainable AI
+* Grad-CAM
+* Medical imaging
+* Computer vision projects
+
+---
+
+# Stage 22 — NLP
+
+Cover:
+
+* Text processing
+* Tokenization
+* Stemming
+* Lemmatization
+* Bag of Words
+* TF-IDF
+* Word embeddings
+* Word2Vec
+* GloVe
+* FastText
+* RNNs
+* LSTMs
+* Attention
+* Transformers
+* BERT
+* Encoder models
+* Decoder models
+* Sequence-to-sequence
+* Text classification
+* NER
+* Sentiment analysis
+* Summarization
+* Translation
+* Question answering
+
+---
+
+# Stage 23 — LLMs
+
+Create a complete LLM engineering curriculum.
+
+Cover:
+
+* What is an LLM?
+* Language modeling
+* Tokenization
+* Vocabulary
+* Embeddings
+* Positional encoding
+* Attention
+* Self-attention
+* Multi-head attention
+* Transformer architecture
+* Encoder
+* Decoder
+* Causal language modeling
+* Pretraining
+* Fine-tuning
+* Instruction tuning
+* RLHF
+* DPO
+* Preference optimization
+* Quantization
+* LoRA
+* QLoRA
+* PEFT
+* Distillation
+* Inference
+* KV cache
+* Context windows
+* Long-context models
+* Multimodal models
+* Model evaluation
+* LLM benchmarks
+* LLM safety
+* LLM deployment
+* GPU inference
+* vLLM
+* Hugging Face
+* Transformers
+
+---
+
+# Stage 24 — Generative AI
+
+Cover:
+
+* Generative AI fundamentals
+* Text generation
+* Image generation
+* Audio generation
+* Video generation
+* Multimodal AI
+* Diffusion models
+* GANs
+* VAEs
+* Prompt engineering
+* Structured generation
+* Function calling
+* Tool use
+* RAG
+* Embeddings
+* Vector databases
+* Semantic search
+* Hybrid search
+* Reranking
+* Document processing
+* Chunking
+* Retrieval pipelines
+* RAG evaluation
+* Agentic RAG
+
+---
+
+# Stage 25 — AI Agents
+
+Cover:
+
+* What is an AI agent?
+* Agent architecture
+* Agent loop
+* Goals
+* Planning
+* Memory
+* Tools
+* Tool calling
+* Function calling
+* Reasoning
+* Reflection
+* Self-correction
+* State management
+* Short-term memory
+* Long-term memory
+* Agent evaluation
+* Multi-agent systems
+* Agent orchestration
+* Agent frameworks
+* MCP
+* Tool protocols
+* Browser agents
+* Coding agents
+* Research agents
+* Autonomous workflows
+
+---
+
+# Stage 26 — Agentic AI
+
+Go deeper than basic AI agents.
+
+Cover:
+
+* Agentic workflows
+* Autonomous systems
+* Planning agents
+* Execution agents
+* Supervisor agents
+* Worker agents
+* Multi-agent collaboration
+* Agent communication
+* Agent memory
+* Agent state
+* Tool orchestration
+* Workflow engines
+* Human-in-the-loop
+* Agent security
+* Prompt injection
+* Tool abuse
+* Sandboxing
+* Agent observability
+* Agent evaluation
+* Reliability
+* Cost optimization
+* Production agent architecture
+
+---
+
+# Stage 27 — AI Engineering & MLOps
+
+Cover:
+
+* ML pipelines
+* Data pipelines
+* Model registry
+* Experiment tracking
+* MLflow
+* DVC
+* Model serving
+* FastAPI
+* Docker
+* Kubernetes
+* CI/CD
+* Monitoring
+* Model monitoring
+* Drift detection
+* Feature stores
+* Vector databases
+* GPU infrastructure
+* Inference optimization
+* Quantization
+* Batch inference
+* Real-time inference
+* LLMOps
+* Evaluation pipelines
+* AI observability
+
+---
+
+# Stage 28 — Cybersecurity for Engineers
+
+Include:
+
+* Security fundamentals
+* Authentication
+* Authorization
+* Encryption
+* Hashing
+* TLS
+* Network security
+* Web security
+* OWASP Top 10
+* SQL injection
+* XSS
+* CSRF
+* SSRF
+* API security
+* Secrets management
+* Secure coding
+* Identity
+* Access control
+* Cloud security
+* AI/LLM security
+* Prompt injection
+* Data leakage
+* Model security
+
+---
+
+# Stage 29 — Engineering Tools
+
+Cover tools engineers should know.
+
+Include:
+
+* Git
+* GitHub
+* GitLab
+* VS Code
+* Linux
+* Bash
+* PowerShell
+* Docker
+* Kubernetes
+* Postman
+* Swagger
+* Jira
+* CI/CD
+* GitHub Actions
+* Terraform
+* AWS
+* Azure
+* GCP
+* PostgreSQL
+* Redis
+* MongoDB
+* Kafka
+* RabbitMQ
+* Elasticsearch/OpenSearch
+* MLflow
+* DVC
+* Hugging Face
+* PyTorch
+* TensorFlow
+* LangChain
+* LlamaIndex
+* agent frameworks
+* observability tools
+
+---
+
+# Stage 30 — Engineering Projects
+
+Create projects at every level.
+
+## Beginner
+
+* Calculator
+* CLI application
+* File manager
+* To-do application
+* Student management system
+* Library management system
+
+## Intermediate
+
+* REST API
+* Blog
+* Authentication system
+* E-commerce application
+* Chat application
+* Dashboard
+* Data analytics application
+
+## Advanced
+
+* Distributed application
+* Search engine
+* Recommendation system
+* Real-time application
+* Microservices application
+* Cloud-native application
+
+## AI/ML
+
+* ML prediction system
+* Recommendation engine
+* Computer vision application
+* NLP application
+* RAG application
+* LLM application
+* AI chatbot
+* AI search engine
+
+## Advanced AI
+
+* AI agent
+* Multi-agent system
+* Coding agent
+* Research agent
+* Autonomous workflow
+* Production-grade Agentic AI platform
+
+For every project provide:
+
+* Problem
+* Requirements
+* Architecture
+* Technologies
+* Database
+* APIs
+* Frontend
+* Backend
+* AI/ML components
+* Security
+* Testing
+* Deployment
+* Monitoring
+* GitHub structure
+* README requirements
+* Resume description
+* Interview explanation
+
+---
+
+# SUBJECT-LEVEL TEACHING FORMAT
+
+Whenever I request a subject, use this structure.
+
+## Subject Overview
+
+Explain:
+
+* What the subject is
+* Why it matters
+* Where it is used
+* How it connects to other subjects
+* Industry relevance
+* Career relevance
+
+## Complete Topic Map
+
+List every topic and subtopic before teaching.
+
+Do not skip important topics.
+
+## Prerequisites
+
+Clearly identify what I should already know.
+
+If prerequisites are missing, teach them briefly before proceeding.
+
+## Detailed Learning
+
+For EVERY topic explain:
+
+### Concept
+
+Explain in simple language.
+
+### Why It Matters
+
+Explain why engineers need it.
+
+### How It Works
+
+Explain the internal mechanism.
+
+### Syntax / API / Formula
+
+Where applicable.
+
+### Example
+
+Give practical examples.
+
+### Code
+
+Provide working code when appropriate.
+
+### Output
+
+Show expected output where useful.
+
+### Explanation
+
+Explain the code line by line when necessary.
+
+### Common Mistakes
+
+Show mistakes beginners commonly make.
+
+### Best Practices
+
+Explain industry-standard approaches.
+
+### Real-World Usage
+
+Explain where professionals use it.
+
+### Interview Perspective
+
+Explain how this topic appears in interviews.
+
+### Practice
+
+Give exercises.
+
+### Mini Project
+
+Give a project when appropriate.
+
+---
+
+# DEPTH REQUIREMENT
+
+Do NOT write shallow explanations.
+
+For example, do not simply write:
+
+> "Pointers store memory addresses."
+
+Instead explain:
+
+* What memory is
+* What an address is
+* What a pointer stores
+* Why pointers exist
+* Pointer declaration
+* Dereferencing
+* Pointer arithmetic
+* Stack vs heap
+* Arrays and pointers
+* Functions and pointers
+* Double pointers
+* Function pointers
+* Dynamic memory
+* Common errors
+* Dangling pointers
+* Null pointers
+* Memory leaks
+* Real-world applications
+
+Apply this same depth to EVERY major topic.
+
+---
+
+# CONNECTIONS BETWEEN SUBJECTS
+
+Explicitly show relationships.
+
+For example:
+
+C → Memory → OS → COA
+
+C++ → DSA → Algorithms → System Design
+
+Python → Data → ML → DL → AI
+
+Networking → APIs → Backend → Distributed Systems
+
+Databases → Backend → System Design
+
+Linear Algebra → ML → DL → Transformers
+
+Probability → ML → LLMs → AI Agents
+
+FastAPI → ML deployment → LLM APIs → AI applications
+
+LLMs → RAG → Agents → Agentic AI
+
+---
+
+# PRACTICAL ENGINEERING SKILLS
+
+Do not teach only theory.
+
+For every relevant subject include:
+
+* CLI usage
+* Git
+* GitHub
+* Debugging
+* Testing
+* Documentation
+* Project structure
+* Clean code
+* Security
+* Performance
+* Deployment
+* Monitoring
+* Collaboration
+* Code review
+* Production practices
+
+---
+
+# INTERVIEW PREPARATION
+
+For each subject include:
+
+* Beginner interview questions
+* Intermediate interview questions
+* Advanced interview questions
+* Conceptual questions
+* Coding questions
+* Debugging questions
+* System design questions where applicable
+* Scenario-based questions
+* Frequently asked questions
+* Trick questions
+* Model answers
+* Interview mistakes
+
+---
+
+# PRACTICE SYSTEM
+
+At the end of every major section provide:
+
+* Easy exercises
+* Medium exercises
+* Hard exercises
+* Coding problems
+* Debugging problems
+* Real-world tasks
+* Mini project
+* Challenge project
+
+Do not provide answers immediately unless requested.
+
+---
+
+# PROJECT-BASED LEARNING
+
+Every major subject must eventually lead to projects.
+
+Projects should progressively increase in complexity:
+
+**Toy Project → Beginner Project → Intermediate Project → Advanced Project → Production Project**
+
+---
+
+# INDUSTRY READINESS
+
+At the end of each subject provide:
+
+## Skills Checklist
+
+What I should be able to do.
+
+## Tools Checklist
+
+What tools I should know.
+
+## Portfolio Projects
+
+Which projects demonstrate competence.
+
+## Interview Readiness
+
+What I should be able to answer.
+
+## Job Readiness
+
+Which roles this subject contributes toward.
+
+## Weakness Detection
+
+List common gaps learners have after studying the subject.
+
+## Next Subject
+
+Explain which subject should come next and why.
+
+---
+
+# LEARNING ORDER
+
+Respect dependencies.
+
+Do not teach advanced AI before establishing the necessary foundations.
+
+The overall progression should roughly follow:
+
+**Computer Fundamentals**
+
+↓
+
+**C**
+
+↓
+
+**C++**
+
+↓
+
+**DSA in C++**
+
+↓
+
+**Python**
+
+↓
+
+**Java**
+
+↓
+
+**Mathematics**
+
+↓
+
+**Operating Systems**
+
+↓
+
+**COA**
+
+↓
+
+**Computer Networking**
+
+↓
+
+**Databases**
+
+↓
+
+**Software Engineering**
+
+↓
+
+**APIs & Backend**
+
+↓
+
+**FastAPI**
+
+↓
+
+**Full Stack**
+
+↓
+
+**System Design**
+
+↓
+
+**Linux / DevOps / Cloud**
+
+↓
+
+**AI Foundations**
+
+↓
+
+**Machine Learning**
+
+↓
+
+**Deep Learning**
+
+↓
+
+**Computer Vision / NLP**
+
+↓
+
+**LLMs**
+
+↓
+
+**Generative AI**
+
+↓
+
+**RAG**
+
+↓
+
+**AI Agents**
+
+↓
+
+**Agentic AI**
+
+↓
+
+**MLOps / LLMOps**
+
+↓
+
+**Production AI Systems**
+
+---
+
+# IMPORTANT RULES
+
+1. Never skip foundational concepts.
+
+2. Never assume advanced knowledge without stating prerequisites.
+
+3. Use simple language before introducing technical terminology.
+
+4. Introduce the technical term, then explain it clearly.
+
+5. Use practical examples.
+
+6. Use diagrams using text/ASCII when useful.
+
+7. Use tables for comparisons.
+
+8. Use code when appropriate.
+
+9. Explain code rather than dumping code.
+
+10. Include real-world engineering examples.
+
+11. Include interview preparation.
+
+12. Include projects.
+
+13. Include best practices.
+
+14. Include common mistakes.
+
+15. Include security considerations.
+
+16. Include performance considerations.
+
+17. Include scalability considerations where relevant.
+
+18. Distinguish theory from practical implementation.
+
+19. Distinguish beginner knowledge from professional knowledge.
+
+20. Clearly identify outdated technologies or approaches where relevant.
+
+21. Prefer modern industry practices.
+
+22. Do not overload one response by teaching multiple unrelated subjects.
+
+23. One subject at a time.
+
+24. Within a subject, cover every major topic systematically.
+
+25. Never silently omit an important topic.
+
+26. If a subject is too large, split it into Part 1, Part 2, Part 3, etc.
+
+27. Maintain continuity between parts.
+
+28. At the beginning of every part, state what has already been covered and what remains.
+
+29. At the end of every part, provide a progress checkpoint.
+
+30. Do not move to the next subject until I explicitly request it.
+
+---
+
+# MASTER CURRICULUM OUTPUT
+
+Your FIRST response to this prompt should NOT teach the subjects.
+
+Instead, produce:
+
+1. Complete Engineering Curriculum Map
+2. Subject sequence
+3. Dependencies between subjects
+4. Beginner → Intermediate → Advanced → Expert progression
+5. Approximate difficulty of every subject
+6. Prerequisites
+7. Major topics inside every subject
+8. Major tools associated with every subject
+9. Major projects associated with every subject
+10. Interview relevance
+11. Industry relevance
+12. Career paths supported by the curriculum
+
+Then stop.
+
+I will select the subject.
+
+When I say:
+
+> START SUBJECT: C
+
+begin teaching C only.
+
+When I say:
+
+> START SUBJECT: C++
+
+begin teaching C++ only.
+
+When I say:
+
+> START SUBJECT: DSA
+
+begin teaching DSA in C++ only.
+
+When I say:
+
+> CONTINUE
+
+continue the current subject from exactly where you stopped.
+
+When I say:
+
+> DEEP DIVE: [topic]
+
+go significantly deeper into that specific topic without changing subjects.
+
+When I say:
+
+> NEXT
+
+move to the next subject according to the approved curriculum sequence.
+
+The final goal is to make me capable of functioning as a **professional software engineer, backend engineer, full-stack engineer, AI/ML engineer, LLM engineer, and AI/agentic systems engineer**, with strong fundamentals rather than simply knowing how to use frameworks.
