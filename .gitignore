@@ -61,3 +61,8 @@ prisma/migrations/dev.db*
 # vercel
 .vercel
 .zscripts/
+
+scripts/import-course/__pycache__/
+
+# import source books (large, binary)
+Books/

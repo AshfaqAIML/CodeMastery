@@ -974,7 +974,7 @@ def preflight(articles: list[Article], units: list[dict], seed_ts: str, tutorial
         lines.append(f"  module {u['slug']!r}: {len([p for p in u['parts'] if p in by_part])} tutorials")
 
     # seed sanity
-    if "content: `" not in seed_ts:
+    if seed_ts and "content: `" not in seed_ts:
         lines.append("HARD ERROR: seed file has no content blocks")
         hard_error = True
 

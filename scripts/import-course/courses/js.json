@@ -1,0 +1,26 @@
+{
+  "course": {
+    "slug": "complete-javascript-for-absolute-beginners",
+    "name": "Complete JavaScript for Absolute Beginners",
+    "tagline": "The complete JavaScript book - from your first program to your first project.",
+    "description": "A full 58-chapter guided book covering JavaScript from absolute zero: variables, data types, functions, arrays, objects, the DOM, events, async JavaScript, APIs, and ten hands-on projects - followed by professional and career chapters (interview questions, roadmap, freelancing). Every chapter explains each term on first use, with worked examples, output blocks, exercises, MCQs, and solutions.",
+    "icon": "Braces",
+    "color": "oklch(0.7 0.15 80)",
+    "category": "Programming Languages",
+    "order": 3
+  },
+  "path": {
+    "slug": "complete-javascript-for-absolute-beginners",
+    "title": "Complete JavaScript for Absolute Beginners",
+    "tagline": "Read the book cover to cover: 58 chapters + 10 projects in order.",
+    "description": "Follow the book exactly as written: programming foundations, JavaScript fundamentals, modern JavaScript, DOM manipulation, advanced JavaScript, APIs and real-world development, professional JavaScript, ten projects, and career preparation. Each step is one chapter of the book.",
+    "icon": "Braces",
+    "color": "oklch(0.7 0.15 80)",
+    "difficulty": "beginner"
+  },
+  "difficulties": {
+    "8": "intermediate",
+    "9": "advanced"
+  },
+  "minutesDefault": 25
+}
