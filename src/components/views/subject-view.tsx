@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { ArrowLeft, Clock, ChevronRight, BookOpen, CheckCircle2, Circle, Award } from "lucide-react"
-import { useAppStore } from "@/lib/store"
+import { useAppStore, setCurrentPageLabel } from "@/lib/store"
 import { useSubject, useSubjectCertificate } from "@/hooks/use-api"
 import { useSession } from "next-auth/react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -17,6 +17,15 @@ export function SubjectView() {
   const { data: session } = useSession()
   const { data: certData } = useSubjectCertificate(params.subjectSlug)
   const [certOpen, setCertOpen] = React.useState(false)
+
+  // Publish the current subject name as the page label so a "Return to…"
+  // button on a destination page can show specific context.
+  React.useEffect(() => {
+    if (subject?.name) {
+      setCurrentPageLabel(subject.name)
+    }
+    return () => setCurrentPageLabel(undefined)
+  }, [subject?.name])
 
   if (isLoading) {
     return (

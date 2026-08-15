@@ -1290,3 +1290,44 @@ These are all **dev mode limitations** — in a production build (`bun run build
 - ✅ Lighthouse Performance: 57 → 67 (+10)
 - ✅ LCP: 2.5s → 1.9s (-24%)
 - ✅ TBT: 880ms → 600ms (-32%)
+
+---
+Task ID: SEARCH-RETURN-1
+Agent: Principal Developer (main)
+Task: "Search while reading + return to previous page" feature — when a learner gets stuck reading a tutorial, they should be able to search directly, open a relevant tutorial, and after finishing have a button to return to the page they originally came from.
+
+Work Log:
+- Audited existing navigation: Zustand store already maintains a `history` stack with a `back()` action, and the search palette (`Cmd+K` / header search button) already navigates to tutorials by calling `navigate("tutorial", {...})`. The missing piece was a visible "Return to previous page" affordance + capturing the *label* of the page being left.
+- Extended `src/lib/store.ts`:
+  - Added `label?: string` to `HistoryEntry`.
+  - Added non-reactive module-level `setCurrentPageLabel()` / `getCurrentPageLabel()` so views can publish their current page title WITHOUT triggering global re-renders. `navigate()` reads this value at call-time and stamps it onto the history entry it pushes; `back()` restores the destination's label so multi-level return chains keep meaningful context.
+  - Added `viewLabel(view)` fallback so the return bar is never blank (e.g. "Dashboard", "Learning Paths", "previous tutorial").
+  - Added `clearHistory()` for sign-out cleanup.
+- Created `src/components/tutorial/return-bar.tsx`:
+  - `ReturnBar` component with two variants:
+    - `"bar"` — subtle full-width pill shown at the top of a view ("← Return to [label]" + `Alt ←` kbd hint).
+    - `"inline"` — self-contained button for inline CTAs (used at the bottom of the tutorial after prev/next).
+  - Renders only when `history.length > 0`; subscribes narrowly via `useAppStore((s) => s.history)`.
+  - Global `Alt+←` keyboard shortcut wired to `back()` (mirrors browser-back muscle memory without hijacking it).
+- Updated `src/components/views/tutorial-view.tsx`:
+  - Added `useEffect` that publishes the current tutorial title via `setCurrentPageLabel()` (and clears on unmount/param change).
+  - Rendered `<ReturnBar variant="bar" />` above the breadcrumb (always-visible return affordance).
+  - Rendered `<ReturnBar variant="inline" />` centered after the prev/next nav (handy after finishing a side-quest tutorial).
+  - Added a "Search topics" dashed-outline button in the actions toolbar (`setSearchOpen(true)`) with a `⌘K` kbd hint — makes the search-from-tutorial flow discoverable instead of relying solely on the header.
+- Updated `src/components/views/subject-view.tsx` to publish the subject name via `setCurrentPageLabel()` so returns from a tutorial reached via a subject page read "Return to C Programming" (etc.) instead of a generic "subject".
+- Lint: `bun run lint` → exit 0, clean.
+
+Verification (agent-browser end-to-end, single Bash session to keep dev server alive across the sandbox process-group cleanup):
+1. Home → click "C Programming" subject → click "Introduction to C" tutorial.
+   → "Return to C Programming" bar (top + bottom) + "Search tutorials while reading" button present. h1 = "Introduction to C". ✅
+2. Click header search (⌘K) → type "python" → results show "Introduction to Python", "Lists, Tuples…", "Error Handling…". ✅
+3. Click "Introduction to Python" result → navigates to the Python tutorial. h1 = "Introduction to Python". ✅
+4. On the Python tutorial: "Return to Introduction to C" bar appears at top (@e9) AND bottom (@e36). ✅ ← the captured label correctly identifies the tutorial the learner was originally reading.
+5. Click the top "Return to Introduction to C" bar → returns to Introduction to C. h1 = "Introduction to C". ✅
+6. After returning, the return bar now shows "Return to C Programming" — the next history level — enabling a full breadcrumb-style walk back. ✅
+
+Stage Summary:
+- Feature complete and browser-verified. A stuck learner can now: read tutorial A → press ⌘K (or click "Search topics") → search → open tutorial B → finish → click "Return to [A]" → land back exactly on A. Works for arbitrary navigation chains thanks to the 25-deep history stack + per-entry labels.
+- The label capture is non-reactive (module variable) so it adds zero re-render overhead; only `ReturnBar` itself re-renders on history change.
+- Files touched: `src/lib/store.ts`, `src/components/tutorial/return-bar.tsx` (new), `src/components/views/tutorial-view.tsx`, `src/components/views/subject-view.tsx`.
+- No unresolved issues. Lint clean. Server HTTP 200.

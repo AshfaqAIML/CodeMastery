@@ -3,9 +3,9 @@
 import * as React from "react"
 import {
   ArrowLeft, ArrowRight, Bookmark, Clock, ChevronRight, Loader2,
-  StickyNote, CheckCircle2, Sparkles, ListTree,
+  StickyNote, CheckCircle2, Sparkles, ListTree, Search,
 } from "lucide-react"
-import { useAppStore } from "@/lib/store"
+import { useAppStore, setCurrentPageLabel } from "@/lib/store"
 import {
   useTutorial, useUpdateProgress, useToggleBookmark,
   useNotes, useCreateNote, useDeleteNote, useMe,
@@ -28,10 +28,11 @@ import { PrintButton } from "@/components/tutorial/print-button"
 import { QuizInline } from "@/components/tutorial/quiz-inline"
 import { NotesPanel } from "@/components/tutorial/notes-panel"
 import { MobileToc } from "@/components/tutorial/mobile-toc"
+import { ReturnBar } from "@/components/tutorial/return-bar"
 import { toast } from "sonner"
 
 export function TutorialView() {
-  const { params, navigate } = useAppStore()
+  const { params, navigate, setSearchOpen } = useAppStore()
   const { data, isLoading } = useTutorial(params.subjectSlug, params.tutorialSlug)
   const { data: session } = useSession()
   const { data: meData } = useMe()
@@ -44,6 +45,17 @@ export function TutorialView() {
   const [celebration, setCelebration] = React.useState<{ show: boolean; xp: number; achievement: string | null }>({
     show: false, xp: 0, achievement: null,
   })
+
+  // Publish the current tutorial title as the "current page label" so that
+  // when the user navigates away (via search, related tutorials, prev/next),
+  // a "Return to <title>" button can be shown on the destination page.
+  // The holder is non-reactive, so this does not cause extra renders.
+  React.useEffect(() => {
+    if (data?.tutorial) {
+      setCurrentPageLabel(data.tutorial.title)
+    }
+    return () => setCurrentPageLabel(undefined)
+  }, [data?.tutorial?.id, data?.tutorial?.title])
 
   const contentRef = React.useRef<HTMLDivElement>(null)
   const lastPercentSent = React.useRef(0)
@@ -212,6 +224,9 @@ export function TutorialView() {
 
       <div className="grid lg:grid-cols-[1fr_240px] gap-8">
         <div className="min-w-0">
+          {/* Return to previous page (e.g. the tutorial the reader came from) */}
+          <ReturnBar variant="bar" />
+
           {/* Breadcrumb */}
           <nav className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4 flex-wrap">
             <button onClick={() => navigate("home")} className="hover:text-foreground">Home</button>
@@ -283,6 +298,20 @@ export function TutorialView() {
                   <PrintButton title={tutorial.title} subject={tutorial.subject.name} />
                 </div>
               )}
+              {/* Search while reading — jump to a related topic without losing your place. */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSearchOpen(true)}
+                className="border-dashed"
+                aria-label="Search tutorials while reading"
+              >
+                <Search className="mr-2 size-4" />
+                Search topics
+                <kbd className="ml-1.5 hidden sm:inline-flex items-center rounded border border-border/60 bg-background px-1 text-[10px] font-mono text-muted-foreground">
+                  ⌘K
+                </kbd>
+              </Button>
             </div>
           </div>
 
@@ -338,6 +367,12 @@ export function TutorialView() {
                 <ArrowRight className="size-5 text-muted-foreground group-hover:text-primary transition-colors shrink-0 sm:order-2" />
               </button>
             ) : <div />}
+          </div>
+
+          {/* Return to where the reader came from — handy after finishing a
+              side-quest tutorial reached via search. */}
+          <div className="mt-6 flex justify-center">
+            <ReturnBar variant="inline" />
           </div>
 
           {/* Related tutorials */}
