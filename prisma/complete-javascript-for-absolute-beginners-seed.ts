@@ -54563,7 +54563,7 @@ In this project, you learned how to:
 - This project builds a strong foundation for more advanced dynamic applications.`,
     },
     {
-      slug: "project-3-do-list-application",
+      slug: "project-3-to-do-list-application",
       title: "Project 3 — To-Do List Application",
       summary: "Project 3 — To-Do List Application",
       difficulty: "intermediate",
@@ -64761,7 +64761,7 @@ const pathSteps: { part: string; title: string; subtitle: string; order: number;
   { part: "Part 7 - Professional JavaScript", title: "Chapter 55 — Security Basics", subtitle: "Part of Part 7 - Professional JavaScript · Beginner", order: 48, tutorialSlug: "chapter-55-security-basics" },
   { part: "Part 8 - JavaScript Projects", title: "Project 1 — Interactive Calculator", subtitle: "Part of Part 8 - JavaScript Projects · Intermediate", order: 49, tutorialSlug: "project-1-interactive-calculator" },
   { part: "Part 8 - JavaScript Projects", title: "Project 2 — Digital Clock", subtitle: "Part of Part 8 - JavaScript Projects · Intermediate", order: 50, tutorialSlug: "project-2-digital-clock" },
-  { part: "Part 8 - JavaScript Projects", title: "Project 3 — To-Do List Application", subtitle: "Part of Part 8 - JavaScript Projects · Intermediate", order: 51, tutorialSlug: "project-3-do-list-application" },
+  { part: "Part 8 - JavaScript Projects", title: "Project 3 — To-Do List Application", subtitle: "Part of Part 8 - JavaScript Projects · Intermediate", order: 51, tutorialSlug: "project-3-to-do-list-application" },
   { part: "Part 8 - JavaScript Projects", title: "Project 4 — Quiz Application", subtitle: "Part of Part 8 - JavaScript Projects · Intermediate", order: 52, tutorialSlug: "project-4-quiz-application" },
   { part: "Part 8 - JavaScript Projects", title: "Project 5 — Weather App", subtitle: "Part of Part 8 - JavaScript Projects · Intermediate", order: 53, tutorialSlug: "project-5-weather-app" },
   { part: "Part 8 - JavaScript Projects", title: "Project 6 — Expense Tracker", subtitle: "Part of Part 8 - JavaScript Projects · Intermediate", order: 54, tutorialSlug: "project-6-expense-tracker" },

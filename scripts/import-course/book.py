@@ -236,7 +236,7 @@ def parse_book(docx_path: Path) -> tuple[list[Tutorial], list[dict], list[str]]:
         end_tutorial()
         pending_output = False
         cur = Tutorial(kind=kind, number=number, title=title,
-                       slug=f"{kind.lower()}-{number}-{slugify(title.split('—', 1)[-1].split('-', 1)[-1])}",
+                       slug=f"{kind.lower()}-{number}-{slugify(title.split('—', 1)[-1])}",
                        seq=len(tutorials) + 1, source=source,
                        unit=unit_num if unit_num is not None else 0)
         tutorials.append(cur)
