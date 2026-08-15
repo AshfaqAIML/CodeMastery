@@ -700,3 +700,34 @@ Verification:
 
 Stage Summary:
 - All 30 stages from the master curriculum now have course cards. Computer Fundamentals has full content. Ready to start adding content to the next subjects.
+
+---
+Task ID: C-EXPANSION
+Agent: Principal Architect
+Task: Expand C Programming subject (START SUBJECT: C Programming)
+
+Work Log:
+- C Programming had 4 tutorials across 2 modules. Expanded to 11 tutorials across 6 modules.
+- Added 4 new modules:
+  - Arrays and Strings (2 tutorials)
+  - Structures and Unions (2 tutorials)
+  - Dynamic Memory (1 tutorial)
+  - File Handling (1 tutorial)
+- Added 6 new tutorials (800-2500 words each with code examples and callouts):
+  - Arrays in C (declaration, access, iteration, multidimensional, pointer relationship)
+  - Strings in C (null termination, string.h functions, safe reading with fgets)
+  - Structures in C (definition, typedef, arrow operator, nesting, arrays of structs)
+  - Unions and Enumerations (shared memory, tagged unions, named constants)
+  - Dynamic Memory Allocation (malloc/calloc/realloc/free, memory leaks, Valgrind)
+  - File Handling in C (fopen/fclose, modes, fgets, fread/fwrite, binary I/O)
+- Added 6 quizzes (18 questions total with explanations).
+
+Verification:
+- Lint clean.
+- Server returns HTTP 200.
+- C Programming: 6 modules, 11 tutorials verified via API.
+- Platform totals: 35 subjects, 130 tutorials, 71 quizzes.
+- Platform independence maintained.
+
+Stage Summary:
+- C Programming expanded from 4 to 11 tutorials. Complete coverage: Fundamentals, Pointers, Arrays/Strings, Structs/Unions, Dynamic Memory, File Handling.
