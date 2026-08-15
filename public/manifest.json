@@ -1,0 +1,16 @@
+{
+  "name": "CodeMastery — Learn Computer Science & AI Engineering",
+  "short_name": "CodeMastery",
+  "description": "Master Computer Science from fundamentals to advanced AI engineering.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f0d",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

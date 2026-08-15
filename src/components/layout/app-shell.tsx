@@ -9,6 +9,7 @@ import { AuthModal } from "@/components/auth/auth-modal"
 import { OnboardingModal } from "@/components/auth/onboarding-modal"
 import { SearchPalette } from "@/components/search/search-palette"
 import { ScrollToTop } from "@/components/shared/scroll-to-top"
+import { ErrorBoundary } from "@/components/shared/error-boundary"
 import { HomeView } from "@/components/views/home-view"
 import { BrowseView } from "@/components/views/browse-view"
 import { SubjectView } from "@/components/views/subject-view"
@@ -55,9 +56,10 @@ export function AppShell() {
       </a>
       <Header />
       <main id="main-content" className="flex-1 flex flex-col" tabIndex={-1}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={view + (JSON.stringify(useAppStore.getState().params) || "")}
+        <ErrorBoundary>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={view + (JSON.stringify(useAppStore.getState().params) || "")}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
@@ -67,6 +69,7 @@ export function AppShell() {
             {renderView(view)}
           </motion.div>
         </AnimatePresence>
+        </ErrorBoundary>
       </main>
       <Footer />
       <AuthModal />

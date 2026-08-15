@@ -58,7 +58,7 @@ export function HomeView() {
           >
             <div className="inline-flex items-center gap-2 rounded-full glass-pill px-3.5 py-1.5 text-xs font-medium text-muted-foreground mb-6">
               <Sparkles className="size-3.5 text-primary" />
-              {totalTutorials}+ tutorials · {subjects?.length ?? 20} subjects · 100% free
+              {totalTutorials}+ tutorials · {subjects?.length ?? 35} subjects · 100% free · No signup required
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold tracking-[-0.02em] leading-[1.05] mb-6 text-foreground/95">
               Master Computer Science,

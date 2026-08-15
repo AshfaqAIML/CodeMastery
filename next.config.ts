@@ -2,11 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  /* config options here */
+  reactStrictMode: true,
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
-  reactStrictMode: false,
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "react-syntax-highlighter"],
+  },
 };
 
 export default nextConfig;
