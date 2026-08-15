@@ -731,3 +731,32 @@ Verification:
 
 Stage Summary:
 - C Programming expanded from 4 to 11 tutorials. Complete coverage: Fundamentals, Pointers, Arrays/Strings, Structs/Unions, Dynamic Memory, File Handling.
+
+---
+Task ID: CPP-EXPANSION
+Agent: Principal Architect
+Task: Expand C++ subject (START SUBJECT: C++)
+
+Work Log:
+- C++ had 4 tutorials across 1 module. Expanded to 9 tutorials across 4 modules.
+- Added 3 new modules:
+  - OOP in C++ (2 tutorials)
+  - Modern C++ (2 tutorials)
+  - Exception Handling (1 tutorial)
+- Added 5 new tutorials (800-2500 words each with code examples and callouts):
+  - Classes and Objects (private/public, constructors, destructors, Rule of Three/Five/Zero, this pointer)
+  - Inheritance and Polymorphism (virtual, override, abstract classes, pure virtual, virtual destructors)
+  - Lambdas and Functional C++ (lambda syntax, captures, STL algorithms, std::function)
+  - Move Semantics and Rvalue References (lvalue/rvalue, move constructor, noexcept, std::move)
+  - Exception Handling in C++ (try/catch/throw, custom exceptions, RAII, exception safety)
+- Added 5 quizzes (15 questions total with explanations).
+
+Verification:
+- Lint clean.
+- Server returns HTTP 200.
+- C++: 4 modules, 9 tutorials verified via API.
+- Platform totals: 35 subjects, 135 tutorials, 76 quizzes.
+- Platform independence maintained.
+
+Stage Summary:
+- C++ expanded from 4 to 9 tutorials. Complete coverage: Fundamentals, STL, Smart Pointers, Templates, OOP, Modern C++ (lambdas, move semantics), Exception Handling.
