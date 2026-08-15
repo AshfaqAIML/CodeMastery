@@ -655,3 +655,48 @@ Verification:
 
 Stage Summary:
 - Mathematics for CS & AI subject complete. Platform now has 21 subjects, 116 tutorials, 57 quizzes. This covers Stage 7 of the master curriculum roadmap.
+
+---
+Task ID: MISSING-SUBJECTS + COMPUTER-FUNDAMENTALS
+Agent: Principal Architect
+Task: Create all missing course cards + Computer Fundamentals subject content
+
+Work Log:
+1. Created 14 missing subjects (35 total now):
+   - Computer Fundamentals (order 0)
+   - APIs & Backend Engineering (order 22)
+   - FastAPI (order 23)
+   - DevOps & Cloud (order 24)
+   - AI Foundations (order 25)
+   - Computer Vision (order 26)
+   - NLP (order 27)
+   - Generative AI (order 28)
+   - AI Agents (order 29)
+   - Agentic AI (order 30)
+   - AI Engineering & MLOps (order 31)
+   - Cybersecurity for Engineers (order 32)
+   - Engineering Tools (order 33)
+   - Engineering Projects (order 34)
+
+2. Created Computer Fundamentals subject content:
+   - 4 modules: How Computers Work, Programming Concepts, Developer Tools, SDLC
+   - 8 tutorials (800-2500 words each with code examples and callouts):
+     - What Is a Computer? (Von Neumann architecture, CPU/RAM/storage)
+     - Binary and Number Systems (binary, hex, bits/bytes, text/image encoding)
+     - How the CPU Executes Code (fetch-decode-execute, registers, clock speed)
+     - Compilation vs Interpretation (compilers, interpreters, JIT)
+     - Programming Paradigms (procedural, OOP, functional, declarative)
+     - Command Line Basics (pwd, ls, cd, pipes, redirection)
+     - Git and GitHub Basics (commits, branches, pull requests)
+     - The Software Development Lifecycle (requirements->design->code->test->deploy)
+   - 8 quizzes (24 questions total)
+
+Verification:
+- Lint clean.
+- Server returns HTTP 200.
+- Computer Fundamentals: 4 modules, 8 tutorials verified via API.
+- Platform totals: 35 subjects, 124 tutorials, 65 quizzes, 195 questions.
+- Platform independence maintained.
+
+Stage Summary:
+- All 30 stages from the master curriculum now have course cards. Computer Fundamentals has full content. Ready to start adding content to the next subjects.
