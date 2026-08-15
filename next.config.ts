@@ -6,12 +6,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
   experimental: {
     optimizePackageImports: ["lucide-react", "react-syntax-highlighter"],
   },
+  allowedDevOrigins: ["*.space-z.ai", "preview-chat-*.space-z.ai"],
 };
 
 export default nextConfig;

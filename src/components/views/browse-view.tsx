@@ -1,13 +1,15 @@
 "use client"
 
 import * as React from "react"
-import { Search, Compass, Loader2 } from "lucide-react"
+import { Search, Compass, Loader2, BookX } from "lucide-react"
 import { motion } from "framer-motion"
 import { useAppStore } from "@/lib/store"
 import { useSubjects, useSearch } from "@/hooks/use-api"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { EmptyState } from "@/components/shared/empty-state"
 
 const CATEGORIES = ["All", "Programming", "Data", "Systems", "AI/ML", "Web", "Career"]
 
@@ -58,17 +60,18 @@ export function BrowseView() {
             {searchHits.length} result{searchHits.length !== 1 ? "s" : ""} for &ldquo;{q}&rdquo;
           </div>
           {searchHits.length === 0 && !searching ? (
-            <Card>
-              <CardContent className="py-12 text-center text-muted-foreground">
-                No tutorials found. Try a different search.
-              </CardContent>
-            </Card>
+            <EmptyState
+              icon={BookX}
+              title="No tutorials found"
+              description={`We couldn't find anything for "${q}". Try a different search term or browse all subjects.`}
+              action={<Button variant="outline" size="sm" onClick={() => setQ("")}>Clear search</Button>}
+            />
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {searchHits.map((hit) => (
                 <Card
                   key={hit.id}
-                  className="cursor-pointer hover:border-primary/40 hover:shadow-md transition-all"
+                  className="cursor-pointer hover:border-primary/40 hover:shadow-md transition-all card-lift"
                   onClick={() => navigate("tutorial", { subjectSlug: hit.subjectSlug, tutorialSlug: hit.slug })}
                 >
                   <CardHeader className="pb-2">

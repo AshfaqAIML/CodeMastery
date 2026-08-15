@@ -120,7 +120,22 @@ export function SubjectView() {
       {/* Difficulty filter */}
       <DifficultyFilter subject={subject} />
 
-      {/* Modules */}
+      {/* Modules or Coming Soon */}
+      {(!subject.modules || subject.modules.length === 0) &&
+       (!subject.tutorials || subject.tutorials.length === 0) ? (
+        <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+          <div className="size-14 rounded-2xl bg-muted/50 flex items-center justify-center mb-4">
+            <BookOpen className="size-7 text-muted-foreground/60" />
+          </div>
+          <h3 className="font-semibold text-base mb-1">Coming soon</h3>
+          <p className="text-sm text-muted-foreground max-w-sm mb-5">
+            We're working on tutorials for {subject.name}. Check back soon — exciting content is on the way!
+          </p>
+          <Button variant="outline" size="sm" onClick={() => navigate("browse")}>
+            Browse other subjects
+          </Button>
+        </div>
+      ) : (
       <div className="space-y-8">
         {subject.modules?.map((m: any) => (
           <div key={m.id}>
@@ -173,6 +188,7 @@ export function SubjectView() {
           </div>
         )}
       </div>
+      )}
 
       <div className="mt-12">
         <Button variant="ghost" onClick={() => navigate("browse")}>

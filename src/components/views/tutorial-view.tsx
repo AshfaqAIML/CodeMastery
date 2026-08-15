@@ -275,7 +275,10 @@ export function TutorialView() {
                   <PrintButton title={tutorial.title} subject={tutorial.subject.name} />
                 </>
               ) : (
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button size="sm" onClick={() => useAppStore.getState().openAuth("register")} className="shadow-glow-primary">
+                    Sign in to track progress
+                  </Button>
                   <ShareButton title={tutorial.title} slug={tutorial.slug} />
                   <PrintButton title={tutorial.title} subject={tutorial.subject.name} />
                 </div>

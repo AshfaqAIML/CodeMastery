@@ -1023,3 +1023,31 @@ Response → UI (markdown rendered)
 - 35 subjects, 135 tutorials, 76 quizzes
 - AI: enabled, Z.AI provider, website-aware context system
 - Features: tutorial-context, user-progress, conversation, quick-actions, content-retrieval, personalized
+
+---
+Task ID: RETRO-1
+Agent: World-Class Product Team
+Task: Retrospective UI/UX improvement + server rendering fix
+
+## Fixes Applied
+
+### Critical: Server Not Rendering in Preview
+1. **Removed invalid `eslint` key** from `next.config.ts` — was causing a warning that interfered with compilation
+2. **Added `allowedDevOrigins`** — fixes cross-origin warning from preview panel
+3. **Disabled Prisma query logging** in `db.ts` — changed from `log: ['query']` to `log: ['error', 'warn']` to reduce memory consumption
+4. **Cleared stale `.next` cache** — `rm -rf .next` and fresh restart fixed the rendering issue
+
+### Retrospective UI/UX Improvements
+5. **Browse view search empty state**: Replaced plain "No tutorials found" text with reusable `EmptyState` component — includes icon, helpful description, and "Clear search" CTA button
+6. **Browse search results**: Added `card-lift` hover effect to search result cards — consistent with subject cards on the browse grid
+7. **Home stats fallback**: Fixed `subjects?.length ?? 20` → `?? 35` — was showing wrong fallback number
+8. **Subject view "Coming Soon" state**: Empty subjects (0 tutorials) now show a friendly "Coming soon" message with icon, description, and "Browse other subjects" CTA — instead of showing empty module list
+9. **Tutorial reader unauthenticated CTA**: Replaced passive "Sign in to track progress" text with a prominent "Sign in to track progress" button with glow shadow — opens the auth modal directly
+10. **Dashboard loading states**: Replaced all `animate-pulse` skeleton loaders with `skeleton-shimmer` — consistent shimmer effect across the entire platform
+
+## Verification
+- ✅ Lint clean
+- ✅ Server returns HTTP 200
+- ✅ Homepage renders correctly (71KB, all elements present)
+- ✅ All 35 subjects, 135 tutorials, 76 quizzes intact in database
+- ✅ Platform independence maintained

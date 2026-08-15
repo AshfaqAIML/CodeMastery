@@ -99,7 +99,7 @@ export function HomeView() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <StatCard icon={BookOpen} label="Tutorials" value={`${totalTutorials}+`} color="oklch(0.62 0.15 162)" />
-            <StatCard icon={Layers} label="Subjects" value={`${subjects?.length ?? 20}`} color="oklch(0.7 0.13 200)" />
+            <StatCard icon={Layers} label="Subjects" value={`${subjects?.length ?? 35}`} color="oklch(0.7 0.13 200)" />
             <StatCard icon={Compass} label="Learning paths" value={`${paths?.length ?? 5}`} color="oklch(0.68 0.2 305)" />
             <StatCard icon={Trophy} label="Achievements" value="16" color="oklch(0.75 0.16 85)" />
           </div>

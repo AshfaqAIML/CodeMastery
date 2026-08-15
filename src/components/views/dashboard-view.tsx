@@ -37,10 +37,10 @@ export function DashboardView() {
   if (status === "loading" || isLoading) {
     return (
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
-        <div className="h-10 w-48 bg-muted/40 animate-pulse rounded mb-6" />
+        <div className="h-10 w-48 skeleton-shimmer rounded mb-6" />
         <div className="grid lg:grid-cols-3 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-32 bg-muted/40 animate-pulse rounded-xl" />
+            <div key={i} className="h-32 skeleton-shimmer rounded-xl" />
           ))}
         </div>
       </div>
@@ -455,7 +455,7 @@ function DailyChallengeWidget() {
   if (isLoading) {
     return (
       <Card className="overflow-hidden">
-        <div className="h-28 bg-muted/40 animate-pulse" />
+        <div className="h-28 skeleton-shimmer" />
       </Card>
     )
   }
