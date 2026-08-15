@@ -7,6 +7,10 @@ import type { SearchService, SearchResult } from "./types"
  * For large datasets, migrate to Meilisearch/Elasticsearch via the same interface.
  */
 export class DBSearchService implements SearchService {
+  #mode = (process.env.DATABASE_URL ?? "").startsWith("file:")
+    ? undefined
+    : { mode: "insensitive" as const } // Postgres LIKE is case-sensitive; SQLite is already CI
+
   async searchTutorials(
     query: string,
     opts: { page?: number; pageSize?: number; subjectId?: string } = {}
@@ -14,15 +18,16 @@ export class DBSearchService implements SearchService {
     const page = Math.max(1, opts.page ?? 1)
     const pageSize = Math.min(48, Math.max(1, opts.pageSize ?? 12))
     const q = (query ?? "").trim()
+    const ci = (s: string) => (this.#mode ? { contains: s, ...this.#mode } : { contains: s })
     const where = {
       published: true,
       ...(opts.subjectId ? { subjectId: opts.subjectId } : {}),
       ...(q
         ? {
             OR: [
-              { title: { contains: q } },
-              { summary: { contains: q } },
-              { tags: { contains: q } },
+              { title: ci(q) },
+              { summary: ci(q) },
+              { tags: ci(q) },
             ],
           }
         : {}),

@@ -84,12 +84,39 @@ Accepted layouts:
   OBJECTIVES plain-text boxes followed by the `<article>` block (a trailing
   STATUS box is ignored).
 
-## book.py (planned) — plain-chapter DOCX
+## book.py — plain-chapter DOCX
 
 For books with no article HTML — just headings (`PART N — ...`,
 `Chapter N — ...`, `Project N — ...`) and plain-text body paragraphs.
 See the JavaScript book at `Books/COMPLETE JAVASCRIPT FOR ABSOLUTE
 BEGINNERS1.docx` for the reference layout.
+
+Usage:
+
+    py scripts/import-course/book.py <book.docx> \
+      --config scripts/import-course/courses/<course>.json \
+      [--seed prisma/<course>-seed.ts]   [--no-seed]  [--force]
+
+Book features handled: PART markers build modules; `PART N Progress`
+scaffold (✅/⏳/"Type NEXT") is dropped; Learning Objectives / Chapter
+Summary / Key Terms / MCQs / Chapter Introduction / Why This Topic
+Matters become metadata fields (objectives, takeaways, tags, questions,
+summary, whereItFits) and are excluded from content; real Word tables
+become GFM tables; Consolas runs become code — but only when content
+hints (statements, `console.`, braces, `=>`) confirm it, otherwise they
+are prose; output value blocks after `Label:` lines fence as `text`;
+diagrams (arrows/box chars) fence as `text`; MCQs render with options
+and answers; restart markers (`Chapter N — ...` appearing again, e.g.
+the triplicated Project 7) skip the repeat segment.
+
+Slug/title rules: chapter numbers are part of the slug
+(`chapter-5-variables`, `project-3-to-do-list-application`); tutorial
+`part` is a global running number, since project and chapter numbers
+overlap; difficulty comes from the config's `difficulties` map
+(`part-number -> level`), minutes from a words-per-minute heuristic
+(clamped 10–90); tags are the Key Terms list. Chapters 31–55 in the
+reference book legitimately lack MCQs and 56–58 lack objectives —
+preflight reports these as warnings; `--force` writes the seed anyway.
 
 ## check-seed-db.ts — verify seed vs live DB
 
