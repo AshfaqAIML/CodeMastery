@@ -1398,3 +1398,55 @@ Stage Summary:
 - Rich content blocks: 8 callout variants, output blocks, diagram placeholders, collapsible interview questions, comparison tables — all rendering correctly via enhanced markdown renderer.
 - Files touched: `prisma/schema.prisma`, `prisma/seed.ts`, `src/components/markdown/markdown-renderer.tsx`, `src/components/tutorial/tutorial-meta-panel.tsx` (new), `src/components/views/tutorial-view.tsx`, `src/components/views/browse-view.tsx`, `src/app/api/domains/route.ts` (new), `src/app/api/subjects/route.ts`, `src/app/api/subjects/[slug]/route.ts`, `src/app/api/tutorials/[subjectSlug]/[tutorialSlug]/route.ts`, `src/hooks/use-api.ts`.
 - No unresolved issues. Lint clean. Server HTTP 200.
+
+---
+Task ID: ADD-TUTORIAL-1
+Agent: Content Integrator (subagent)
+Task: Add the uploaded "Introduction to Computer Science" tutorial to the Computer Fundamentals subject in the seed, re-seed, and verify.
+
+Work Log:
+- Read worklog.md to understand the curriculum-aware content architecture (Domain → Subject → Module → Tutorial → Section → Content Block) implemented in CURRICULUM-ARCH-1, plus the pedagogical metadata fields (learningObjectives, prerequisites, whereItFits, keyTakeaways, selfAssessment).
+- Read prisma/seed.ts — confirmed SubjectInput / TutorialInput types, the domains array, the subjectDomain mapping, the "Introduction to C" tutorial as the showcase reference for pedagogical metadata + rich content blocks, and the main() upsert execution path that JSON-encodes metadata fields.
+- Read src/components/markdown/markdown-renderer.tsx — confirmed the 8 callout variants (tip/warning/note/info/important/best-practice/analogy/memory), the `output` fenced code block, the `diagram:`/`figure:` blockquote placeholder, GFM tables, and raw `<details>`/`<summary>` HTML passthrough via rehype-raw.
+- Read upload/Pasted Content_1786771985856.txt (1240 lines) — lines 1-77 metadata, 79-411 Course Guide (35-part syllabus), 419-1225 Part 1 tutorial (the target), 1227-1240 footer.
+- Converted the Part 1 HTML tutorial to markdown:
+  - h1/h2/h3 → #/##/### headings (sections 1.1 through 1.11, plus Where This Knowledge Is Used Later, Common Beginner Mistakes, Check Your Understanding, Summary, Next Steps).
+  - `<aside class="callout callout-X">` → `> X: content` blockquote prefixes, mapping callout-info→info, callout-tip→tip, callout-warning→warning, callout-important→important, callout-analogy→analogy. Preserved `<strong>Label:</strong>` prefixes as `**Label:**`.
+  - `<pre class="ascii-diagram">` → ` ```text ` fenced code blocks (2 ASCII diagrams: input→processing→output, and the Theory→Algorithms→…→Applications stack).
+  - `<table class="comparison-table">` (CS vs Related Fields) → GFM markdown table with 6 columns × 6 rows.
+  - `<dl class="definitions">` (definition lists) → bullet lists with bold term + dash + definition, preserving all definitions (Computer Science, Algorithm, Computer, Data, Input, Output, Program, Hardware, Software, CE, IT, SE, DS, AI).
+  - `<figure class="media-placeholder">` → `> diagram:` blockquote (1 diagram placeholder for the CS layers).
+  - Preserved ALL educational substance: every definition, every example, every analogy, all 4 common-mistake patterns, all 5 practical questions, all 3 mini exercises, and the complete summary.
+  - Final markdown content: 17,983 characters.
+- Extracted pedagogical metadata:
+  - learningObjectives: 7 measurable objectives derived from the tutorial's "What You Will Learn" list and the course objectives applicable to Part 1.
+  - prerequisites: 3 entries (None/first principles + 2 helpful-but-not-required).
+  - whereItFits: paragraph explaining this is Part 1 of CS Foundations, first tutorial in Computer Fundamentals, assuming zero prior CS, and pointing to Part 2: History and Evolution of Computing.
+  - keyTakeaways: 5 distilled takeaways.
+  - selfAssessment: 5 "Can you now…" checklist items derived from the learning objectives.
+- Added the `"computer-fundamentals": "computer-science"` entry to the subjectDomain mapping (top of the computer-science group, line 114).
+- Inserted a new "COMPUTER FUNDAMENTALS" subject block at the top of the subjects array (line 142), with: slug "computer-fundamentals", name "Computer Fundamentals", icon "Cpu", color "oklch(0.62 0.15 162)", category "Foundations", order 0. One module: "introduction-to-computer-science" (120 min estimated). One tutorial: slug "what-is-computer-science", title "Introduction to Computer Science: What It Is and Why It Matters", difficulty beginner, 25 min, tags "computer-science,foundations,beginner,introduction", order 1.
+- Escaped all backticks in the markdown content (12 backticks across 2 ```text fences) as `\`` inside the template literal. No `${` patterns to escape. No backslashes in content (Unicode arrows ↑ ↓ → used directly).
+- Re-seeded: `bun run prisma/seed.ts` — completed cleanly. Counts: 4 domains, 35 subjects, 41 modules, 136 tutorials, 106 quizzes, 318 questions, 16 achievements, 5 paths. Subject count stayed at 35 because a "computer-fundamentals" subject already existed in the DB (from a prior seed iteration not in seed.ts); the upsert updated that existing row. Modules went 40→41 (added my new module) and tutorials went 135→136 (added my new tutorial). This matches the task's "35/136 if computer-fundamentals already existed" expected case.
+- Lint: `bun run lint` → exit 0, clean.
+- Browser verification (agent-browser, single bash session to keep dev server alive across sandbox process-group cleanup):
+  1. Opened http://localhost:3000/ — home rendered. Computer Fundamentals subject visible as first card (order: 0).
+  2. Clicked Computer Fundamentals — subject page rendered showing 5 modules including my new "Introduction to Computer Science" module with the new tutorial card "Introduction to Computer Science: What It Is and Why It Matters · Beginner · 25m".
+  3. Clicked the new tutorial — tutorial view rendered.
+  4. h1 text: "Introduction to Computer Science: What It Is and Why It Matters" ✅
+  5. Breadcrumb DOM: "Home › Browse › Computer Science › Computer Fundamentals › Introduction to Computer Science" ✅ (full Domain › Subject › Module hierarchy)
+  6. Return-to-previous bar: "Return to Computer Fundamentals" ✅
+  7. Pedagogical panels present (sections with aria-label): "Learning objectives", "Prerequisites", "Where this tutorial fits", "Key takeaways", "Self-assessment" — all 5 ✅
+  8. All h2 headings include the 7 learning objectives, 3 prerequisites, the whereItFits text, the 11 numbered sections, all sub-sections, "Key Takeaways", and "Self-Assessment — Can you now…" ✅
+  9. Rich content blocks: callouts: 9 (info×4, analogy×1, important×1, tip×2, warning×1), code blocks: 2 (the two ASCII diagrams), tables: 1 (CS vs Related Fields comparison), diagrams: 1 (CS layers diagram placeholder) ✅
+  10. Screenshot saved to /home/z/my-project/tutorial-screenshot.png (2.1 MB, full page). ✅
+
+Stage Summary:
+- Subject: "computer-fundamentals" (Computer Fundamentals) already existed in the DB; added it to seed.ts at order 0 and linked it to the computer-science domain via subjectDomain mapping. No existing subject/tutorials modified.
+- Tutorial added: slug "what-is-computer-science", title "Introduction to Computer Science: What It Is and Why It Matters", 25 min read, beginner difficulty.
+- Markdown content length: 17,983 characters (comprehensive — preserves all definitions, analogies, examples, comparison table, ASCII diagrams, callouts, practical questions, mini exercises, and summary).
+- Seed counts: 4 domains, 35 subjects, 41 modules, 136 tutorials, 106 quizzes, 318 questions, 16 achievements, 5 paths.
+- Lint: pass (exit 0).
+- Browser verification: tutorial renders correctly. h1 matches, breadcrumb shows full hierarchy (Computer Science › Computer Fundamentals › Introduction to Computer Science), all 5 pedagogical panels (Learning Objectives, Prerequisites, Where You Are, Key Takeaways, Self-Assessment) present, 9 callouts + 2 ASCII code blocks + 1 GFM table + 1 diagram placeholder all render correctly.
+- Files touched: prisma/seed.ts (added subjectDomain entry + new Computer Fundamentals subject block with one module + one tutorial, ~290 new lines).
+- No unresolved issues. Lint clean. Screenshot saved.

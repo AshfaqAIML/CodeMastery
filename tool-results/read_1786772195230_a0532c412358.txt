@@ -1,0 +1,1240 @@
+     1→```text
+     2→================================================================
+     3→CURRICULUM POSITION
+     4→================================================================
+     5→
+     6→Domain:          Computer Science
+     7→Subject:         Computer Science Foundations
+     8→Learning Path:   Shared foundation for: Software Engineer,
+     9→                 Backend Engineer, Full-Stack Engineer, Data Analyst,
+    10→                 Data Scientist, ML Engineer, AI Engineer,
+    11→                 LLM Engineer, AI Agent / Agentic AI Engineer
+    12→Part:            — (subject root)
+    13→Module:          Part 1 of 35 — Introduction to Computer Science
+    14→Tutorial:        Course Guide + Part 1
+    15→
+    16→================================================================
+    17→COURSE METADATA
+    18→================================================================
+    19→
+    20→Title:           Computer Science Foundations
+    21→Slug:            computer-science-foundations
+    22→Difficulty:      Beginner (no prior CS knowledge assumed)
+    23→Format:          35 sequential parts, generated one at a time
+    24→Prerequisites:   Basic reading and arithmetic
+    25→                 (addition, subtraction, multiplication, division)
+    26→Tags:            computer-science, foundations, beginner,
+    27→                 hardware, software, algorithms, networking,
+    28→                 databases, ai, ml, llm, engineering-basics
+    29→
+    30→================================================================
+    31→COURSE LEARNING OBJECTIVES
+    32→================================================================
+    33→
+    34→By the end of this subject, the learner will be able to:
+    35→
+    36→ 1. Explain what Computer Science is and how it differs from
+    37→    IT, Software Engineering, Data Science, and AI.
+    38→ 2. Describe how a computer works: input → processing → output.
+    39→ 3. Convert numbers between binary, decimal, octal, and
+    40→    hexadecimal, and explain why computers use binary.
+    41→ 4. Explain bits, bytes, and how text, images, audio, and
+    42→    video are represented as numbers.
+    43→ 5. Describe the CPU, memory hierarchy, storage, and the
+    44→    motherboard, and how they cooperate.
+    45→ 6. Explain the boot process from power button to login.
+    46→ 7. Explain the difference between system software, application
+    47→    software, firmware, and drivers.
+    48→ 8. Explain how source code becomes a running program, including
+    49→    compilers, interpreters, bytecode, and runtimes.
+    50→ 9. Define algorithms and data structures and explain Big O
+    51→    notation intuitively.
+    52→10. Explain what an operating system does and how files,
+    53→    processes, and permissions work.
+    54→11. Explain networking basics: IP addresses, DNS, packets,
+    55→    clients, servers, and what happens when you open a website.
+    56→12. Explain what databases are and why SQL and NoSQL exist.
+    57→13. Explain security fundamentals: authentication, authorization,
+    58→    encryption, and hashing.
+    59→14. Explain software engineering practices: version control,
+    60→    testing, code review, and the development lifecycle.
+    61→15. Explain APIs, cloud computing, virtualization, containers,
+    62→    concurrency, and distributed systems at a foundational level.
+    63→16. Explain the relationships: AI → ML → Deep Learning →
+    64→    Transformers → LLMs → RAG → AI Agents → Agentic AI.
+    65→17. Connect every foundation topic to the advanced subjects
+    66→    that follow in the engineering curriculum.
+    67→
+    68→================================================================
+    69→PREREQUISITES
+    70→================================================================
+    71→
+    72→None. This course starts from first principles.
+    73→
+    74→Helpful but not required:
+    75→- Comfort with basic arithmetic
+    76→- Access to any computer or smartphone (for observation exercises)
+    77→```
+    78→
+    79→```html
+    80→<article class="tutorial">
+    81→
+    82→    <header class="tutorial-header">
+    83→
+    84→        <div class="tutorial-breadcrumbs">
+    85→            Computer Science
+    86→            → Computer Science Foundations
+    87→            → Course Guide
+    88→        </div>
+    89→
+    90→        <h1>Computer Science Foundations</h1>
+    91→
+    92→        <p class="tutorial-description">
+    93→            A complete, beginner-friendly foundation course covering how
+    94→            computers work, how information is represented, how programs
+    95→            run, and how modern systems — from databases to LLMs and AI
+    96→            agents — fit together. No prior Computer Science knowledge
+    97→            is assumed.
+    98→        </p>
+    99→
+   100→        <div class="tutorial-meta">
+   101→            <span class="difficulty difficulty-beginner">Beginner</span>
+   102→            <span class="reading-time">35 parts · self-paced</span>
+   103→        </div>
+   104→
+   105→    </header>
+   106→
+   107→    <section class="tutorial-overview">
+   108→
+   109→        <h2>How This Course Works</h2>
+   110→
+   111→        <p>
+   112→            This subject is the <strong>ground floor</strong> of the entire
+   113→            engineering curriculum. Every technical term is explained the
+   114→            first time it appears. Every concept follows the same teaching
+   115→            pattern:
+   116→        </p>
+   117→
+   118→        <ol>
+   119→            <li>A simple explanation in ordinary language</li>
+   120→            <li>The correct technical term</li>
+   121→            <li>A deeper explanation of how it works</li>
+   122→            <li>An example and, where useful, an analogy</li>
+   123→            <li>A connection to where the concept appears later</li>
+   124→        </ol>
+   125→
+   126→        <aside class="callout callout-info">
+   127→            <strong>Reading rule:</strong>
+   128→            You should never need to leave this course to look up a word.
+   129→            If a term is used, it is explained first. If something ever
+   130→            feels unclear, re-read the paragraph — the explanation is
+   131→            designed to stand on its own.
+   132→        </aside>
+   133→
+   134→    </section>
+   135→
+   136→    <section class="curriculum-connection">
+   137→
+   138→        <h2>Where This Subject Fits in the Curriculum</h2>
+   139→
+   140→        <p>
+   141→            Computer Science Foundations is the first subject in the
+   142→            curriculum. Everything you learn here is reused later:
+   143→        </p>
+   144→
+   145→        <pre class="ascii-diagram">
+   146→Computer Science Foundations   ← you are here
+   147→        ↓
+   148→C → C++ → Data Structures &amp; Algorithms (DSA)
+   149→        ↓
+   150→Python → Java → Operating Systems → Computer Architecture
+   151→        ↓
+   152→Networking → Databases → Software Engineering
+   153→        ↓
+   154→Backend → APIs → FastAPI → Full Stack → System Design
+   155→        ↓
+   156→AI → ML → Deep Learning → Computer Vision / NLP
+   157→        ↓
+   158→Generative AI → LLMs → RAG → AI Agents → Agentic AI
+   159→        ↓
+   160→Production AI Engineering
+   161→        </pre>
+   162→
+   163→        <p>
+   164→            Each arrow means <em>"builds on"</em>. For example, you cannot
+   165→            deeply understand why C pointers behave the way they do without
+   166→            understanding memory. You cannot understand system design
+   167→            without understanding networks and databases. You cannot
+   168→            understand LLMs without understanding what a neural network,
+   169→            a model, and numerical data representation are.
+   170→        </p>
+   171→
+   172→    </section>
+   173→
+   174→    <section class="syllabus">
+   175→
+   176→        <h2>Complete Table of Contents and Syllabus</h2>
+   177→
+   178→        <h3>Unit A — Orientation</h3>
+   179→        <ol>
+   180→            <li>
+   181→                <strong>Part 1 — Introduction to Computer Science:</strong>
+   182→                what CS is · computing · what a computer is · what computers
+   183→                can and cannot do · why CS matters · CS vs IT vs Software
+   184→                Engineering vs Data Science vs AI · major areas of CS
+   185→            </li>
+   186→        </ol>
+   187→
+   188→        <h3>Unit B — How Computers Represent Information</h3>
+   189→        <ol start="2">
+   190→            <li>
+   191→                <strong>Part 2 — History and Evolution of Computing:</strong>
+   192→                early calculating devices · Babbage and Lovelace · Turing ·
+   193→                vacuum tubes · transistors · integrated circuits ·
+   194→                microprocessors · personal computers · the Internet era ·
+   195→                smartphones · cloud · the AI era
+   196→            </li>
+   197→            <li>
+   198→                <strong>Part 3 — What Is a Computer?:</strong>
+   199→                the input → processing → output model · data vs information
+   200→                · instructions and programs · worked example: a calculator
+   201→                key press
+   202→            </li>
+   203→            <li>
+   204→                <strong>Part 4 — Data and Information:</strong>
+   205→                raw vs processed data · structured vs unstructured data ·
+   206→                metadata · digital information · why computers use numbers
+   207→            </li>
+   208→            <li>
+   209→                <strong>Part 5 — Number Systems:</strong>
+   210→                digits, bases, positional notation · decimal · binary ·
+   211→                octal · hexadecimal · all core conversions with worked
+   212→                examples · why computers use binary
+   213→            </li>
+   214→            <li>
+   215→                <strong>Part 6 — Bits, Bytes and Data Representation:</strong>
+   216→                bit · nibble · byte · word · unsigned and signed integers ·
+   217→                two's complement · floating-point numbers · ASCII · Unicode ·
+   218→                UTF-8 · how images, audio, and video become numbers
+   219→            </li>
+   220→        </ol>
+   221→
+   222→        <h3>Unit C — Computer Hardware</h3>
+   223→        <ol start="7">
+   224→            <li>
+   225→                <strong>Part 7 — Computer Hardware Overview:</strong>
+   226→                CPU · RAM · ROM · motherboard · GPU · storage · power supply
+   227→                · network interface · input/output devices · cooling
+   228→            </li>
+   229→            <li>
+   230→                <strong>Part 8 — The CPU:</strong>
+   231→                cores · threads · clock speed · the fetch–decode–execute
+   232→                cycle · registers · ALU · control unit · cache levels ·
+   233→                instruction set architecture · what happens when a program runs
+   234→            </li>
+   235→            <li>
+   236→                <strong>Part 9 — Memory:</strong>
+   237→                memory addresses · RAM vs ROM · cache · registers · stack ·
+   238→                heap · virtual memory · the memory hierarchy
+   239→            </li>
+   240→            <li>
+   241→                <strong>Part 10 — Storage:</strong>
+   242→                HDD · SSD · NVMe · flash · optical and cloud storage ·
+   243→                files, folders, blocks · sequential vs random access ·
+   244→                memory vs storage
+   245→            </li>
+   246→            <li>
+   247→                <strong>Part 11 — Motherboard and Components:</strong>
+   248→                buses (data, address, control) · ports · PCIe · USB · SATA ·
+   249→                expansion cards · BIOS · UEFI · how components communicate
+   250→            </li>
+   251→            <li>
+   252→                <strong>Part 12 — How a Computer Starts:</strong>
+   253→                power button → firmware → POST → bootloader → kernel →
+   254→                operating system → login
+   255→            </li>
+   256→        </ol>
+   257→
+   258→        <h3>Unit D — Software and Programming</h3>
+   259→        <ol start="13">
+   260→            <li>
+   261→                <strong>Part 13 — Software Fundamentals:</strong>
+   262→                system vs application vs utility software · firmware ·
+   263→                drivers · libraries · frameworks
+   264→            </li>
+   265→            <li>
+   266→                <strong>Part 14 — Programming Fundamentals:</strong>
+   267→                what programming is · programming languages · source code vs
+   268→                machine code · variables · data types · operators ·
+   269→                conditions · loops · functions · input/output
+   270→            </li>
+   271→            <li>
+   272→                <strong>Part 15 — Compilers, Interpreters and Runtimes:</strong>
+   273→                compiler · interpreter · assembler · linker · loader ·
+   274→                bytecode · JIT · runtime systems · how C, C++, Java, Python,
+   275→                and JavaScript really work
+   276→            </li>
+   277→        </ol>
+   278→
+   279→        <h3>Unit E — Problem Solving and Computation</h3>
+   280→        <ol start="16">
+   281→            <li>
+   282→                <strong>Part 16 — Algorithms:</strong>
+   283→                what an algorithm is · algorithm vs program · properties of
+   284→                good algorithms · everyday examples · searching · sorting ·
+   285→                recursion · optimization
+   286→            </li>
+   287→            <li>
+   288→                <strong>Part 17 — Computational Thinking:</strong>
+   289→                decomposition · pattern recognition · abstraction ·
+   290→                algorithmic thinking · logical reasoning
+   291→            </li>
+   292→            <li>
+   293→                <strong>Part 18 — Time and Space Complexity:</strong>
+   294→                efficiency · Big O notation · O(1), O(log n), O(n),
+   295→                O(n log n), O(n²), O(2ⁿ) · intuitive examples
+   296→            </li>
+   297→            <li>
+   298→                <strong>Part 19 — Data Structures:</strong>
+   299→                arrays · linked lists · stacks · queues · hash tables ·
+   300→                trees · graphs · operations, trade-offs, use cases
+   301→            </li>
+   302→        </ol>
+   303→
+   304→        <h3>Unit F — Systems and Networks</h3>
+   305→        <ol start="20">
+   306→            <li>
+   307→                <strong>Part 20 — Operating System Fundamentals:</strong>
+   308→                kernel · processes · threads · scheduling · memory
+   309→                management · device management · permissions · user accounts
+   310→            </li>
+   311→            <li>
+   312→                <strong>Part 21 — Files and File Systems:</strong>
+   313→                files · folders · paths · extensions · permissions · blocks
+   314→                · metadata · NTFS · FAT32 · exFAT · ext4
+   315→            </li>
+   316→            <li>
+   317→                <strong>Part 22 — Computer Networking Fundamentals:</strong>
+   318→                LAN · WAN · Internet · IP and MAC addresses · router ·
+   319→                switch · modem · DNS · DHCP · ports · protocols · packets ·
+   320→                client/server · "what happens when you open a website?"
+   321→            </li>
+   322→            <li>
+   323→                <strong>Part 23 — Internet Fundamentals:</strong>
+   324→                Internet vs Web · websites · browsers · web servers ·
+   325→                domains · HTTP · HTTPS · URLs · TCP/IP
+   326→            </li>
+   327→        </ol>
+   328→
+   329→        <h3>Unit G — Data, Security, and Software Engineering</h3>
+   330→        <ol start="24">
+   331→            <li>
+   332→                <strong>Part 24 — Databases Fundamentals:</strong>
+   333→                databases · DBMS · relational model · tables, rows, columns
+   334→                · primary and foreign keys · SQL · NoSQL · PostgreSQL ·
+   335→                MySQL · MongoDB · Redis
+   336→            </li>
+   337→            <li>
+   338→                <strong>Part 25 — Security Fundamentals:</strong>
+   339→                authentication vs authorization · passwords · encryption vs
+   340→                hashing · HTTPS · malware · phishing · firewalls ·
+   341→                vulnerability, threat, risk
+   342→            </li>
+   343→            <li>
+   344→                <strong>Part 26 — Software Engineering Fundamentals:</strong>
+   345→                the development lifecycle · requirements · design · testing
+   346→                · deployment · debugging · Git · GitHub · commits · branches
+   347→                · pull requests · code review · documentation
+   348→            </li>
+   349→            <li>
+   350→                <strong>Part 27 — Abstraction and Software Architecture:</strong>
+   351→                abstraction · modularity · encapsulation · separation of
+   352→                concerns · interfaces · layers
+   353→            </li>
+   354→            <li>
+   355→                <strong>Part 28 — APIs and Modern Applications:</strong>
+   356→                API · client/server · endpoints · requests and responses ·
+   357→                JSON · REST · HTTP methods · frontend → API → backend →
+   358→                database
+   359→            </li>
+   360→        </ol>
+   361→
+   362→        <h3>Unit H — Modern Computing</h3>
+   363→        <ol start="29">
+   364→            <li>
+   365→                <strong>Part 29 — Cloud Computing Fundamentals:</strong>
+   366→                cloud vs local · data centers · virtual machines ·
+   367→                containers · AWS · Azure · Google Cloud · serverless
+   368→            </li>
+   369→            <li>
+   370→                <strong>Part 30 — Virtualization and Containers:</strong>
+   371→                virtualization · hypervisor · virtual machines · containers
+   372→                · Docker · images · VM vs container
+   373→            </li>
+   374→            <li>
+   375→                <strong>Part 31 — Parallelism and Concurrency:</strong>
+   376→                sequential execution · concurrency vs parallelism ·
+   377→                multithreading · multiprocessing · asynchronous programming
+   378→            </li>
+   379→            <li>
+   380→                <strong>Part 32 — Distributed Systems Fundamentals:</strong>
+   381→                why computers work together · services · microservices ·
+   382→                load balancers · caches · replication · scalability ·
+   383→                availability · fault tolerance
+   384→            </li>
+   385→        </ol>
+   386→
+   387→        <h3>Unit I — Artificial Intelligence and Integration</h3>
+   388→        <ol start="33">
+   389→            <li>
+   390→                <strong>Part 33 — AI and Machine Learning Foundations:</strong>
+   391→                AI · ML · deep learning · generative AI · models · training
+   392→                · inference · features · neural networks
+   393→            </li>
+   394→            <li>
+   395→                <strong>Part 34 — Modern AI Engineering Foundations:</strong>
+   396→                transformers · LLMs · embeddings · vector databases · RAG ·
+   397→                AI agents · agentic AI
+   398→            </li>
+   399→            <li>
+   400→                <strong>Part 35 — How Everything Connects:</strong>
+   401→                the complete knowledge map · hardware → OS → programming →
+   402→                algorithms → software engineering → backend → system design
+   403→                → cloud → AI → LLMs → RAG → agents · final checklist ·
+   404→                interview preparation · mini-projects
+   405→            </li>
+   406→        </ol>
+   407→
+   408→    </section>
+   409→
+   410→</article>
+   411→```
+   412→
+   413→```text
+   414→================================================================
+   415→TUTORIAL CONTENT — PART 1 OF 35
+   416→================================================================
+   417→```
+   418→
+   419→```html
+   420→<article class="tutorial">
+   421→
+   422→    <header class="tutorial-header">
+   423→
+   424→        <div class="tutorial-breadcrumbs">
+   425→            Computer Science
+   426→            → Computer Science Foundations
+   427→            → Part 1: Introduction to Computer Science
+   428→        </div>
+   429→
+   430→        <h1>Introduction to Computer Science: What It Is and Why It Matters</h1>
+   431→
+   432→        <p class="tutorial-description">
+   433→            Before touching hardware, code, or networks, we answer the most
+   434→            basic questions: What is Computer Science? What is a computer?
+   435→            What can computers do — and what can they not do? This part
+   436→            builds the mental foundation for all 34 parts that follow.
+   437→        </p>
+   438→
+   439→        <div class="tutorial-meta">
+   440→            <span class="difficulty difficulty-beginner">Beginner</span>
+   441→            <span class="reading-time">25 min read</span>
+   442→            <span class="tutorial-position">Part 1 of 35</span>
+   443→        </div>
+   444→
+   445→    </header>
+   446→
+   447→    <section class="learning-overview">
+   448→
+   449→        <h2>What You Will Learn</h2>
+   450→
+   451→        <ul>
+   452→            <li>What Computer Science actually is — and what it is not</li>
+   453→            <li>What computing means</li>
+   454→            <li>A precise definition of a computer</li>
+   455→            <li>What computers can and cannot do</li>
+   456→            <li>Why Computer Science matters</li>
+   457→            <li>The difference between CS, Computer Engineering, IT, Software Engineering, Data Science, and AI</li>
+   458→            <li>The major areas of Computer Science and how they connect</li>
+   459→            <li>How this course connects to programming, AI, ML, and software engineering</li>
+   460→        </ul>
+   461→
+   462→    </section>
+   463→
+   464→    <section class="prerequisites">
+   465→
+   466→        <h2>Prerequisites</h2>
+   467→
+   468→        <p>None. This part starts from absolute zero.</p>
+   469→
+   470→    </section>
+   471→
+   472→    <section class="tutorial-content">
+   473→
+   474→        <h2>1.1 What Is Computer Science?</h2>
+   475→
+   476→        <p>
+   477→            The name is slightly misleading. Computer Science is not
+   478→            primarily the study of computers, just as astronomy is not the
+   479→            study of telescopes. Computers are the <em>tool</em>. The subject
+   480→            itself is about something deeper:
+   481→        </p>
+   482→
+   483→        <div class="definition">
+   484→            <strong>Computer Science:</strong>
+   485→            <p>
+   486→                The study of <strong>computation</strong> — how problems can
+   487→                be solved by following precise, step-by-step procedures, and
+   488→                how those procedures can be carried out automatically by
+   489→                machines.
+   490→            </p>
+   491→        </div>
+   492→
+   493→        <p>
+   494→            That definition contains two words we must explain immediately:
+   495→            <strong>computation</strong> and <strong>step-by-step
+   496→            procedures</strong>.
+   497→        </p>
+   498→
+   499→        <p>
+   500→            <strong>Computation</strong> simply means: taking some input,
+   501→            following definite rules, and producing an output. When you add
+   502→            7 + 5 and get 12, you performed a computation. The input was
+   503→            "7 + 5", the rule was addition, and the output was 12.
+   504→        </p>
+   505→
+   506→        <p>
+   507→            A <strong>step-by-step procedure</strong> for solving a problem
+   508→            has a technical name: an <strong>algorithm</strong>.
+   509→        </p>
+   510→
+   511→        <div class="definition">
+   512→            <strong>Algorithm:</strong>
+   513→            <p>
+   514→                A precise, finite sequence of steps that solves a problem.
+   515→                Each step must be clear, and the procedure must eventually
+   516→                finish.
+   517→            </p>
+   518→        </div>
+   519→
+   520→        <aside class="callout callout-analogy">
+   521→            <strong>Real-World Analogy</strong>
+   522→            <p>
+   523→                An algorithm is like a recipe. A recipe lists exact steps in
+   524→                an exact order: crack the eggs, whisk them, heat the pan,
+   525→                pour, cook. If someone follows the recipe precisely, they
+   526→                get the same result every time. An algorithm is a "recipe"
+   527→                for solving a problem — and unlike a human cook, a computer
+   528→                follows the recipe <em>exactly</em>, with no improvisation.
+   529→            </p>
+   530→        </aside>
+   531→
+   532→        <p>
+   533→            So a more complete picture of Computer Science is:
+   534→        </p>
+   535→
+   536→        <ul>
+   537→            <li><strong>Designing algorithms</strong> — finding good step-by-step solutions to problems.</li>
+   538→            <li><strong>Representing information</strong> — figuring out how numbers, text, images, and sound can be stored and processed.</li>
+   539→            <li><strong>Building systems</strong> — organizing hardware and software so computations happen reliably and efficiently.</li>
+   540→            <li><strong>Understanding limits</strong> — knowing what can be computed, what cannot, and how fast.</li>
+   541→        </ul>
+   542→
+   543→        <aside class="callout callout-important">
+   544→            <strong>Key idea:</strong>
+   545→            Computer Science is fundamentally about
+   546→            <strong>problem solving</strong>. Programming (writing code) is
+   547→            one of its most important tools, but the thinking comes first.
+   548→            A person who can code but cannot design solutions is a tool
+   549→            operator; a computer scientist designs the solution and then
+   550→            uses code to express it.
+   551→        </aside>
+   552→
+   553→        <h2>1.2 What Is Computing?</h2>
+   554→
+   555→        <p>
+   556→            <strong>Computing</strong> is the act of performing computation
+   557→            — especially with the help of machines. Humans computed long
+   558→            before computers existed: accountants computed taxes, navigators
+   559→            computed positions using stars, and teams of people called
+   560→            "computers" (yes, that word once described a job title)
+   561→            calculated artillery tables by hand.
+   562→        </p>
+   563→
+   564→        <p>
+   565→            Modern computing means <strong>automating</strong> that process:
+   566→            instead of a person doing each step, we record the steps once
+   567→            and let a fast, tireless machine repeat them billions of times
+   568→            per second.
+   569→        </p>
+   570→
+   571→        <p>
+   572→            This is the core value of computing: once you turn a task into
+   573→            an algorithm, a machine can repeat it forever without getting
+   574→            tired, bored, or careless — as long as the instructions are
+   575→            correct.
+   576→        </p>
+   577→
+   578→        <h2>1.3 What Is a Computer?</h2>
+   579→
+   580→        <p>
+   581→            Now we can define the machine itself precisely.
+   582→        </p>
+   583→
+   584→        <div class="definition">
+   585→            <strong>Computer:</strong>
+   586→            <p>
+   587→                An electronic machine that accepts <strong>data</strong>
+   588→                (input), follows stored instructions called a
+   589→                <strong>program</strong> to process that data, and produces
+   590→                results (output).
+   591→            </p>
+   592→        </div>
+   593→
+   594→        <p>Four terms in that definition need immediate explanation:</p>
+   595→
+   596→        <dl class="definitions">
+   597→            <dt>Data</dt>
+   598→            <dd>
+   599→                Raw facts and values: numbers, text, measurements, clicks,
+   600→                temperatures. Data by itself has no meaning yet — it becomes
+   601→                meaningful when processed. (We explore this fully in
+   602→                Part 4.)
+   603→            </dd>
+   604→
+   605→            <dt>Input</dt>
+   606→            <dd>
+   607→                Any data entering the computer: a key press, a mouse
+   608→                movement, a voice recording, a temperature reading.
+   609→            </dd>
+   610→
+   611→            <dt>Output</dt>
+   612→            <dd>
+   613→                Any result the computer produces: text on a screen, sound
+   614→                from a speaker, a sent message, a printed page.
+   615→            </dd>
+   616→
+   617→            <dt>Program</dt>
+   618→            <dd>
+   619→                A stored list of instructions telling the computer what to
+   620→                do with the input, step by step.
+   621→            </dd>
+   622→        </dl>
+   623→
+   624→        <p>Two more terms you will see constantly:</p>
+   625→
+   626→        <dl class="definitions">
+   627→            <dt>Hardware</dt>
+   628→            <dd>
+   629→                The physical parts of a computer you can touch: chips,
+   630→                wires, screens, keyboards.
+   631→            </dd>
+   632→
+   633→            <dt>Software</dt>
+   634→            <dd>
+   635→                The intangible instructions that run on the hardware:
+   636→                operating systems, apps, games. Software is "soft" because
+   637→                it can be changed without touching the machine physically.
+   638→            </dd>
+   639→        </dl>
+   640→
+   641→        <p>
+   642→            Every computer, from the largest server to the smallest smart
+   643→            watch, follows the same basic pattern:
+   644→        </p>
+   645→
+   646→        <pre class="ascii-diagram">
+   647→Input  →  Processing  →  Output
+   648→             ↑
+   649→          Storage
+   650→        </pre>
+   651→
+   652→        <p>
+   653→            <strong>Storage</strong> is where data and programs are kept,
+   654→            either temporarily while working or permanently for later use.
+   655→            This simple diagram is the skeleton of every computer system you
+   656→            will ever study. Part 3 expands it in detail.
+   657→        </p>
+   658→
+   659→        <aside class="callout callout-tip">
+   660→            <strong>Important:</strong>
+   661→            A computer is <em>not</em> only a laptop or desktop. The chips
+   662→            inside cars, televisions, washing machines, routers, and traffic
+   663→            lights are computers too. When a computer is built into another
+   664→            device to control it, we call it an
+   665→            <strong>embedded computer</strong> — "embedded" meaning built
+   666→            into something else.
+   667→        </aside>
+   668→
+   669→        <h2>1.4 What Does a Computer Scientist Do?</h2>
+   670→
+   671→        <p>
+   672→            Computer scientists use the ideas above to solve real problems.
+   673→            Their work typically falls into a few categories:
+   674→        </p>
+   675→
+   676→        <ul>
+   677→            <li>
+   678→                <strong>Designing algorithms and software</strong> — creating
+   679→                the step-by-step logic behind search engines, games, banking
+   680→                systems, and medical tools.
+   681→            </li>
+   682→            <li>
+   683→                <strong>Building systems</strong> — making many computers and
+   684→                programs work together reliably: networks, databases, cloud
+   685→                platforms.
+   686→            </li>
+   687→            <li>
+   688→                <strong>Working with data and intelligence</strong> — building
+   689→                systems that learn patterns from data (machine learning) and
+   690→                systems that understand or generate language and images (AI).
+   691→            </li>
+   692→            <li>
+   693→                <strong>Research</strong> — discovering what is computable,
+   694→                how to make computation faster, safer, or smaller.
+   695→            </li>
+   696→            <li>
+   697→                <strong>Applying computing to other fields</strong> — biology
+   698→                (analyzing DNA), finance (modeling markets), climate science
+   699→                (simulating weather), art (generative tools).
+   700→            </li>
+   701→        </ul>
+   702→
+   703→        <p>
+   704→            Notice that "typing code" is only a small visible slice of this
+   705→            work. Most of the real work happens <em>before</em> code:
+   706→            understanding the problem, designing a solution, and choosing
+   707→            the right structures and trade-offs.
+   708→        </p>
+   709→
+   710→        <h2>1.5 What Can Computers Do?</h2>
+   711→
+   712→        <p>Computers are extraordinarily good at a specific set of things:</p>
+   713→
+   714→        <ul>
+   715→            <li>
+   716→                <strong>Arithmetic at extreme speed</strong> — billions of
+   717→                calculations per second.
+   718→            </li>
+   719→            <li>
+   720→                <strong>Storing and retrieving data</strong> — huge amounts,
+   721→                with near-perfect recall.
+   722→            </li>
+   723→            <li>
+   724→                <strong>Repeating tasks without fatigue</strong> — the same
+   725→                operation a million times with no loss of accuracy.
+   726→            </li>
+   727→            <li>
+   728→                <strong>Communication</strong> — moving data across the world
+   729→                in milliseconds.
+   730→            </li>
+   731→            <li>
+   732→                <strong>Automation</strong> — performing scheduled or
+   733→                triggered actions without human involvement.
+   734→            </li>
+   735→            <li>
+   736→                <strong>Simulation</strong> — modeling weather, crashes,
+   737→                economies, or neural networks before doing them in reality.
+   738→            </li>
+   739→            <li>
+   740→                <strong>Pattern recognition</strong> — with machine learning,
+   741→                finding patterns in data that are difficult to hand-code.
+   742→            </li>
+   743→        </ul>
+   744→
+   745→        <h2>1.6 What Can Computers NOT Do?</h2>
+   746→
+   747→        <p>
+   748→            Understanding limitations is just as important as understanding
+   749→            capabilities. Five limits matter most for beginners:
+   750→        </p>
+   751→
+   752→        <ol>
+   753→            <li>
+   754→                <strong>Computers only follow instructions.</strong>
+   755→                If the instructions are wrong or ambiguous, the result is
+   756→                wrong. Computers do not "guess what you meant." There is a
+   757→                famous phrase for this: <em>garbage in, garbage out</em> —
+   758→                bad input or bad instructions produce bad results.
+   759→            </li>
+   760→            <li>
+   761→                <strong>Computers depend on the data they are given.</strong>
+   762→                A system trained on biased or incomplete data will produce
+   763→                biased or incomplete decisions.
+   764→            </li>
+   765→            <li>
+   766→                <strong>Some problems are unsolvable by any computer.</strong>
+   767→                At a basic level, certain questions are proven to have no
+   768→                possible algorithm that always answers them correctly. You
+   769→                will meet this idea if you later study the theory of
+   770→                computation. For now, just know: computation has hard
+   771→                mathematical limits.
+   772→            </li>
+   773→            <li>
+   774→                <strong>Physical limits exist.</strong>
+   775→                Signals cannot travel faster than light, chips produce heat,
+   776→                and components can only be made so small. These limits shape
+   777→                how fast computers can become.
+   778→            </li>
+   779→            <li>
+   780→                <strong>Computers do not truly understand.</strong>
+   781→                Modern AI can generate impressive text and images, but it
+   782→                works by recognizing and producing patterns in data. It does
+   783→                not have beliefs, intentions, or genuine understanding the
+   784→                way a person does. Keeping this distinction in mind will
+   785→                help you reason clearly about AI in Parts 33 and 34.
+   786→            </li>
+   787→        </ol>
+   788→
+   789→        <h2>1.7 Why Computer Science Matters</h2>
+   790→
+   791→        <p>
+   792→            Computing is now the backbone of nearly every field:
+   793→        </p>
+   794→
+   795→        <ul>
+   796→            <li><strong>Medicine</strong> — imaging, diagnostics, drug discovery.</li>
+   797→            <li><strong>Finance</strong> — payments, fraud detection, trading systems.</li>
+   798→            <li><strong>Communication</strong> — messaging, video calls, social platforms.</li>
+   799→            <li><strong>Science</strong> — climate modeling, genomics, space exploration.</li>
+   800→            <li><strong>Entertainment</strong> — games, streaming, recommendation systems.</li>
+   801→            <li><strong>Transportation</strong> — navigation, traffic control, autonomous vehicles.</li>
+   802→        </ul>
+   803→
+   804→        <p>
+   805→            For you personally, this foundation matters because every
+   806→            advanced role you might target — backend engineer, data
+   807→            scientist, ML engineer, AI agent engineer — is built on these
+   808→            concepts. Engineers who understand foundations learn new tools
+   809→            faster, debug deeper, and design better systems.
+   810→        </p>
+   811→
+   812→        <h2>1.8 Computer Science vs Related Fields</h2>
+   813→
+   814→        <p>
+   815→            Several fields overlap with Computer Science, and beginners often
+   816→            mix them up. Let's define each one before comparing them.
+   817→        </p>
+   818→
+   819→        <dl class="definitions">
+   820→            <dt>Computer Science (CS)</dt>
+   821→            <dd>
+   822→                The study of computation itself: algorithms, data, systems,
+   823→                and what can be automated. It is the theoretical and
+   824→                practical core from which the others grow.
+   825→            </dd>
+   826→
+   827→            <dt>Computer Engineering (CE)</dt>
+   828→            <dd>
+   829→                The design of physical computer systems: circuits, chips,
+   830→                processors, and the boundary where hardware meets software.
+   831→                A computer engineer might design the chip inside a phone.
+   832→            </dd>
+   833→
+   834→            <dt>Information Technology (IT)</dt>
+   835→            <dd>
+   836→                The use and management of computer systems to support
+   837→                organizations: setting up networks, maintaining servers,
+   838→                supporting users, keeping systems secure and running.
+   839→            </dd>
+   840→
+   841→            <dt>Software Engineering (SE)</dt>
+   842→            <dd>
+   843→                The disciplined practice of building reliable, maintainable
+   844→                software in teams: requirements, design, testing, version
+   845→                control, deployment, and maintenance. We cover its
+   846→                foundations in Part 26.
+   847→            </dd>
+   848→
+   849→            <dt>Data Science (DS)</dt>
+   850→            <dd>
+   851→                The practice of extracting knowledge from data, combining
+   852→                programming, statistics, and domain expertise — for example,
+   853→                analyzing customer behavior to predict sales.
+   854→            </dd>
+   855→
+   856→            <dt>Artificial Intelligence (AI)</dt>
+   857→            <dd>
+   858→                A branch of Computer Science focused on building systems that
+   859→                perform tasks normally requiring human-like intelligence:
+   860→                recognizing speech, making decisions, generating text.
+   861→                Machine learning is its most important modern approach.
+   862→            </dd>
+   863→        </dl>
+   864→
+   865→        <table class="comparison-table">
+   866→            <caption>
+   867→                Computer Science vs related fields at a glance
+   868→            </caption>
+   869→            <thead>
+   870→                <tr>
+   871→                    <th scope="col">Field</th>
+   872→                    <th scope="col">Core question it asks</th>
+   873→                    <th scope="col">Primary focus</th>
+   874→                    <th scope="col">Typical work</th>
+   875→                    <th scope="col">Simple example</th>
+   876→                </tr>
+   877→            </thead>
+   878→            <tbody>
+   879→                <tr>
+   880→                    <td>Computer Science</td>
+   881→                    <td>What can be computed, and how efficiently?</td>
+   882→                    <td>Algorithms, data, systems, theory</td>
+   883→                    <td>Designing solutions, research, building software</td>
+   884→                    <td>Designing a faster search algorithm</td>
+   885→                </tr>
+   886→                <tr>
+   887→                    <td>Computer Engineering</td>
+   888→                    <td>How do we build the machine itself?</td>
+   889→                    <td>Hardware, chips, embedded systems</td>
+   890→                    <td>Designing circuits and processors</td>
+   891→                    <td>Designing a phone's processor chip</td>
+   892→                </tr>
+   893→                <tr>
+   894→                    <td>Information Technology</td>
+   895→                    <td>How do we keep systems running for an organization?</td>
+   896→                    <td>Infrastructure, support, administration</td>
+   897→                    <td>Managing networks, servers, user support</td>
+   898→                    <td>Setting up a company's email and network</td>
+   899→                </tr>
+   900→                <tr>
+   901→                    <td>Software Engineering</td>
+   902→                    <td>How do we build software reliably at scale?</td>
+   903→                    <td>Process, quality, teamwork, maintenance</td>
+   904→                    <td>Developing, testing, deploying applications</td>
+   905→                    <td>Building and maintaining a banking app</td>
+   906→                </tr>
+   907→                <tr>
+   908→                    <td>Data Science</td>
+   909→                    <td>What can we learn from this data?</td>
+   910→                    <td>Analysis, statistics, prediction</td>
+   911→                    <td>Analyzing datasets, building predictive models</td>
+   912→                    <td>Predicting which customers will churn</td>
+   913→                </tr>
+   914→                <tr>
+   915→                    <td>Artificial Intelligence</td>
+   916→                    <td>How can machines perform intelligent tasks?</td>
+   917→                    <td>Learning, perception, language, decision-making</td>
+   918→                    <td>Training models, building intelligent features</td>
+   919→                    <td>Building a spam filter that learns from examples</td>
+   920→                </tr>
+   921→            </tbody>
+   922→        </table>
+   923→
+   924→        <aside class="callout callout-info">
+   925→            <strong>How they relate:</strong>
+   926→            Computer Science is the trunk of the tree. Computer Engineering
+   927→            builds the hardware it runs on; Software Engineering turns CS
+   928→            ideas into dependable products; IT operates those products;
+   929→            Data Science and AI are specialized branches growing out of CS.
+   930→            In practice, real jobs often blend several of these.
+   931→        </aside>
+   932→
+   933→        <h2>1.9 The Major Areas of Computer Science</h2>
+   934→
+   935→        <p>
+   936→            Inside Computer Science itself, work is organized into several
+   937→            major areas. You will meet every one of them in this course:
+   938→        </p>
+   939→
+   940→        <ul>
+   941→            <li>
+   942→                <strong>Theory of computation</strong> — the mathematics of
+   943→                what can and cannot be computed, and how efficiently.
+   944→            </li>
+   945→            <li>
+   946→                <strong>Algorithms and data structures</strong> — efficient
+   947→                problem-solving procedures and the ways of organizing data
+   948→                (Parts 16–19).
+   949→            </li>
+   950→            <li>
+   951→                <strong>Programming languages</strong> — how humans write
+   952→                instructions computers can eventually execute (Parts 14–15).
+   953→            </li>
+   954→            <li>
+   955→                <strong>Computer systems</strong> — hardware architecture,
+   956→                operating systems, and networks (Parts 7–12, 20, 22).
+   957→            </li>
+   958→            <li>
+   959→                <strong>Databases</strong> — storing, organizing, and
+   960→                querying large amounts of data reliably (Part 24).
+   961→            </li>
+   962→            <li>
+   963→                <strong>Artificial intelligence and machine learning</strong>
+   964→                — systems that learn from data (Parts 33–34).
+   965→            </li>
+   966→            <li>
+   967→                <strong>Security</strong> — protecting systems and data from
+   968→                attacks and mistakes (Part 25).
+   969→            </li>
+   970→            <li>
+   971→                <strong>Human-computer interaction and graphics</strong> —
+   972→                how people experience and visualize computing.
+   973→            </li>
+   974→            <li>
+   975→                <strong>Software engineering</strong> — building software
+   976→                systematically in teams (Part 26).
+   977→            </li>
+   978→        </ul>
+   979→
+   980→        <h2>1.10 How the Areas Connect</h2>
+   981→
+   982→        <p>
+   983→            These areas are not isolated. They stack on each other:
+   984→        </p>
+   985→
+   986→        <pre class="ascii-diagram">
+   987→Theory (what is computable?)
+   988→   ↓
+   989→Algorithms (how do we solve problems?)
+   990→   ↓
+   991→Programming languages (how do we express solutions?)
+   992→   ↓
+   993→Systems: OS, networks, databases (where do solutions run?)
+   994→   ↓
+   995→Applications: AI, security, web, mobile (what do we build?)
+   996→        </pre>
+   997→
+   998→        <p>
+   999→            Every application at the top — an AI chatbot, a banking app, a
+  1000→            video game — ultimately depends on every layer beneath it. When
+  1001→            you understand the layers, complex systems stop being mysterious.
+  1002→        </p>
+  1003→
+  1004→        <h2>1.11 How This Course Connects to Your Goals</h2>
+  1005→
+  1006→        <p>
+  1007→            Whatever path you are aiming for, here is where this course
+  1008→            plugs in:
+  1009→        </p>
+  1010→
+  1011→        <ul>
+  1012→            <li>
+  1013→                <strong>Software / Backend / Full-Stack Engineer:</strong>
+  1014→                Parts 13–15 (programming and how code runs), 20–21 (OS and
+  1015→                files), 22–24 (networking and databases), 26–28 (software
+  1016→                engineering and APIs), 29–32 (cloud and distributed systems).
+  1017→            </li>
+  1018→            <li>
+  1019→                <strong>Data Analyst / Data Scientist:</strong>
+  1020→                Parts 4–6 (data representation), 16–19 (algorithms and data
+  1021→                structures), 24 (databases), 33 (ML foundations).
+  1022→            </li>
+  1023→            <li>
+  1024→                <strong>ML / AI / LLM / Agentic AI Engineer:</strong>
+  1025→                everything above, plus Parts 31–32 (concurrency and
+  1026→                distributed systems) and 33–34 (AI, LLMs, RAG, agents) —
+  1027→                and then the dedicated AI curriculum that follows this
+  1028→                subject.
+  1029→            </li>
+  1030→        </ul>
+  1031→
+  1032→        <aside class="callout callout-tip">
+  1033→            <strong>Tip:</strong>
+  1034→            You do not need to choose a specialization today. Foundations
+  1035→            are shared by all of them. Finish this course first; the right
+  1036→            direction becomes much clearer once you understand the map.
+  1037→        </aside>
+  1038→
+  1039→    </section>
+  1040→
+  1041→    <section class="real-world">
+  1042→
+  1043→        <h2>Where This Knowledge Is Used Later</h2>
+  1044→
+  1045→        <ul>
+  1046→            <li><strong>Every later part of this course</strong> — the input → process → output model reappears in CPU, OS, and networking parts.</li>
+  1047→            <li><strong>C and C++</strong> — understanding hardware/software separation explains why these languages behave the way they do.</li>
+  1048→            <li><strong>Algorithms and DSA</strong> — the concept of an algorithm introduced here is the core of that entire subject.</li>
+  1049→            <li><strong>AI and LLMs</strong> — knowing what computers can and cannot do keeps your mental model of AI accurate.</li>
+  1050→            <li><strong>Career decisions</strong> — the field comparison helps you choose your specialization later.</li>
+  1051→        </ul>
+  1052→
+  1053→    </section>
+  1054→
+  1055→    <section class="common-mistakes">
+  1056→
+  1057→        <h2>Common Beginner Mistakes</h2>
+  1058→
+  1059→        <ol>
+  1060→            <li>
+  1061→                <strong>Mistake:</strong>
+  1062→                Believing Computer Science is the same as learning to code.
+  1063→
+  1064→                <p>
+  1065→                    <strong>Why it happens:</strong>
+  1066→                    Coding is the most visible part of CS, so it looks like
+  1067→                    the whole thing.
+  1068→                </p>
+  1069→
+  1070→                <p>
+  1071→                    <strong>Better approach:</strong>
+  1072→                    Treat coding as a language for expressing ideas. The
+  1073→                    deeper skill is designing correct, efficient solutions —
+  1074→                    which is what this course builds.
+  1075→                </p>
+  1076→            </li>
+  1077→
+  1078→            <li>
+  1079→                <strong>Mistake:</strong>
+  1080→                Thinking a "computer" only means a laptop or desktop.
+  1081→
+  1082→                <p>
+  1083→                    <strong>Why it happens:</strong>
+  1084→                    Those are the computers we see daily.
+  1085→                </p>
+  1086→
+  1087→                <p>
+  1088→                    <strong>Better approach:</strong>
+  1089→                    Remember the definition: any machine that accepts input,
+  1090→                    follows a program, and produces output. Phones, routers,
+  1091→                    cars, and smart appliances all qualify.
+  1092→                </p>
+  1093→            </li>
+  1094→
+  1095→            <li>
+  1096→                <strong>Mistake:</strong>
+  1097→                Treating CS, IT, and Software Engineering as synonyms.
+  1098→
+  1099→                <p>
+  1100→                    <strong>Why it happens:</strong>
+  1101→                    Job titles in the industry are often used loosely.
+  1102→                </p>
+  1103→
+  1104→                <p>
+  1105→                    <strong>Better approach:</strong>
+  1106→                    Use the comparison table in section 1.8. The fields
+  1107→                    overlap in practice, but their core questions differ.
+  1108→                </p>
+  1109→            </li>
+  1110→
+  1111→            <li>
+  1112→                <strong>Mistake:</strong>
+  1113→                Assuming AI systems "understand" like humans.
+  1114→
+  1115→                <p>
+  1116→                    <strong>Why it happens:</strong>
+  1117→                    AI output looks human-like and fluent.
+  1118→                </p>
+  1119→
+  1120→                <p>
+  1121→                    <strong>Better approach:</strong>
+  1122→                    Remember: current AI finds and produces patterns from
+  1123→                    data. That makes it powerful, but not conscious or
+  1124→                    truly understanding. Parts 33–34 explain exactly how.
+  1125→                </p>
+  1126→            </li>
+  1127→        </ol>
+  1128→
+  1129→    </section>
+  1130→
+  1131→    <section class="practice">
+  1132→
+  1133→        <h2>Check Your Understanding</h2>
+  1134→
+  1135→        <h3>Practical Questions</h3>
+  1136→
+  1137→        <ol>
+  1138→            <li>Explain Computer Science in one sentence without using the word "computer".</li>
+  1139→            <li>What is the difference between data and a program?</li>
+  1140→            <li>Give three examples of computers that are not laptops or desktops.</li>
+  1141→            <li>Name one thing computers are excellent at and one thing they are fundamentally bad at.</li>
+  1142→            <li>Which field would you contact if your company's network stopped working: CS research, IT, or AI?</li>
+  1143→        </ol>
+  1144→
+  1145→        <h3>Mini Exercises</h3>
+  1146→
+  1147→        <ol>
+  1148→            <li>
+  1149→                Write a 5-step algorithm for making tea. Be precise: imagine
+  1150→                a machine that understands nothing and follows your steps
+  1151→                literally. Notice where your instructions are ambiguous.
+  1152→            </li>
+  1153→            <li>
+  1154→                Look around your room and list every embedded computer you
+  1155→                can find (hint: anything with a screen, sensor, or remote
+  1156→                control is a candidate).
+  1157→            </li>
+  1158→            <li>
+  1159→                Draw the diagram: Input → Processing → Output, with Storage
+  1160→                feeding into Processing. Label one real example under each
+  1161→                box (for instance: key press → calculator app → screen result).
+  1162→            </li>
+  1163→        </ol>
+  1164→
+  1165→    </section>
+  1166→
+  1167→    <section class="tutorial-summary">
+  1168→
+  1169→        <h2>Summary</h2>
+  1170→
+  1171→        <ul>
+  1172→            <li>Computer Science is the study of computation and problem solving, not merely the study of computers.</li>
+  1173→            <li>An algorithm is a precise, finite sequence of steps that solves a problem.</li>
+  1174→            <li>A computer accepts input, follows a stored program, and produces output.</li>
+  1175→            <li>Hardware is the physical machine; software is the instructions that run on it.</li>
+  1176→            <li>Computers excel at speed, repetition, storage, and communication, but they only follow instructions and have hard limits.</li>
+  1177→            <li>CS, Computer Engineering, IT, Software Engineering, Data Science, and AI are related but distinct fields.</li>
+  1178→            <li>The areas of CS stack on each other: theory → algorithms → programming → systems → applications.</li>
+  1179→        </ul>
+  1180→
+  1181→    </section>
+  1182→
+  1183→    <section class="key-takeaways">
+  1184→
+  1185→        <h2>Key Takeaways</h2>
+  1186→
+  1187→        <ul>
+  1188→            <li>Computation = input + rules + output.</li>
+  1189→            <li>Algorithm = a recipe a machine can follow exactly.</li>
+  1190→            <li>Computer = input → processing → output, with storage.</li>
+  1191→            <li>Problem solving first, code second.</li>
+  1192→            <li>Every advanced topic in this curriculum builds on these definitions.</li>
+  1193→        </ul>
+  1194→
+  1195→    </section>
+  1196→
+  1197→    <section class="self-assessment">
+  1198→
+  1199→        <h2>Self-Assessment</h2>
+  1200→
+  1201→        <p>Can you now...</p>
+  1202→
+  1203→        <ul>
+  1204→            <li>Define Computer Science, computation, and algorithm in your own words?</li>
+  1205→            <li>Explain what a computer is using input, processing, and output?</li>
+  1206→            <li>Name two things computers cannot do and why?</li>
+  1207→            <li>Distinguish CS from IT, Software Engineering, Data Science, and AI?</li>
+  1208→            <li>Explain why this foundation matters for your target career?</li>
+  1209→        </ul>
+  1210→
+  1211→    </section>
+  1212→
+  1213→    <nav class="tutorial-next">
+  1214→
+  1215→        <p>
+  1216→            Next: <strong>Part 2 — History and Evolution of Computing</strong>.
+  1217→            We will see how humanity went from the abacus to transistors,
+  1218→            microprocessors, the Internet, and generative AI — and why each
+  1219→            step mattered.
+  1220→        </p>
+  1221→
+  1222→    </nav>
+  1223→
+  1224→</article>
+  1225→```
+  1226→
+  1227→```text
+  1228→================================================================
+  1229→STATUS
+  1230→================================================================
+  1231→
+  1232→Delivered:  Course guide, complete TOC + syllabus (35 parts),
+  1233→            learning objectives, prerequisites, curriculum map,
+  1234→            and Part 1 (complete).
+  1235→
+  1236→Next up:    Part 2 — History and Evolution of Computing
+  1237→
+  1238→Reply with CONTINUE to generate Part 2. I will resume exactly
+  1239→where this part ended, preserving continuity and terminology.
+  1240→```
