@@ -5635,6 +5635,12 @@ async function main() {
             selfAssessment: t.selfAssessment ? JSON.stringify(t.selfAssessment) : "",
           },
         })
+        // Idempotency: wipe existing quizzes for this tutorial before
+        // re-creating them. Without this, every re-seed duplicates quizzes
+        // (quiz + question rows have no natural unique key per tutorial).
+        if (t.quizzes && t.quizzes.length > 0) {
+          await db.quiz.deleteMany({ where: { tutorialId: tut.id } })
+        }
         for (const q of t.quizzes ?? []) {
           const quiz = await db.quiz.create({
             data: {

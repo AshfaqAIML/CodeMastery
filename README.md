@@ -293,29 +293,54 @@ Next.js is configured with `output: "standalone"` so the build produces a self-c
 ## Docker Setup
 
 ```bash
-# Quick start (SQLite, default)
-docker build -t codemastery .
-docker run -p 3000:3000 --env-file .env -v $(pwd)/db:/app/db -v $(pwd)/uploads:/app/uploads codemastery
-
-# With PostgreSQL via docker-compose
+# Quick start (PostgreSQL via docker-compose — recommended)
 docker compose up
+
+# Or build a standalone image and run it against any external Postgres:
+docker build -t codemastery .
+docker run -p 3000:3000 --env-file .env codemastery
 ```
 
-The `Dockerfile` is a multi-stage build producing a small Alpine image. `docker-compose.yml` includes an optional PostgreSQL service. See [`docs/docker.md`](docs/docker.md).
+The `Dockerfile` is a multi-stage build producing a small Alpine image with `output: "standalone"`. `docker-compose.yml` includes a PostgreSQL 16 service with a persistent volume — this is the **easiest way to run a production-like setup locally**. See [`docs/docker.md`](docs/docker.md).
 
 ---
 
 ## Deployment
 
-CodeMastery is designed to deploy anywhere Next.js runs:
+CodeMastery is designed to deploy anywhere Next.js runs. The **recommended free deployment** is **GitHub + Vercel + Neon (Postgres) + Cloudflare R2 (storage)** — total cost $0 for a hobby project.
 
-- **Vercel** — push to Git, set env vars, done. Use Vercel Postgres.
-- **Railway / Render / Fly.io** — use the Dockerfile or buildpack.
-- **AWS / GCP / Azure** — container or EC2 with the Docker image.
-- **VPS** — `docker compose up` or PM2 + Node.
-- **Cloudflare** — via `@cloudflare/next-on-pages` (edge; requires compatible DB).
+### 🚀 Quick deploy (free tier)
 
-See [`docs/deployment.md`](docs/deployment.md).
+| Step | Where | Guide |
+|---|---|---|
+| 1. Push code | GitHub | `git push origin main` |
+| 2. Create free Postgres | [Neon](https://neon.tech) or [Supabase](https://supabase.com) | [`docs/deployment-vercel.md`](docs/deployment-vercel.md) |
+| 3. Import repo + set env vars | [Vercel](https://vercel.com) | [`docs/deployment-vercel.md`](docs/deployment-vercel.md) |
+| 4. Seed the DB (one-time) | local terminal → production DB | `DATABASE_URL=… bun run db:seed` |
+
+The `vercel-build` script (`prisma generate` → `prisma db push` → `next build`) runs automatically on every Vercel deploy, creating tables in your Postgres. You then seed once from your local machine.
+
+### All deployment options
+
+- **Vercel + Neon/Supabase** (recommended free) — see [`docs/deployment-vercel.md`](docs/deployment-vercel.md)
+- **Docker / docker-compose** (self-hosted) — see [`docs/docker.md`](docs/docker.md) and [`docs/deployment.md`](docs/deployment.md)
+- **Railway / Render / Fly.io** — use the Dockerfile or buildpack; see [`docs/deployment.md`](docs/deployment.md)
+- **VPS (PM2 / Docker)** — `docker compose up -d` or `pm2 start`; see [`docs/deployment.md`](docs/deployment.md)
+- **Chinese cloud providers** (Aliyun / Tencent / Huawei / Baidu) — see [`docs/chinese-cloud-alternatives.md`](docs/chinese-cloud-alternatives.md)
+
+### Why two database providers?
+
+The Prisma schema defaults to **PostgreSQL** (`prisma/schema.prisma`) for production (Vercel, Docker, etc.). For quick local development without Docker, a SQLite variant (`prisma/schema.sqlite.prisma`) is provided:
+
+```bash
+# PostgreSQL (production — Neon/Supabase/Railway/local Docker)
+bun run db:push && bun run db:seed
+
+# SQLite (optional local dev — no Docker needed)
+bun run db:push:sqlite && bun run db:seed:sqlite
+```
+
+Vercel's serverless filesystem is **ephemeral**, so SQLite does not work in production — you must use PostgreSQL (or MySQL) on Vercel.
 
 ---
 

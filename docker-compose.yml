@@ -1,12 +1,15 @@
-# CodeMastery — local development with Docker Compose
+# CodeMastery — local development / self-hosted with Docker Compose
 # Usage:
-#   docker compose up        # app + postgres
-#   docker compose up app    # app only (uses SQLite by default)
+#   docker compose up -d          # app + postgres (recommended)
+#   docker compose up -d postgres  # just the DB (if you run `bun run dev` natively)
 #
-# Override DATABASE_URL/.env to point at the postgres service for prod-like setup.
+# This is the easiest production-like setup: a PostgreSQL 16 service with a
+# persistent volume + the standalone Next.js app. No .env edits required —
+# the env below points the app at the postgres service automatically.
+# Override any of these by editing .env (the env_file line below).
 
 services:
-  # ---------- App ----------
+  # ---------- App (Next.js standalone) ----------
   app:
     build: .
     ports:
@@ -14,18 +17,20 @@ services:
     env_file:
       - .env
     environment:
-      # When using the postgres service below, uncomment these:
-      # - DATABASE_PROVIDER=postgresql
-      # - DATABASE_URL=postgresql://codemastery:codemastery@postgres:5432/codemastery
       - NODE_ENV=production
+      - DATABASE_PROVIDER=postgresql
+      - DATABASE_URL=postgresql://codemastery:codemastery@postgres:5432/codemastery
+      # IMPORTANT: override AUTH_SECRET in .env with `openssl rand -base64 32`
+      - STORAGE_PROVIDER=local
     volumes:
-      - ./db:/app/db
       - ./uploads:/app/uploads
     depends_on:
       - postgres
     restart: unless-stopped
+    # After the container starts, run the seed once to populate content:
+    #   docker compose exec app bun run db:seed
 
-  # ---------- PostgreSQL (optional, for production-like local dev) ----------
+  # ---------- PostgreSQL 16 ----------
   postgres:
     image: postgres:16-alpine
     environment:
@@ -37,6 +42,11 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codemastery -d codemastery"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   pgdata:

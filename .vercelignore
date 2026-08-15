@@ -1,0 +1,46 @@
+# Files Vercel should NOT upload/deploy. Keeps cold-start fast and builds lean.
+# Read by Vercel at build time — see https://vercel.com/docs/projects/project-configuration#vercelignore
+
+# Dev logs & runtime artifacts
+dev.log
+server.log
+*.log
+
+# Local databases (we use Postgres on Vercel — SQLite is local-dev only)
+db/
+*.db
+*.db-journal
+prisma/*.sqlite
+prisma/*.sqlite-journal
+
+# Local uploads (use S3-compatible storage in prod)
+uploads/
+
+# Test artifacts
+tests/
+playwright-report/
+test-results/
+lighthouserc.json
+vitest.config.ts
+playwright.config.ts
+
+# Screenshots & tooling
+*.png
+tool-results/
+download/
+agent-ctx/
+
+# Docs (kept on GitHub, not needed in the deployed bundle)
+docs/
+
+# IDE / OS
+.git/
+.gitignore
+.DS_Store
+.vscode/
+.idea/
+
+# Docker (not used by Vercel — it builds from source)
+Dockerfile
+docker-compose.yml
+.dockerignore

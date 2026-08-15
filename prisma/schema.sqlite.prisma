@@ -1,7 +1,7 @@
 // CodeMastery — Computer Science Learning Platform
 // Comprehensive schema: auth, content, learning, gamification, community
 //
-// DEFAULT provider is `postgresql` (for Vercel / Neon / Supabase / Railway).
+// OPTIONAL local-dev SQLite variant. Use scripts db:push:sqlite & db:seed:sqlite.
 // For optional local SQLite development, use `prisma/schema.sqlite.prisma`
 // with the `db:push:sqlite` / `db:seed:sqlite` npm scripts.
 
@@ -10,7 +10,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 

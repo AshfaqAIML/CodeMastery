@@ -1450,3 +1450,31 @@ Stage Summary:
 - Browser verification: tutorial renders correctly. h1 matches, breadcrumb shows full hierarchy (Computer Science › Computer Fundamentals › Introduction to Computer Science), all 5 pedagogical panels (Learning Objectives, Prerequisites, Where You Are, Key Takeaways, Self-Assessment) present, 9 callouts + 2 ASCII code blocks + 1 GFM table + 1 diagram placeholder all render correctly.
 - Files touched: prisma/seed.ts (added subjectDomain entry + new Computer Fundamentals subject block with one module + one tutorial, ~290 new lines).
 - No unresolved issues. Lint clean. Screenshot saved.
+
+---
+Task ID: DEPLOY-PREP-1
+Agent: Principal Architect (main)
+Task: Make the project deployment-ready for GitHub + Vercel + free PostgreSQL (Neon/Supabase), and document Chinese cloud provider alternatives (Aliyun/Tencent/Huawei/Baidu).
+
+Work Log:
+- **Prisma dual-provider**: Switched `prisma/schema.prisma` from `provider = "sqlite"` to `provider = "postgresql"` (Vercel/Neon/Supabase/Railway). Created `prisma/schema.sqlite.prisma` as an optional local-dev SQLite variant (copy with provider="sqlite").
+- **Smart postinstall/db-push scripts**: Created `scripts/postinstall.sh` and `scripts/db-push.sh` that auto-detect the provider from `DATABASE_URL` (file: → SQLite schema, postgres:// → PostgreSQL schema, unset → PostgreSQL for Vercel build safety). Updated `package.json` `postinstall` + `db:push` + `db:generate` to use them. Added `db:push:sqlite`, `db:generate:sqlite`, `db:seed:sqlite` for explicit SQLite local dev. Added `vercel-build` script (`prisma generate` → `prisma db push` → `next build`) that Vercel runs on every deploy.
+- **Seed idempotency fix**: The seed was creating quizzes via `db.quiz.create` without a preceding deleteMany, so every re-seed duplicated quizzes (91 → 106 → ...). Added `db.quiz.deleteMany({ where: { tutorialId: tut.id } })` before quiz creation. Re-seeding now produces stable counts: 35 subjects, 41 modules, 136 tutorials, **76 quizzes** (stable), 228 questions, 16 achievements, 5 paths.
+- **Vercel config**: Created `vercel.json` (framework: nextjs, buildCommand: `bun run vercel-build`, installCommand: `bun install`, github.silent: true). Created `.vercelignore` excluding dev logs, db/, uploads/, tests/, docs/, screenshots, Docker files from the deployed bundle.
+- **.env.example overhaul**: Added a prominent "DEPLOYING TO VERCEL?" banner explaining env vars go in the Vercel dashboard, not a local .env. Documented both PostgreSQL (default, with Neon/Supabase example URLs) and SQLite (optional local dev) paths. Added note about Vercel's ephemeral filesystem requiring S3-compatible storage.
+- **docker-compose.yml**: Made Postgres the default (was optional). The `app` service now auto-points `DATABASE_URL` at the `postgres` service — no .env edits needed for local prod-like dev. Added a healthcheck on postgres. Removed the SQLite volume mount (Postgres is the persistent store now).
+- **Git safety**: Untracked `db/custom.db` (committed before the gitignore rule existed), `.env` (contains AUTH_SECRET), and `.zscripts/` from git. Added `.zscripts/` to `.gitignore`. Verified no sensitive files remain tracked.
+- **Documentation**:
+  - `docs/deployment-vercel.md` (new, ~250 lines): comprehensive step-by-step — GitHub push, Neon/Supabase/Railway Postgres setup with exact connection string formats, Vercel import + env var table, S3-compatible storage setup (Cloudflare R2/Backblaze B2), `vercel-build` explanation, one-time DB seeding from local, `NEXTAUTH_URL` fix, verification checklist, free-tier limits table, common issues + fixes, custom domain, websocket mini-service note.
+  - `docs/chinese-cloud-alternatives.md` (new, ~300 lines): full Chinese cloud guide covering Alibaba Cloud (函数计算 FC, RDS PostgreSQL, OSS), Tencent Cloud (CloudBase 云开发, TDSQL-C, COS), Huawei Cloud (FunctionGraph, RDS, OBS), Baidu Cloud (CFC, RDS, BOS), JD Cloud. Exact S3-compatible env var configs for each. Self-hosted VPS+Docker alternative. ICP 备案 (filing) guidance. Quick comparison table for picking the right provider.
+  - `README.md`: replaced the brief Deployment section with a Quick Deploy table (GitHub → Neon → Vercel → seed) + links to all deployment docs + explanation of the two-database-provider design.
+- **Lint**: `bun run lint` → exit 0, clean.
+- **Local verification**: Smart postinstall correctly detected SQLite (file: URL) and generated the SQLite client. `db:push` pushed the SQLite schema. Re-seed produced stable idempotent counts. Dev server returns HTTP 200. Browser verified: home → browse → Computer Fundamentals → tutorial renders with full breadcrumb (Home › Browse › Computer Science › Computer Fundamentals › Introduction to Computer Science) and all pedagogical panels.
+
+Stage Summary:
+- Project is now Vercel-ready: `git push` → Vercel auto-builds with `vercel-build` script → tables created in Postgres via `prisma db push` → seed once from local → live.
+- Two database providers supported via smart auto-detection: PostgreSQL (production default) + SQLite (optional local dev, no Docker needed).
+- Free deployment path: GitHub (code) + Vercel (app) + Neon/Supabase (Postgres) + Cloudflare R2 (storage) = $0/mo for hobby.
+- Chinese cloud alternatives documented for users who can't access Vercel/Neon (mainland network) or prefer domestic providers (Aliyun/Tencent/Huawei/Baidu with Alipay/WeChat Pay).
+- Files touched: `prisma/schema.prisma`, `prisma/schema.sqlite.prisma` (new), `prisma/seed.ts`, `package.json`, `scripts/postinstall.sh` (new), `scripts/db-push.sh` (new), `vercel.json` (new), `.vercelignore` (new), `.env.example`, `.gitignore`, `docker-compose.yml`, `README.md`, `docs/deployment-vercel.md` (new), `docs/chinese-cloud-alternatives.md` (new).
+- No unresolved issues. Lint clean. Server HTTP 200. Local SQLite dev + production PostgreSQL both work.
