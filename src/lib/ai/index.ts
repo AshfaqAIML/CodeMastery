@@ -18,7 +18,7 @@ class AIServiceImpl implements AIService {
     if (!config.ai.enabled) return null
     const p = config.ai.provider
     if (p === "zai") {
-      if (!config.ai.zai.apiKey) return null
+      // ZAI SDK may manage its own auth in certain environments
       return new ZAIProvider(config.ai.zai.apiKey)
     }
     if (p === "openai") {

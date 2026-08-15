@@ -916,3 +916,110 @@ Task: Recommended future improvements — lazy loading, component splitting, str
 3. Service worker for offline support
 4. Content/copy audit across views
 5. Performance profiling with Lighthouse
+
+---
+Task ID: REAL-AI-INTEGRATION
+Agent: World-Class Product Team
+Task: Real AI integration — website-aware AI tutor system
+
+## What Was Built
+
+### 1. Website-Aware AI Context System (src/lib/ai/context.ts)
+- **buildTutorialContext()**: Retrieves comprehensive context for AI prompts:
+  - Current tutorial: title, content (truncated to 6K chars), summary, difficulty, tags
+  - Subject: name, description, module title
+  - User progress: percent read, completed status, level, XP, experience, goal
+  - Related tutorials: same subject, different difficulty levels
+  - User notes: their notes on this tutorial (max 5, truncated)
+  - User stats: tutorials completed, quizzes passed, streak, bookmarks
+  - Next tutorials: recommendations based on what they haven't completed
+- **buildSystemPrompt()**: Constructs a rich system prompt that includes:
+  - AI role and rules (no hallucinating tutorials, adapt to user level)
+  - Current tutorial content
+  - Subject context
+  - User learning state (level, experience, goal)
+  - User statistics
+  - Related and next tutorials
+  - User's notes
+- **QUICK_ACTIONS**: Predefined prompts for common learning actions:
+  - explain, simplify, example, analogy, quiz, summarize, next, prerequisites, code
+
+### 2. Enhanced Study Buddy API (src/app/api/ai/study-buddy/route.ts)
+- Accepts: tutorialId, question, conversation history (max 10 messages), optional action
+- Builds full website-aware context via buildTutorialContext()
+- Constructs system prompt with all context
+- Includes conversation history for multi-turn conversations
+- Supports quick actions (explain, simplify, quiz, etc.)
+- Logs AI usage to ActivityLog for observability
+- Returns answer + metadata about which context was used
+- Error handling: AI unavailable, timeout, invalid response
+
+### 3. Upgraded StudyBuddy UI (src/components/tutorial/study-buddy.tsx)
+- **Full conversation**: Multi-turn with history (last 6 messages sent as context)
+- **8 Quick Action buttons**: Explain, Simplify, Example, Analogy, Quiz Me, Summarize, What's Next, Explain Code
+- **Markdown rendering**: Custom lightweight renderer for AI responses:
+  - Code blocks with language labels
+  - Bold text, inline code
+  - Lists, headings
+- **Chat interface**: Message bubbles (user/assistant), avatars, timestamps
+- **Loading states**: Shimmer "Thinking..." indicator
+- **Clear conversation**: Reset button
+- **Keyboard support**: Enter to send, Shift+Enter for newline
+- **Auto-reset**: Clears conversation when tutorial changes
+- **Context awareness display**: Shows "Knows: [tutorial title]" in header
+- **Disclaimer**: "AI uses your tutorial content & learning progress. Verify important info."
+
+### 4. Enhanced AI Status Endpoint (src/app/api/ai/status/route.ts)
+- Returns enabled state, provider name, and list of available features
+
+### 5. AI Provider Fix (src/lib/ai/zai.ts)
+- Updated ZAIProvider to work without explicit API key (SDK manages auth in dev env)
+- Falls back through multiple auth strategies: explicit key → SDK API_KEY → create()
+
+## Architecture
+```
+User (in tutorial) → StudyBuddy UI → POST /api/ai/study-buddy
+    ↓
+buildTutorialContext(userId, tutorialId)
+    ↓ Retrieves from DB:
+    - Tutorial content (6K chars max)
+    - Subject/module info
+    - User progress, level, XP, experience, goal
+    - Related tutorials
+    - User notes
+    - User stats (completed, quizzes, streak)
+    - Next recommendations
+    ↓
+buildSystemPrompt(context)
+    ↓ Constructs rich prompt with all context + rules
+    ↓
+AIService.chat([system, ...history, user])
+    ↓ Calls real AI provider (Z.AI SDK)
+    ↓
+Response → UI (markdown rendered)
+```
+
+## Security & Privacy
+- All AI calls happen server-side (no client-side API key exposure)
+- Context retrieval is scoped to authenticated user only
+- No cross-user data access
+- AI usage logged for observability (no conversation content stored)
+- Input validated with Zod schema
+- Rate limiting via existing in-memory limiter
+
+## Fallback Behavior
+- If AI_ENABLED=false: AI button doesn't render, API returns 503
+- If AI provider fails: Error toast shown, website continues working
+- Core platform (tutorials, quizzes, progress) works fully without AI
+
+## Verification
+- Lint clean
+- Server returns HTTP 200
+- AI provider initialized (Z.AI SDK available in this environment)
+- All code compiles successfully
+- Platform independence maintained (AI is optional, provider-swappable)
+
+## Platform Totals
+- 35 subjects, 135 tutorials, 76 quizzes
+- AI: enabled, Z.AI provider, website-aware context system
+- Features: tutorial-context, user-progress, conversation, quick-actions, content-retrieval, personalized

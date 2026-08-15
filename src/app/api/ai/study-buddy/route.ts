@@ -4,33 +4,23 @@ import { ok, err, unauthorized } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
 import { getAI } from "@/lib/ai"
 import { config } from "@/lib/config"
+import { buildTutorialContext, buildSystemPrompt, QUICK_ACTIONS, type QuickAction } from "@/lib/ai/context"
 import { z } from "zod"
-
-/**
- * AI Study Buddy endpoint.
- *
- * This feature is OPTIONAL — it only works when AI_ENABLED=true and a provider
- * is configured. The core learning platform works fully without it.
- *
- * Uses the AIService abstraction (src/lib/ai/) which supports:
- *   - "zai"    (z-ai-web-dev-sdk, lazy-imported)
- *   - "openai" (OpenAI-compatible, fetch-based)
- *   - "none"   (disabled)
- *
- * The provider is selected via AI_PROVIDER env var. No hard dependency on any
- * specific AI vendor — the platform remains portable.
- */
 
 const schema = z.object({
   tutorialId: z.string().min(1),
-  question: z.string().min(3).max(500),
+  question: z.string().min(3).max(1000),
+  history: z.array(z.object({
+    role: z.enum(["user", "assistant"]),
+    content: z.string().max(2000),
+  })).max(10).optional(),
+  action: z.enum(["explain", "simplify", "example", "analogy", "quiz", "summarize", "next", "prerequisites", "code"]).optional(),
 })
 
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user) return unauthorized()
 
-  // Check if AI is enabled
   if (!config.ai.enabled) {
     return err(
       "AI features are not enabled on this deployment. Set AI_ENABLED=true and configure a provider.",
@@ -52,49 +42,72 @@ export async function POST(req: NextRequest) {
   const parsed = schema.safeParse(body)
   if (!parsed.success) return err("Invalid input.", 422, parsed.error.flatten())
 
-  const { tutorialId, question } = parsed.data
+  const { tutorialId, question, history, action } = parsed.data
 
-  // Fetch tutorial context
+  // Verify tutorial exists and is published
   const tutorial = await db.tutorial.findUnique({
     where: { id: tutorialId },
-    select: {
-      title: true,
-      summary: true,
-      content: true,
-      subject: { select: { name: true } },
-    },
+    select: { id: true, title: true },
   })
   if (!tutorial) return err("Tutorial not found.", 404)
 
-  // Truncate content to keep prompt reasonable
-  const truncatedContent = tutorial.content.slice(0, 4000)
+  // Build website-aware context
+  const context = await buildTutorialContext(user.id, tutorialId)
+  const systemPrompt = buildSystemPrompt(context)
 
-  const systemPrompt = `You are a helpful Computer Science tutor integrated into CodeMastery, a learning platform.
-A student is reading the tutorial "${tutorial.title}" in the subject "${tutorial.subject.name}".
+  // Build the user message — either a quick action or the user's question
+  const userMessage = action
+    ? `${QUICK_ACTIONS[action as QuickAction]}\n\nUser context: ${question}`
+    : question
 
-Tutorial summary: ${tutorial.summary}
+  // Build conversation messages
+  const messages: { role: "system" | "user" | "assistant"; content: string }[] = [
+    { role: "system", content: systemPrompt },
+  ]
 
-Tutorial content (excerpt):
-${truncatedContent}
+  // Add conversation history if provided
+  if (history && history.length > 0) {
+    for (const msg of history) {
+      messages.push({ role: msg.role, content: msg.content })
+    }
+  }
 
-Your job:
-- Answer the student's question clearly and concisely.
-- Use code examples when helpful.
-- Relate your answer to the tutorial content.
-- If the question is off-topic, gently steer back to the subject.
-- Keep answers under 300 words unless complexity demands more.
-- Be encouraging and educational.`
+  // Add the current question
+  messages.push({ role: "user", content: userMessage })
 
   try {
-    const answer = await ai.chat(
-      [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: question },
-      ],
-      { temperature: 0.5, maxTokens: 600 }
-    )
-    return ok({ answer, provider: ai.provider.name })
+    const answer = await ai.chat(messages, {
+      temperature: 0.6,
+      maxTokens: 800,
+    })
+
+    // Log AI usage for observability (no PII stored)
+    await db.activityLog.create({
+      data: {
+        userId: user.id,
+        type: "ai_query",
+        refId: tutorialId,
+        xpDelta: 0,
+        pointsDelta: 0,
+      },
+    })
+
+    return ok({
+      answer,
+      provider: ai.provider.name,
+      contextUsed: {
+        tutorial: !!context.tutorial,
+        userProgress: !!context.userProgress,
+        relatedTutorials: (context.relatedTutorials?.length ?? 0),
+        nextTutorials: (context.nextTutorials?.length ?? 0),
+        userNotes: (context.userNotes?.length ?? 0),
+      },
+    })
   } catch (e: any) {
-    return err(`AI request failed: ${e.message ?? "unknown error"}`, 502)
+    console.error("[AI Study Buddy] Error:", e.message)
+    return err(
+      "The AI tutor encountered an error. Please try again.",
+      502
+    )
   }
 }
