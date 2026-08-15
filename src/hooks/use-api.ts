@@ -83,7 +83,7 @@ export function useUpdateProgress() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (body: any) =>
-      apiFetch(`/api/progress`, { method: "POST", body: JSON.stringify(body) }),
+      apiFetch<any>(`/api/progress`, { method: "POST", body: JSON.stringify(body) }),
     onSuccess: (_data, vars) => {
       qc.invalidateQueries({ queryKey: ["tutorial"] })
       qc.invalidateQueries({ queryKey: ["me"] })
@@ -104,7 +104,7 @@ export function useToggleBookmark() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (tutorialId: string) =>
-      apiFetch(`/api/bookmarks`, {
+      apiFetch<any>(`/api/bookmarks`, {
         method: "POST",
         body: JSON.stringify({ tutorialId }),
       }),

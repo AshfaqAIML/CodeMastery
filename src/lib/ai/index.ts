@@ -1,5 +1,5 @@
 import { config } from "@/lib/config"
-import type { AIService, AIProvider } from "./types"
+import type { AIService, AIProvider, ChatMessage, ChatOptions } from "./types"
 import { ZAIProvider } from "./zai"
 import { OpenAIProvider } from "./openai"
 
@@ -45,4 +45,4 @@ export function getAI(): AIService {
   return _instance
 }
 
-export type { AIService, AIProvider, ChatMessage, ChatOptions }
+export type { AIService, AIProvider, ChatMessage, ChatOptions } from "./types"

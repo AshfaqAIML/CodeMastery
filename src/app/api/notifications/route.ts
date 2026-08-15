@@ -50,9 +50,9 @@ export async function GET() {
       : Promise.resolve([]),
   ])
 
-  const achievementMap = new Map(achievements.map((a) => [a.id, a]))
-  const quizMap = new Map(quizzes.map((q) => [q.id, q]))
-  const tutorialMap = new Map(tutorials.map((t) => [t.id, t]))
+  const achievementMap = new Map(achievements.map((a) => [a.id, a] as [string, typeof a]))
+  const quizMap = new Map(quizzes.map((q) => [q.id, q] as [string, typeof q]))
+  const tutorialMap = new Map(tutorials.map((t) => [t.id, t] as [string, typeof t]))
 
   const notifications = logs.map((log) => {
     let title = ""

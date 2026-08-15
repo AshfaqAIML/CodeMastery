@@ -1,5 +1,5 @@
 import { config } from "@/lib/config"
-import type { SearchService } from "./types"
+import type { SearchService, SearchResult, SearchHit } from "./types"
 import { DBSearchService } from "./db"
 
 let _instance: SearchService | null = null
@@ -12,4 +12,4 @@ export function getSearch(): SearchService {
   return _instance
 }
 
-export type { SearchService, SearchResult, SearchHit }
+export type { SearchService, SearchResult, SearchHit } from "./types"

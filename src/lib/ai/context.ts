@@ -192,9 +192,6 @@ export async function buildTutorialContext(
       },
       orderBy: [{ difficulty: "asc" }, { order: "asc" }],
       take: 3,
-      include: {
-        subject: { select: { name: true, slug: true } },
-      },
       select: {
         title: true,
         slug: true,

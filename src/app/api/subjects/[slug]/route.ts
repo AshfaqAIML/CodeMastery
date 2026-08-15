@@ -74,7 +74,7 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ slug: stri
   if (!subject) return notFound("Subject not found.")
 
   // Compute overall progress if user is signed in
-  let overallProgress = null
+  let overallProgress: { total: number; completed: number; percent: number } | null = null
   if (user) {
     const allTutorials = [
       ...(subject as any).modules?.flatMap((m: any) => m.tutorials) ?? [],

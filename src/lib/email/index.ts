@@ -1,5 +1,5 @@
 import { config } from "@/lib/config"
-import type { EmailService } from "./types"
+import type { EmailService, EmailMessage } from "./types"
 import { ConsoleEmailService } from "./console"
 import { SMTPEmailService } from "./smtp"
 
@@ -15,4 +15,4 @@ export function getEmail(): EmailService {
   return _instance
 }
 
-export type { EmailService, EmailMessage }
+export type { EmailService, EmailMessage } from "./types"

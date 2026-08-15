@@ -46,7 +46,14 @@ export async function GET(
   const next = idx < siblings.length - 1 ? siblings[idx + 1] : null
 
   // User-specific state
-  let progress = null
+  let progress: {
+    percentRead: number
+    scrollY: number
+    completed: boolean
+    completedAt: Date | null
+    timeSpentSec: number
+    lastReadAt: Date
+  } | null = null
   let bookmarked = false
   let notes: { id: string; content: string; anchor: string | null; updatedAt: Date }[] = []
   if (user) {
