@@ -29,6 +29,7 @@ import { QuizInline } from "@/components/tutorial/quiz-inline"
 import { NotesPanel } from "@/components/tutorial/notes-panel"
 import { MobileToc } from "@/components/tutorial/mobile-toc"
 import { ReturnBar } from "@/components/tutorial/return-bar"
+import { TutorialMetaPanel, TutorialRecapPanel } from "@/components/tutorial/tutorial-meta-panel"
 import { toast } from "sonner"
 
 export function TutorialView() {
@@ -227,12 +228,26 @@ export function TutorialView() {
           {/* Return to previous page (e.g. the tutorial the reader came from) */}
           <ReturnBar variant="bar" />
 
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4 flex-wrap">
+          {/* Breadcrumb — full hierarchy: Domain › Subject › Module › Tutorial */}
+          <nav className="flex items-center gap-1.5 text-sm text-muted-foreground mb-4 flex-wrap" aria-label="Breadcrumb">
             <button onClick={() => navigate("home")} className="hover:text-foreground">Home</button>
             <ChevronRight className="size-3.5" />
             <button onClick={() => navigate("browse")} className="hover:text-foreground">Browse</button>
             <ChevronRight className="size-3.5" />
+            {tutorial.subject.domain && (
+              <>
+                <span
+                  className="flex items-center gap-1.5 rounded px-1.5 py-0.5 text-xs font-medium"
+                  style={{
+                    color: tutorial.subject.domain.color,
+                    background: `color-mix(in oklch, ${tutorial.subject.domain.color} 12%, transparent)`,
+                  }}
+                >
+                  {tutorial.subject.domain.name}
+                </span>
+                <ChevronRight className="size-3.5" />
+              </>
+            )}
             <button
               onClick={() => navigate("subject", { subjectSlug: tutorial.subject.slug })}
               className="hover:text-foreground flex items-center gap-1.5"
@@ -240,6 +255,12 @@ export function TutorialView() {
               <SubjectIcon name={tutorial.subject.icon} color={tutorial.subject.color} className="size-4 rounded" />
               {tutorial.subject.name}
             </button>
+            {tutorial.module && (
+              <>
+                <ChevronRight className="size-3.5" />
+                <span className="text-foreground/80 truncate max-w-[12rem]">{tutorial.module.title}</span>
+              </>
+            )}
           </nav>
 
           {/* Header */}
@@ -315,6 +336,13 @@ export function TutorialView() {
             </div>
           </div>
 
+          {/* Pedagogical header — learning objectives, prerequisites, where-it-fits */}
+          <TutorialMetaPanel
+            learningObjectives={(tutorial as any).learningObjectives}
+            prerequisites={(tutorial as any).prerequisites}
+            whereItFits={(tutorial as any).whereItFits}
+          />
+
           {/* Content */}
           <div ref={contentRef} data-tutorial-content className="border-t border-border/60 pt-8 text-base transition-[font-size]">
             <MarkdownRenderer content={tutorial.content} />
@@ -340,6 +368,12 @@ export function TutorialView() {
               </div>
             </div>
           )}
+
+          {/* Recap — key takeaways + self-assessment checklist */}
+          <TutorialRecapPanel
+            keyTakeaways={(tutorial as any).keyTakeaways}
+            selfAssessment={(tutorial as any).selfAssessment}
+          />
 
           {/* Prev / Next */}
           <div className="grid sm:grid-cols-2 gap-3 mt-12 pt-8 border-t border-border/60">

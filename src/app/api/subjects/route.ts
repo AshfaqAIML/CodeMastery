@@ -18,6 +18,7 @@ export async function GET(req: NextRequest) {
     },
     orderBy: [{ order: "asc" }, { name: "asc" }],
     include: {
+      domain: true,
       ...(withCounts ? { _count: { select: { tutorials: { where: { published: true } } } } } : {}),
       ...(withProgress && user
         ? {
@@ -57,6 +58,14 @@ export async function GET(req: NextRequest) {
         color: s.color,
         category: s.category,
         order: s.order,
+        domain: s.domain
+          ? {
+              slug: s.domain.slug,
+              name: s.domain.name,
+              icon: s.domain.icon,
+              color: s.domain.color,
+            }
+          : null,
         ...(withCounts || (withProgress && user) ? { tutorialCount: totalTutorials } : {}),
         ...(withProgress && user
           ? {

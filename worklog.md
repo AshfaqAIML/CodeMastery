@@ -1331,3 +1331,70 @@ Stage Summary:
 - The label capture is non-reactive (module variable) so it adds zero re-render overhead; only `ReturnBar` itself re-renders on history change.
 - Files touched: `src/lib/store.ts`, `src/components/tutorial/return-bar.tsx` (new), `src/components/views/tutorial-view.tsx`, `src/components/views/subject-view.tsx`.
 - No unresolved issues. Lint clean. Server HTTP 200.
+
+---
+Task ID: CURRICULUM-ARCH-1
+Agent: Principal Architect (main)
+Task: Restructure the platform's content architecture to the full Domain → Subject → Learning Path → Part → Module → Tutorial → Section → Content Block hierarchy with rich pedagogical content blocks (learning objectives, prerequisites, analogies, output blocks, diagrams, interview questions, practice, key takeaways, self-assessment, etc.) per the Principal CS Curriculum Architect specification.
+
+Work Log:
+- Audited current schema: already had Subject → Module → Tutorial + separate LearningPath. Missing: Domain (top level), Part (learning path subdivision), and Tutorial pedagogical metadata.
+- Prisma schema changes (`prisma/schema.prisma`):
+  - Added `Domain` model (slug, name, tagline, description, icon, color, order, published) as the top of the hierarchy.
+  - Added `domainId` FK on `Subject` (nullable for backwards compat) + `domain` relation + index.
+  - Added 5 pedagogical metadata fields to `Tutorial`: `learningObjectives` (JSON array), `prerequisites` (JSON array of {label, subjectSlug?, tutorialSlug?}), `whereItFits` (text), `keyTakeaways` (JSON array), `selfAssessment` (JSON array) — all stored as JSON strings for SQLite compatibility.
+  - Added `LearningPathPart` model (optional Part subdivision of learning paths) + `partId` FK on `LearningPathStep` + `parts` relation on `LearningPath`.
+  - Added `domainId` on `LearningPath` for optional domain attribution.
+  - Ran `bun run db:push` — schema applied cleanly, Prisma Client regenerated.
+- Markdown renderer overhaul (`src/components/markdown/markdown-renderer.tsx`):
+  - Added `remark-gfm` plugin for GFM table support (installed `remark-gfm@4.0.1`).
+  - Added `rehype-raw` plugin for raw HTML passthrough (installed `rehype-raw@7.0.0`) — enables `<details>`/`<summary>` in markdown.
+  - Expanded callout variants from 4 → 8: tip, warning, note, info, **important**, **best-practice**, **analogy**, **memory**. Each has a distinct lucide icon + oklch color.
+  - Added **OutputBlock** component: fenced code with language `output` renders as a terminal-styled "Output" panel (dark header + monospace body).
+  - Added **DiagramPlaceholder** component: blockquotes beginning with `diagram:` or `figure:` render as a dashed-border media-placeholder card with an image icon + caption.
+  - Fixed `details`/`summary` rendering: preserve native `<details>` toggle behavior, add `group` class + chevron icon with `group-open:rotate-180` rotation, styled summary with hover states.
+  - Styled `table` with `comparison-table` class for consistent table rendering.
+  - Added `h4`, `em`, `figure`/`figcaption`, `section`, `aside`, `nav` component overrides for semantic structure.
+- Seed data (`prisma/seed.ts`):
+  - Added 4 Domains: Computer Science, Artificial Intelligence, Data Science, Software Engineering (each with icon, color, tagline, description).
+  - Added `subjectDomain` mapping (20 subjects → domain slugs) so existing subjects attach to domains without rewriting each subject block.
+  - Extended `TutorialInput` type with optional `learningObjectives`, `prerequisites`, `whereItFits`, `keyTakeaways`, `selfAssessment` fields.
+  - Enhanced "Introduction to C" tutorial as a full showcase of the new architecture: 5 learning objectives, 2 prerequisites, where-it-fits text, analogy callout, code walkthrough, output block, diagram placeholder, comparison table (compilation pipeline stages), common mistakes, best-practice callout, real-world applications, 3 collapsible interview questions, practice exercises, summary, 5 key takeaways, 4 self-assessment items.
+  - Updated seed execution: creates domains first, links subjects to domains via `domainId`, writes all 5 pedagogical metadata fields as JSON.
+  - Ran seed: 4 domains, 35 subjects, 40 modules, 135 tutorials, 91 quizzes, 273 questions, 16 achievements, 5 paths — all populated.
+- API routes:
+  - `GET /api/domains` (new): returns all domains with subject counts.
+  - `GET /api/subjects`: now includes `domain` (slug, name, icon, color) on each subject.
+  - `GET /api/subjects/[slug]`: now includes `domain` on the subject.
+  - `GET /api/tutorials/[subjectSlug]/[tutorialSlug]`: now includes `domain` nested in subject + all 5 pedagogical fields (parsed from JSON).
+  - Added `useDomains()` hook in `src/hooks/use-api.ts`.
+- Tutorial view redesign (`src/components/views/tutorial-view.tsx`):
+  - Breadcrumb now shows full hierarchy: Home › Browse › **Domain** › Subject › **Module** › Tutorial (domain as colored chip, module name truncated).
+  - Inserted `TutorialMetaPanel` after the header (before content): renders Learning Objectives (green panel with target icon + checklist), Prerequisites (with linkable tutorial refs), and "Where You Are in the Learning Path" callout.
+  - Inserted `TutorialRecapPanel` after quizzes (before prev/next): renders Key Takeaways (numbered list in green panel) + Self-Assessment (interactive checkboxes in muted panel).
+  - Created `src/components/tutorial/tutorial-meta-panel.tsx` with both panels (gracefully renders nothing when metadata is empty).
+- Browse view redesign (`src/components/views/browse-view.tsx`):
+  - Replaced flat category filter with **domain-based grouping**: "All domains" chip + one chip per domain (with subject counts + colored dot).
+  - When "All domains" selected: subjects grouped into sections by domain, each with a colored section header (dot + domain name + subject count).
+  - When a specific domain selected: flat grid filtered to that domain.
+  - Subject cards now show domain name badge instead of legacy category.
+  - Added `FALLBACK_DOMAIN` for subjects without a domain (graceful "Other" grouping).
+- Lint: `bun run lint` → exit 0, clean.
+
+Verification (agent-browser + VLM):
+1. Browse view: shows "5 domains" in subtitle, domain chips (Computer Science 11, Data Science 2, Artificial Intelligence 3, Software Engineering 4), grouped sections with colored headers. ✅
+2. Tutorial breadcrumb (VLM-confirmed): "Home > Browse > Computer Science > C Programming > C Fundamentals" — full Domain › Subject › Module hierarchy. ✅
+3. Pedagogical panels (DOM-confirmed): all 5 present — Learning objectives, Prerequisites, Where this tutorial fits, Key takeaways, Self-assessment. ✅
+4. Rich content blocks (DOM-confirmed): callouts:2 (analogy + best-practice), outputs:1, diagrams:1, interviews:3, tables:1. ✅
+5. Interview questions (VLM-confirmed): 3 collapsible questions with real text — "Why is C still used...", "What is the difference between compiled and interpreted...", "What does return 0 in main() actually do?". Each expands to show the answer. ✅
+6. Interview answer content (DOM-confirmed): "C offers three things modern high-level languages trade away: direct memory acce..." — real answer text renders. ✅
+7. TOC sidebar (VLM-confirmed): lists all sections including "Why C Still Matters", "Your First Program", "Common Mistakes", "Real-World Applications", "Interview Questions" — scroll-spy highlights active section. ✅
+8. Return-to-previous bar (VLM-confirmed): "Return to C Programming" still works alongside the new architecture. ✅
+
+Stage Summary:
+- Full curriculum-aware content architecture implemented and browser-verified.
+- Hierarchy: Domain (4) → Subject (35) → Module (40) → Tutorial (135), with optional Learning Path → Part subdivisions.
+- Tutorial pages now answer all 4 orientation questions: Where am I? (breadcrumb), What am I learning? (title + objectives), Why am I learning it? (where-it-fits), What's next? (prev/next + key takeaways + self-assessment).
+- Rich content blocks: 8 callout variants, output blocks, diagram placeholders, collapsible interview questions, comparison tables — all rendering correctly via enhanced markdown renderer.
+- Files touched: `prisma/schema.prisma`, `prisma/seed.ts`, `src/components/markdown/markdown-renderer.tsx`, `src/components/tutorial/tutorial-meta-panel.tsx` (new), `src/components/views/tutorial-view.tsx`, `src/components/views/browse-view.tsx`, `src/app/api/domains/route.ts` (new), `src/app/api/subjects/route.ts`, `src/app/api/subjects/[slug]/route.ts`, `src/app/api/tutorials/[subjectSlug]/[tutorialSlug]/route.ts`, `src/hooks/use-api.ts`.
+- No unresolved issues. Lint clean. Server HTTP 200.

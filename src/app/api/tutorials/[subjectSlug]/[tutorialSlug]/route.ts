@@ -3,6 +3,11 @@ import { db } from "@/lib/db"
 import { ok, notFound } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
 
+function parseJSON<T>(raw: string | null | undefined, fallback: T): T {
+  if (!raw) return fallback
+  try { return JSON.parse(raw) as T } catch { return fallback }
+}
+
 export async function GET(
   _req: NextRequest,
   ctx: { params: Promise<{ subjectSlug: string; tutorialSlug: string }> }
@@ -18,7 +23,9 @@ export async function GET(
     },
     include: {
       subject: {
-        select: { id: true, slug: true, name: true, color: true, icon: true },
+        include: {
+          domain: { select: { id: true, slug: true, name: true, icon: true, color: true } },
+        },
       },
       module: { select: { id: true, title: true, slug: true, order: true } },
       quizzes: {
@@ -65,6 +72,9 @@ export async function GET(
     })
   }
 
+  // Reshape subject to a clean nested structure with domain
+  const { domain, ...subjectCore } = tutorial.subject as any
+
   return ok({
     tutorial: {
       id: tutorial.id,
@@ -77,9 +87,19 @@ export async function GET(
       tags: tutorial.tags,
       order: tutorial.order,
       coverImage: tutorial.coverImage,
-      subject: tutorial.subject,
+      subject: { ...subjectCore, domain: domain ?? null },
       module: tutorial.module,
       quizzes: tutorial.quizzes,
+      // Pedagogical metadata (curriculum-aware)
+      learningObjectives: parseJSON<string[]>(
+        (tutorial as any).learningObjectives || null, []
+      ),
+      prerequisites: parseJSON<
+        { label: string; subjectSlug?: string; tutorialSlug?: string }[]
+      >((tutorial as any).prerequisites || null, []),
+      whereItFits: (tutorial as any).whereItFits ?? "",
+      keyTakeaways: parseJSON<string[]>((tutorial as any).keyTakeaways || null, []),
+      selfAssessment: parseJSON<string[]>((tutorial as any).selfAssessment || null, []),
     },
     prev,
     next,

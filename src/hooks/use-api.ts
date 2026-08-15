@@ -36,6 +36,14 @@ export function useSubjects(opts?: { withCounts?: boolean; withProgress?: boolea
   })
 }
 
+// ---------- Domains ----------
+export function useDomains() {
+  return useQuery({
+    queryKey: ["domains"],
+    queryFn: () => apiFetch<any[]>(`/api/domains`),
+  })
+}
+
 export function useSubject(slug: string | undefined) {
   return useQuery({
     queryKey: ["subject", slug],

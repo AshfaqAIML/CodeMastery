@@ -40,6 +40,12 @@ type TutorialInput = {
   estimatedMinutes: number
   tags: string
   order: number
+  // --- Pedagogical metadata (curriculum-aware architecture) ---
+  learningObjectives?: string[]
+  prerequisites?: { label: string; subjectSlug?: string; tutorialSlug?: string }[]
+  whereItFits?: string
+  keyTakeaways?: string[]
+  selfAssessment?: string[]
   quizzes?: {
     title: string
     description: string
@@ -53,6 +59,78 @@ type TutorialInput = {
       order: number
     }[]
   }[]
+}
+
+// ============================================================
+// DOMAINS — top of the content hierarchy
+// ============================================================
+
+const domains = [
+  {
+    slug: "computer-science",
+    name: "Computer Science",
+    tagline: "The foundations of computing — languages, systems, and algorithms.",
+    description:
+      "Master the core of computer science: programming languages, data structures, algorithms, operating systems, computer architecture, and networks. This domain covers everything from writing your first program to understanding how the hardware executes it.",
+    icon: "Cpu",
+    color: "oklch(0.62 0.15 162)",
+    order: 1,
+  },
+  {
+    slug: "artificial-intelligence",
+    name: "Artificial Intelligence",
+    tagline: "Machine learning, deep learning, and large language models.",
+    description:
+      "Build intelligent systems. This domain covers the full AI stack — from classical machine learning algorithms through deep neural networks to modern large language models, prompt engineering, and retrieval-augmented generation.",
+    icon: "BrainCircuit",
+    color: "oklch(0.65 0.2 305)",
+    order: 2,
+  },
+  {
+    slug: "data-science",
+    name: "Data Science",
+    tagline: "Working with data — storage, querying, and modelling.",
+    description:
+      "Learn how to store, query, model, and manage data at scale. This domain covers SQL, database design, normalization, transactions, indexing, and the data engineering foundations that every backend and data professional needs.",
+    icon: "Database",
+    color: "oklch(0.7 0.13 200)",
+    order: 3,
+  },
+  {
+    slug: "software-engineering",
+    name: "Software Engineering",
+    tagline: "Building, scaling, and shipping production software.",
+    description:
+      "The engineering practices behind real-world software. This domain covers web development, software engineering practices (Git, testing), system design, and technical interview preparation — the skills that turn code into shipped products.",
+    icon: "Workflow",
+    color: "oklch(0.75 0.16 85)",
+    order: 4,
+  },
+]
+
+// Mapping from subject slug → domain slug. Keeps each Subject block
+// unchanged while attaching it to the correct Domain.
+const subjectDomain: Record<string, string> = {
+  "c-programming": "computer-science",
+  "python": "computer-science",
+  "data-structures": "computer-science",
+  "algorithms": "computer-science",
+  "cpp": "computer-science",
+  "java": "computer-science",
+  "javascript": "computer-science",
+  "typescript": "computer-science",
+  "computer-architecture": "computer-science",
+  "operating-systems": "computer-science",
+  "computer-networks": "computer-science",
+  "machine-learning": "artificial-intelligence",
+  "deep-learning": "artificial-intelligence",
+  "llms": "artificial-intelligence",
+  "sql": "data-science",
+  "dbms": "data-science",
+  "system-design": "software-engineering",
+  "web-development": "software-engineering",
+  "software-engineering": "software-engineering",
+  "interview-prep": "software-engineering",
 }
 
 // ============================================================
@@ -84,6 +162,32 @@ const subjects: SubjectInput[] = [
             slug: "introduction-to-c",
             title: "Introduction to C",
             summary: "What C is, why it matters, and your first program.",
+            learningObjectives: [
+              "Explain what C is and why it remains relevant in modern computing.",
+              "Identify the key characteristics of C: compiled, statically typed, low-level.",
+              "Write, compile, and run a basic C program using GCC.",
+              "Describe the role of the main() function and the return 0 statement.",
+              "Recognise real-world systems that are written in C.",
+            ],
+            prerequisites: [
+              { label: "Basic familiarity with using a terminal / command line" },
+              { label: "A C compiler installed (GCC or Clang)" },
+            ],
+            whereItFits:
+              "This is the very first tutorial in the C Fundamentals module and the Computer Science domain. It assumes no prior programming experience. After this tutorial you will move on to Variables and Data Types, where you will learn how C stores and represents information.",
+            keyTakeaways: [
+              "C is a compiled, statically-typed, general-purpose language created in 1972.",
+              "It sits one step above assembly, giving direct memory and hardware control.",
+              "The Linux kernel, SQLite, Git, and CPython are all written in C.",
+              "Every C program starts execution from the main() function.",
+              "return 0 signals to the operating system that the program succeeded.",
+            ],
+            selfAssessment: [
+              "I can explain in one sentence what C is and why it is still used.",
+              "I can write and compile a Hello World program without referencing notes.",
+              "I can describe what the preprocessor, compiler, and linker each do.",
+              "I can list at least three real-world systems written in C.",
+            ],
             content: `# Introduction to C
 
 C is a general-purpose, compiled, statically-typed programming language created by Dennis Ritchie at Bell Labs in 1972. It sits one step above assembly language, giving programmers direct control over memory and hardware while remaining portable across platforms.
@@ -91,6 +195,8 @@ C is a general-purpose, compiled, statically-typed programming language created 
 ## Why C Still Matters
 
 C is the foundation of modern computing. The Linux kernel, SQLite, Git, the Python interpreter (CPython), and most operating systems are written in C. Learning C teaches you how memory actually works, how the CPU executes your code, and why higher-level languages behave the way they do.
+
+> analogy: Think of C as the engine of a car. You may drive a Python or JavaScript "car" every day, but underneath, the engine that makes everything run is written in C. Understanding the engine makes you a better driver — and lets you build one yourself.
 
 ## Your First Program
 
@@ -103,10 +209,18 @@ int main(void) {
 }
 \`\`\`
 
-- \`#include <stdio.h>\` brings in the standard input/output library.
-- \`main\` is the entry point — every C program starts here.
-- \`printf\` writes formatted text to standard output.
-- \`return 0;\` tells the operating system the program succeeded.
+### How the Code Works
+
+- \`#include <stdio.h>\` is a **preprocessor directive** that brings in the standard input/output library — this is where \`printf\` is declared.
+- \`main\` is the **entry point** — every C program starts executing here. The \`int\` before it means the function returns an integer status code to the operating system.
+- \`printf("Hello, World!\\n")\` writes formatted text to standard output. The \`\\n\` is an escape sequence for a newline.
+- \`return 0;\` tells the operating system the program succeeded. A non-zero value signals an error.
+
+When you run the compiled program, the output is:
+
+\`\`\`output
+Hello, World!
+\`\`\`
 
 ## Compiling and Running
 
@@ -117,17 +231,66 @@ gcc hello.c -o hello
 ./hello
 \`\`\`
 
-The compiler translates your source into an executable binary. Understanding this translate-and-link step is essential — C is not interpreted.
+> diagram: The C compilation pipeline — source (.c) → preprocessor → compiler → assembler → object file (.o) → linker → executable.
 
-## Key Takeaways
+The compiler does not run your code directly. It translates your source through several stages:
 
-- C is compiled, statically typed, and close to the metal.
-- It gives you direct memory access through pointers.
-- Mastering C makes learning every other language easier.
+| Stage | Input | Output | Purpose |
+|-------|-------|--------|---------|
+| Preprocessor | \`hello.c\` | expanded source | Handles \`#include\` and \`#define\` |
+| Compiler | expanded source | assembly | Translates C into assembly |
+| Assembler | assembly | \`hello.o\` | Converts assembly to machine code |
+| Linker | \`hello.o\` + libraries | \`hello\` executable | Resolves external symbols |
+
+## Common Mistakes
+
+1. **Forgetting the semicolon.** Every statement in C ends with \`;\`. Omitting it produces a compile error.
+2. **Missing \`#include <stdio.h>\`.** Without it, \`printf\` is undeclared and the compiler warns about an implicit declaration.
+3. **Using \`"\`\` instead of \`'\`** for single characters. Double quotes create a string; single quotes denote a single \`char\`.
+
+> best-practice: Always compile with warnings enabled — \`gcc -Wall -Wextra hello.c -o hello\`. Treat warnings as errors early; they almost always indicate a real bug.
+
+## Real-World Applications
+
+- **Operating systems** — Linux, macOS, and Windows kernels are largely C.
+- **Embedded systems** — microcontrollers in cars, appliances, and IoT devices.
+- **Databases** — SQLite, PostgreSQL, and MySQL are written in C.
+- **Interpreters** — CPython (Python), PHP, and Ruby are implemented in C.
+- **Network infrastructure** — nginx, Redis, and the Curl library.
+
+## Interview Questions
+
+<details>
+<summary>Why is C still used when we have modern languages like Python and Go?</summary>
+
+C offers three things modern high-level languages trade away: **direct memory access** (via pointers), **deterministic performance** (no garbage collector pauses), and **tiny runtime footprint**. This makes it indispensable for operating systems, embedded firmware, and performance-critical infrastructure where you must control every byte and every cycle.
+</details>
+
+<details>
+<summary>What is the difference between compiled and interpreted languages?</summary>
+
+A **compiled** language (like C) is translated entirely into machine code *before* it runs, producing a standalone executable. An **interpreted** language (like Python) is read and executed line-by-line at runtime by another program (the interpreter). Compilation gives C faster startup and execution, while interpretation gives Python flexibility and portability at the cost of speed.
+</details>
+
+<details>
+<summary>What does return 0 in main() actually do?</summary>
+
+\`return 0;\` sends an exit status of \`0\` to the operating system. By convention, \`0\` means **success** and any non-zero value indicates an error type. Other programs or shell scripts can check this status (via \`$?\` in bash) to decide whether to continue. Returning a non-zero code lets you signal failures to automation pipelines.
+</details>
+
+## Practice Exercises
+
+1. Modify the Hello World program to print your own name on a new line below "Hello, World!".
+2. Change \`return 0\` to \`return 1\`, compile, and run the program. Then run \`echo $?\` in your shell — observe what value is printed.
+3. Remove the \`#include <stdio.h>\` line, recompile with \`-Wall\`, and read the warning the compiler produces.
+
+## Summary
+
+C is a compiled, statically-typed language that gives you direct control over memory and hardware. It remains the lingua franca of systems programming — understanding it makes every higher-level language easier to reason about. In this tutorial you wrote, compiled, and ran your first C program and learned the compilation pipeline that turns source into an executable.
 
 ## Next Steps
 
-Continue to Variables and Data Types to learn how C represents information.`,
+Continue to **Variables and Data Types** to learn how C represents and stores information in memory.`,
             difficulty: "beginner",
             estimatedMinutes: 12,
             tags: "introduction,setup,hello-world",
@@ -5113,17 +5276,38 @@ const paths = [
 async function main() {
   console.log("🌱 Seeding CodeMastery content...")
 
+  // --- Domains (top of hierarchy) ---
+  const domainMap: Record<string, string> = {}
+  for (const d of domains) {
+    const dom = await db.domain.upsert({
+      where: { slug: d.slug },
+      create: {
+        slug: d.slug, name: d.name, tagline: d.tagline, description: d.description,
+        icon: d.icon, color: d.color, order: d.order, published: true,
+      },
+      update: {
+        name: d.name, tagline: d.tagline, description: d.description,
+        icon: d.icon, color: d.color, order: d.order,
+      },
+    })
+    domainMap[d.slug] = dom.id
+  }
+  console.log(`  ✓ ${domains.length} domains`)
+
   // Subjects + modules + tutorials + quizzes
   for (const s of subjects) {
+    const domainId = subjectDomain[s.slug] ? domainMap[subjectDomain[s.slug]] : null
     const subject = await db.subject.upsert({
       where: { slug: s.slug },
       create: {
         slug: s.slug, name: s.name, tagline: s.tagline, description: s.description,
         icon: s.icon, color: s.color, category: s.category, order: s.order, published: true,
+        domainId,
       },
       update: {
         name: s.name, tagline: s.tagline, description: s.description,
         icon: s.icon, color: s.color, category: s.category, order: s.order,
+        domainId,
       },
     })
     console.log(`  ✓ Subject: ${subject.name}`)
@@ -5145,10 +5329,20 @@ async function main() {
             subjectId: subject.id, moduleId: moduleRec.id, slug: t.slug, title: t.title, summary: t.summary,
             content: t.content, difficulty: t.difficulty, estimatedMinutes: t.estimatedMinutes,
             tags: t.tags, order: t.order, published: true,
+            learningObjectives: t.learningObjectives ? JSON.stringify(t.learningObjectives) : "",
+            prerequisites: t.prerequisites ? JSON.stringify(t.prerequisites) : "",
+            whereItFits: t.whereItFits ?? "",
+            keyTakeaways: t.keyTakeaways ? JSON.stringify(t.keyTakeaways) : "",
+            selfAssessment: t.selfAssessment ? JSON.stringify(t.selfAssessment) : "",
           },
           update: {
             title: t.title, summary: t.summary, content: t.content, difficulty: t.difficulty,
             estimatedMinutes: t.estimatedMinutes, tags: t.tags, order: t.order, moduleId: moduleRec.id,
+            learningObjectives: t.learningObjectives ? JSON.stringify(t.learningObjectives) : "",
+            prerequisites: t.prerequisites ? JSON.stringify(t.prerequisites) : "",
+            whereItFits: t.whereItFits ?? "",
+            keyTakeaways: t.keyTakeaways ? JSON.stringify(t.keyTakeaways) : "",
+            selfAssessment: t.selfAssessment ? JSON.stringify(t.selfAssessment) : "",
           },
         })
         for (const q of t.quizzes ?? []) {

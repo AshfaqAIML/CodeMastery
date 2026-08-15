@@ -10,6 +10,7 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ slug: stri
   const subject = await db.subject.findUnique({
     where: { slug, published: true },
     include: {
+      domain: { select: { id: true, slug: true, name: true, icon: true, color: true } },
       modules: {
         orderBy: { order: "asc" },
         include: {

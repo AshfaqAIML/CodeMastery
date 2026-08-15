@@ -100,8 +100,27 @@ model VerificationToken {
 }
 
 // ============================================================
-// CONTENT TAXONOMY: Subject > Module > Tutorial
+// CONTENT TAXONOMY: Domain > Subject > Module > Tutorial
+// Plus Learning Path > Part (optional) > Step
 // ============================================================
+
+model Domain {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  tagline     String
+  description String
+  icon        String   // lucide icon name
+  color       String   // hex/oklch accent
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  subjects    Subject[]
+
+  @@index([order])
+}
 
 model Subject {
   id          String   @id @default(cuid())
@@ -111,17 +130,20 @@ model Subject {
   description String
   icon        String   // lucide icon name
   color       String   // hex/oklch accent
-  category    String   // Programming | Systems | AI/ML | Data | Web | Career
+  category    String   // Programming | Systems | AI/ML | Data | Web | Career (legacy grouping)
+  domainId    String?  // FK to Domain (nullable for backwards compat)
   order       Int      @default(0)
   published   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  domain      Domain?  @relation(fields: [domainId], references: [id], onDelete: SetNull)
   modules       Module[]
   tutorials     Tutorial[]
   pathSteps     LearningPathStep[]
 
   @@index([category])
+  @@index([domainId])
   @@index([order])
 }
 
@@ -158,6 +180,18 @@ model Tutorial {
   order       Int      @default(0)
   published   Boolean  @default(true)
   coverImage  String?
+  // --- Pedagogical metadata (curriculum-aware architecture) ---
+  // JSON-encoded array of measurable learning objective strings, e.g.
+  // ["Explain what a variable is","Create variables using valid syntax"]
+  learningObjectives String @default("")
+  // JSON-encoded array of prerequisite refs, each {label, subjectSlug?, tutorialSlug?}
+  prerequisites   String @default("")
+  // Short prose explaining where this tutorial fits in the learning path
+  whereItFits     String @default("")
+  // JSON-encoded array of key takeaway strings
+  keyTakeaways    String @default("")
+  // JSON-encoded self-assessment checklist strings
+  selfAssessment  String @default("")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -315,7 +349,7 @@ model QuizAnswer {
 }
 
 // ============================================================
-// LEARNING PATHS
+// LEARNING PATHS (with optional Parts)
 // ============================================================
 
 model LearningPath {
@@ -328,30 +362,55 @@ model LearningPath {
   color       String
   difficulty  String   @default("beginner")
   estimatedHours Int   @default(40)
+  domainId    String?  // optional domain this path belongs to
   published   Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   steps    LearningPathStep[]
+  parts    LearningPathPart[]
   progress LearningPathProgress[]
 
   @@index([published])
+  @@index([domainId])
+}
+
+// Optional large-scale subdivision of a very large learning path.
+// Part I — Foundations, Part II — Core Concepts, etc.
+model LearningPathPart {
+  id          String   @id @default(cuid())
+  pathId      String
+  slug        String
+  title       String
+  summary     String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  path     LearningPath      @relation(fields: [pathId], references: [id], onDelete: Cascade)
+  steps    LearningPathStep[]
+
+  @@unique([pathId, slug])
+  @@index([pathId])
 }
 
 model LearningPathStep {
   id        String @id @default(cuid())
   pathId    String
+  partId    String?  // optional link to a Part within the path
   tutorialId String?
   subjectId String?
   title     String
   subtitle  String?
   order     Int    @default(0)
 
-  path     LearningPath @relation(fields: [pathId], references: [id], onDelete: Cascade)
+  path     LearningPath      @relation(fields: [pathId], references: [id], onDelete: Cascade)
+  part     LearningPathPart? @relation(fields: [partId], references: [id], onDelete: SetNull)
   tutorial Tutorial?    @relation(fields: [tutorialId], references: [id], onDelete: SetNull)
   subject  Subject?     @relation(fields: [subjectId], references: [id], onDelete: SetNull)
 
   @@index([pathId])
+  @@index([partId])
 }
 
 model LearningPathProgress {
