@@ -61,9 +61,11 @@ export function BrowseView() {
       <div className="relative mb-6">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
         <Input
+          type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search tutorials..."
+          aria-label="Search tutorials by title, subject, or topic"
           className="pl-10 h-11"
         />
       </div>

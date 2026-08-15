@@ -48,7 +48,7 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ slug: stri
   if (!path) return notFound("Learning path not found.")
 
   // Compute progress
-  let enrollment = null
+  let enrollment: { enrolledAt: any; completedSteps: number; totalSteps: number; percent: number } | null = null
   if (user && (path as any).progress?.[0]) {
     const p = (path as any).progress[0]
     const totalSteps = path.steps.length

@@ -41,13 +41,13 @@ export async function GET() {
   const [achievements, quizzes, tutorials] = await Promise.all([
     achievementIds.length > 0
       ? db.achievement.findMany({ where: { id: { in: achievementIds } }, select: { id: true, title: true, icon: true, color: true } })
-      : Promise.resolve([]),
+      : Promise.resolve([] as { id: string; title: string; icon: string | null; color: string | null }[]),
     quizIds.length > 0
       ? db.quiz.findMany({ where: { id: { in: quizIds } }, select: { id: true, title: true } })
-      : Promise.resolve([]),
+      : Promise.resolve([] as { id: string; title: string }[]),
     tutorialIds.length > 0
       ? db.tutorial.findMany({ where: { id: { in: tutorialIds } }, select: { id: true, title: true, subject: { select: { slug: true, name: true } } } })
-      : Promise.resolve([]),
+      : Promise.resolve([] as { id: string; title: string; subject: { slug: string; name: string } }[]),
   ])
 
   const achievementMap = new Map(achievements.map((a) => [a.id, a]))

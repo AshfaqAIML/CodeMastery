@@ -3,7 +3,7 @@
  *
  * All external services and deployment-specific values are read from
  * environment variables. Nothing is hardcoded. This keeps the application
- * portable across hosting providers (Z.ai, Vercel, Railway, Docker, VPS, ...).
+ * portable across any hosting provider (Vercel, Railway, Docker, VPS, ...).
  *
  * Copy `.env.example` to `.env` and fill in the values for your environment.
  */
@@ -26,9 +26,11 @@ export const config = {
   nodeEnv: process.env.NODE_ENV ?? "development",
   isProduction: process.env.NODE_ENV === "production",
 
-  /** Database — SQLite for dev, PostgreSQL/MySQL for prod via Prisma */
+  /** Database — PostgreSQL (production default) or SQLite (optional local dev).
+   *  The Prisma schema file is selected by scripts/postinstall.sh based on
+   *  the DATABASE_URL scheme (file: → SQLite, postgres:// → PostgreSQL). */
   databaseUrl: required("DATABASE_URL", "file:./db/custom.db"),
-  databaseProvider: (process.env.DATABASE_PROVIDER ?? "sqlite") as
+  databaseProvider: (process.env.DATABASE_PROVIDER ?? "postgresql") as
     | "sqlite"
     | "postgresql",
 
@@ -56,20 +58,22 @@ export const config = {
     },
   },
 
-  /** AI — optional, pluggable. Platform works without it. */
+  /** AI — optional, pluggable. Platform works fully without it.
+   *  Default provider is "none" so the app is provider-independent out of
+   *  the box. Set AI_ENABLED=true + AI_PROVIDER=openai (or zai) to enable. */
   ai: {
     enabled: process.env.AI_ENABLED === "true",
-    provider: (process.env.AI_PROVIDER ?? "zai") as
-      | "zai"
+    provider: (process.env.AI_PROVIDER ?? "none") as
+      | "none"
       | "openai"
-      | "none",
-    zai: {
-      apiKey: process.env.ZAI_API_KEY ?? process.env.Z_API_KEY ?? "",
-    },
+      | "zai",
     openai: {
       apiKey: process.env.OPENAI_API_KEY ?? "",
       baseUrl: process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1",
       model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
+    },
+    zai: {
+      apiKey: process.env.ZAI_API_KEY ?? "",
     },
   },
 

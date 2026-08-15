@@ -6,10 +6,12 @@
  * AI_PROVIDER and used for optional features (study buddy, summaries, etc).
  *
  * Providers:
- *   - "zai"    -> z-ai-web-dev-sdk (default in this dev env)
- *   - "openai"  -> OpenAI-compatible API
+ *   - "none"   -> default; AI disabled (platform works fully without it)
+ *   - "openai" -> OpenAI-compatible API (OpenAI, Together, Groq, local, ...)
+ *   - "zai"    -> z-ai-web-dev-sdk (optional dependency, lazy-imported)
  *
- * To add a new provider, implement AIProvider and register it in the factory.
+ * To add a new provider, implement AIProvider and register it in the factory
+ * (src/lib/ai/index.ts).
  */
 
 export interface ChatMessage {

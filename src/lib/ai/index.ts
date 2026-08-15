@@ -1,5 +1,5 @@
 import { config } from "@/lib/config"
-import type { AIService, AIProvider } from "./types"
+import type { AIService, AIProvider, ChatMessage, ChatOptions } from "./types"
 import { ZAIProvider } from "./zai"
 import { OpenAIProvider } from "./openai"
 
@@ -17,10 +17,6 @@ class AIServiceImpl implements AIService {
   private buildProvider(): AIProvider | null {
     if (!config.ai.enabled) return null
     const p = config.ai.provider
-    if (p === "zai") {
-      // ZAI SDK may manage its own auth in certain environments
-      return new ZAIProvider(config.ai.zai.apiKey)
-    }
     if (p === "openai") {
       if (!config.ai.openai.apiKey) return null
       return new OpenAIProvider(
@@ -29,6 +25,10 @@ class AIServiceImpl implements AIService {
         config.ai.openai.model
       )
     }
+    if (p === "zai") {
+      return new ZAIProvider(config.ai.zai.apiKey)
+    }
+    // "none" or unknown → no provider
     return null
   }
 

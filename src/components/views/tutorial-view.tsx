@@ -305,7 +305,7 @@ export function TutorialView() {
                   </Button>
                   <Button variant="outline" onClick={() => setShowNotes((s) => !s)} size="sm">
                     <StickyNote className="mr-2 size-4" />
-                    Notes {(notesData?.length ?? 0) > 0 && `(${notesData.length})`}
+                    Notes {(notesData?.length ?? 0) > 0 && `(${notesData?.length})`}
                   </Button>
                   <ShareButton title={tutorial.title} slug={tutorial.slug} />
                   <PrintButton title={tutorial.title} subject={tutorial.subject.name} />
@@ -489,12 +489,11 @@ export function TutorialView() {
       {/* Notes panel */}
       {showNotes && session && (
         <NotesPanel
-          tutorialId={tutorial.id}
           notes={notesData ?? []}
           onCreate={(content) =>
-            createNote.mutateAsync({ tutorialId: tutorial.id, content }).then(() => toast.success("Note added"))
+            createNote.mutateAsync({ tutorialId: tutorial.id, content }).then(() => { toast.success("Note added") })
           }
-          onDelete={(id) => deleteNote.mutateAsync(id).then(() => toast.success("Note deleted"))}
+          onDelete={async (id) => { await deleteNote.mutateAsync(id); toast.success("Note deleted") }}
           onClose={() => setShowNotes(false)}
         />
       )}

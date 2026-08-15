@@ -93,7 +93,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             onClick={() => setSearchOpen(true)}
-            className="sm:hidden"
+            className="sm:hidden h-11 w-11"
             aria-label="Search"
           >
             <Search className="size-5" />
@@ -107,6 +107,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="h-11 w-11 sm:h-9 sm:w-9"
             aria-label="Toggle theme"
           >
             {mounted && theme === "dark" ? (
@@ -176,7 +177,7 @@ export function Header() {
           {/* Mobile menu */}
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menu">
+              <Button variant="ghost" size="icon" className="md:hidden h-11 w-11" aria-label="Menu">
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>

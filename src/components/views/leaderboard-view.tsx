@@ -88,7 +88,7 @@ export function LeaderboardView() {
                     }}
                   >
                     <div className="absolute top-2 left-1/2 -translate-x-1/2">
-                      {rank === 1 && <Crown className="size-6 text-yellow-500 fill-yellow-500/30" />}
+                      {rank === 1 && <Crown className="size-6 text-yellow-500 fill-yellow-500/30" aria-hidden />}
                     </div>
                     <div
                       className={`mx-auto rounded-full flex items-center justify-center font-bold mb-2 ${
@@ -100,6 +100,8 @@ export function LeaderboardView() {
                           ? "bg-slate-400/20 text-slate-500 dark:text-slate-300"
                           : "bg-orange-500/20 text-orange-600 dark:text-orange-400"
                       }`}
+                      role="img"
+                      aria-label={`Rank ${rank}${rank === 1 ? " — Gold" : rank === 2 ? " — Silver" : rank === 3 ? " — Bronze" : ""}`}
                     >
                       {rank}
                     </div>
@@ -137,8 +139,10 @@ export function LeaderboardView() {
                             ? "bg-orange-500/20 text-orange-600 dark:text-orange-400"
                             : "bg-muted text-muted-foreground"
                         }`}
+                        role="img"
+                        aria-label={`Rank ${e.rank}`}
                       >
-                        {e.rank <= 3 ? <Medal className="size-4" /> : e.rank}
+                        {e.rank <= 3 ? <Medal className="size-4" aria-hidden /> : e.rank}
                       </span>
                       <div className="flex-1 min-w-0">
                         <div className="font-medium truncate flex items-center gap-2">

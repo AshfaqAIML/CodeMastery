@@ -53,10 +53,11 @@ export function useSubject(slug: string | undefined) {
 }
 
 export function useSubjectCertificate(slug: string | undefined) {
+  const { status } = useSession()
   return useQuery({
     queryKey: ["subject-certificate", slug],
     queryFn: () => apiFetch<any>(`/api/subjects/${slug}/certificate`),
-    enabled: !!slug,
+    enabled: !!slug && status === "authenticated",
   })
 }
 
@@ -83,7 +84,7 @@ export function useUpdateProgress() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (body: any) =>
-      apiFetch(`/api/progress`, { method: "POST", body: JSON.stringify(body) }),
+      apiFetch<any>(`/api/progress`, { method: "POST", body: JSON.stringify(body) }),
     onSuccess: (_data, vars) => {
       qc.invalidateQueries({ queryKey: ["tutorial"] })
       qc.invalidateQueries({ queryKey: ["me"] })
@@ -95,16 +96,18 @@ export function useUpdateProgress() {
 
 // ---------- Bookmarks ----------
 export function useBookmarks() {
+  const { status } = useSession()
   return useQuery({
     queryKey: ["bookmarks"],
     queryFn: () => apiFetch<any[]>(`/api/bookmarks`),
+    enabled: status === "authenticated",
   })
 }
 export function useToggleBookmark() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (tutorialId: string) =>
-      apiFetch(`/api/bookmarks`, {
+      apiFetch<any>(`/api/bookmarks`, {
         method: "POST",
         body: JSON.stringify({ tutorialId }),
       }),
@@ -117,10 +120,12 @@ export function useToggleBookmark() {
 
 // ---------- Notes ----------
 export function useNotes(tutorialId?: string) {
+  const { status } = useSession()
   return useQuery({
     queryKey: ["notes", tutorialId],
     queryFn: () =>
       apiFetch<any[]>(`/api/notes${tutorialId ? `?tutorialId=${tutorialId}` : ""}`),
+    enabled: status === "authenticated",
   })
 }
 export function useCreateNote() {
@@ -167,43 +172,52 @@ export function useLeaderboard(period: "all" | "weekly" = "all") {
 
 // ---------- Daily Challenge ----------
 export function useDailyChallenge() {
+  const { status } = useSession()
   return useQuery({
     queryKey: ["daily-challenge"],
     queryFn: () => apiFetch<any>(`/api/daily-challenge`),
+    enabled: status === "authenticated",
   })
 }
 
 // ---------- Streak Heatmap ----------
 export function useStreakHeatmap() {
+  const { status } = useSession()
   return useQuery({
     queryKey: ["streak-heatmap"],
     queryFn: () => apiFetch<any>(`/api/streak-heatmap`),
+    enabled: status === "authenticated",
   })
 }
 
 // ---------- XP History ----------
 export function useXpHistory() {
+  const { status } = useSession()
   return useQuery({
     queryKey: ["xp-history"],
     queryFn: () => apiFetch<any>(`/api/xp-history`),
+    enabled: status === "authenticated",
   })
 }
 
 // ---------- Notifications ----------
 export function useNotifications() {
+  const { status } = useSession()
   return useQuery({
     queryKey: ["notifications"],
     queryFn: () => apiFetch<any>(`/api/notifications`),
-    refetchInterval: 60 * 1000, // refresh every minute
+    enabled: status === "authenticated",
+    refetchInterval: 60 * 1000, // refresh every minute (only when authed)
   })
 }
 
 // ---------- Tutorial Ratings ----------
 export function useRating(tutorialId: string | undefined) {
+  const { status } = useSession()
   return useQuery({
     queryKey: ["rating", tutorialId],
     queryFn: () => apiFetch<any>(`/api/ratings?tutorialId=${tutorialId}`),
-    enabled: !!tutorialId,
+    enabled: !!tutorialId && status === "authenticated",
   })
 }
 export function useRateTutorial() {

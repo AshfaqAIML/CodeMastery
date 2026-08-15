@@ -132,6 +132,45 @@ const subjectDomain: Record<string, string> = {
   "web-development": "software-engineering",
   "software-engineering": "software-engineering",
   "interview-prep": "software-engineering",
+
+  // --- NEW SUBJECTS — added in ADD-COURSES-1 ---
+  // computer-science domain
+  "programming": "computer-science",
+  "object-oriented-programming": "computer-science",
+  "mathematics-for-computing-and-ai": "computer-science",
+  "programming-language-theory": "computer-science",
+  "compiler-design": "computer-science",
+  "parallel-and-high-performance-computing": "computer-science",
+  "embedded-systems-and-iot": "computer-science",
+
+  // software-engineering domain
+  "backend-development": "software-engineering",
+  "frontend-development": "software-engineering",
+  "mobile-development": "software-engineering",
+  "cloud-computing": "software-engineering",
+  "devops": "software-engineering",
+  "devsecops": "software-engineering",
+  "software-architecture": "software-engineering",
+  "testing-and-quality-engineering": "software-engineering",
+  "git-github-and-developer-tools": "software-engineering",
+  "distributed-systems": "software-engineering",
+  "ui-ux-and-product-engineering": "software-engineering",
+  "projects-and-practical-engineering": "software-engineering",
+  "blockchain-and-web3": "software-engineering",
+  "cybersecurity": "software-engineering",
+
+  // artificial-intelligence domain
+  "computer-vision": "artificial-intelligence",
+  "natural-language-processing": "artificial-intelligence",
+  "generative-ai": "artificial-intelligence",
+  "ai-agents": "artificial-intelligence",
+  "agentic-ai": "artificial-intelligence",
+  "mlops": "artificial-intelligence",
+
+  // data-science domain
+  "data-science": "data-science",
+  "data-engineering": "data-science",
+  "big-data": "data-science",
 }
 
 // ============================================================
@@ -5438,6 +5477,2661 @@ test("user can log in", async ({ page }) => {
             estimatedMinutes: 18,
             tags: "testing,unit,integration,e2e,pyramid",
             order: 2,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ============================================================
+  // NEW SUBJECTS — added in ADD-COURSES-1
+  // ============================================================
+
+  // ---------------- PROGRAMMING ----------------
+  {
+    slug: "programming",
+    name: "Programming",
+    tagline: "The craft of instructing computers to solve problems.",
+    description:
+      "Master the universal concepts of programming — variables, control flow, functions, data structures, and the mental models behind every language.",
+    icon: "Code2",
+    color: "oklch(0.62 0.15 162)",
+    category: "Programming",
+    order: 50,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Programming Fundamentals",
+        summary: "Core concepts shared by every programming language.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-programming",
+            title: "Introduction to Programming",
+            summary: "What programming is, why it matters, and how to start.",
+            learningObjectives: [
+              "Define programming and explain what a program is.",
+              "Identify the core concepts shared across all programming languages.",
+              "Describe the edit-compile-run-debug loop.",
+              "Explain how programming relates to algorithms and software engineering.",
+              "Recognise real-world systems built by programmers.",
+            ],
+            prerequisites: [
+              { label: "Basic computer literacy (files, terminal)." },
+              { label: "A code editor installed (VS Code recommended)." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Programming Fundamentals module. It assumes no prior coding experience and establishes the vocabulary that every later tutorial — variables, control flow, functions, data structures — builds on.",
+            keyTakeaways: [
+              "Programming is the act of instructing a computer through precise, unambiguous steps.",
+              "A language is just the medium; computational thinking is the real skill.",
+              "The edit-run-debug loop is the heartbeat of every developer's day.",
+              "Every advanced discipline — AI, web, data, systems — rests on programming.",
+            ],
+            selfAssessment: [
+              "I can explain in one sentence what programming is.",
+              "I can describe the edit-compile-run-debug loop without referencing notes.",
+              "I can list three core concepts shared by all programming languages.",
+              "I can name two real-world systems built by programmers.",
+            ],
+            content: `# Introduction to Programming
+
+## What Is Programming?
+
+Programming is the craft of writing precise instructions that a computer can execute to solve a problem or perform a task. At its heart, programming is communication: you tell a machine, in a language it understands, exactly what to do step by step with no room for ambiguity.
+
+A program is a sequence of instructions written in a language such as Python, C, JavaScript, or Go. The computer follows these instructions literally — if they are correct, the program works; if they contain bugs, it does not.
+
+## Why It Matters
+
+Every piece of software you use — from your browser to a self-driving car — began as a program written by a human. Programming is the literacy of the digital age: it lets you build, automate, and reason about software rather than merely consume it. Whether you aim to build web apps, train AI models, or analyze data, programming is the foundation every other discipline stands on.
+
+## What You Will Learn
+
+- Core concepts: variables, types, expressions, control flow, and functions.
+- How to read, write, and reason about code in multiple languages.
+- The edit-compile-run-debug loop and how to use it efficiently.
+- Common pitfalls and how experienced developers avoid them.
+- How programming connects to algorithms, data structures, and software engineering.
+
+## Key Takeaways
+
+- Programming means instructing a computer through precise, unambiguous steps.
+- A language is just the medium; computational thinking is the real skill.
+- The edit-run-debug loop is the heartbeat of every developer's day.
+- Every advanced discipline — AI, web, data, systems — rests on programming.
+
+## Next Steps
+
+Continue to the next tutorial, where you will set up your development environment and write your first program. From there, you will progress through variables, control flow, functions, and data structures — building the fluency that every later subject assumes.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "programming,beginner,introduction,foundations",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- OBJECT-ORIENTED PROGRAMMING ----------------
+  {
+    slug: "object-oriented-programming",
+    name: "Object-Oriented Programming",
+    tagline: "Modeling software as interacting objects.",
+    description:
+      "Learn the principles of OOP — encapsulation, inheritance, polymorphism, and abstraction — and how they help manage complexity in large codebases.",
+    icon: "Braces",
+    color: "oklch(0.65 0.17 150)",
+    category: "Programming",
+    order: 51,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Object-Oriented Programming Fundamentals",
+        summary: "Classes, objects, and the four pillars of OOP.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-object-oriented-programming",
+            title: "Introduction to Object-Oriented Programming",
+            summary: "What OOP is, its four pillars, and why it dominates industry code.",
+            learningObjectives: [
+              "Define object-oriented programming and explain its core idea.",
+              "Describe the four pillars: encapsulation, inheritance, polymorphism, abstraction.",
+              "Distinguish a class from an object.",
+              "Recognise when OOP is a good fit and when it is not.",
+              "Map real-world domains to object models.",
+            ],
+            prerequisites: [
+              { label: "Basic familiarity with a programming language." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the OOP Fundamentals module. It assumes you already understand basic programming (variables, functions, control flow) and introduces the paradigm that dominates most enterprise codebases.",
+            keyTakeaways: [
+              "OOP bundles state and behavior into objects that interact.",
+              "The four pillars help manage complexity as code grows.",
+              "Composition is often preferable to deep inheritance hierarchies.",
+              "Most enterprise codebases assume OOP fluency.",
+            ],
+            selfAssessment: [
+              "I can define each of the four pillars in one sentence.",
+              "I can explain the difference between a class and an object.",
+              "I can identify when OOP is a good fit for a given problem.",
+              "I can describe why composition may be preferable to inheritance.",
+            ],
+            content: `# Introduction to Object-Oriented Programming
+
+## What Is Object-Oriented Programming?
+
+Object-Oriented Programming (OOP) is a paradigm that organizes software around objects — data structures that bundle state (fields) with behavior (methods). Rather than writing functions that operate on loose data, you model the world as a collection of interacting objects, each responsible for a specific concept.
+
+The four pillars of OOP are: encapsulation (hiding internal state), inheritance (sharing behavior between types), polymorphism (treating different objects through a common interface), and abstraction (exposing only what matters). Together they let programmers manage complexity as systems grow.
+
+## Why It Matters
+
+OOP has shaped how industry code is written for decades. Languages like Java, C#, C++, and Python are deeply object-oriented, and most enterprise codebases, frameworks, and APIs you will encounter assume OOP fluency. Understanding it lets you design code that is modular, reusable, and easier to extend.
+
+## What You Will Learn
+
+- The four pillars: encapsulation, inheritance, polymorphism, abstraction.
+- Classes, instances, constructors, and access modifiers.
+- Composition vs inheritance and when to use each.
+- Common design patterns expressed in OOP terms.
+- How to model real-world domains as objects.
+
+## Key Takeaways
+
+- OOP bundles state and behavior into objects that interact.
+- The four pillars help manage complexity as code grows.
+- Composition is often preferable to deep inheritance hierarchies.
+- Most enterprise codebases assume OOP fluency.
+
+## Next Steps
+
+Next, you will define your first class, instantiate objects, and progressively add inheritance and polymorphism. By the end of the module you will refactor a procedural program into a clean OOP design.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "oop,programming,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- BACKEND DEVELOPMENT ----------------
+  {
+    slug: "backend-development",
+    name: "Backend Development",
+    tagline: "Building the APIs and services behind every app.",
+    description:
+      "Master server-side development: HTTP, REST and GraphQL APIs, databases, authentication, and the architecture of services that power web and mobile apps.",
+    icon: "Server",
+    color: "oklch(0.62 0.13 200)",
+    category: "Web",
+    order: 52,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Backend Development Fundamentals",
+        summary: "HTTP, APIs, databases, and authentication essentials.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-backend-development",
+            title: "Introduction to Backend Development",
+            summary: "What backends do, how they are built, and why they matter.",
+            learningObjectives: [
+              "Describe what a backend is and what it does.",
+              "Explain the request-response lifecycle of a backend service.",
+              "Identify the major components: API, business logic, data layer, auth.",
+              "Compare REST, GraphQL, and gRPC at a high level.",
+              "Recognise the security and reliability concerns of backend systems.",
+            ],
+            prerequisites: [
+              { label: "Basic programming familiarity (any language)." },
+              { label: "Conceptual understanding of HTTP (what a request and response are)." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Backend Development Fundamentals module, within the Software Engineering domain. It assumes basic programming and introduces server-side concepts that connect to databases, security, and DevOps.",
+            keyTakeaways: [
+              "Backends serve data and business logic to clients over a network.",
+              "API design is the single most important backend skill.",
+              "Most backends are stateless services in front of a database.",
+              "Caching and queues unlock performance and resilience.",
+            ],
+            selfAssessment: [
+              "I can explain what a backend is to a non-technical person.",
+              "I can describe the request-response lifecycle of a typical API call.",
+              "I can list the major components of a backend service.",
+              "I can name two reasons caching matters in backend systems.",
+            ],
+            content: `# Introduction to Backend Development
+
+## What Is Backend Development?
+
+Backend development is the craft of building the server-side software that powers applications. When you log in, submit a form, or fetch a feed, a backend service receives the request, applies business logic, reads or writes data, and returns a response. It is the part of the system users never see directly but absolutely depend on.
+
+A typical backend exposes an HTTP API (REST, GraphQL, or gRPC), talks to a database, integrates with external services, enforces authentication and authorization, and runs reliably under load. Backend engineers design these systems for correctness, performance, and security.
+
+## Why It Matters
+
+Every web and mobile app you use is powered by a backend. Backend engineering is one of the largest and most stable career paths in software, and the skills — API design, data modeling, caching, concurrency — transfer to every other engineering discipline including AI, data, and platforms.
+
+## What You Will Learn
+
+- HTTP, REST, and GraphQL API design.
+- Request lifecycle, middleware, and routing.
+- Databases, ORMs, transactions, and migrations.
+- Authentication, sessions, and authorization.
+- Caching, queues, and background jobs.
+
+## Key Takeaways
+
+- Backends serve data and business logic to clients over a network.
+- API design is the single most important backend skill.
+- Most backends are stateless services in front of a database.
+- Caching and queues unlock performance and resilience.
+
+## Next Steps
+
+In the next tutorial, you will build your first HTTP endpoint, connect it to a database, and progressively add authentication, validation, and tests — ending with a small but production-shaped service.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "backend,api,http,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- FRONTEND DEVELOPMENT ----------------
+  {
+    slug: "frontend-development",
+    name: "Frontend Development",
+    tagline: "Building the interfaces users touch.",
+    description:
+      "Learn HTML, CSS, JavaScript, modern frameworks (React, Vue), accessibility, performance, and the principles of building interfaces that are fast, usable, and inclusive.",
+    icon: "Globe",
+    color: "oklch(0.7 0.16 280)",
+    category: "Web",
+    order: 53,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Frontend Development Fundamentals",
+        summary: "HTML, CSS, JavaScript, and the modern component-based UI.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-frontend-development",
+            title: "Introduction to Frontend Development",
+            summary: "What the frontend is, the core technologies, and why it matters.",
+            learningObjectives: [
+              "Describe what frontend code runs and where it executes.",
+              "Identify the three core frontend technologies: HTML, CSS, JavaScript.",
+              "Explain what a frontend framework is and why teams use them.",
+              "Recognise accessibility and performance as first-class concerns.",
+              "Map user interactions to the underlying DOM events.",
+            ],
+            prerequisites: [
+              { label: "Basic familiarity with using a web browser and a text editor." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Frontend Development Fundamentals module, within the Software Engineering domain. It assumes no prior web development experience and precedes tutorials on HTML, CSS, and component-based UI.",
+            keyTakeaways: [
+              "Frontend code runs in the browser and shapes what users experience.",
+              "HTML, CSS, and JavaScript remain the foundation under every framework.",
+              "Accessibility and performance are first-class requirements, not afterthoughts.",
+              "Modern frontends are composed of reusable components.",
+            ],
+            selfAssessment: [
+              "I can explain what the frontend is and where its code executes.",
+              "I can name the three core frontend technologies and what each does.",
+              "I can describe what a frontend framework is and why teams use one.",
+              "I can list two reasons accessibility matters in frontend work.",
+            ],
+            content: `# Introduction to Frontend Development
+
+## What Is Frontend Development?
+
+Frontend development is the practice of building the parts of an application that users see and interact with — the HTML structure, CSS styling, and JavaScript behavior that run inside a browser. Every button you click, every form you fill, and every animation you see is frontend code executing on your device.
+
+Modern frontend development relies on frameworks like React, Vue, or Svelte, build tools, component libraries, and a deep understanding of browser APIs. It blends engineering with design: you must build interfaces that are fast, accessible, responsive, and delightful to use.
+
+## Why It Matters
+
+The frontend is where users meet your product. A fast, accessible, well-designed interface can be the difference between a successful product and an abandoned one. Frontend skills are in constant demand, and they overlap with mobile, design systems, and even AI-powered UIs.
+
+## What You Will Learn
+
+- HTML semantics, CSS layout (Flexbox, Grid), and responsive design.
+- JavaScript and the Document Object Model.
+- Component-based UI with React or a similar framework.
+- Accessibility (WCAG) and performance optimization.
+- Build tooling, bundlers, and deployment.
+
+## Key Takeaways
+
+- Frontend code runs in the browser and shapes what users experience.
+- HTML, CSS, and JavaScript remain the foundation under every framework.
+- Accessibility and performance are first-class requirements, not afterthoughts.
+- Modern frontends are composed of reusable components.
+
+## Next Steps
+
+In the next tutorial, you will set up a project, write your first HTML page, add styles, and progressively build it into an interactive component-based UI.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "frontend,html,css,javascript,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- MOBILE DEVELOPMENT ----------------
+  {
+    slug: "mobile-development",
+    name: "Mobile Development",
+    tagline: "Building native and cross-platform mobile apps.",
+    description:
+      "Learn iOS, Android, and cross-platform development (React Native, Flutter). Master touch interfaces, mobile UX, app lifecycle, and mobile-specific performance and battery considerations.",
+    icon: "Layers",
+    color: "oklch(0.65 0.2 305)",
+    category: "Web",
+    order: 54,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Mobile Development Fundamentals",
+        summary: "Platforms, lifecycle, UI patterns, and distribution.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-mobile-development",
+            title: "Introduction to Mobile Development",
+            summary: "What mobile development is, the platforms, and the unique constraints.",
+            learningObjectives: [
+              "Describe what mobile development is and what platforms exist.",
+              "Compare native, cross-platform, and web-based mobile approaches.",
+              "Identify the constraints that shape mobile design: CPU, battery, lifecycle.",
+              "Explain how apps are distributed via the App Store and Google Play.",
+              "Recognise the touch-first UX patterns unique to mobile.",
+            ],
+            prerequisites: [
+              { label: "Basic programming familiarity." },
+              { label: "A smartphone to test on (physical device or emulator)." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Mobile Development Fundamentals module, within the Software Engineering domain. It complements Frontend and Backend Development by focusing on the mobile platform.",
+            keyTakeaways: [
+              "Mobile development spans native iOS, native Android, and cross-platform.",
+              "Mobile constraints (CPU, battery, lifecycle) shape every design decision.",
+              "Touch UX and platform conventions matter as much as code quality.",
+              "Distribution happens through curated app stores.",
+            ],
+            selfAssessment: [
+              "I can describe the three main approaches to mobile development.",
+              "I can list three mobile-specific constraints that shape design.",
+              "I can explain how mobile apps are distributed to users.",
+              "I can name one UX pattern unique to touch-first interfaces.",
+            ],
+            content: `# Introduction to Mobile Development
+
+## What Is Mobile Development?
+
+Mobile development is the practice of building applications that run on smartphones and tablets. It comes in three flavors: native iOS (Swift), native Android (Kotlin), and cross-platform (React Native, Flutter) where one codebase targets both. Each has tradeoffs around performance, developer experience, and access to platform APIs.
+
+Mobile apps differ from web apps in several important ways: they run with constrained CPU, memory, and battery; they must handle interrupted lifecycle (background, foreground, notifications); they distribute through app stores with review processes; and they interact with touch, camera, GPS, and other device capabilities.
+
+## Why It Matters
+
+Over 6 billion people use smartphones, and mobile is the primary computing platform for most of the world. Building for mobile requires a unique blend of design, performance engineering, and platform knowledge — and the skills are in demand across consumer, enterprise, and emerging AI-powered apps.
+
+## What You Will Learn
+
+- Native vs cross-platform: choosing the right approach.
+- App lifecycle, navigation, and state management.
+- Touch UI, gestures, and mobile-specific UX patterns.
+- Performance, battery, and offline-first design.
+- Distribution via the App Store and Google Play.
+
+## Key Takeaways
+
+- Mobile development spans native iOS, native Android, and cross-platform.
+- Mobile constraints (CPU, battery, lifecycle) shape every design decision.
+- Touch UX and platform conventions matter as much as code quality.
+- Distribution happens through curated app stores.
+
+## Next Steps
+
+In the next tutorial, you will install a mobile SDK, build a Hello World app, run it on an emulator, and progressively add navigation, state, and a network call.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "mobile,ios,android,cross-platform,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- DATA SCIENCE ----------------
+  {
+    slug: "data-science",
+    name: "Data Science",
+    tagline: "Turning raw data into decisions.",
+    description:
+      "Master the data science lifecycle: collection, cleaning, exploration, visualization, statistical analysis, and communicating insights that drive decisions.",
+    icon: "Database",
+    color: "oklch(0.7 0.15 200)",
+    category: "Data",
+    order: 55,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Data Science Fundamentals",
+        summary: "The data science lifecycle from raw data to insight.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-data-science",
+            title: "Introduction to Data Science",
+            summary: "What data science is, the lifecycle, and why it matters.",
+            learningObjectives: [
+              "Define data science and its three pillars: programming, statistics, domain.",
+              "Describe the data science lifecycle end to end.",
+              "Identify common tools and libraries (Python, pandas, scikit-learn).",
+              "Explain why data cleaning consumes most of a data scientist's time.",
+              "Recognise the ethical and communication responsibilities of the role.",
+            ],
+            prerequisites: [
+              { label: "Basic Python programming familiarity." },
+              { label: "Comfort with simple statistics (mean, median, variance)." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Data Science Fundamentals module, within the Data Science domain. It introduces the lifecycle that connects to data engineering, statistics, and machine learning.",
+            keyTakeaways: [
+              "Data science combines programming, statistics, and domain knowledge.",
+              "Most time is spent cleaning and exploring, not modeling.",
+              "Communicating results clearly is as important as the analysis.",
+              "It underpins analytics, ML, and AI work.",
+            ],
+            selfAssessment: [
+              "I can define data science and its three pillars.",
+              "I can list the stages of the data science lifecycle in order.",
+              "I can explain why data cleaning takes so much of a data scientist's time.",
+              "I can name two Python libraries commonly used in data science.",
+            ],
+            content: `# Introduction to Data Science
+
+## What Is Data Science?
+
+Data science is the practice of extracting knowledge and decisions from data. It blends programming, statistics, and domain expertise to answer questions like "which customers will churn?", "what products should we recommend?", and "is this A/B test result real?"
+
+The typical data science lifecycle moves through data collection, cleaning, exploration (EDA), modeling, evaluation, and communication. A data scientist spends most of their time on the unglamorous middle steps — wrangling messy data into a shape where analysis is even possible.
+
+## Why It Matters
+
+Every modern organization generates data faster than humans can read. Data science is how that data becomes decisions: dashboards, forecasts, recommendations, and experiments. It is one of the most in-demand technical roles, and the skills underpin analytics, ML, and AI work.
+
+## What You Will Learn
+
+- The data science lifecycle end to end.
+- Python libraries: NumPy, pandas, matplotlib, scikit-learn.
+- Exploratory data analysis and visualization.
+- Basic statistics and hypothesis testing.
+- Communicating results to non-technical stakeholders.
+
+## Key Takeaways
+
+- Data science combines programming, statistics, and domain knowledge.
+- Most time is spent cleaning and exploring, not modeling.
+- Communicating results clearly is as important as the analysis.
+- It underpins analytics, ML, and AI work.
+
+## Next Steps
+
+In the next tutorial, you will load a real dataset into pandas, clean it, and produce your first exploratory visualizations — building toward a complete analysis pipeline.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "data-science,statistics,python,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- MATHEMATICS FOR COMPUTING & AI ----------------
+  {
+    slug: "mathematics-for-computing-and-ai",
+    name: "Mathematics for Computing & AI",
+    tagline: "The math behind algorithms and machine learning.",
+    description:
+      "Build the mathematical foundations for computer science and AI: discrete math, linear algebra, calculus, probability, and statistics — applied to algorithms, optimization, and ML.",
+    icon: "FunctionSquare",
+    color: "oklch(0.65 0.18 25)",
+    category: "Programming",
+    order: 56,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Mathematics for Computing & AI Fundamentals",
+        summary: "Discrete math, linear algebra, calculus, and probability essentials.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-mathematics-for-computing-and-ai",
+            title: "Introduction to Mathematics for Computing & AI",
+            summary: "Why math underlies every algorithm and AI model.",
+            learningObjectives: [
+              "Identify the four major math areas used in computing and AI.",
+              "Explain why linear algebra is the language of neural networks.",
+              "Describe how calculus underpins gradient descent.",
+              "Recognise probability as the foundation of statistical ML.",
+              "Map each math area to concrete CS and ML applications.",
+            ],
+            prerequisites: [
+              { label: "High-school algebra (functions, graphs)." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Mathematics for Computing & AI module, within the Computer Science domain. It underpins machine learning, deep learning, algorithms, and cryptography.",
+            keyTakeaways: [
+              "Math is the language underneath algorithms, ML, and AI.",
+              "Linear algebra and probability are the most-used areas in ML.",
+              "Gradient descent is just calculus applied to a loss function.",
+              "You do not need to memorize proofs — you need fluency and intuition.",
+            ],
+            selfAssessment: [
+              "I can name the four major math areas used in computing.",
+              "I can explain why linear algebra matters for neural networks.",
+              "I can describe how calculus relates to gradient descent.",
+              "I can give one example of probability used in ML.",
+            ],
+            content: `# Introduction to Mathematics for Computing & AI
+
+## What Is Mathematics for Computing & AI?
+
+Mathematics for Computing & AI is the body of mathematics that underlies computer science and modern machine learning. It includes discrete mathematics (logic, sets, combinatorics, graph theory), linear algebra (vectors, matrices, eigenvalues), calculus (derivatives, gradients, optimization), and probability and statistics.
+
+You do not need a math degree to use these tools, but you do need fluency. A neural network is a chain of matrix multiplications followed by nonlinearities; gradient descent is calculus; probability underpins every ML model's assumptions. Knowing the math lets you understand what an algorithm is really doing.
+
+## Why It Matters
+
+Without the math, modern AI and ML are black boxes. With it, you can read papers, debug models, design new architectures, and reason about uncertainty. Math is also the language of algorithm analysis (Big-O is discrete math + calculus) and cryptography.
+
+## What You Will Learn
+
+- Discrete structures: logic, sets, relations, graphs, combinatorics.
+- Linear algebra: vectors, matrices, eigenvalues, decompositions.
+- Calculus and optimization: derivatives, gradients, gradient descent.
+- Probability and statistics for ML.
+- How each area is used in algorithms and AI.
+
+## Key Takeaways
+
+- Math is the language underneath algorithms, ML, and AI.
+- Linear algebra and probability are the most-used areas in ML.
+- Gradient descent is just calculus applied to a loss function.
+- You do not need to memorize proofs — you need fluency and intuition.
+
+## Next Steps
+
+In the next tutorial, you will review the discrete math essentials (sets, functions, relations) and start applying them to algorithm analysis and graph problems.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "mathematics,linear-algebra,calculus,probability,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- COMPUTER VISION ----------------
+  {
+    slug: "computer-vision",
+    name: "Computer Vision",
+    tagline: "Teaching machines to see and interpret images.",
+    description:
+      "Master computer vision: image processing, CNNs, object detection, segmentation, and modern transformer-based vision models.",
+    icon: "Sparkles",
+    color: "oklch(0.62 0.2 30)",
+    category: "AI/ML",
+    order: 57,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Computer Vision Fundamentals",
+        summary: "Images, CNNs, detection, and modern vision transformers.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-computer-vision",
+            title: "Introduction to Computer Vision",
+            summary: "What computer vision is, the main tasks, and how deep learning reshaped it.",
+            learningObjectives: [
+              "Define computer vision and list its main tasks.",
+              "Explain how images are represented as numerical tensors.",
+              "Describe what a CNN learns and why convolutions suit images.",
+              "Compare classification, detection, and segmentation.",
+              "Recognise major application domains of computer vision.",
+            ],
+            prerequisites: [
+              { label: "Basic Python and a working PyTorch or TensorFlow install." },
+              { label: "Familiarity with neural network fundamentals." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Computer Vision Fundamentals module, within the Artificial Intelligence domain. It builds on machine learning and feeds into multimodal AI systems.",
+            keyTakeaways: [
+              "Computer vision teaches machines to interpret images and video.",
+              "CNNs are the workhorse; transformers are the frontier.",
+              "Tasks range from classification to dense segmentation.",
+              "It powers autonomous driving, medical imaging, AR, and more.",
+            ],
+            selfAssessment: [
+              "I can list three main computer vision tasks.",
+              "I can explain how an image is represented as a tensor.",
+              "I can describe why convolutions suit image data.",
+              "I can name two real-world applications of computer vision.",
+            ],
+            content: `# Introduction to Computer Vision
+
+## What Is Computer Vision?
+
+Computer vision is the field of AI concerned with enabling machines to interpret visual information from the world — images, video, and depth. Tasks include classification (what is in this image?), detection (where are the objects?), segmentation (which pixels belong to which object?), and generation (create a new image).
+
+Modern computer vision is dominated by deep learning. Convolutional neural networks (CNNs) learn hierarchical visual features directly from pixels, and newer transformer-based architectures (ViT, DETR) have matched or exceeded them on many benchmarks.
+
+## Why It Matters
+
+Computer vision powers self-driving cars, medical imaging, face recognition, manufacturing inspection, AR filters, and content moderation. It is one of the most commercially important areas of AI, and the techniques (CNNs, attention, transfer learning) transfer to other modalities.
+
+## What You Will Learn
+
+- Image representation and classical image processing.
+- Convolutional neural networks and visual feature learning.
+- Object detection, segmentation, and keypoint estimation.
+- Transfer learning and pretrained vision models.
+- Vision transformers and recent advances.
+
+## Key Takeaways
+
+- Computer vision teaches machines to interpret images and video.
+- CNNs are the workhorse; transformers are the frontier.
+- Tasks range from classification to dense segmentation.
+- It powers autonomous driving, medical imaging, AR, and more.
+
+## Next Steps
+
+In the next tutorial, you will load an image, visualize its pixel values, train a small CNN on a dataset, and use a pretrained model to detect objects.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "computer-vision,cnn,deep-learning,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- NATURAL LANGUAGE PROCESSING ----------------
+  {
+    slug: "natural-language-processing",
+    name: "Natural Language Processing",
+    tagline: "Teaching machines to read, write, and understand language.",
+    description:
+      "Learn NLP: text processing, embeddings, sequence models, transformers, and modern large language models for translation, summarization, and chat.",
+    icon: "Brain",
+    color: "oklch(0.68 0.16 320)",
+    category: "AI/ML",
+    order: 58,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Natural Language Processing Fundamentals",
+        summary: "Tokenization, embeddings, transformers, and LLMs.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-natural-language-processing",
+            title: "Introduction to Natural Language Processing",
+            summary: "What NLP is, the major tasks, and why transformers changed everything.",
+            learningObjectives: [
+              "Define NLP and list its main task categories.",
+              "Explain tokenization and why it is the first step in any NLP pipeline.",
+              "Describe what embeddings are and why they replaced one-hot vectors.",
+              "Explain the transformer architecture's role in modern NLP.",
+              "Recognise NLP applications used in everyday products.",
+            ],
+            prerequisites: [
+              { label: "Basic Python familiarity." },
+              { label: "Conceptual understanding of neural networks." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the NLP Fundamentals module, within the Artificial Intelligence domain. It connects to deep learning, LLMs, and generative AI.",
+            keyTakeaways: [
+              "NLP teaches machines to process human language.",
+              "Tokenization and embeddings turn text into numbers.",
+              "Transformers and pretrained models dominate modern NLP.",
+              "NLP techniques transfer to vision, audio, and biology.",
+            ],
+            selfAssessment: [
+              "I can define NLP and list three common NLP tasks.",
+              "I can explain what a token is in NLP.",
+              "I can describe what embeddings are and why they matter.",
+              "I can name one product I use that relies on NLP.",
+            ],
+            content: `# Introduction to Natural Language Processing
+
+## What Is Natural Language Processing?
+
+Natural Language Processing (NLP) is the branch of AI concerned with human language — text and speech. Tasks include classification (spam or not?), translation, summarization, question answering, named entity recognition, and open-ended generation. The field has been transformed in the last decade by deep learning and, especially, by transformer-based large language models.
+
+Modern NLP moves from raw text through tokenization, embedding, contextual encoding (transformers), and task-specific heads. The same pretrained backbone can be fine-tuned for many tasks — a paradigm shift from the rule-based and statistical NLP systems of the past.
+
+## Why It Matters
+
+NLP underpins search engines, translation, chatbots, voice assistants, content moderation, and modern LLM-powered products. The transformer architecture invented for NLP now dominates vision, audio, and even protein folding, making NLP fluency a gateway to much of modern AI.
+
+## What You Will Learn
+
+- Text preprocessing, tokenization, and embeddings (word2vec, BPE).
+- Recurrent and convolutional models for sequences.
+- The transformer architecture and self-attention.
+- Fine-tuning pretrained models (BERT, T5, Llama).
+- Building NLP applications: classification, QA, generation.
+
+## Key Takeaways
+
+- NLP teaches machines to process human language.
+- Tokenization and embeddings turn text into numbers.
+- Transformers and pretrained models dominate modern NLP.
+- NLP techniques transfer to vision, audio, and biology.
+
+## Next Steps
+
+In the next tutorial, you will tokenize text, build a bag-of-words classifier, then train a small transformer model on a text classification task.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "nlp,transformers,embeddings,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- GENERATIVE AI ----------------
+  {
+    slug: "generative-ai",
+    name: "Generative AI",
+    tagline: "Models that create text, images, audio, and code.",
+    description:
+      "Master generative AI: diffusion models, GANs, VAEs, autoregressive LLMs, and the techniques for steering, evaluating, and deploying generative systems.",
+    icon: "Sparkles",
+    color: "oklch(0.75 0.16 85)",
+    category: "AI/ML",
+    order: 59,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Generative AI Fundamentals",
+        summary: "From autoregressive LLMs to diffusion image models.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-generative-ai",
+            title: "Introduction to Generative AI",
+            summary: "What generative AI is, the main model families, and how to steer them.",
+            learningObjectives: [
+              "Define generative AI and distinguish it from discriminative ML.",
+              "Identify the major model families: LLMs, diffusion, VAEs, GANs.",
+              "Explain prompting, fine-tuning, and alignment at a high level.",
+              "Describe why evaluating generative quality is hard.",
+              "Recognise the major product categories powered by generative AI.",
+            ],
+            prerequisites: [
+              { label: "Basic familiarity with machine learning concepts." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Generative AI Fundamentals module, within the Artificial Intelligence domain. It builds on deep learning and connects to LLMs and AI agents.",
+            keyTakeaways: [
+              "Generative models learn distributions and sample new examples.",
+              "LLMs (text) and diffusion (images) are the two dominant paradigms.",
+              "Steering generative models needs prompting, fine-tuning, and alignment.",
+              "Evaluating quality is an open research problem.",
+            ],
+            selfAssessment: [
+              "I can define generative AI and contrast it with discriminative ML.",
+              "I can name the major generative model families.",
+              "I can list two ways to steer a generative model's output.",
+              "I can explain why evaluating generative quality is difficult.",
+            ],
+            content: `# Introduction to Generative AI
+
+## What Is Generative AI?
+
+Generative AI is the branch of machine learning concerned with models that produce new content — text, images, audio, video, code, or 3D assets. Instead of classifying inputs, generative models learn the distribution of training data so they can sample novel examples from it.
+
+Major families include autoregressive language models (GPT, Llama), diffusion models for images (Stable Diffusion), variational autoencoders, generative adversarial networks, and multimodal models that combine text, vision, and audio. Each makes different tradeoffs around quality, controllability, and compute cost.
+
+## Why It Matters
+
+Generative AI is reshaping how software is built and how creative work is done. It powers chatbots, code assistants, image generators, voice synthesis, and design tools. Understanding how these models work — and how to steer, evaluate, and deploy them — is now a core skill for any AI practitioner.
+
+## What You Will Learn
+
+- The major generative model families and where each excels.
+- Autoregressive LLMs and the basics of sampling and decoding.
+- Diffusion models and how they generate images.
+- Prompting, fine-tuning, and alignment techniques (RLHF, DPO).
+- Evaluation: why generative quality is hard to measure.
+
+## Key Takeaways
+
+- Generative models learn distributions and sample new examples.
+- LLMs (text) and diffusion (images) are the two dominant paradigms.
+- Steering generative models needs prompting, fine-tuning, and alignment.
+- Evaluating quality is an open research problem.
+
+## Next Steps
+
+In the next tutorial, you will run a small generative model, sample text and images from it, and experiment with prompts and sampling parameters to see how outputs change.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "generative-ai,llm,diffusion,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- AI AGENTS ----------------
+  {
+    slug: "ai-agents",
+    name: "AI Agents",
+    tagline: "LLMs that take actions to achieve goals.",
+    description:
+      "Learn AI agents: tool use, planning, memory, multi-step reasoning, and the patterns for building systems where LLMs act rather than just answer.",
+    icon: "Brain",
+    color: "oklch(0.65 0.2 250)",
+    category: "AI/ML",
+    order: 60,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "AI Agents Fundamentals",
+        summary: "Tools, memory, control loops, and the agent architecture.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-ai-agents",
+            title: "Introduction to AI Agents",
+            summary: "What an AI agent is and how it differs from a plain LLM call.",
+            learningObjectives: [
+              "Define an AI agent and contrast it with a stateless LLM call.",
+              "Identify the four ingredients: LLM, tools, memory, control loop.",
+              "Describe the ReAct pattern and why it works.",
+              "Recognise reliability and safety as the dominant deployment concerns.",
+              "Map simple agent architectures to real tasks.",
+            ],
+            prerequisites: [
+              { label: "Familiarity with calling an LLM API." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the AI Agents Fundamentals module, within the Artificial Intelligence domain. It builds on generative AI and LLMs and precedes Agentic AI (multi-agent systems).",
+            keyTakeaways: [
+              "An AI agent takes actions toward a goal, not just answers questions.",
+              "LLM agents combine a reasoning model with tools and memory.",
+              "Control patterns like ReAct structure the agent's reasoning.",
+              "Reliability and safety are the main deployment challenges.",
+            ],
+            selfAssessment: [
+              "I can define an AI agent and contrast it with a single LLM call.",
+              "I can list the four core ingredients of an agent.",
+              "I can describe the ReAct pattern in one sentence.",
+              "I can name two reliability concerns when deploying agents.",
+            ],
+            content: `# Introduction to AI Agents
+
+## What Is an AI Agent?
+
+An AI agent is a system that perceives an environment and takes actions to achieve a goal. In the modern LLM era, "AI agent" usually means an LLM augmented with tools, memory, and a control loop so it can break a task into steps, call functions, observe results, and adapt — rather than only answering a single question.
+
+A simple agent might answer questions by querying a search tool. A more capable agent might plan a multi-step research task, write and execute code, browse the web, and report findings. The key ingredients are: a reasoning LLM, a set of tools, memory of prior steps, and a control strategy (ReAct, plan-and-execute, reflection).
+
+## Why It Matters
+
+Agents turn LLMs from oracles into actors. They unlock tasks that require multi-step reasoning, external data, and side effects — automating workflows, running experiments, operating software. Agent design is one of the fastest-moving areas of applied AI.
+
+## What You Will Learn
+
+- The agent loop: perceive, reason, act, observe.
+- Tool use: function calling and structured outputs.
+- Memory: short-term context, long-term vector stores.
+- Control patterns: ReAct, plan-and-execute, reflection.
+- Reliability, safety, and human-in-the-loop oversight.
+
+## Key Takeaways
+
+- An AI agent takes actions toward a goal, not just answers questions.
+- LLM agents combine a reasoning model with tools and memory.
+- Control patterns like ReAct structure the agent's reasoning.
+- Reliability and safety are the main deployment challenges.
+
+## Next Steps
+
+In the next tutorial, you will build a minimal agent that uses one tool, then extend it with multiple tools and a memory store to handle multi-step tasks.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "ai-agents,llm,react,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- AGENTIC AI ----------------
+  {
+    slug: "agentic-ai",
+    name: "Agentic AI",
+    tagline: "Systems of cooperating AI agents at scale.",
+    description:
+      "Move beyond single agents to multi-agent systems: orchestration, role specialization, communication, and the patterns for building robust agentic applications.",
+    icon: "Network",
+    color: "oklch(0.68 0.2 305)",
+    category: "AI/ML",
+    order: 61,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Agentic AI Fundamentals",
+        summary: "Multi-agent architectures, orchestration, and reliability.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-agentic-ai",
+            title: "Introduction to Agentic AI",
+            summary: "What multi-agent systems are and how they extend single agents.",
+            learningObjectives: [
+              "Define agentic AI and contrast it with a single AI agent.",
+              "Describe common multi-agent architectures: hierarchical, peer-to-peer, debate.",
+              "Identify orchestration frameworks and their primitives.",
+              "Explain why reliability and observability dominate production concerns.",
+              "Map multi-agent patterns to realistic workflows.",
+            ],
+            prerequisites: [
+              { label: "Familiarity with single AI agents and LLMs." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Agentic AI Fundamentals module, within the Artificial Intelligence domain. It builds on the AI Agents subject and explores multi-agent coordination.",
+            keyTakeaways: [
+              "Agentic AI uses multiple specialized agents to solve complex tasks.",
+              "Orchestration frameworks provide the coordination primitives.",
+              "Reliability and observability dominate production concerns.",
+              "It is a fast-moving area with many open problems.",
+            ],
+            selfAssessment: [
+              "I can define agentic AI and contrast it with a single agent.",
+              "I can describe two multi-agent architectures.",
+              "I can name an orchestration framework and what it provides.",
+              "I can list two production concerns unique to multi-agent systems.",
+            ],
+            content: `# Introduction to Agentic AI
+
+## What Is Agentic AI?
+
+Agentic AI is the next step beyond a single AI agent: systems where multiple specialized agents collaborate to solve problems no one agent could solve alone. A research agent might delegate to a coding agent, which calls a reviewer agent, all coordinated by a planner — each with its own tools, memory, and role.
+
+Designing agentic systems raises new questions: how do agents communicate? How is work divided? How do you prevent runaway loops and errors? Orchestration frameworks (LangGraph, AutoGen, CrewAI) provide primitives for role assignment, message passing, state management, and human-in-the-loop checkpoints.
+
+## Why It Matters
+
+Single agents struggle with complex, long-horizon tasks. Specialized, cooperating agents can divide and conquer, mimic how human teams work, and tackle realistic workflows — from software engineering to research to customer operations. Agentic AI is emerging as a major application pattern for LLMs.
+
+## What You Will Learn
+
+- Multi-agent architectures: hierarchical, peer-to-peer, debate.
+- Orchestration frameworks and their primitives.
+- Role specialization, tool assignment, and shared memory.
+- Reliability: retries, fallbacks, timeouts, human-in-the-loop.
+- Evaluation and observability for agentic systems.
+
+## Key Takeaways
+
+- Agentic AI uses multiple specialized agents to solve complex tasks.
+- Orchestration frameworks provide the coordination primitives.
+- Reliability and observability dominate production concerns.
+- It is a fast-moving area with many open problems.
+
+## Next Steps
+
+In the next tutorial, you will model a small multi-agent workflow — a planner and a worker — then progressively add a reviewer and a shared memory store.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "agentic-ai,multi-agent,orchestration,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- MLOPS ----------------
+  {
+    slug: "mlops",
+    name: "MLOps",
+    tagline: "Shipping and operating ML in production.",
+    description:
+      "Master MLOps: experiment tracking, model registries, reproducible pipelines, deployment patterns, monitoring, and the engineering of reliable ML systems.",
+    icon: "GitBranch",
+    color: "oklch(0.62 0.15 162)",
+    category: "AI/ML",
+    order: 62,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "MLOps Fundamentals",
+        summary: "Pipelines, registries, deployment, and monitoring for ML.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-mlops",
+            title: "Introduction to MLOps",
+            summary: "What MLOps is and why most ML projects fail without it.",
+            learningObjectives: [
+              "Define MLOps and its relationship to DevOps.",
+              "Identify the major components of an MLOps stack.",
+              "Explain data drift and model drift.",
+              "Describe the ML lifecycle from notebook to monitored production system.",
+              "Recognise the cultural and organisational dimensions of MLOps.",
+            ],
+            prerequisites: [
+              { label: "Familiarity with training a basic ML model." },
+              { label: "Conceptual understanding of CI/CD." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the MLOps Fundamentals module, within the Artificial Intelligence domain. It connects ML engineering with DevOps, data engineering, and platform engineering.",
+            keyTakeaways: [
+              "MLOps applies DevOps principles to ML systems.",
+              "Reproducibility and monitoring are the central challenges.",
+              "Drift (data and model) is unique to ML and must be tracked.",
+              "MLOps bridges ML, data, and platform engineering.",
+            ],
+            selfAssessment: [
+              "I can define MLOps and explain its relationship to DevOps.",
+              "I can list three components of an MLOps stack.",
+              "I can describe data drift in one sentence.",
+              "I can name one reason most ML projects fail to reach production.",
+            ],
+            content: `# Introduction to MLOps
+
+## What Is MLOps?
+
+MLOps (Machine Learning Operations) is the engineering discipline of building, deploying, and maintaining ML systems reliably in production. It applies DevOps ideas — versioning, automation, CI/CD, monitoring — to the special challenges of ML: data drift, model drift, reproducibility, and the gap between a notebook experiment and a serving system.
+
+A mature MLOps stack includes experiment tracking (MLflow, W&B), a model registry, reproducible training pipelines, feature stores, deployment targets (batch, real-time, edge), and monitoring for both system health and prediction quality.
+
+## Why It Matters
+
+Most ML projects never reach production, and many that do degrade silently. MLOps is what separates demos from products. As ML adoption grows, MLOps skills are increasingly sought-after and bridge ML, data engineering, and platform engineering.
+
+## What You Will Learn
+
+- Experiment tracking and reproducible training pipelines.
+- Model registries, versioning, and approval workflows.
+- Deployment patterns: batch, real-time, streaming, edge.
+- Monitoring: data drift, model drift, fairness, latency.
+- The full ML lifecycle from notebook to monitored production system.
+
+## Key Takeaways
+
+- MLOps applies DevOps principles to ML systems.
+- Reproducibility and monitoring are the central challenges.
+- Drift (data and model) is unique to ML and must be tracked.
+- MLOps bridges ML, data, and platform engineering.
+
+## Next Steps
+
+In the next tutorial, you will take a notebook experiment, version its data and code, and turn it into a reproducible pipeline that can be re-run and deployed.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "mlops,devops,ml-engineering,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- DATA ENGINEERING ----------------
+  {
+    slug: "data-engineering",
+    name: "Data Engineering",
+    tagline: "Building the pipelines that move and shape data.",
+    description:
+      "Learn data engineering: pipelines, ETL/ELT, batch and streaming, warehouses, lakes, and the infrastructure that delivers clean data to analytics and ML.",
+    icon: "Database",
+    color: "oklch(0.7 0.13 200)",
+    category: "Data",
+    order: 63,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Data Engineering Fundamentals",
+        summary: "Ingestion, storage, transformation, and orchestration.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-data-engineering",
+            title: "Introduction to Data Engineering",
+            summary: "What data engineering is and why it underpins every data product.",
+            learningObjectives: [
+              "Define data engineering and its role in an organisation.",
+              "Distinguish ETL from ELT and batch from streaming.",
+              "Identify the main storage types: warehouses, lakes, lakehouses.",
+              "Describe the role of orchestration tools like Airflow or Dagster.",
+              "Recognise data quality and observability as first-class concerns.",
+            ],
+            prerequisites: [
+              { label: "Basic SQL and Python familiarity." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Data Engineering Fundamentals module, within the Data Science domain. It underpins data science, analytics, and ML by ensuring the right data is available at the right time.",
+            keyTakeaways: [
+              "Data engineering builds the pipelines that move and shape data.",
+              "Batch and streaming are the two ingestion paradigms.",
+              "Data warehouses and lakes serve different analytical needs.",
+              "Reliability and observability matter as much as throughput.",
+            ],
+            selfAssessment: [
+              "I can define data engineering and its role.",
+              "I can distinguish ETL from ELT.",
+              "I can name two storage types used in data engineering.",
+              "I can explain why observability matters in pipelines.",
+            ],
+            content: `# Introduction to Data Engineering
+
+## What Is Data Engineering?
+
+Data engineering is the discipline of building the systems that collect, store, transform, and deliver data across an organization. Where data science asks questions of data, data engineering makes sure the right data exists, is clean, is fresh, and is available at the right place and time.
+
+A typical data engineering stack includes ingestion (Kafka, CDC), storage (data warehouses like Snowflake, lakes like S3), transformation (dbt, Spark, Flink), orchestration (Airflow, Dagster), and serving layers (feature stores, analytics dashboards). Data engineers design pipelines that are reliable, observable, and cost-efficient.
+
+## Why It Matters
+
+No data product — analytics dashboard, ML model, AI agent — works without good data plumbing. Data engineering is the unseen infrastructure that makes modern data-driven organizations possible, and demand for these skills consistently outpaces supply.
+
+## What You Will Learn
+
+- Ingestion: batch, micro-batch, and streaming.
+- Storage: warehouses, lakes, lakehouses.
+- Transformation: ETL/ELT, dbt, Spark, Flink.
+- Orchestration with Airflow or Dagster.
+- Data quality, observability, and cost control.
+
+## Key Takeaways
+
+- Data engineering builds the pipelines that move and shape data.
+- Batch and streaming are the two ingestion paradigms.
+- Data warehouses and lakes serve different analytical needs.
+- Reliability and observability matter as much as throughput.
+
+## Next Steps
+
+In the next tutorial, you will build a small batch ETL pipeline — extract from a source, transform, and load into a warehouse — then add scheduling and data quality checks.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "data-engineering,etl,pipelines,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- BIG DATA ----------------
+  {
+    slug: "big-data",
+    name: "Big Data",
+    tagline: "Processing data too large for one machine.",
+    description:
+      "Master big data: distributed storage and compute (Hadoop, Spark, Flink), partitioning, and the patterns for processing terabyte- and petabyte-scale datasets.",
+    icon: "Layers",
+    color: "oklch(0.65 0.17 150)",
+    category: "Data",
+    order: 64,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Big Data Fundamentals",
+        summary: "Distributed storage, compute, and the patterns of scale.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-big-data",
+            title: "Introduction to Big Data",
+            summary: "What big data is, the Vs, and the systems that handle it.",
+            learningObjectives: [
+              "Define big data and the classic three (or five) Vs.",
+              "Explain why a single machine cannot handle big data workloads.",
+              "Identify the major big data systems: HDFS, Spark, Flink, Kafka.",
+              "Describe partitioning and shuffle as the practical bottlenecks.",
+              "Recognise cost as a first-class concern at scale.",
+            ],
+            prerequisites: [
+              { label: "Basic data engineering or ETL familiarity." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Big Data Fundamentals module, within the Data Science domain. It extends data engineering to the scale where distributed systems become mandatory.",
+            keyTakeaways: [
+              "Big data is about datasets too large for one machine.",
+              "Storage and compute are distributed across clusters.",
+              "Spark and Flink dominate batch and stream processing.",
+              "Partitioning and skew are the practical bottlenecks.",
+            ],
+            selfAssessment: [
+              "I can define big data and name the three Vs.",
+              "I can explain why distributed systems are needed at scale.",
+              "I can name two major big data processing engines.",
+              "I can describe what partitioning and shuffle mean.",
+            ],
+            content: `# Introduction to Big Data
+
+## What Is Big Data?
+
+Big data refers to datasets too large, fast, or varied to be processed by a single machine — typically terabytes to petabytes. The classic "three Vs" are volume (size), velocity (rate of arrival), and variety (formats and sources), to which practitioners add veracity (quality) and value.
+
+Big data systems distribute storage and compute across clusters: HDFS and object storage for files, Spark and Flink for compute, Kafka for streaming. The challenge is partitioning work, handling failures, and delivering correct results at scale — all while keeping costs under control.
+
+## Why It Matters
+
+Modern organizations generate data at scales no single server can handle. Big data engineering underpins analytics, ML training, recommendation, fraud detection, and AI products. The skills transfer to ML engineering, platform engineering, and infrastructure.
+
+## What You Will Learn
+
+- The big data landscape: storage, compute, streaming.
+- Distributed processing with Spark and Flink.
+- Partitioning, shuffle, and skew — and how to manage them.
+- Streaming concepts: windows, watermarks, exactly-once.
+- Cost and performance tradeoffs at scale.
+
+## Key Takeaways
+
+- Big data is about datasets too large for one machine.
+- Storage and compute are distributed across clusters.
+- Spark and Flink dominate batch and stream processing.
+- Partitioning and skew are the practical bottlenecks.
+
+## Next Steps
+
+In the next tutorial, you will run Spark locally, process a sample dataset, and observe how partitions, shuffles, and stages affect performance.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "big-data,spark,distributed-systems,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- CLOUD COMPUTING ----------------
+  {
+    slug: "cloud-computing",
+    name: "Cloud Computing",
+    tagline: "On-demand compute, storage, and services over the network.",
+    description:
+      "Master cloud computing: IaaS, PaaS, SaaS, the major providers (AWS, Azure, GCP), compute, storage, networking, and the cost and architecture patterns that drive modern software.",
+    icon: "Cloud",
+    color: "oklch(0.7 0.13 220)",
+    category: "Cloud",
+    order: 65,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Cloud Computing Fundamentals",
+        summary: "Service models, core primitives, and architecture patterns.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-cloud-computing",
+            title: "Introduction to Cloud Computing",
+            summary: "What the cloud is, the service models, and why it changed everything.",
+            learningObjectives: [
+              "Define cloud computing and its core characteristics.",
+              "Distinguish IaaS, PaaS, and SaaS with examples.",
+              "Identify the major cloud providers and their differentiation.",
+              "Describe regions, availability zones, and redundancy.",
+              "Recognise cost, security, and vendor lock-in as perennial concerns.",
+            ],
+            prerequisites: [
+              { label: "Basic computer networking and operating system concepts." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Cloud Computing Fundamentals module, within the Software Engineering domain. It connects to DevOps, distributed systems, and software architecture.",
+            keyTakeaways: [
+              "The cloud delivers computing as on-demand services.",
+              "IaaS, PaaS, and SaaS are different levels of abstraction.",
+              "Cost, security, and vendor lock-in are the perennial concerns.",
+              "Cloud fluency is a baseline skill for modern engineers.",
+            ],
+            selfAssessment: [
+              "I can define cloud computing in one sentence.",
+              "I can distinguish IaaS, PaaS, and SaaS with an example of each.",
+              "I can name three major cloud providers.",
+              "I can list two perennial concerns when adopting cloud.",
+            ],
+            content: `# Introduction to Cloud Computing
+
+## What Is Cloud Computing?
+
+Cloud computing is the delivery of computing resources — servers, storage, databases, networking, software — over the internet on a pay-as-you-go basis. Instead of buying hardware, you rent capacity from a provider (AWS, Azure, GCP, Alibaba, Tencent) and consume it as a service.
+
+The three classical service models are IaaS (rent virtual machines and storage), PaaS (deploy code without managing servers — App Engine, Lambda), and SaaS (use a finished application — Gmail, Notion). Modern cloud platforms also offer dozens of managed services for databases, ML, messaging, and observability.
+
+## Why It Matters
+
+The cloud is the default deployment target for modern software. It enables startups to launch without capital expenditure, lets enterprises scale globally, and underpins nearly every consumer app and AI service you use. Cloud fluency is now a baseline expectation for engineers.
+
+## What You Will Learn
+
+- Service models: IaaS, PaaS, SaaS, and serverless.
+- Compute, storage, networking, and identity primitives.
+- Architecture patterns: regions, availability zones, redundancy.
+- Cost management, billing, and FinOps basics.
+- Multi-cloud, hybrid cloud, and portability.
+
+## Key Takeaways
+
+- The cloud delivers computing as on-demand services.
+- IaaS, PaaS, and SaaS are different levels of abstraction.
+- Cost, security, and vendor lock-in are the perennial concerns.
+- Cloud fluency is a baseline skill for modern engineers.
+
+## Next Steps
+
+In the next tutorial, you will create a cloud account, launch a virtual machine, expose a service to the internet, and tear it down — paying only for the minutes used.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "cloud,aws,azure,gcp,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- DEVOPS ----------------
+  {
+    slug: "devops",
+    name: "DevOps",
+    tagline: "Automating the path from code to production.",
+    description:
+      "Learn DevOps: CI/CD pipelines, infrastructure as code, containerization, observability, and the culture that ships software safely and often.",
+    icon: "Zap",
+    color: "oklch(0.75 0.16 85)",
+    category: "Cloud",
+    order: 66,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "DevOps Fundamentals",
+        summary: "CI/CD, containers, IaC, and observability.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-devops",
+            title: "Introduction to DevOps",
+            summary: "What DevOps is, the culture, and the core toolchain.",
+            learningObjectives: [
+              "Define DevOps as both culture and toolkit.",
+              "Describe the CI/CD pipeline and its stages.",
+              "Explain the role of containers and Kubernetes.",
+              "Identify infrastructure as code and its benefits.",
+              "Recognise observability as the foundation of safe releases.",
+            ],
+            prerequisites: [
+              { label: "Basic familiarity with a version control system like Git." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the DevOps Fundamentals module, within the Software Engineering domain. It bridges software engineering, cloud computing, and operations.",
+            keyTakeaways: [
+              "DevOps blends culture, automation, and shared ownership.",
+              "CI/CD pipelines automate the path from commit to production.",
+              "Infrastructure as code makes environments reproducible.",
+              "Observability is how you detect and diagnose problems fast.",
+            ],
+            selfAssessment: [
+              "I can define DevOps in one sentence.",
+              "I can list the stages of a typical CI/CD pipeline.",
+              "I can explain what containers and Kubernetes do.",
+              "I can describe the value of infrastructure as code.",
+            ],
+            content: `# Introduction to DevOps
+
+## What Is DevOps?
+
+DevOps is the practice of integrating development (Dev) and operations (Ops) to ship software faster and more reliably. It is both a culture and a toolkit: automation, shared ownership, fast feedback, and treating infrastructure as code.
+
+A typical DevOps stack includes version control, CI/CD pipelines (GitHub Actions, GitLab CI), container runtimes (Docker), orchestration (Kubernetes), infrastructure as code (Terraform, Pulumi), and observability (Prometheus, Grafana, OpenTelemetry). The goal is small, safe, frequent releases with rapid detection of problems.
+
+## Why It Matters
+
+Manual deployments are slow, error-prone, and stressful. DevOps automation turns release day from an all-hands fire drill into a non-event. The practices scale to large organizations and are now table stakes for any serious engineering team.
+
+## What You Will Learn
+
+- CI/CD pipelines and deployment strategies.
+- Containerization with Docker and orchestration with Kubernetes.
+- Infrastructure as code with Terraform or Pulumi.
+- Observability: metrics, logs, traces.
+- The cultural practices behind high-performing teams.
+
+## Key Takeaways
+
+- DevOps blends culture, automation, and shared ownership.
+- CI/CD pipelines automate the path from commit to production.
+- Infrastructure as code makes environments reproducible.
+- Observability is how you detect and diagnose problems fast.
+
+## Next Steps
+
+In the next tutorial, you will write a CI pipeline that runs tests on every commit, builds a container image, and deploys it to a staging environment.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "devops,ci-cd,containers,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- CYBERSECURITY ----------------
+  {
+    slug: "cybersecurity",
+    name: "Cybersecurity",
+    tagline: "Protecting systems, data, and people from threats.",
+    description:
+      "Master cybersecurity fundamentals: threats and attackers, cryptography, network and application security, identity, and incident response.",
+    icon: "Trophy",
+    color: "oklch(0.68 0.2 30)",
+    category: "Security",
+    order: 67,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Cybersecurity Fundamentals",
+        summary: "Threats, cryptography, application security, and incident response.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-cybersecurity",
+            title: "Introduction to Cybersecurity",
+            summary: "What cybersecurity is, the threat landscape, and the core principles.",
+            learningObjectives: [
+              "Define cybersecurity and the CIA triad.",
+              "Describe the main categories of attackers and their motives.",
+              "Identify the OWASP Top 10 application security risks.",
+              "Explain the principle of least privilege and defense in depth.",
+              "Recognise security as a shared engineering responsibility.",
+            ],
+            prerequisites: [
+              { label: "Basic familiarity with networks and web applications." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Cybersecurity Fundamentals module, within the Software Engineering domain. It applies across backend, frontend, cloud, and DevOps work.",
+            keyTakeaways: [
+              "Security protects confidentiality, integrity, and availability.",
+              "Defense in depth and least privilege are foundational principles.",
+              "Most breaches involve both technical and human failure.",
+              "Every engineer, not just security specialists, must build securely.",
+            ],
+            selfAssessment: [
+              "I can define the CIA triad.",
+              "I can list three categories of attackers and their motives.",
+              "I can describe the principle of least privilege.",
+              "I can name two OWASP Top 10 risks.",
+            ],
+            content: `# Introduction to Cybersecurity
+
+## What Is Cybersecurity?
+
+Cybersecurity is the practice of protecting systems, networks, data, and people from digital attack. It spans technical controls (encryption, firewalls, access control), procedural controls (patching, training, incident response), and human factors — most breaches still involve some social engineering.
+
+Core concepts include the CIA triad (confidentiality, integrity, availability), the principle of least privilege, defense in depth, and threat modeling. Modern security also covers cloud, supply chain (dependencies), and the emerging risks of AI systems themselves.
+
+## Why It Matters
+
+Every connected system is a target. Breaches cost billions, erode trust, and can shutter companies. Security is no longer a separate team's job — every engineer must build defensively, from input validation to dependency hygiene. It is also a fast-growing career path with severe talent shortages.
+
+## What You Will Learn
+
+- The threat landscape: attackers, motives, common attack types.
+- Cryptography basics: symmetric, asymmetric, hashing, TLS.
+- Network and application security (OWASP Top 10).
+- Identity, access management, and least privilege.
+- Incident response and secure SDLC.
+
+## Key Takeaways
+
+- Security protects confidentiality, integrity, and availability.
+- Defense in depth and least privilege are foundational principles.
+- Most breaches involve both technical and human failure.
+- Every engineer, not just security specialists, must build securely.
+
+## Next Steps
+
+In the next tutorial, you will model threats against a small web app, identify its top risks, and apply basic mitigations — input validation, authentication, and transport encryption.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "cybersecurity,security,owasp,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- DISTRIBUTED SYSTEMS ----------------
+  {
+    slug: "distributed-systems",
+    name: "Distributed Systems",
+    tagline: "Computers working together across a network.",
+    description:
+      "Master distributed systems: consistency, availability, partition tolerance, replication, consensus, and the patterns behind databases, queues, and cloud platforms.",
+    icon: "Network",
+    color: "oklch(0.65 0.15 200)",
+    category: "Systems",
+    order: 68,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Distributed Systems Fundamentals",
+        summary: "CAP, consistency, replication, and consensus.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-distributed-systems",
+            title: "Introduction to Distributed Systems",
+            summary: "What distributed systems are and the tradeoffs that define them.",
+            learningObjectives: [
+              "Define a distributed system and its key properties.",
+              "Explain the CAP theorem in plain terms.",
+              "Describe replication, partitioning, and consensus.",
+              "Identify partial failure as the defining challenge.",
+              "Map real-world systems (databases, queues) to distributed patterns.",
+            ],
+            prerequisites: [
+              { label: "Basic networking and operating system concepts." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Distributed Systems Fundamentals module, within the Software Engineering domain. It underpins cloud platforms, databases, and large-scale backend systems.",
+            keyTakeaways: [
+              "A distributed system looks like one computer but is many.",
+              "Partial failure and network partitions are the defining challenges.",
+              "CAP governs the consistency-availability tradeoff.",
+              "Consensus protocols are how nodes agree on truth.",
+            ],
+            selfAssessment: [
+              "I can define a distributed system.",
+              "I can explain the CAP theorem in my own words.",
+              "I can describe what replication and partitioning do.",
+              "I can name one consensus protocol.",
+            ],
+            content: `# Introduction to Distributed Systems
+
+## What Is a Distributed System?
+
+A distributed system is a set of computers that cooperate over a network to appear as a single coherent system to its users. The web, email, every cloud database, every messaging app, and every modern backend is a distributed system.
+
+Distributed systems force you to confront partial failure, network partitions, concurrency, and the tradeoffs of the CAP theorem (consistency, availability, partition tolerance). Core building blocks include replication, partitioning, consensus (Paxos, Raft), clocks and ordering, and exactly-once semantics.
+
+## Why It Matters
+
+Every meaningful modern system is distributed. Understanding the tradeoffs — and the canonical patterns for solving them — is what separates backend engineers from application developers. It also underpins cloud platforms, databases, and AI training infrastructure.
+
+## What You Will Learn
+
+- Core concepts: nodes, networks, failures, time, and ordering.
+- The CAP theorem and consistency models.
+- Replication, partitioning, and consensus (Raft, Paxos).
+- Common patterns: leader-follower, sharding, quorum.
+- Real-world examples: databases, queues, file systems.
+
+## Key Takeaways
+
+- A distributed system looks like one computer but is many.
+- Partial failure and network partitions are the defining challenges.
+- CAP governs the consistency-availability tradeoff.
+- Consensus protocols are how nodes agree on truth.
+
+## Next Steps
+
+In the next tutorial, you will run two processes that communicate over a network, observe a simulated partition, and see how a simple leader-follower protocol responds.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "distributed-systems,cap,consensus,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- SOFTWARE ARCHITECTURE ----------------
+  {
+    slug: "software-architecture",
+    name: "Software Architecture",
+    tagline: "The high-level structure of software systems.",
+    description:
+      "Learn software architecture: layered, hexagonal, microservices, event-driven, and the tradeoffs that shape large systems.",
+    icon: "Layers",
+    color: "oklch(0.7 0.13 200)",
+    category: "Systems",
+    order: 69,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Software Architecture Fundamentals",
+        summary: "Styles, tradeoffs, and evolutionary architecture.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-software-architecture",
+            title: "Introduction to Software Architecture",
+            summary: "What software architecture is and why tradeoffs dominate it.",
+            learningObjectives: [
+              "Define software architecture and its scope.",
+              "Compare monolith, layered, hexagonal, and microservices styles.",
+              "Describe coupling, cohesion, and bounded contexts.",
+              "Explain Conway's Law and its implications.",
+              "Recognise architecture as an evolving, contextual discipline.",
+            ],
+            prerequisites: [
+              { label: "Experience building at least one non-trivial application." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Software Architecture Fundamentals module, within the Software Engineering domain. It builds on backend development, distributed systems, and software engineering practices.",
+            keyTakeaways: [
+              "Architecture is the high-level structure and tradeoffs of a system.",
+              "Monolith vs microservices is a tradeoff, not a moral choice.",
+              "Conway's Law ties architecture to organization structure.",
+              "Architectures must evolve as systems and teams grow.",
+            ],
+            selfAssessment: [
+              "I can define software architecture in one sentence.",
+              "I can compare two architectural styles and their tradeoffs.",
+              "I can describe coupling and cohesion.",
+              "I can explain Conway's Law.",
+            ],
+            content: `# Introduction to Software Architecture
+
+## What Is Software Architecture?
+
+Software architecture is the high-level structure of a system — the major components, their responsibilities, and the relationships between them. Where code design deals with classes and functions, architecture deals with services, modules, boundaries, and the tradeoffs that constrain a system for years.
+
+Common architectural styles include monoliths, layered architecture, hexagonal (ports and adapters), microservices, and event-driven systems. Each makes different tradeoffs around complexity, deployability, scalability, and team autonomy. There is no "best" architecture — only architecture suited to a context.
+
+## Why It Matters
+
+Architectural decisions are expensive to reverse. A monolith that grew without structure becomes a "big ball of mud"; an over-eager microservices split creates operational chaos. Good architecture matches the organization, the team structure, and the system's actual constraints — and evolves as those change.
+
+## What You Will Learn
+
+- Major architectural styles and their tradeoffs.
+- Coupling, cohesion, and bounded contexts.
+- Communication patterns: sync, async, events.
+- Architectural fitness functions and evolutionary architecture.
+- Documenting architecture (C4 model, ADRs).
+
+## Key Takeaways
+
+- Architecture is the high-level structure and tradeoffs of a system.
+- Monolith vs microservices is a tradeoff, not a moral choice.
+- Conway's Law ties architecture to organization structure.
+- Architectures must evolve as systems and teams grow.
+
+## Next Steps
+
+In the next tutorial, you will take a feature and design it three ways — as a layered monolith, a hexagonal design, and a small service — comparing the tradeoffs of each.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "software-architecture,microservices,monolith,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- DEVSECOPS ----------------
+  {
+    slug: "devsecops",
+    name: "DevSecOps",
+    tagline: "Baking security into the software pipeline.",
+    description:
+      "Learn DevSecOps: shifting security left, SAST/DAST, dependency scanning, secrets management, and secure CI/CD pipelines.",
+    icon: "Star",
+    color: "oklch(0.65 0.2 25)",
+    category: "Security",
+    order: 70,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "DevSecOps Fundamentals",
+        summary: "Shift-left security, automated scans, and policy as code.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-devsecops",
+            title: "Introduction to DevSecOps",
+            summary: "What DevSecOps is and how it shifts security into CI/CD.",
+            learningObjectives: [
+              "Define DevSecOps and the shift-left mindset.",
+              "Identify SAST, DAST, SCA, and secret scanning tools.",
+              "Describe policy as code with Open Policy Agent.",
+              "Explain why supply chain (dependencies) is a major attack surface.",
+              "Recognise the shared responsibility model for security.",
+            ],
+            prerequisites: [
+              { label: "Familiarity with CI/CD pipelines." },
+              { label: "Basic security concepts (CIA triad)." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the DevSecOps Fundamentals module, within the Software Engineering domain. It bridges DevOps and cybersecurity.",
+            keyTakeaways: [
+              "DevSecOps bakes security into CI/CD, not after it.",
+              "Automated scans find issues early when fixes are cheap.",
+              "Supply chain (dependencies) is a major attack surface.",
+              "Security is a shared, continuous responsibility.",
+            ],
+            selfAssessment: [
+              "I can define DevSecOps and the shift-left mindset.",
+              "I can name three types of automated security scans.",
+              "I can describe policy as code in one sentence.",
+              "I can explain why dependencies are an attack surface.",
+            ],
+            content: `# Introduction to DevSecOps
+
+## What Is DevSecOps?
+
+DevSecOps is the practice of integrating security into the DevOps pipeline — "shifting left" so that vulnerabilities are caught at commit time rather than after production. It treats security as a continuous, automated concern shared by the whole team, not a final-stage gate.
+
+A typical DevSecOps stack includes static analysis (SAST), dependency scanning (SCA), secret scanning, container image scanning, infrastructure-as-code policy checks (OPA), dynamic testing (DAST), and runtime protection. Each runs automatically on every change and produces findings that feed back to developers.
+
+## Why It Matters
+
+Late-stage security reviews slow releases and miss bugs. DevSecOps catches problems when they are cheapest to fix, gives developers fast feedback, and produces an auditable trail. As supply-chain attacks and breach costs rise, DevSecOps is becoming mandatory for serious engineering organizations.
+
+## What You Will Learn
+
+- The shift-left mindset and shared responsibility for security.
+- SAST, DAST, SCA, and secret scanning tools.
+- Container and IaC security scanning.
+- Policy as code (Open Policy Agent).
+- Handling findings: triage, prioritization, and remediation.
+
+## Key Takeaways
+
+- DevSecOps bakes security into CI/CD, not after it.
+- Automated scans find issues early when fixes are cheap.
+- Supply chain (dependencies) is a major attack surface.
+- Security is a shared, continuous responsibility.
+
+## Next Steps
+
+In the next tutorial, you will add SAST, dependency scanning, and secret scanning to an existing CI pipeline, then triage and remediate the findings.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "devsecops,security,ci-cd,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- TESTING & QUALITY ENGINEERING ----------------
+  {
+    slug: "testing-and-quality-engineering",
+    name: "Testing & Quality Engineering",
+    tagline: "Building software that proves it works.",
+    description:
+      "Master testing and quality engineering: unit, integration, E2E, property-based testing, mutation testing, and the metrics and culture of reliable software.",
+    icon: "ClipboardCheck",
+    color: "oklch(0.65 0.17 150)",
+    category: "Career",
+    order: 71,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Testing & Quality Engineering Fundamentals",
+        summary: "The testing pyramid, test doubles, and quality culture.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-testing-and-quality-engineering",
+            title: "Introduction to Testing & Quality Engineering",
+            summary: "What testing is, the pyramid, and why quality is a culture.",
+            learningObjectives: [
+              "Define quality engineering and its scope beyond just tests.",
+              "Describe the testing pyramid and modern variants.",
+              "Distinguish unit, integration, and end-to-end tests.",
+              "Identify test doubles: mocks, stubs, fakes, spies.",
+              "Recognise mutation testing and coverage as quality signals.",
+            ],
+            prerequisites: [
+              { label: "Experience writing code in at least one language." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Testing & Quality Engineering Fundamentals module, within the Software Engineering domain. It applies to every other engineering subject — every system needs tests.",
+            keyTakeaways: [
+              "Quality engineering makes correctness a property of the system.",
+              "The pyramid: many unit tests, fewer integration, few E2E.",
+              "Test behavior, not implementation, to enable refactoring.",
+              "Quality is a culture, not a tool.",
+            ],
+            selfAssessment: [
+              "I can define quality engineering.",
+              "I can describe the testing pyramid.",
+              "I can distinguish a mock from a stub.",
+              "I can explain why testing behavior beats testing implementation.",
+            ],
+            content: `# Introduction to Testing & Quality Engineering
+
+## What Is Testing & Quality Engineering?
+
+Testing & Quality Engineering is the discipline of systematically verifying that software works as intended — and keeps working as it evolves. It spans automated tests (unit, integration, end-to-end), manual exploratory testing, performance and load testing, and the broader practices that make quality a property of the system, not an afterthought.
+
+The classic testing pyramid has many fast unit tests at the base, fewer integration tests in the middle, and a small number of slow end-to-end tests at the top. Modern variants add contract tests, property-based tests, mutation tests, and observability-based quality signals in production.
+
+## Why It Matters
+
+Untested software decays; tested software can be refactored and shipped with confidence. Quality engineering is what allows teams to move quickly without breaking things — and it is one of the clearest differentiators between high-performing and struggling engineering organizations.
+
+## What You Will Learn
+
+- Test types: unit, integration, E2E, contract, property-based.
+- The testing pyramid and modern variants.
+- Test doubles: mocks, stubs, fakes, spies.
+- Mutation testing and coverage as a quality signal.
+- Building a culture of quality, not just a test suite.
+
+## Key Takeaways
+
+- Quality engineering makes correctness a property of the system.
+- The pyramid: many unit tests, fewer integration, few E2E.
+- Test behavior, not implementation, to enable refactoring.
+- Quality is a culture, not a tool.
+
+## Next Steps
+
+In the next tutorial, you will write unit, integration, and an end-to-end test for a small feature, then measure coverage and apply mutation testing to find gaps.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "testing,quality-engineering,unit-tests,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- GIT, GITHUB & DEVELOPER TOOLS ----------------
+  {
+    slug: "git-github-and-developer-tools",
+    name: "Git, GitHub & Developer Tools",
+    tagline: "Version control and the modern dev toolkit.",
+    description:
+      "Master Git, GitHub, and the developer toolchain — branching, merging, pull requests, code review, and the tools that make modern engineering collaboration possible.",
+    icon: "GitBranch",
+    color: "oklch(0.75 0.16 85)",
+    category: "Career",
+    order: 72,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Git, GitHub & Developer Tools Fundamentals",
+        summary: "Branches, pull requests, and the daily engineering workflow.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-git-github-and-developer-tools",
+            title: "Introduction to Git, GitHub & Developer Tools",
+            summary: "What Git and GitHub are and why they dominate engineering.",
+            learningObjectives: [
+              "Define Git and distinguish it from GitHub.",
+              "Describe the commit, branch, and merge model.",
+              "Explain pull requests and code review workflows.",
+              "Identify the modern developer toolkit: editors, terminals, debuggers.",
+              "Recognise AI coding assistants as part of the modern workflow.",
+            ],
+            prerequisites: [
+              { label: "A computer with internet access and a code editor." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Git, GitHub & Developer Tools Fundamentals module, within the Software Engineering domain. It is a baseline skill needed across every other engineering subject.",
+            keyTakeaways: [
+              "Git tracks history; GitHub enables collaboration on top of it.",
+              "Branches and pull requests structure team collaboration.",
+              "Conflicts are inevitable; fluency makes them routine.",
+              "Tool mastery is a high-leverage skill investment.",
+            ],
+            selfAssessment: [
+              "I can distinguish Git from GitHub.",
+              "I can describe a branch and a merge.",
+              "I can explain what a pull request is.",
+              "I can name two tools beyond Git in the modern dev toolkit.",
+            ],
+            content: `# Introduction to Git, GitHub & Developer Tools
+
+## What Are Git, GitHub & Developer Tools?
+
+Git is a distributed version control system that tracks changes to source code over time. GitHub is a hosted platform built on Git that adds pull requests, code review, issues, CI/CD, and a huge ecosystem of integrations. Together they form the backbone of modern software collaboration.
+
+Beyond Git and GitHub, the modern developer toolkit includes terminals, editors (VS Code, Neovim), language servers, debuggers, profilers, container runtimes, and a growing set of AI coding assistants. Fluency in these tools is a multiplier on everything else you do as an engineer.
+
+## Why It Matters
+
+Almost every engineering team on earth uses Git. Knowing branching, merging, rebasing, and conflict resolution is a baseline expectation. Beyond Git, mastering your tools is the difference between fighting your environment and flowing with it — and is one of the highest-leverage investments an early-career engineer can make.
+
+## What You Will Learn
+
+- Git fundamentals: commits, branches, merges, rebases.
+- GitHub workflow: pull requests, code review, issues, projects.
+- Resolving conflicts and rewriting history safely.
+- The modern dev toolkit: editors, terminals, debuggers, profilers.
+- AI-powered development: Copilot, code review, agents.
+
+## Key Takeaways
+
+- Git tracks history; GitHub enables collaboration on top of it.
+- Branches and pull requests structure team collaboration.
+- Conflicts are inevitable; fluency makes them routine.
+- Tool mastery is a high-leverage skill investment.
+
+## Next Steps
+
+In the next tutorial, you will initialize a repository, make commits, create a branch, open a pull request, and perform a code review — the daily loop of professional engineering.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "git,github,developer-tools,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- PROGRAMMING LANGUAGE THEORY ----------------
+  {
+    slug: "programming-language-theory",
+    name: "Programming Language Theory",
+    tagline: "The science behind programming languages.",
+    description:
+      "Explore programming language theory: syntax vs semantics, paradigms, type systems, lambda calculus, and how language design shapes how we think.",
+    icon: "Braces",
+    color: "oklch(0.68 0.16 320)",
+    category: "Programming",
+    order: 73,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Programming Language Theory Fundamentals",
+        summary: "Syntax, semantics, type systems, and paradigms.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-programming-language-theory",
+            title: "Introduction to Programming Language Theory",
+            summary: "What PLT is and why language design shapes how programmers think.",
+            learningObjectives: [
+              "Define programming language theory and its scope.",
+              "Distinguish syntax from semantics.",
+              "Identify the major paradigms: functional, imperative, logic, OO.",
+              "Describe type systems and their tradeoffs.",
+              "Explain how language design shapes programmer thinking.",
+            ],
+            prerequisites: [
+              { label: "Familiarity with at least one programming language." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Programming Language Theory Fundamentals module, within the Computer Science domain. It deepens the understanding of programming and connects to compiler design.",
+            keyTakeaways: [
+              "PLT is the mathematical study of programming languages.",
+              "The lambda calculus underpins functional programming.",
+              "Type systems are the central design axis.",
+              "Language design shapes how programmers think.",
+            ],
+            selfAssessment: [
+              "I can define PLT in one sentence.",
+              "I can distinguish syntax from semantics.",
+              "I can name three programming paradigms.",
+              "I can describe what a type system does.",
+            ],
+            content: `# Introduction to Programming Language Theory
+
+## What Is Programming Language Theory?
+
+Programming Language Theory (PLT) is the mathematical study of programming languages — their design, their semantics, and the programs written in them. It asks: what does a program mean? When are two programs equivalent? What can a given language express, and what cannot it?
+
+PLT draws on formal logic, the lambda calculus, type theory, and category theory. It studies syntax (the shape of programs) vs semantics (their meaning), paradigms (functional, imperative, logic, OO), type systems (static, dynamic, gradual, dependent), and program verification.
+
+## Why It Matters
+
+Every language you use embodies theoretical choices: Python is dynamically typed because its designers chose that tradeoff; Haskell's purity comes from a particular mathematical view of programs. Understanding PLT makes you a better programmer — you see tradeoffs, you learn new languages faster, and you can design your own DSLs when needed.
+
+## What You Will Learn
+
+- Syntax vs semantics; operational, denotational, axiomatic.
+- The lambda calculus as the foundation of computation.
+- Type systems: static, dynamic, gradual, dependent.
+- Paradigms: functional, imperative, logic, object-oriented.
+- How language design shapes how we think.
+
+## Key Takeaways
+
+- PLT is the mathematical study of programming languages.
+- The lambda calculus underpins functional programming.
+- Type systems are the central design axis.
+- Language design shapes how programmers think.
+
+## Next Steps
+
+In the next tutorial, you will work through the untyped lambda calculus, encode booleans and numbers as functions, and see how computation emerges from nothing but application.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "programming-language-theory,semantics,type-systems,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- COMPILER DESIGN ----------------
+  {
+    slug: "compiler-design",
+    name: "Compiler Design",
+    tagline: "How source code becomes executable.",
+    description:
+      "Master compiler design: lexing, parsing, semantic analysis, optimization, and code generation — and the tools and patterns behind every programming language.",
+    icon: "Binary",
+    color: "oklch(0.62 0.15 162)",
+    category: "Systems",
+    order: 74,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Compiler Design Fundamentals",
+        summary: "Lexing, parsing, analysis, optimization, and code generation.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-compiler-design",
+            title: "Introduction to Compiler Design",
+            summary: "What compilers are, their phases, and why they matter.",
+            learningObjectives: [
+              "Define a compiler and its role in the software stack.",
+              "List the major phases of a compiler in order.",
+              "Describe what an abstract syntax tree (AST) is.",
+              "Identify the role of intermediate representations.",
+              "Recognise how the same ideas power interpreters, transpilers, and DSLs.",
+            ],
+            prerequisites: [
+              { label: "Comfort with at least one programming language." },
+              { label: "Basic familiarity with trees as a data structure." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Compiler Design Fundamentals module, within the Computer Science domain. It builds on programming language theory and data structures.",
+            keyTakeaways: [
+              "A compiler translates high-level code into executable form.",
+              "Phases: lex, parse, analyze, optimize, generate.",
+              "ASTs are the central data structure of a compiler.",
+              "The same ideas power interpreters, transpilers, and DSLs.",
+            ],
+            selfAssessment: [
+              "I can define what a compiler does.",
+              "I can list the major phases of a compiler in order.",
+              "I can describe what an AST is.",
+              "I can name one tool (LLVM, tree-sitter) used in compiler design.",
+            ],
+            content: `# Introduction to Compiler Design
+
+## What Is Compiler Design?
+
+Compiler design is the engineering of compilers — programs that translate source code written in a high-level language (C, Rust, TypeScript) into a form a machine can execute (assembly, bytecode, machine code). The same ideas power interpreters, transpilers, query planners, and templating engines.
+
+A classic compiler has phases: lexing (characters to tokens), parsing (tokens to a syntax tree), semantic analysis (type checking), optimization (rewriting for speed), and code generation (emitting target code). Each phase has well-understood algorithms and tools (lex, yacc, LLVM, tree-sitter).
+
+## Why It Matters
+
+Compilers are the bridge between human-readable code and machine execution. Understanding them demystifies what happens when you click "run," improves your ability to debug performance, and is the foundation for building DSLs, linters, code formatters, and even SQL engines. It is also one of the most intellectually rewarding areas of computer science.
+
+## What You Will Learn
+
+- The compilation pipeline end to end.
+- Lexing and parsing (recursive descent, parsers, ASTs).
+- Type systems and semantic analysis.
+- Intermediate representations and optimization.
+- Code generation and the LLVM toolchain.
+
+## Key Takeaways
+
+- A compiler translates high-level code into executable form.
+- Phases: lex, parse, analyze, optimize, generate.
+- ASTs are the central data structure of a compiler.
+- The same ideas power interpreters, transpilers, and DSLs.
+
+## Next Steps
+
+In the next tutorial, you will build a lexer and parser for a tiny arithmetic language, producing an AST that you will later type-check and evaluate.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "compiler-design,lexing,parsing,ast,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- PARALLEL & HIGH-PERFORMANCE COMPUTING ----------------
+  {
+    slug: "parallel-and-high-performance-computing",
+    name: "Parallel & High-Performance Computing",
+    tagline: "Using many cores and many machines to go fast.",
+    description:
+      "Master parallel and high-performance computing: threads, processes, SIMD, GPUs, distributed compute, and the techniques for making numerical and ML workloads fast.",
+    icon: "Zap",
+    color: "oklch(0.65 0.2 25)",
+    category: "Systems",
+    order: 75,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Parallel & High-Performance Computing Fundamentals",
+        summary: "Parallelism paradigms, memory hierarchy, and GPU computing.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-parallel-and-high-performance-computing",
+            title: "Introduction to Parallel & High-Performance Computing",
+            summary: "What HPC is, the parallelism paradigms, and why it powers modern AI.",
+            learningObjectives: [
+              "Define parallel and high-performance computing.",
+              "Distinguish task, data, pipeline, and model parallelism.",
+              "Describe the memory hierarchy and its impact on performance.",
+              "Identify GPU programming as central to modern ML.",
+              "Recognise the role of profiling in HPC work.",
+            ],
+            prerequisites: [
+              { label: "Comfort with a systems language (C/C++ or Rust)." },
+              { label: "Basic understanding of computer architecture." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Parallel & High-Performance Computing Fundamentals module, within the Computer Science domain. It connects to computer architecture, ML training, and distributed systems.",
+            keyTakeaways: [
+              "HPC uses many resources to solve problems faster.",
+              "Data parallelism and task parallelism are the two main flavors.",
+              "Memory hierarchy and communication dominate performance.",
+              "GPU programming powers modern AI training.",
+            ],
+            selfAssessment: [
+              "I can define HPC.",
+              "I can distinguish task parallelism from data parallelism.",
+              "I can describe why the memory hierarchy matters for performance.",
+              "I can explain why GPUs are used for ML training.",
+            ],
+            content: `# Introduction to Parallel & High-Performance Computing
+
+## What Is Parallel & High-Performance Computing?
+
+Parallel & High-Performance Computing (HPC) is the discipline of using many compute resources — multiple CPU cores, SIMD units, GPUs, or whole clusters — to solve problems faster than a single machine could. It is what makes weather forecasts, drug discovery, scientific simulations, and modern AI training possible.
+
+Parallelism comes in several flavors: task parallelism (different operations at once), data parallelism (same operation on different data), pipeline parallelism (stages of a computation overlapped), and model parallelism (splitting one model across devices). Each comes with challenges around coordination, memory, and communication.
+
+## Why It Matters
+
+Single-core performance plateaued years ago; future speed-ups come from parallelism. AI training in particular is now bounded by how well you can parallelize across thousands of GPUs. HPC skills transfer directly to ML engineering, scientific computing, and performance engineering.
+
+## What You Will Learn
+
+- Parallelism paradigms: threads, SIMD, GPU, distributed.
+- Concurrency primitives and the cost of coordination.
+- Memory hierarchies and how to use them.
+- GPU programming fundamentals (CUDA concepts).
+- Performance measurement and profiling.
+
+## Key Takeaways
+
+- HPC uses many resources to solve problems faster.
+- Data parallelism and task parallelism are the two main flavors.
+- Memory hierarchy and communication dominate performance.
+- GPU programming powers modern AI training.
+
+## Next Steps
+
+In the next tutorial, you will parallelize a numerical workload across CPU cores, then port a small kernel to the GPU and compare performance.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "hpc,parallel,gpu,performance,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- EMBEDDED SYSTEMS & IOT ----------------
+  {
+    slug: "embedded-systems-and-iot",
+    name: "Embedded Systems & IoT",
+    tagline: "Software for the physical world.",
+    description:
+      "Master embedded systems and IoT: microcontrollers, real-time constraints, sensors, actuators, communication protocols, and the unique challenges of software that touches hardware.",
+    icon: "Cpu",
+    color: "oklch(0.7 0.13 200)",
+    category: "Systems",
+    order: 76,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Embedded Systems & IoT Fundamentals",
+        summary: "Microcontrollers, RTOS, sensors, and protocols.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-embedded-systems-and-iot",
+            title: "Introduction to Embedded Systems & IoT",
+            summary: "What embedded systems are, the constraints, and where IoT fits.",
+            learningObjectives: [
+              "Define an embedded system and identify examples.",
+              "Describe the constraints: CPU, memory, power, real-time deadlines.",
+              "Distinguish bare-metal, RTOS, and embedded Linux development.",
+              "Identify common communication protocols: I2C, SPI, UART, CAN.",
+              "Recognise the security concerns unique to IoT devices.",
+            ],
+            prerequisites: [
+              { label: "Basic C programming familiarity." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Embedded Systems & IoT Fundamentals module, within the Computer Science domain. It connects computer architecture, networking, and cybersecurity.",
+            keyTakeaways: [
+              "Embedded systems are purpose-built computers inside other devices.",
+              "Constraints (CPU, memory, power, time) dominate every decision.",
+              "C and C++ remain the dominant languages.",
+              "IoT extends embedded devices with network connectivity.",
+            ],
+            selfAssessment: [
+              "I can define an embedded system.",
+              "I can list three constraints that shape embedded design.",
+              "I can name two embedded communication protocols.",
+              "I can describe one security concern unique to IoT devices.",
+            ],
+            content: `# Introduction to Embedded Systems & IoT
+
+## What Are Embedded Systems & IoT?
+
+Embedded systems are computers built into other devices — washing machines, cars, pacemakers, satellites — designed for a specific purpose rather than general computation. The Internet of Things (IoT) extends embedded systems with network connectivity, letting devices exchange data and be remotely controlled.
+
+Embedded software operates under tight constraints: limited CPU, memory, and power; real-time deadlines; direct interaction with sensors and actuators; and often no operating system at all (bare-metal) or a small real-time OS (RTOS). Programming is typically in C or C++, often alongside hardware description languages for the FPGA or ASIC.
+
+## Why It Matters
+
+There are tens of billions of embedded devices worldwide — far more than phones and laptops. They run cars, factories, medical devices, and the entire Internet of Things. Embedded skills are in demand across automotive, robotics, energy, consumer electronics, and defense — and they connect deeply to AI (edge inference) and cybersecurity.
+
+## What You Will Learn
+
+- Microcontroller architecture and bare-metal programming.
+- Real-time constraints and scheduling.
+- Sensors, actuators, and signal conditioning.
+- Communication protocols: I2C, SPI, UART, CAN, MQTT.
+- Power management and IoT security.
+
+## Key Takeaways
+
+- Embedded systems are purpose-built computers inside other devices.
+- Constraints (CPU, memory, power, time) dominate every decision.
+- C and C++ remain the dominant languages.
+- IoT extends embedded devices with network connectivity.
+
+## Next Steps
+
+In the next tutorial, you will write a program for a microcontroller that blinks an LED, reads a sensor, and prints the value — the canonical "Hello World" of embedded systems.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "embedded,iot,microcontroller,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- BLOCKCHAIN & WEB3 ----------------
+  {
+    slug: "blockchain-and-web3",
+    name: "Blockchain & Web3",
+    tagline: "Distributed ledgers, smart contracts, and decentralized apps.",
+    description:
+      "Learn blockchain and Web3: cryptography, distributed consensus, smart contracts, wallets, and the patterns and tradeoffs of building decentralized applications.",
+    icon: "Network",
+    color: "oklch(0.68 0.16 320)",
+    category: "Systems",
+    order: 77,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Blockchain & Web3 Fundamentals",
+        summary: "Cryptography, consensus, smart contracts, and security.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-blockchain-and-web3",
+            title: "Introduction to Blockchain & Web3",
+            summary: "What blockchains are, how smart contracts work, and the tradeoffs.",
+            learningObjectives: [
+              "Define a blockchain and its core properties.",
+              "Explain hashing, public-key cryptography, and Merkle trees.",
+              "Compare Proof of Work and Proof of Stake consensus.",
+              "Describe what a smart contract is and where it runs.",
+              "Recognise security as the central engineering challenge.",
+            ],
+            prerequisites: [
+              { label: "Basic programming familiarity." },
+              { label: "Conceptual understanding of cryptographic hashes." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Blockchain & Web3 Fundamentals module, within the Software Engineering domain. It connects to distributed systems and cybersecurity.",
+            keyTakeaways: [
+              "A blockchain is a distributed, append-only, tamper-evident ledger.",
+              "Smart contracts are programs that run on a blockchain.",
+              "Consensus protocols (PoW, PoS) keep nodes in agreement.",
+              "Security is the central engineering challenge.",
+            ],
+            selfAssessment: [
+              "I can define a blockchain in one sentence.",
+              "I can describe what hashing does for a blockchain.",
+              "I can distinguish Proof of Work from Proof of Stake.",
+              "I can explain what a smart contract is.",
+            ],
+            content: `# Introduction to Blockchain & Web3
+
+## What Is Blockchain & Web3?
+
+A blockchain is a distributed, append-only ledger replicated across many nodes, where each block cryptographically links to the previous one. The result is a tamper-evident record that no single party controls. Blockchains power cryptocurrencies (Bitcoin), programmable smart contract platforms (Ethereum), and a broader ecosystem of decentralized applications.
+
+Web3 refers to applications built on top of blockchains — typically involving wallets, tokens, smart contracts, and decentralized storage or identity. Smart contracts are programs that run on the blockchain, enabling trust-minimized financial primitives, NFTs, DAOs, and verifiable computation.
+
+## Why It Matters
+
+Whether or not cryptocurrency speculation interests you, the underlying technology — distributed consensus, cryptographic commitments, programmable trust — is significant. Blockchains have real applications in payments, supply chain, identity, and gaming, and the engineering challenges (scalability, security, UX) are deep.
+
+## What You Will Learn
+
+- Hashing, public-key cryptography, and Merkle trees.
+- Distributed consensus: Proof of Work, Proof of Stake.
+- Smart contracts (Solidity) and the EVM.
+- Wallets, transactions, and gas.
+- Security: reentrancy, frontrunning, audits.
+
+## Key Takeaways
+
+- A blockchain is a distributed, append-only, tamper-evident ledger.
+- Smart contracts are programs that run on a blockchain.
+- Consensus protocols (PoW, PoS) keep nodes in agreement.
+- Security is the central engineering challenge.
+
+## Next Steps
+
+In the next tutorial, you will set up a local blockchain, deploy a simple smart contract, and call it from a small front-end wallet.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "blockchain,web3,smart-contracts,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- UI/UX & PRODUCT ENGINEERING ----------------
+  {
+    slug: "ui-ux-and-product-engineering",
+    name: "UI/UX & Product Engineering",
+    tagline: "Designing products people love to use.",
+    description:
+      "Master UI/UX and product engineering: design principles, user research, prototyping, design systems, and the engineering craft of building products that delight.",
+    icon: "Star",
+    color: "oklch(0.75 0.16 85)",
+    category: "Career",
+    order: 78,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "UI/UX & Product Engineering Fundamentals",
+        summary: "Design principles, research, and design systems.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-ui-ux-and-product-engineering",
+            title: "Introduction to UI/UX & Product Engineering",
+            summary: "What UI/UX is, what product engineers do, and why design matters.",
+            learningObjectives: [
+              "Distinguish UI from UX and describe how they relate.",
+              "Identify core design principles: hierarchy, contrast, rhythm, whitespace.",
+              "Describe the role of user research and usability testing.",
+              "Explain what a design system is and why teams use one.",
+              "Recognise the product engineer's blend of frontend and design skills.",
+            ],
+            prerequisites: [
+              { label: "Basic familiarity with HTML and CSS." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the UI/UX & Product Engineering Fundamentals module, within the Software Engineering domain. It complements frontend development with design literacy.",
+            keyTakeaways: [
+              "UI is the surface; UX is the underlying experience design.",
+              "Product engineering blends frontend craft with design literacy.",
+              "Design systems keep products consistent at scale.",
+              "Great products are built by teams that care about users.",
+            ],
+            selfAssessment: [
+              "I can distinguish UI from UX.",
+              "I can name three core design principles.",
+              "I can describe what user research adds to a project.",
+              "I can explain what a design system is.",
+            ],
+            content: `# Introduction to UI/UX & Product Engineering
+
+## What Is UI/UX & Product Engineering?
+
+UI (User Interface) and UX (User Experience) design shape how a product looks, feels, and works for the people who use it. UI is the visible surface — layout, color, typography, motion. UX is the deeper research and design — what users need, how they think, how a product fits their lives. Product engineering is the practice of building software with these concerns baked in.
+
+A modern product engineer blends frontend engineering with design literacy: they use Figma, ship to a design system, run usability tests, instrument analytics, and care about polish. The goal is not just working software but software people choose to use.
+
+## Why It Matters
+
+Beautiful, usable products beat technically superior but clunky ones. Companies that win — Apple, Linear, Stripe — invest heavily in design and product engineering. These skills compound: a designer-engineer is rare and disproportionately impactful in any team.
+
+## What You Will Learn
+
+- Design principles: hierarchy, contrast, rhythm, whitespace.
+- User research: interviews, usability tests, analytics.
+- Design systems: tokens, components, documentation.
+- Prototyping and iteration with Figma and code.
+- The product engineer's role and workflow.
+
+## Key Takeaways
+
+- UI is the surface; UX is the underlying experience design.
+- Product engineering blends frontend craft with design literacy.
+- Design systems keep products consistent at scale.
+- Great products are built by teams that care about users.
+
+## Next Steps
+
+In the next tutorial, you will audit a small interface for usability issues, sketch a redesign, and prototype it in code using a basic design system.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "ui-ux,design,product-engineering,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
+
+  // ---------------- PROJECTS & PRACTICAL ENGINEERING ----------------
+  {
+    slug: "projects-and-practical-engineering",
+    name: "Projects & Practical Engineering",
+    tagline: "Build real systems end to end.",
+    description:
+      "Apply everything you have learned: scope, design, build, ship, and operate complete software projects — the capstone of practical engineering.",
+    icon: "Rocket",
+    color: "oklch(0.65 0.2 305)",
+    category: "Career",
+    order: 79,
+    modules: [
+      {
+        slug: "fundamentals",
+        title: "Projects & Practical Engineering Fundamentals",
+        summary: "Scoping, building, shipping, and operating real projects.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 60,
+        tutorials: [
+          {
+            slug: "introduction-to-projects-and-practical-engineering",
+            title: "Introduction to Projects & Practical Engineering",
+            summary: "Why shipping real projects is the capstone of engineering mastery.",
+            learningObjectives: [
+              "Describe the lifecycle of a real software project.",
+              "Explain how to scope and decompose a project into shippable increments.",
+              "Identify the tradeoffs every project makes: scope, time, quality, cost.",
+              "Recognise the operational responsibilities of shipped software.",
+              "Articulate why a portfolio of projects is the strongest capability signal.",
+            ],
+            prerequisites: [
+              { label: "Comfort building at least one small application end to end." },
+            ],
+            whereItFits:
+              "This is the first tutorial in the Projects & Practical Engineering Fundamentals module, within the Software Engineering domain. It is the capstone that draws on every other subject.",
+            keyTakeaways: [
+              "Real projects are where everything you learned comes together.",
+              "Shipping teaches what tutorials cannot.",
+              "Tradeoffs under constraint are the heart of engineering.",
+              "A portfolio of projects is the strongest capability signal.",
+            ],
+            selfAssessment: [
+              "I can describe the lifecycle of a real software project.",
+              "I can list the four classic project tradeoffs.",
+              "I can explain why shipping teaches what tutorials cannot.",
+              "I can articulate why a portfolio matters more than certificates.",
+            ],
+            content: `# Introduction to Projects & Practical Engineering
+
+## What Is Projects & Practical Engineering?
+
+Projects & Practical Engineering is the discipline of taking an idea from zero to a working, deployed, maintained product. It is where every other subject — programming, architecture, databases, DevOps, security, UI/UX — comes together in real systems with real users, real constraints, and real consequences.
+
+Building real projects teaches what tutorials cannot: how to scope, how to make tradeoffs under deadline, how to read other people's code, how to debug production at 2am, how to ship a feature that is "good enough," and how to keep a system running for years. It is the capstone of engineering mastery.
+
+## Why It Matters
+
+Employers and customers care about shipped software, not tutorial completion. A portfolio of well-built projects is the strongest signal of engineering capability — stronger than any certificate. The skills you build shipping real things are also the most durable: they transfer across languages, stacks, and decades.
+
+## What You Will Learn
+
+- Scoping and decomposing projects into shippable increments.
+- Reading, extending, and debugging code you did not write.
+- Making tradeoffs: scope, time, quality, cost.
+- Shipping and operating: deploys, monitoring, on-call.
+- Building a portfolio that demonstrates real capability.
+
+## Key Takeaways
+
+- Real projects are where everything you learned comes together.
+- Shipping teaches what tutorials cannot.
+- Tradeoffs under constraint are the heart of engineering.
+- A portfolio of projects is the strongest capability signal.
+
+## Next Steps
+
+In the next tutorial, you will choose a project, write a one-page spec, break it into milestones, and ship the first one — beginning your capstone project.`,
+            difficulty: "beginner",
+            estimatedMinutes: 15,
+            tags: "projects,practical-engineering,portfolio,beginner,introduction",
+            order: 1,
           },
         ],
       },

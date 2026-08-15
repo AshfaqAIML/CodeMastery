@@ -54,12 +54,26 @@ export function SubjectView() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 sm:px-6 py-8">
-      {/* Breadcrumb */}
-      <nav className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6">
+      {/* Breadcrumb — semantic, includes domain tier */}
+      <nav className="flex items-center gap-1.5 text-sm text-muted-foreground mb-6 flex-wrap" aria-label="Breadcrumb">
         <button onClick={() => navigate("home")} className="hover:text-foreground">Home</button>
         <ChevronRight className="size-3.5" />
         <button onClick={() => navigate("browse")} className="hover:text-foreground">Browse</button>
         <ChevronRight className="size-3.5" />
+        {(subject as any).domain && (
+          <>
+            <span
+              className="flex items-center gap-1.5 rounded px-1.5 py-0.5 text-xs font-medium"
+              style={{
+                color: (subject as any).domain.color,
+                background: `color-mix(in oklch, ${(subject as any).domain.color} 12%, transparent)`,
+              }}
+            >
+              {(subject as any).domain.name}
+            </span>
+            <ChevronRight className="size-3.5" />
+          </>
+        )}
         <span className="text-foreground">{subject.name}</span>
       </nav>
 

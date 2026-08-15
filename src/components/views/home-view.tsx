@@ -14,7 +14,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
 import { LevelBadge } from "@/components/shared/level-badge"
-import type { ViewName } from "@/lib/store"
 
 const CATEGORIES = [
   { name: "Programming", icon: Code2, color: "oklch(0.62 0.15 162)" },
