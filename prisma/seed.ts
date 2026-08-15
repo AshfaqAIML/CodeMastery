@@ -111,6 +111,7 @@ const domains = [
 // Mapping from subject slug → domain slug. Keeps each Subject block
 // unchanged while attaching it to the correct Domain.
 const subjectDomain: Record<string, string> = {
+  "computer-fundamentals": "computer-science",
   "c-programming": "computer-science",
   "python": "computer-science",
   "data-structures": "computer-science",
@@ -138,6 +139,295 @@ const subjectDomain: Record<string, string> = {
 // ============================================================
 
 const subjects: SubjectInput[] = [
+  // ---------------- COMPUTER FUNDAMENTALS ----------------
+  {
+    slug: "computer-fundamentals",
+    name: "Computer Fundamentals",
+    tagline: "How computers work — from bits to programs.",
+    description:
+      "A complete, beginner-friendly foundation covering how computers represent information, how hardware works, how software runs, and how modern systems fit together. No prior Computer Science knowledge is assumed.",
+    icon: "Cpu",
+    color: "oklch(0.62 0.15 162)",
+    category: "Foundations",
+    order: 0,
+    modules: [
+      {
+        slug: "introduction-to-computer-science",
+        title: "Introduction to Computer Science",
+        summary: "What CS is, what a computer is, and why it matters.",
+        order: 1,
+        difficulty: "beginner",
+        estimatedMinutes: 120,
+        tutorials: [
+          {
+            slug: "what-is-computer-science",
+            title: "Introduction to Computer Science: What It Is and Why It Matters",
+            summary: "What Computer Science is, what a computer is, what computers can and cannot do, and why CS matters.",
+            learningObjectives: [
+              "Define Computer Science, computation, and algorithm in your own words.",
+              "Explain what a computer is using the input → processing → output model.",
+              "Distinguish data, input, output, program, hardware, and software.",
+              "List at least three things computers excel at and three things they cannot do.",
+              "Differentiate Computer Science from Computer Engineering, IT, Software Engineering, Data Science, and AI.",
+              "Describe the major areas of Computer Science and how they stack on each other.",
+              "Connect this foundation to a target specialization (backend, data, or AI engineering).",
+            ],
+            prerequisites: [
+              { label: "None. This course starts from first principles." },
+              { label: "Helpful but not required: Comfort with basic arithmetic." },
+              { label: "Helpful but not required: Access to any computer or smartphone (for observation exercises)." },
+            ],
+            whereItFits:
+              "This is Part 1 of the Computer Science Foundations course — the very first tutorial in the Computer Fundamentals subject. It assumes zero prior CS knowledge and lays the vocabulary and mental models that every later tutorial (CPUs, memory, networks, databases, AI) builds on. Next, you will move on to Part 2: History and Evolution of Computing, which traces computing from the abacus to modern AI.",
+            keyTakeaways: [
+              "Computation = input + rules + output.",
+              "An algorithm is a precise, finite recipe a machine can follow exactly.",
+              "A computer accepts input, follows a stored program, and produces output — with storage.",
+              "Problem solving comes first; code is just how solutions are expressed.",
+              "Every advanced topic in the curriculum builds on these foundational definitions.",
+            ],
+            selfAssessment: [
+              "I can define Computer Science, computation, and algorithm in my own words.",
+              "I can explain what a computer is using input, processing, and output.",
+              "I can name two things computers cannot do and why.",
+              "I can distinguish CS from IT, Software Engineering, Data Science, and AI.",
+              "I can explain why this foundation matters for my target career.",
+            ],
+            content: `# Introduction to Computer Science: What It Is and Why It Matters
+
+Before touching hardware, code, or networks, we answer the most basic questions: What is Computer Science? What is a computer? What can computers do — and what can they not do? This tutorial builds the mental foundation for everything that follows.
+
+## 1.1 What Is Computer Science?
+
+The name is slightly misleading. Computer Science is not primarily the study of computers, just as astronomy is not the study of telescopes. Computers are the *tool*. The subject itself is about something deeper:
+
+> info: **Computer Science:** The study of *computation* — how problems can be solved by following precise, step-by-step procedures, and how those procedures can be carried out automatically by machines.
+
+That definition contains two words we must explain immediately: **computation** and **step-by-step procedures**.
+
+**Computation** simply means: taking some input, following definite rules, and producing an output. When you add 7 + 5 and get 12, you performed a computation. The input was "7 + 5", the rule was addition, and the output was 12.
+
+A **step-by-step procedure** for solving a problem has a technical name: an **algorithm**.
+
+> info: **Algorithm:** A precise, finite sequence of steps that solves a problem. Each step must be clear, and the procedure must eventually finish.
+
+> analogy: An algorithm is like a recipe. A recipe lists exact steps in an exact order: crack the eggs, whisk them, heat the pan, pour, cook. If someone follows the recipe precisely, they get the same result every time. An algorithm is a "recipe" for solving a problem — and unlike a human cook, a computer follows the recipe *exactly*, with no improvisation.
+
+So a more complete picture of Computer Science is:
+
+- **Designing algorithms** — finding good step-by-step solutions to problems.
+- **Representing information** — figuring out how numbers, text, images, and sound can be stored and processed.
+- **Building systems** — organizing hardware and software so computations happen reliably and efficiently.
+- **Understanding limits** — knowing what can be computed, what cannot, and how fast.
+
+> important: **Key idea:** Computer Science is fundamentally about **problem solving**. Programming (writing code) is one of its most important tools, but the thinking comes first. A person who can code but cannot design solutions is a tool operator; a computer scientist designs the solution and then uses code to express it.
+
+## 1.2 What Is Computing?
+
+**Computing** is the act of performing computation — especially with the help of machines. Humans computed long before computers existed: accountants computed taxes, navigators computed positions using stars, and teams of people called "computers" (yes, that word once described a job title) calculated artillery tables by hand.
+
+Modern computing means **automating** that process: instead of a person doing each step, we record the steps once and let a fast, tireless machine repeat them billions of times per second.
+
+This is the core value of computing: once you turn a task into an algorithm, a machine can repeat it forever without getting tired, bored, or careless — as long as the instructions are correct.
+
+## 1.3 What Is a Computer?
+
+Now we can define the machine itself precisely.
+
+> info: **Computer:** An electronic machine that accepts **data** (input), follows stored instructions called a **program** to process that data, and produces results (output).
+
+Four terms in that definition need immediate explanation:
+
+- **Data** — Raw facts and values: numbers, text, measurements, clicks, temperatures. Data by itself has no meaning yet — it becomes meaningful when processed.
+- **Input** — Any data entering the computer: a key press, a mouse movement, a voice recording, a temperature reading.
+- **Output** — Any result the computer produces: text on a screen, sound from a speaker, a sent message, a printed page.
+- **Program** — A stored list of instructions telling the computer what to do with the input, step by step.
+
+Two more terms you will see constantly:
+
+- **Hardware** — The physical parts of a computer you can touch: chips, wires, screens, keyboards.
+- **Software** — The intangible instructions that run on the hardware: operating systems, apps, games. Software is "soft" because it can be changed without touching the machine physically.
+
+Every computer, from the largest server to the smallest smart watch, follows the same basic pattern:
+
+\`\`\`text
+Input  →  Processing  →  Output
+             ↑
+          Storage
+\`\`\`
+
+**Storage** is where data and programs are kept, either temporarily while working or permanently for later use. This simple diagram is the skeleton of every computer system you will ever study.
+
+> tip: **Important:** A computer is *not* only a laptop or desktop. The chips inside cars, televisions, washing machines, routers, and traffic lights are computers too. When a computer is built into another device to control it, we call it an **embedded computer** — "embedded" meaning built into something else.
+
+## 1.4 What Does a Computer Scientist Do?
+
+Computer scientists use the ideas above to solve real problems. Their work typically falls into a few categories:
+
+- **Designing algorithms and software** — creating the step-by-step logic behind search engines, games, banking systems, and medical tools.
+- **Building systems** — making many computers and programs work together reliably: networks, databases, cloud platforms.
+- **Working with data and intelligence** — building systems that learn patterns from data (machine learning) and systems that understand or generate language and images (AI).
+- **Research** — discovering what is computable, how to make computation faster, safer, or smaller.
+- **Applying computing to other fields** — biology (analyzing DNA), finance (modeling markets), climate science (simulating weather), art (generative tools).
+
+Notice that "typing code" is only a small visible slice of this work. Most of the real work happens *before* code: understanding the problem, designing a solution, and choosing the right structures and trade-offs.
+
+## 1.5 What Can Computers Do?
+
+Computers are extraordinarily good at a specific set of things:
+
+- **Arithmetic at extreme speed** — billions of calculations per second.
+- **Storing and retrieving data** — huge amounts, with near-perfect recall.
+- **Repeating tasks without fatigue** — the same operation a million times with no loss of accuracy.
+- **Communication** — moving data across the world in milliseconds.
+- **Automation** — performing scheduled or triggered actions without human involvement.
+- **Simulation** — modeling weather, crashes, economies, or neural networks before doing them in reality.
+- **Pattern recognition** — with machine learning, finding patterns in data that are difficult to hand-code.
+
+## 1.6 What Can Computers NOT Do?
+
+Understanding limitations is just as important as understanding capabilities. Five limits matter most for beginners:
+
+1. **Computers only follow instructions.** If the instructions are wrong or ambiguous, the result is wrong. Computers do not "guess what you meant." There is a famous phrase for this: *garbage in, garbage out* — bad input or bad instructions produce bad results.
+2. **Computers depend on the data they are given.** A system trained on biased or incomplete data will produce biased or incomplete decisions.
+3. **Some problems are unsolvable by any computer.** At a basic level, certain questions are proven to have no possible algorithm that always answers them correctly. Computation has hard mathematical limits.
+4. **Physical limits exist.** Signals cannot travel faster than light, chips produce heat, and components can only be made so small. These limits shape how fast computers can become.
+5. **Computers do not truly understand.** Modern AI can generate impressive text and images, but it works by recognizing and producing patterns in data. It does not have beliefs, intentions, or genuine understanding the way a person does.
+
+> warning: **Common misconception:** Treating AI output as proof of understanding. Modern AI produces patterns that *look* human — but pattern-matching is not the same as comprehension.
+
+## 1.7 Why Computer Science Matters
+
+Computing is now the backbone of nearly every field:
+
+- **Medicine** — imaging, diagnostics, drug discovery.
+- **Finance** — payments, fraud detection, trading systems.
+- **Communication** — messaging, video calls, social platforms.
+- **Science** — climate modeling, genomics, space exploration.
+- **Entertainment** — games, streaming, recommendation systems.
+- **Transportation** — navigation, traffic control, autonomous vehicles.
+
+For you personally, this foundation matters because every advanced role you might target — backend engineer, data scientist, ML engineer, AI agent engineer — is built on these concepts. Engineers who understand foundations learn new tools faster, debug deeper, and design better systems.
+
+## 1.8 Computer Science vs Related Fields
+
+Several fields overlap with Computer Science, and beginners often mix them up. Let's define each one before comparing them.
+
+- **Computer Science (CS)** — The study of computation itself: algorithms, data, systems, and what can be automated. It is the theoretical and practical core from which the others grow.
+- **Computer Engineering (CE)** — The design of physical computer systems: circuits, chips, processors, and the boundary where hardware meets software. A computer engineer might design the chip inside a phone.
+- **Information Technology (IT)** — The use and management of computer systems to support organizations: setting up networks, maintaining servers, supporting users, keeping systems secure and running.
+- **Software Engineering (SE)** — The disciplined practice of building reliable, maintainable software in teams: requirements, design, testing, version control, deployment, and maintenance.
+- **Data Science (DS)** — The practice of extracting knowledge from data, combining programming, statistics, and domain expertise — for example, analyzing customer behavior to predict sales.
+- **Artificial Intelligence (AI)** — A branch of Computer Science focused on building systems that perform tasks normally requiring human-like intelligence: recognizing speech, making decisions, generating text. Machine learning is its most important modern approach.
+
+| Field | Core question it asks | Primary focus | Typical work | Simple example |
+|-------|----------------------|---------------|--------------|----------------|
+| Computer Science | What can be computed, and how efficiently? | Algorithms, data, systems, theory | Designing solutions, research, building software | Designing a faster search algorithm |
+| Computer Engineering | How do we build the machine itself? | Hardware, chips, embedded systems | Designing circuits and processors | Designing a phone's processor chip |
+| Information Technology | How do we keep systems running for an organization? | Infrastructure, support, administration | Managing networks, servers, user support | Setting up a company's email and network |
+| Software Engineering | How do we build software reliably at scale? | Process, quality, teamwork, maintenance | Developing, testing, deploying applications | Building and maintaining a banking app |
+| Data Science | What can we learn from this data? | Analysis, statistics, prediction | Analyzing datasets, building predictive models | Predicting which customers will churn |
+| Artificial Intelligence | How can machines perform intelligent tasks? | Learning, perception, language, decision-making | Training models, building intelligent features | Building a spam filter that learns from examples |
+
+> info: **How they relate:** Computer Science is the trunk of the tree. Computer Engineering builds the hardware it runs on; Software Engineering turns CS ideas into dependable products; IT operates those products; Data Science and AI are specialized branches growing out of CS. In practice, real jobs often blend several of these.
+
+## 1.9 The Major Areas of Computer Science
+
+Inside Computer Science itself, work is organized into several major areas:
+
+- **Theory of computation** — the mathematics of what can and cannot be computed, and how efficiently.
+- **Algorithms and data structures** — efficient problem-solving procedures and the ways of organizing data.
+- **Programming languages** — how humans write instructions computers can eventually execute.
+- **Computer systems** — hardware architecture, operating systems, and networks.
+- **Databases** — storing, organizing, and querying large amounts of data reliably.
+- **Artificial intelligence and machine learning** — systems that learn from data.
+- **Security** — protecting systems and data from attacks and mistakes.
+- **Human-computer interaction and graphics** — how people experience and visualize computing.
+- **Software engineering** — building software systematically in teams.
+
+## 1.10 How the Areas Connect
+
+These areas are not isolated. They stack on each other:
+
+\`\`\`text
+Theory (what is computable?)
+   ↓
+Algorithms (how do we solve problems?)
+   ↓
+Programming languages (how do we express solutions?)
+   ↓
+Systems: OS, networks, databases (where do solutions run?)
+   ↓
+Applications: AI, security, web, mobile (what do we build?)
+\`\`\`
+
+Every application at the top — an AI chatbot, a banking app, a video game — ultimately depends on every layer beneath it. When you understand the layers, complex systems stop being mysterious.
+
+> diagram: The layers of Computer Science — Theory at the bottom, Applications at the top — each building on the one below.
+
+## 1.11 How This Course Connects to Your Goals
+
+Whatever path you are aiming for, here is where this course plugs in:
+
+- **Software / Backend / Full-Stack Engineer:** programming and how code runs, OS and files, networking and databases, software engineering and APIs, cloud and distributed systems.
+- **Data Analyst / Data Scientist:** data representation, algorithms and data structures, databases, ML foundations.
+- **ML / AI / LLM / Agentic AI Engineer:** everything above, plus concurrency and distributed systems, and AI, LLMs, RAG, and agents — and then the dedicated AI curriculum that follows this subject.
+
+> tip: **Tip:** You do not need to choose a specialization today. Foundations are shared by all of them. Finish this course first; the right direction becomes much clearer once you understand the map.
+
+## Where This Knowledge Is Used Later
+
+- **Every later part of this course** — the input → process → output model reappears in CPU, OS, and networking tutorials.
+- **C and C++** — understanding hardware/software separation explains why these languages behave the way they do.
+- **Algorithms and DSA** — the concept of an algorithm introduced here is the core of that entire subject.
+- **AI and LLMs** — knowing what computers can and cannot do keeps your mental model of AI accurate.
+- **Career decisions** — the field comparison helps you choose your specialization later.
+
+## Common Beginner Mistakes
+
+1. **Believing Computer Science is the same as learning to code.** Coding is the most visible part of CS, so it looks like the whole thing. *Better approach:* Treat coding as a language for expressing ideas. The deeper skill is designing correct, efficient solutions.
+2. **Thinking a "computer" only means a laptop or desktop.** Those are the computers we see daily. *Better approach:* Remember the definition: any machine that accepts input, follows a program, and produces output. Phones, routers, cars, and smart appliances all qualify.
+3. **Treating CS, IT, and Software Engineering as synonyms.** Job titles in the industry are often used loosely. *Better approach:* Use the comparison table in section 1.8. The fields overlap in practice, but their core questions differ.
+4. **Assuming AI systems "understand" like humans.** AI output looks human-like and fluent. *Better approach:* Remember: current AI finds and produces patterns from data. That makes it powerful, but not conscious or truly understanding.
+
+## Check Your Understanding
+
+### Practical Questions
+
+1. Explain Computer Science in one sentence without using the word "computer".
+2. What is the difference between data and a program?
+3. Give three examples of computers that are not laptops or desktops.
+4. Name one thing computers are excellent at and one thing they are fundamentally bad at.
+5. Which field would you contact if your company's network stopped working: CS research, IT, or AI?
+
+### Mini Exercises
+
+1. Write a 5-step algorithm for making tea. Be precise: imagine a machine that understands nothing and follows your steps literally. Notice where your instructions are ambiguous.
+2. Look around your room and list every embedded computer you can find (hint: anything with a screen, sensor, or remote control is a candidate).
+3. Draw the diagram: Input → Processing → Output, with Storage feeding into Processing. Label one real example under each box (for instance: key press → calculator app → screen result).
+
+## Summary
+
+- Computer Science is the study of computation and problem solving, not merely the study of computers.
+- An algorithm is a precise, finite sequence of steps that solves a problem.
+- A computer accepts input, follows a stored program, and produces output.
+- Hardware is the physical machine; software is the instructions that run on it.
+- Computers excel at speed, repetition, storage, and communication, but they only follow instructions and have hard limits.
+- CS, Computer Engineering, IT, Software Engineering, Data Science, and AI are related but distinct fields.
+- The areas of CS stack on each other: theory → algorithms → programming → systems → applications.
+
+## Next Steps
+
+Continue to **Part 2 — History and Evolution of Computing**. We will see how humanity went from the abacus to transistors, microprocessors, the Internet, and generative AI — and why each step mattered.`,
+            difficulty: "beginner",
+            estimatedMinutes: 25,
+            tags: "computer-science,foundations,beginner,introduction",
+            order: 1,
+          },
+        ],
+      },
+    ],
+  },
   // ---------------- C PROGRAMMING ----------------
   {
     slug: "c-programming",
