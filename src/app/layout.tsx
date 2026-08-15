@@ -9,12 +9,15 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
+  weight: ["400", "500", "600", "700"],
 })
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 })
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://codemastery.dev"

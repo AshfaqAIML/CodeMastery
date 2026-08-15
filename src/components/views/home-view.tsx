@@ -1,14 +1,13 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import {
   ArrowRight, Sparkles, Zap, Trophy, Flame, BookOpen, Compass, GraduationCap,
-  Code2, Brain, Network, Layers, TrendingUp, Target, Users, Rocket, CheckCircle2,
+  Code2, Brain, Network, Layers, TrendingUp, Target, Rocket, CheckCircle2,
   X,
 } from "lucide-react"
 import { motion } from "framer-motion"
-import { useAppStore } from "@/lib/store"
+import { useAppStore, type ViewName } from "@/lib/store"
 import { useSubjects, usePaths, useLeaderboard, useMe } from "@/hooks/use-api"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"

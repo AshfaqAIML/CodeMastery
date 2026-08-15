@@ -124,10 +124,17 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
   }
   /* Smooth focus rings */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-ring;
+  }
+  /* Reduce layout shift for images */
+  img, video {
+    max-width: 100%;
+    height: auto;
   }
 }
 

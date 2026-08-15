@@ -10,18 +10,21 @@ import { OnboardingModal } from "@/components/auth/onboarding-modal"
 import { SearchPalette } from "@/components/search/search-palette"
 import { ScrollToTop } from "@/components/shared/scroll-to-top"
 import { ErrorBoundary } from "@/components/shared/error-boundary"
-import { HomeView } from "@/components/views/home-view"
-import { BrowseView } from "@/components/views/browse-view"
-import { SubjectView } from "@/components/views/subject-view"
-import { TutorialView } from "@/components/views/tutorial-view"
-import { DashboardView } from "@/components/views/dashboard-view"
-import { LeaderboardView } from "@/components/views/leaderboard-view"
-import { AchievementsView } from "@/components/views/achievements-view"
-import { ProfileView } from "@/components/views/profile-view"
-import { PathsView } from "@/components/views/paths-view"
-import { AdminView } from "@/components/views/admin-view"
+import dynamic from "next/dynamic"
 import { useSession } from "next-auth/react"
 import { useMe } from "@/hooks/use-api"
+
+// Lazy-load views to reduce initial JS bundle
+const HomeView = dynamic(() => import("@/components/views/home-view").then(m => ({ default: m.HomeView })), { ssr: true })
+const BrowseView = dynamic(() => import("@/components/views/browse-view").then(m => ({ default: m.BrowseView })), { ssr: false })
+const SubjectView = dynamic(() => import("@/components/views/subject-view").then(m => ({ default: m.SubjectView })), { ssr: false })
+const TutorialView = dynamic(() => import("@/components/views/tutorial-view").then(m => ({ default: m.TutorialView })), { ssr: false })
+const DashboardView = dynamic(() => import("@/components/views/dashboard-view").then(m => ({ default: m.DashboardView })), { ssr: false })
+const LeaderboardView = dynamic(() => import("@/components/views/leaderboard-view").then(m => ({ default: m.LeaderboardView })), { ssr: false })
+const AchievementsView = dynamic(() => import("@/components/views/achievements-view").then(m => ({ default: m.AchievementsView })), { ssr: false })
+const ProfileView = dynamic(() => import("@/components/views/profile-view").then(m => ({ default: m.ProfileView })), { ssr: false })
+const PathsView = dynamic(() => import("@/components/views/paths-view").then(m => ({ default: m.PathsView })), { ssr: false })
+const AdminView = dynamic(() => import("@/components/views/admin-view").then(m => ({ default: m.AdminView })), { ssr: false })
 
 export function AppShell() {
   const { view, navigate } = useAppStore()

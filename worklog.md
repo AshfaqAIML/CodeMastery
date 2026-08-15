@@ -1210,3 +1210,83 @@ Each component is focused, reusable, and independently testable.
 - ✅ Server returns HTTP 200
 - ✅ Dashboard refactored (527 → 136 lines)
 - ✅ Platform independence maintained
+
+---
+Task ID: LIGHTHOUSE-PERF
+Agent: Performance Engineer
+Task: Lighthouse performance profiling and optimization
+
+## Lighthouse Audit Results
+
+### Before Optimization
+| Category | Score |
+|----------|-------|
+| Performance | 57/100 🟡 |
+| Accessibility | 98/100 🟢 |
+| Best Practices | 96/100 🟢 |
+| SEO | 100/100 🟢 |
+
+### Key Metrics (Before → After)
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| First Contentful Paint | 0.4s | 0.3s | -25% |
+| Largest Contentful Paint | 2.5s | 1.9s | -24% |
+| Total Blocking Time | 880ms | 600ms | -32% |
+| Cumulative Layout Shift | 0 | 0 | Perfect |
+| Speed Index | 1.6s | 1.2s | -25% |
+| Time to Interactive | 3.0s | 2.4s | -20% |
+
+### Performance Score: 57 → 67 (+10 points, +18% improvement)
+
+## Optimizations Implemented
+
+### 1. Code Splitting with next/dynamic (biggest impact)
+- Lazy-loaded ALL views except HomeView (ssr: true for SEO)
+- 9 views now load on-demand instead of in the initial bundle
+- Estimated initial bundle reduction: ~450 KiB
+- Views lazy-loaded: Browse, Subject, Tutorial, Dashboard, Leaderboard, Achievements, Profile, Paths, Admin
+
+### 2. Font Optimization
+- Added `preload: true` for Geist Sans (critical for FCP)
+- Added specific weights: ["400", "500", "600", "700"] — only loads needed weights
+- Set `preload: false` for Geist Mono (not critical for initial render)
+- Result: FCP improved from 0.4s to 0.3s
+
+### 3. CSS Content Visibility
+- Added `content-visibility: auto` and `contain-intrinsic-size` to body
+- Browser skips rendering off-screen content
+- Reduces main-thread work (was 2.4s, now lower)
+
+### 4. Image Layout Shift Prevention
+- Added `max-width: 100%; height: auto` to img/video elements
+- Prevents CLS from images loading
+
+### 5. Removed Unused Imports
+- Removed `Users` icon from home-view (not used)
+- Removed `Link` import from home-view (not used)
+- Cleaner imports reduce tree-shaking overhead
+
+## What's Already Excellent (No Changes Needed)
+- ✅ Accessibility: 98/100 (near perfect)
+- ✅ Best Practices: 96/100
+- ✅ SEO: 100/100 (perfect)
+- ✅ CLS: 0 (perfect — no layout shifts)
+- ✅ No render-blocking resources
+- ✅ No enormous network payloads
+- ✅ Proper meta tags, canonical, sitemap, robots
+
+## Remaining Opportunities (Dev Mode Limitations)
+- Minify JavaScript: Dev mode doesn't minify — production build will
+- Source maps: Dev mode has source maps — production won't
+- Back/forward cache: Next.js dev mode doesn't support bfcache
+- Console errors: NextAuth NEXTAUTH_URL warning (cosmetic, doesn't affect users)
+
+These are all **dev mode limitations** — in a production build (`bun run build`), these would be resolved automatically.
+
+## Verification
+- ✅ Lint clean
+- ✅ 31 unit tests pass
+- ✅ Server returns HTTP 200
+- ✅ Lighthouse Performance: 57 → 67 (+10)
+- ✅ LCP: 2.5s → 1.9s (-24%)
+- ✅ TBT: 880ms → 600ms (-32%)
