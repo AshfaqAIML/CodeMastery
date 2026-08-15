@@ -620,3 +620,38 @@ Verification:
 
 Stage Summary:
 - Pass 2 iteration 13 complete. Added recent searches + accessibility fix + 7 quizzes. Total: 100 tutorials, 41 quizzes. Ready for next improvement pass (more quizzes, performance optimization, accessibility audit).
+
+---
+Task ID: MATH-SUBJECT
+Agent: Principal Architect
+Task: Create Mathematics for CS & AI subject (Stage 7 from curriculum roadmap)
+
+Work Log:
+- Created new subject: "Mathematics for CS & AI" (slug: mathematics-for-cs, category: Data, order: 21, icon: Sigma, color: oklch(0.7 0.15 250))
+- Created 7 modules:
+  1. Discrete Mathematics (beginner, 120 min)
+  2. Linear Algebra (intermediate, 150 min)
+  3. Calculus for ML (intermediate, 120 min)
+  4. Probability Theory (intermediate, 120 min)
+  5. Statistics (intermediate, 100 min)
+  6. Number Theory & Cryptography (advanced, 90 min)
+  7. Mathematical Thinking (beginner, 60 min)
+- Created 16 tutorials (800-2500 words each, with code examples and Tip/Warning/Note callouts):
+  - Discrete Math: Propositional Logic, Sets/Relations/Functions, Combinatorics and Counting
+  - Linear Algebra: Vectors and Matrices, Eigenvalues and Eigenvectors, SVD and Dimensionality Reduction
+  - Calculus: Derivatives and Gradients, Gradient Descent and Optimization
+  - Probability: Probability Fundamentals, Random Variables and Distributions
+  - Statistics: Descriptive Statistics and Correlation, Hypothesis Testing and Regression
+  - Number Theory: Modular Arithmetic and Primes, Cryptography Foundations
+  - Math Thinking: Proof Techniques, Problem-Solving Strategies
+- Created 16 quizzes (48 questions total, each with explanations)
+
+Verification:
+- Lint clean.
+- Server returns HTTP 200.
+- Math subject verified via API: 16 tutorials, 7 modules.
+- Platform totals: 116 tutorials, 57 quizzes, 21 subjects.
+- Platform independence maintained.
+
+Stage Summary:
+- Mathematics for CS & AI subject complete. Platform now has 21 subjects, 116 tutorials, 57 quizzes. This covers Stage 7 of the master curriculum roadmap.
