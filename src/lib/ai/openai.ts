@@ -7,12 +7,15 @@ import type { AIProvider, ChatMessage, ChatOptions } from "./types"
  * Requires no SDK — uses fetch only, so it adds zero dependencies.
  */
 export class OpenAIProvider implements AIProvider {
-  name = "openai"
+  name: string
   constructor(
     private readonly apiKey: string,
     private readonly baseUrl: string,
-    private readonly model: string
-  ) {}
+    private readonly model: string,
+    name = "openai"
+  ) {
+    this.name = name
+  }
 
   async chat(messages: ChatMessage[], options?: ChatOptions): Promise<string> {
     const res = await fetch(`${this.baseUrl.replace(/\/$/, "")}/chat/completions`, {

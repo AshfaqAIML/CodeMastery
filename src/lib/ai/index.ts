@@ -25,6 +25,16 @@ class AIServiceImpl implements AIService {
         config.ai.openai.model
       )
     }
+    if (p === "gemini") {
+      if (!config.ai.gemini.apiKey) return null
+      // Gemini is served through its OpenAI-compatible endpoint.
+      return new OpenAIProvider(
+        config.ai.gemini.apiKey,
+        config.ai.gemini.baseUrl,
+        config.ai.gemini.model,
+        "gemini"
+      )
+    }
     if (p === "zai") {
       return new ZAIProvider(config.ai.zai.apiKey)
     }

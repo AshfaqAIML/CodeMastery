@@ -7,6 +7,7 @@
  *
  * Providers:
  *   - "none"   -> default; AI disabled (platform works fully without it)
+ *   - "gemini" -> Google Gemini via its OpenAI-compatible endpoint
  *   - "openai" -> OpenAI-compatible API (OpenAI, Together, Groq, local, ...)
  *   - "zai"    -> z-ai-web-dev-sdk (optional dependency, lazy-imported)
  *

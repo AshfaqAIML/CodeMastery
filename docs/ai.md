@@ -7,6 +7,7 @@ AI features in CodeMastery are **optional**. The core learning platform (tutoria
 ```
 AIService (interface)
     └── provider selected via AI_PROVIDER
+        ├── "gemini" -> OpenAIProvider (Google Gemini, OpenAI-compatible endpoint)
         ├── "zai"    -> ZAIProvider  (z-ai-web-dev-sdk, lazy import)
         ├── "openai" -> OpenAIProvider (fetch-based, OpenAI-compatible)
         └── "none"   -> null (AI disabled)
@@ -19,7 +20,20 @@ The SDKs are imported **lazily**, so:
 
 ## Enabling AI
 
-### Option A — Z.AI (dev environment default)
+### Option A — Google Gemini
+
+Uses Google's OpenAI-compatible endpoint (`/v1beta/openai`), so no extra SDK is needed.
+
+```env
+AI_ENABLED=true
+AI_PROVIDER=gemini
+GEMINI_API_KEY=your-gemini-api-key
+# Optional overrides:
+# GEMINI_MODEL=gemini-2.5-flash
+# GEMINI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai
+```
+
+### Option B — Z.AI (dev environment default)
 
 ```env
 AI_ENABLED=true
@@ -27,7 +41,7 @@ AI_PROVIDER=zai
 ZAI_API_KEY=your-zai-api-key
 ```
 
-### Option B — OpenAI-compatible (any provider)
+### Option C — OpenAI-compatible (any provider)
 
 Works with OpenAI, Together, Groq, Anyscale, local llama-server, etc.
 
@@ -87,4 +101,4 @@ const answer = await ai.chat([
 Because AI is fully optional and provider-pluggable, the deployment can:
 - Run with no AI (default).
 - Run with Z.AI in the dev environment.
-- Switch to OpenAI, a local model, or any other OpenAI-compatible provider in production — by changing env vars only.
+- Switch to Gemini, OpenAI, a local model, or any other OpenAI-compatible provider in production — by changing env vars only.

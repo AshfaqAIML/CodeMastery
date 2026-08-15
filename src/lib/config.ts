@@ -60,17 +60,25 @@ export const config = {
 
   /** AI — optional, pluggable. Platform works fully without it.
    *  Default provider is "none" so the app is provider-independent out of
-   *  the box. Set AI_ENABLED=true + AI_PROVIDER=openai (or zai) to enable. */
+   *  the box. Set AI_ENABLED=true + AI_PROVIDER=gemini|openai|zai to enable. */
   ai: {
     enabled: process.env.AI_ENABLED === "true",
     provider: (process.env.AI_PROVIDER ?? "none") as
       | "none"
       | "openai"
-      | "zai",
+      | "zai"
+      | "gemini",
     openai: {
       apiKey: process.env.OPENAI_API_KEY ?? "",
       baseUrl: process.env.OPENAI_BASE_URL ?? "https://api.openai.com/v1",
       model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
+    },
+    gemini: {
+      apiKey: process.env.GEMINI_API_KEY ?? "",
+      // Google exposes an OpenAI-compatible endpoint, so the existing
+      // OpenAIProvider works unchanged — only auth/base URL/model differ.
+      baseUrl: process.env.GEMINI_BASE_URL ?? "https://generativelanguage.googleapis.com/v1beta/openai",
+      model: process.env.GEMINI_MODEL ?? "gemini-2.5-flash",
     },
     zai: {
       apiKey: process.env.ZAI_API_KEY ?? "",
