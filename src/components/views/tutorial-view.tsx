@@ -3,7 +3,7 @@
 import * as React from "react"
 import {
   ArrowLeft, ArrowRight, Bookmark, Clock, ChevronRight, Loader2,
-  StickyNote, CheckCircle2, X, Plus, Pencil, Trash2, Sparkles, ListTree,
+  StickyNote, CheckCircle2, Sparkles, ListTree,
 } from "lucide-react"
 import { useAppStore } from "@/lib/store"
 import {
@@ -13,10 +13,10 @@ import {
 import { useSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { MarkdownRenderer } from "@/components/markdown/markdown-renderer"
+import { StructuredData } from "@/components/shared/structured-data"
 import { StudyBuddy } from "@/components/tutorial/study-buddy"
 import { CompletionCelebration } from "@/components/tutorial/completion-celebration"
 import { KeyboardShortcuts } from "@/components/tutorial/keyboard-shortcuts"
@@ -25,6 +25,9 @@ import { ShareButton } from "@/components/tutorial/share-button"
 import { RelatedTutorials } from "@/components/tutorial/related-tutorials"
 import { FontSizeControl } from "@/components/tutorial/font-size-control"
 import { PrintButton } from "@/components/tutorial/print-button"
+import { QuizInline } from "@/components/tutorial/quiz-inline"
+import { NotesPanel } from "@/components/tutorial/notes-panel"
+import { MobileToc } from "@/components/tutorial/mobile-toc"
 import { toast } from "sonner"
 
 export function TutorialView() {
@@ -173,6 +176,24 @@ export function TutorialView() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+      {/* Structured data for SEO */}
+      <StructuredData type="Article" data={{
+        title: tutorial.title,
+        summary: tutorial.summary,
+        subjectName: tutorial.subject.name,
+        difficulty: tutorial.difficulty,
+        estimatedMinutes: tutorial.estimatedMinutes,
+      }} />
+      {/* Breadcrumb structured data */}
+      <StructuredData type="Breadcrumb" data={{
+        items: [
+          { name: "Home" },
+          { name: "Browse" },
+          { name: tutorial.subject.name },
+          { name: tutorial.title },
+        ],
+      }} />
+
       {/* Reading progress bar */}
       <div className="fixed top-16 left-0 right-0 z-30 h-1 bg-transparent pointer-events-none">
         <div
@@ -426,255 +447,6 @@ export function TutorialView() {
         hasPrev={!!prev}
         hasNext={!!next}
       />
-    </div>
-  )
-}
-
-function QuizInline({ quiz, tutorialId }: { quiz: any; tutorialId: string }) {
-  const { data: fullQuiz } = useQuizInline(quiz.id)
-  const submit = useSubmitQuizInline()
-  const [answers, setAnswers] = React.useState<Record<string, number>>({})
-  const [result, setResult] = React.useState<any>(null)
-
-  if (!fullQuiz) return <div className="h-20 bg-muted/30 animate-pulse rounded-lg" />
-
-  const onSubmit = () => {
-    const arr = fullQuiz.questions.map((q: any) => ({
-      questionId: q.id,
-      selectedIndex: answers[q.id] ?? -1,
-    }))
-    submit.mutate(
-      { id: quiz.id, answers: arr },
-      {
-        onSuccess: (res) => {
-          setResult(res)
-          if (res.passed) toast.success(`Quiz passed! +${res.xpAwarded} XP`)
-          else toast.error(`You scored ${res.score}%. Passing is ${quiz.passingScore}%.`)
-        },
-      }
-    )
-  }
-
-  return (
-    <Card>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-base flex items-center justify-between">
-          <span>{quiz.title}</span>
-          <span className="text-xs text-muted-foreground font-normal">
-            {quiz.xpReward} XP · pass {quiz.passingScore}%
-          </span>
-        </CardTitle>
-        {quiz.description && <p className="text-sm text-muted-foreground">{quiz.description}</p>}
-      </CardHeader>
-      <CardContent className="space-y-5">
-        {fullQuiz.questions.map((q: any, qi: number) => {
-          const chosen = answers[q.id]
-          const correct = result?.answers?.find((a: any) => a.questionId === q.id)
-          return (
-            <div key={q.id}>
-              <p className="font-medium text-sm mb-2">{qi + 1}. {q.prompt}</p>
-              <div className="space-y-1.5">
-                {q.options.map((opt: string, oi: number) => {
-                  const isChosen = chosen === oi
-                  const isCorrect = result && oi === correct?.correctIndex
-                  const isWrongChosen = result && isChosen && !correct?.correct
-                  return (
-                    <button
-                      key={oi}
-                      disabled={!!result}
-                      onClick={() => setAnswers((a) => ({ ...a, [q.id]: oi }))}
-                      className={`w-full flex items-center gap-2 rounded-lg border px-3 py-2 text-sm text-left transition-colors ${
-                        result
-                          ? isCorrect
-                            ? "border-primary/50 bg-primary/10 text-primary"
-                            : isWrongChosen
-                            ? "border-destructive/50 bg-destructive/10 text-destructive"
-                            : "border-border text-muted-foreground"
-                          : isChosen
-                          ? "border-primary bg-primary/5"
-                          : "border-border hover:border-primary/40 hover:bg-muted/40"
-                      }`}
-                    >
-                      <span className="size-5 rounded-full border border-current flex items-center justify-center text-[10px] font-bold shrink-0">
-                        {String.fromCharCode(65 + oi)}
-                      </span>
-                      <span className="flex-1">{opt}</span>
-                      {result && isCorrect && <CheckCircle2 className="size-4 text-primary" />}
-                    </button>
-                  )
-                })}
-              </div>
-              {result && correct?.explanation && (
-                <p className="text-xs text-muted-foreground mt-2 pl-2 border-l-2 border-border">
-                  {correct.explanation}
-                </p>
-              )}
-            </div>
-          )
-        })}
-        {!result ? (
-          <Button onClick={onSubmit} disabled={submit.isPending || Object.keys(answers).length === 0}>
-            {submit.isPending && <Loader2 className="mr-2 size-4 animate-spin" />}
-            Submit answers
-          </Button>
-        ) : (
-          <div className="flex items-center justify-between rounded-lg border border-border p-3">
-            <div>
-              <div className="font-semibold">
-                {result.passed ? "Passed! 🎉" : "Not passed"}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Score: {result.score}%
-                {result.xpAwarded > 0 && ` · +${result.xpAwarded} XP`}
-              </div>
-            </div>
-            <Button variant="outline" size="sm" onClick={() => { setResult(null); setAnswers({}) }}>
-              Retake
-            </Button>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  )
-}
-
-// Inline imports to avoid circular ref issues
-import { useQuiz, useSubmitQuiz } from "@/hooks/use-api"
-function useQuizInline(id: string) {
-  return useQuiz(id)
-}
-function useSubmitQuizInline() {
-  return useSubmitQuiz()
-}
-
-function NotesPanel({
-  tutorialId,
-  notes,
-  onCreate,
-  onDelete,
-  onClose,
-}: {
-  tutorialId: string
-  notes: any[]
-  onCreate: (content: string) => Promise<void>
-  onDelete: (id: string) => Promise<void>
-  onClose: () => void
-}) {
-  const [content, setContent] = React.useState("")
-  const [saving, setSaving] = React.useState(false)
-
-  const submit = async () => {
-    if (!content.trim()) return
-    setSaving(true)
-    try {
-      await onCreate(content)
-      setContent("")
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  return (
-    <div className="fixed bottom-4 right-4 z-50 w-80 max-w-[calc(100vw-2rem)]">
-      <Card className="shadow-xl">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-sm flex items-center gap-2">
-              <StickyNote className="size-4 text-primary" /> My notes
-            </CardTitle>
-            <Button variant="ghost" size="icon" className="size-7" onClick={onClose} aria-label="Close notes panel">
-              <X className="size-4" />
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-3">
-          <div className="space-y-2">
-            <Textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Write a note about this tutorial..."
-              className="min-h-20 text-sm"
-            />
-            <Button size="sm" onClick={submit} disabled={saving || !content.trim()} className="w-full">
-              {saving && <Loader2 className="mr-2 size-4 animate-spin" />}
-              <Plus className="mr-1 size-4" /> Add note
-            </Button>
-          </div>
-          <div className="max-h-60 overflow-y-auto scrollbar-thin space-y-2">
-            {notes.length === 0 ? (
-              <p className="text-xs text-muted-foreground text-center py-4">
-                No notes yet. Start writing!
-              </p>
-            ) : (
-              notes.map((n) => (
-                <div key={n.id} className="group rounded-lg border border-border/60 p-2.5">
-                  <p className="text-sm whitespace-pre-wrap">{n.content}</p>
-                  <div className="flex items-center justify-between mt-1.5">
-                    <span className="text-[10px] text-muted-foreground">
-                      {new Date(n.updatedAt).toLocaleDateString()}
-                    </span>
-                    <button
-                      onClick={() => onDelete(n.id)}
-                      className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-opacity"
-                    >
-                      <Trash2 className="size-3.5" />
-                    </button>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
-
-function MobileToc({ toc, activeIndex }: { toc: { id: string; text: string }[]; activeIndex: number }) {
-  const [open, setOpen] = React.useState(false)
-  const activeText = activeIndex >= 0 ? toc[activeIndex]?.text : null
-
-  const scrollTo = (text: string) => {
-    const headings = document.querySelectorAll("h2")
-    headings.forEach((h) => {
-      if (h.textContent?.trim() === text) h.scrollIntoView({ behavior: "smooth", block: "start" })
-    })
-    setOpen(false)
-  }
-
-  return (
-    <div className="lg:hidden mb-6">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm font-medium"
-        aria-expanded={open}
-      >
-        <span className="flex items-center gap-2">
-          <ListTree className="size-4 text-primary" />
-          <span className="truncate">{activeText || "Table of contents"}</span>
-        </span>
-        <ChevronRight className={`size-4 text-muted-foreground transition-transform ${open ? "rotate-90" : ""}`} />
-      </button>
-      {open && (
-        <div className="mt-2 rounded-lg border border-border/60 bg-card p-3 max-h-64 overflow-y-auto scrollbar-thin">
-          <ul className="space-y-1 text-sm">
-            {toc.map((t, idx) => (
-              <li key={t.id}>
-                <button
-                  className={`w-full text-left pl-3 py-1.5 rounded border-l-2 transition-colors ${
-                    idx === activeIndex
-                      ? "border-primary text-primary font-medium bg-primary/5"
-                      : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/40"
-                  }`}
-                  onClick={() => scrollTo(t.text)}
-                >
-                  <span className="line-clamp-1">{t.text}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </div>
   )
 }

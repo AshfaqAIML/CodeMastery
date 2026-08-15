@@ -1,12 +1,19 @@
 "use client"
 
 import * as React from "react"
+import dynamic from "next/dynamic"
 import ReactMarkdown from "react-markdown"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism"
 import { useTheme } from "next-themes"
 import { Check, Copy, Lightbulb, AlertTriangle, Info, BookOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
+
+// Lazy-load the syntax highlighter to reduce initial bundle
+const CodeBlock = dynamic(() => import("./code-block"), {
+  loading: () => (
+    <div className="my-6 rounded-lg border border-border bg-muted/30 h-24 animate-pulse" />
+  ),
+  ssr: false,
+})
 
 const CALLOUT_PATTERNS: { re: RegExp; icon: any; label: string; color: string; bg: string; border: string }[] = [
   {
@@ -165,48 +172,6 @@ export function MarkdownRenderer({ content }: { content: string }) {
       >
         {content}
       </ReactMarkdown>
-    </div>
-  )
-}
-
-function CodeBlock({ language, code, isDark }: { language: string; code: string; isDark: boolean }) {
-  const [copied, setCopied] = React.useState(false)
-  const onCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(code)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1500)
-    } catch {}
-  }
-  return (
-    <div className="my-6 group relative rounded-lg overflow-hidden border border-border bg-muted/30">
-      <div className="flex items-center justify-between px-4 py-1.5 border-b border-border/60 bg-muted/40">
-        <span className="text-xs font-mono text-muted-foreground uppercase tracking-wide">
-          {language}
-        </span>
-        <button
-          onClick={onCopy}
-          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-          aria-label="Copy code"
-        >
-          {copied ? <Check className="size-3.5 text-primary" /> : <Copy className="size-3.5" />}
-          {copied ? "Copied" : "Copy"}
-        </button>
-      </div>
-      <SyntaxHighlighter
-        language={language}
-        style={isDark ? oneDark : oneLight}
-        customStyle={{
-          margin: 0,
-          background: "transparent",
-          padding: "1rem 1.25rem",
-          fontSize: "0.875rem",
-          lineHeight: "1.6",
-        }}
-        codeTagProps={{ style: { fontFamily: "var(--font-geist-mono), ui-monospace, monospace" } }}
-      >
-        {code}
-      </SyntaxHighlighter>
     </div>
   )
 }

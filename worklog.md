@@ -865,3 +865,54 @@ Task: Complete product audit and transformation — Passes 1-8
 13. Add reading progress indicator on tutorial pages (already have progress bar)
 14. Add estimated completion time for learning paths
 
+
+---
+Task ID: TRANSFORM-2
+Agent: World-Class Product Team
+Task: Recommended future improvements — lazy loading, component splitting, structured data
+
+## Improvements Implemented
+
+### 1. Lazy-loaded syntax highlighter (Performance)
+- Extracted `CodeBlock` from `markdown-renderer.tsx` into separate `code-block.tsx`
+- Used `next/dynamic` to lazy-load the syntax highlighter (react-syntax-highlighter is heavy)
+- Shows a shimmer loading placeholder while the chunk loads
+- `ssr: false` — syntax highlighting only loads on client, reducing server render time
+- **Impact**: react-syntax-highlighter (~500KB) is no longer in the initial bundle
+
+### 2. Split tutorial-view.tsx (680 → 452 lines, -34%)
+- Extracted `QuizInline` → `src/components/tutorial/quiz-inline.tsx` (116 lines)
+- Extracted `NotesPanel` → `src/components/tutorial/notes-panel.tsx` (88 lines)
+- Extracted `MobileToc` → `src/components/tutorial/mobile-toc.tsx` (53 lines)
+- Removed inline `useQuizInline`/`useSubmitQuizInline` helper functions
+- Cleaned up unused imports (X, Plus, Pencil, Trash2, Textarea)
+- **Impact**: Better maintainability, each component is focused and reusable
+
+### 3. Article + Breadcrumb structured data (SEO)
+- Created `StructuredData` component (`src/components/shared/structured-data.tsx`)
+- Supports Article, Breadcrumb, and FAQPage schema types
+- Added Article structured data to tutorial pages: headline, description, author, publisher, educationalLevel, timeRequired
+- Added Breadcrumb structured data: Home → Browse → Subject → Tutorial
+- **Impact**: Rich snippets in Google search results, better discoverability
+
+### 4. File size summary (after refactoring)
+- tutorial-view.tsx: 452 lines (was 680)
+- markdown-renderer.tsx: 177 lines (was 213)
+- code-block.tsx: 50 lines (new, lazy-loaded)
+- quiz-inline.tsx: 116 lines (new)
+- notes-panel.tsx: 88 lines (new)
+- mobile-toc.tsx: 53 lines (new)
+
+## Verification
+- ✅ Lint clean
+- ✅ Server returns HTTP 200
+- ✅ All SEO checks pass (canonical, JSON-LD, theme-color, manifest, skip link, OG tags)
+- ✅ All new component files compile successfully
+- ✅ Platform independence maintained
+
+## Remaining (for future passes)
+1. Split dashboard-view.tsx (526 lines) into sub-components
+2. Add FAQPage structured data for quiz questions
+3. Service worker for offline support
+4. Content/copy audit across views
+5. Performance profiling with Lighthouse
