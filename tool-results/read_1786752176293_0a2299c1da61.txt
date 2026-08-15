@@ -1,0 +1,2002 @@
+     1→# Master Prompt: Complete Engineer Learning Roadmap — Beginner to Advanced
+     2→
+     3→Act as a **world-class engineering curriculum architect, senior software engineer, AI/ML engineer, systems architect, educator, and technical interviewer**.
+     4→
+     5→Your task is to design a **complete, comprehensive, industry-oriented learning curriculum for becoming a highly skilled modern Software Engineer + AI/ML Engineer + Full-Stack Engineer**.
+     6→
+     7→The curriculum must start from absolute programming fundamentals and progress systematically toward advanced software engineering, AI/ML, Generative AI, LLM engineering, AI agents, Agentic AI, backend engineering, APIs, FastAPI, databases, cloud, DevOps, system design, and full-stack development.
+     8→
+     9→The goal is not to create a shallow list of technologies.
+    10→
+    11→The goal is to create a **complete engineering knowledge map** showing what an engineer should learn, in what order, and what concepts exist inside every subject.
+    12→
+    13→---
+    14→
+    15→# CORE RULE — ONE SUBJECT AT A TIME
+    16→
+    17→Do NOT explain all subjects at once.
+    18→
+    19→First create the **complete master subject roadmap**.
+    20→
+    21→Then, when I say:
+    22→
+    23→> START SUBJECT: [subject name]
+    24→
+    25→teach ONLY that subject.
+    26→
+    27→For every subject, go from:
+    28→
+    29→**Absolute Beginner → Fundamentals → Intermediate → Advanced → Expert → Industry → Projects → Interview Preparation**
+    30→
+    31→Do not move to another subject until the current subject has been completely covered.
+    32→
+    33→If a subject is extremely large, divide it into multiple parts/volumes while keeping it as ONE subject.
+    34→
+    35→Example:
+    36→
+    37→Python
+    38→
+    39→* Python Fundamentals
+    40→* Python Intermediate
+    41→* Python Advanced
+    42→* Python for Software Engineering
+    43→* Python for Data Science
+    44→* Python for AI/ML
+    45→* Python for Backend Development
+    46→* Python Performance
+    47→* Python Testing
+    48→* Python Production Engineering
+    49→
+    50→These are still part of the **Python subject**.
+    51→
+    52→---
+    53→
+    54→# PART 1 — MASTER ENGINEERING SUBJECT MAP
+    55→
+    56→First build the complete subject map.
+    57→
+    58→Organize the curriculum into logical stages.
+    59→
+    60→## Stage 1 — Programming Foundations
+    61→
+    62→Include at minimum:
+    63→
+    64→* Computer fundamentals
+    65→* How computers work
+    66→* Binary and hexadecimal
+    67→* Number systems
+    68→* Memory
+    69→* CPU
+    70→* Storage
+    71→* Processes
+    72→* Files
+    73→* Compilation
+    74→* Interpretation
+    75→* Programming paradigms
+    76→* Algorithms
+    77→* Debugging
+    78→* Problem solving
+    79→* Git
+    80→* GitHub
+    81→* Command line
+    82→* Linux fundamentals
+    83→* Developer tools
+    84→* IDEs
+    85→* VS Code
+    86→* Software development lifecycle
+    87→
+    88→---
+    89→
+    90→# Stage 2 — C Programming
+    91→
+    92→Cover C from absolute beginner to advanced.
+    93→
+    94→Include:
+    95→
+    96→* C history and purpose
+    97→* C environment
+    98→* Compiler
+    99→* Linker
+   100→* Preprocessor
+   101→* Variables
+   102→* Constants
+   103→* Data types
+   104→* Type conversion
+   105→* Operators
+   106→* Expressions
+   107→* Input/output
+   108→* Conditions
+   109→* Loops
+   110→* Functions
+   111→* Scope
+   112→* Storage classes
+   113→* Arrays
+   114→* Strings
+   115→* Pointers
+   116→* Pointer arithmetic
+   117→* Pointers and arrays
+   118→* Function pointers
+   119→* Structures
+   120→* Unions
+   121→* Enumerations
+   122→* typedef
+   123→* Dynamic memory
+   124→* malloc
+   125→* calloc
+   126→* realloc
+   127→* free
+   128→* Memory layout
+   129→* Stack
+   130→* Heap
+   131→* File handling
+   132→* Bit manipulation
+   133→* Preprocessor macros
+   134→* Header files
+   135→* Modular programming
+   136→* Static libraries
+   137→* Dynamic libraries
+   138→* Error handling
+   139→* Debugging
+   140→* Undefined behavior
+   141→* Memory safety
+   142→* Compilation pipeline
+   143→* C data structures
+   144→* Low-level programming
+   145→* Performance
+   146→* Systems programming
+   147→* Networking basics in C
+   148→* Multithreading basics
+   149→* POSIX concepts
+   150→* C projects
+   151→* C interview preparation
+   152→
+   153→---
+   154→
+   155→# Stage 3 — C++
+   156→
+   157→Cover modern C++ comprehensively.
+   158→
+   159→Include:
+   160→
+   161→* C++ fundamentals
+   162→* C vs C++
+   163→* Compilation
+   164→* Variables
+   165→* Data types
+   166→* Operators
+   167→* Control flow
+   168→* Functions
+   169→* References
+   170→* Pointers
+   171→* Arrays
+   172→* Strings
+   173→* Classes
+   174→* Objects
+   175→* Constructors
+   176→* Destructors
+   177→* Encapsulation
+   178→* Abstraction
+   179→* Inheritance
+   180→* Polymorphism
+   181→* Virtual functions
+   182→* Interfaces
+   183→* Operator overloading
+   184→* Friend functions
+   185→* Templates
+   186→* Generic programming
+   187→* Exception handling
+   188→* STL
+   189→* Iterators
+   190→* Algorithms
+   191→* Containers
+   192→* vector
+   193→* list
+   194→* deque
+   195→* stack
+   196→* queue
+   197→* priority_queue
+   198→* set
+   199→* multiset
+   200→* map
+   201→* unordered_map
+   202→* unordered_set
+   203→* smart pointers
+   204→* RAII
+   205→* move semantics
+   206→* rvalue references
+   207→* lvalue/rvalue
+   208→* copy/move constructors
+   209→* lambdas
+   210→* function objects
+   211→* modern C++ standards
+   212→* C++11
+   213→* C++14
+   214→* C++17
+   215→* C++20
+   216→* C++23
+   217→* concurrency
+   218→* multithreading
+   219→* synchronization
+   220→* atomics
+   221→* memory model
+   222→* performance
+   223→* debugging
+   224→* build systems
+   225→* CMake
+   226→* testing
+   227→* design patterns
+   228→* production C++
+   229→* advanced C++
+   230→* C++ projects
+   231→* C++ interview preparation
+   232→
+   233→---
+   234→
+   235→# Stage 4 — Data Structures & Algorithms in C++
+   236→
+   237→Create a complete DSA curriculum using C++.
+   238→
+   239→Cover:
+   240→
+   241→## Complexity
+   242→
+   243→* Time complexity
+   244→* Space complexity
+   245→* Big O
+   246→* Big Omega
+   247→* Big Theta
+   248→* Amortized analysis
+   249→* Best/average/worst case
+   250→
+   251→## Data Structures
+   252→
+   253→* Arrays
+   254→* Strings
+   255→* Linked lists
+   256→* Doubly linked lists
+   257→* Circular linked lists
+   258→* Stacks
+   259→* Queues
+   260→* Deques
+   261→* Hash tables
+   262→* Sets
+   263→* Maps
+   264→* Trees
+   265→* Binary trees
+   266→* BST
+   267→* AVL trees
+   268→* Red-black trees
+   269→* Heaps
+   270→* Priority queues
+   271→* Tries
+   272→* Graphs
+   273→* Disjoint Set Union
+   274→* Segment trees
+   275→* Fenwick trees
+   276→* Sparse tables
+   277→
+   278→## Algorithms
+   279→
+   280→* Searching
+   281→* Sorting
+   282→* Two pointers
+   283→* Sliding window
+   284→* Prefix sums
+   285→* Difference arrays
+   286→* Recursion
+   287→* Backtracking
+   288→* Divide and conquer
+   289→* Greedy
+   290→* Dynamic programming
+   291→* Graph traversal
+   292→* BFS
+   293→* DFS
+   294→* Topological sorting
+   295→* Shortest paths
+   296→* Dijkstra
+   297→* Bellman-Ford
+   298→* Floyd-Warshall
+   299→* Minimum spanning tree
+   300→* Kruskal
+   301→* Prim
+   302→* Union-Find
+   303→* Network flow
+   304→* String algorithms
+   305→* KMP
+   306→* Rabin-Karp
+   307→* Z algorithm
+   308→* Bit manipulation
+   309→* Mathematical algorithms
+   310→* Randomized algorithms
+   311→
+   312→Include:
+   313→
+   314→* Pattern recognition
+   315→* Problem-solving strategies
+   316→* Competitive programming concepts
+   317→* LeetCode-style problems
+   318→* Interview problems
+   319→* Complexity analysis
+   320→* Practice progression
+   321→
+   322→---
+   323→
+   324→# Stage 5 — Python
+   325→
+   326→Cover Python from beginner to advanced and production level.
+   327→
+   328→Include:
+   329→
+   330→* Python fundamentals
+   331→* Syntax
+   332→* Variables
+   333→* Data types
+   334→* Operators
+   335→* Conditions
+   336→* Loops
+   337→* Functions
+   338→* Scope
+   339→* Modules
+   340→* Packages
+   341→* Exceptions
+   342→* File handling
+   343→* Strings
+   344→* Lists
+   345→* Tuples
+   346→* Sets
+   347→* Dictionaries
+   348→* Comprehensions
+   349→* Iterators
+   350→* Generators
+   351→* Decorators
+   352→* Closures
+   353→* Context managers
+   354→* OOP
+   355→* Dataclasses
+   356→* Type hints
+   357→* Generics
+   358→* Async programming
+   359→* asyncio
+   360→* threading
+   361→* multiprocessing
+   362→* concurrency
+   363→* memory management
+   364→* garbage collection
+   365→* Python internals
+   366→* performance optimization
+   367→* testing
+   368→* pytest
+   369→* logging
+   370→* packaging
+   371→* virtual environments
+   372→* dependency management
+   373→* Poetry/uv/pip
+   374→* clean code
+   375→* design patterns
+   376→* Python for automation
+   377→* Python for APIs
+   378→* Python for backend
+   379→* Python for data
+   380→* Python for AI
+   381→* Python for ML
+   382→* Python for GenAI
+   383→
+   384→---
+   385→
+   386→# Stage 6 — Java
+   387→
+   388→Cover Java comprehensively.
+   389→
+   390→Include:
+   391→
+   392→* Java fundamentals
+   393→* JVM
+   394→* JDK
+   395→* JRE
+   396→* compilation
+   397→* bytecode
+   398→* variables
+   399→* types
+   400→* operators
+   401→* conditions
+   402→* loops
+   403→* methods
+   404→* arrays
+   405→* strings
+   406→* OOP
+   407→* inheritance
+   408→* polymorphism
+   409→* abstraction
+   410→* interfaces
+   411→* packages
+   412→* exceptions
+   413→* collections
+   414→* generics
+   415→* streams
+   416→* lambdas
+   417→* functional programming
+   418→* multithreading
+   419→* concurrency
+   420→* synchronization
+   421→* JVM memory
+   422→* garbage collection
+   423→* performance
+   424→* reflection
+   425→* annotations
+   426→* JDBC
+   427→* Maven
+   428→* Gradle
+   429→* testing
+   430→* JUnit
+   431→* Spring
+   432→* Spring Boot
+   433→* REST APIs
+   434→* microservices
+   435→* production Java
+   436→* Java interview preparation
+   437→
+   438→---
+   439→
+   440→# Stage 7 — Mathematics for Computer Science & AI
+   441→
+   442→Create a complete mathematics foundation.
+   443→
+   444→Include:
+   445→
+   446→## Arithmetic
+   447→
+   448→* Number systems
+   449→* Ratios
+   450→* Percentages
+   451→* Exponents
+   452→* Logarithms
+   453→
+   454→## Algebra
+   455→
+   456→* Equations
+   457→* Functions
+   458→* Polynomials
+   459→* Sequences
+   460→* Series
+   461→
+   462→## Geometry
+   463→
+   464→* Coordinate geometry
+   465→* Distance
+   466→* Angles
+   467→* Vectors
+   468→
+   469→## Probability
+   470→
+   471→* Probability basics
+   472→* Conditional probability
+   473→* Bayes theorem
+   474→* Random variables
+   475→* Distributions
+   476→* Expectation
+   477→* Variance
+   478→* Covariance
+   479→
+   480→## Statistics
+   481→
+   482→* Mean
+   483→* Median
+   484→* Mode
+   485→* Variance
+   486→* Standard deviation
+   487→* Correlation
+   488→* Regression
+   489→* Sampling
+   490→* Hypothesis testing
+   491→* Confidence intervals
+   492→
+   493→## Linear Algebra
+   494→
+   495→* Scalars
+   496→* Vectors
+   497→* Matrices
+   498→* Matrix operations
+   499→* Dot products
+   500→* Norms
+   501→* Linear transformations
+   502→* Eigenvalues
+   503→* Eigenvectors
+   504→* Matrix decomposition
+   505→* SVD
+   506→* PCA
+   507→
+   508→## Calculus
+   509→
+   510→* Limits
+   511→* Derivatives
+   512→* Partial derivatives
+   513→* Gradients
+   514→* Chain rule
+   515→* Integrals
+   516→* Optimization
+   517→* Gradient descent
+   518→
+   519→## Discrete Mathematics
+   520→
+   521→* Logic
+   522→* Sets
+   523→* Relations
+   524→* Functions
+   525→* Combinatorics
+   526→* Graph theory
+   527→* Recurrence relations
+   528→* Proof techniques
+   529→
+   530→Explain mathematics specifically in terms of:
+   531→
+   532→**Programming → Algorithms → ML → DL → AI**
+   533→
+   534→---
+   535→
+   536→# Stage 8 — Operating Systems
+   537→
+   538→Cover OS comprehensively.
+   539→
+   540→Include:
+   541→
+   542→* OS fundamentals
+   543→* Kernel
+   544→* System calls
+   545→* Processes
+   546→* Threads
+   547→* Process states
+   548→* Scheduling
+   549→* CPU scheduling
+   550→* Context switching
+   551→* IPC
+   552→* Synchronization
+   553→* Mutex
+   554→* Semaphore
+   555→* Deadlock
+   556→* Memory management
+   557→* Virtual memory
+   558→* Paging
+   559→* Segmentation
+   560→* Page replacement
+   561→* File systems
+   562→* Storage
+   563→* I/O
+   564→* Interrupts
+   565→* Device drivers
+   566→* Security
+   567→* Permissions
+   568→* Linux internals
+   569→* Windows internals
+   570→* Containers
+   571→* OS performance
+   572→* OS interview preparation
+   573→
+   574→---
+   575→
+   576→# Stage 9 — Computer Organization & Architecture
+   577→
+   578→Cover COA deeply.
+   579→
+   580→Include:
+   581→
+   582→* Digital logic
+   583→* Boolean algebra
+   584→* Logic gates
+   585→* Combinational circuits
+   586→* Sequential circuits
+   587→* CPU architecture
+   588→* ALU
+   589→* Control unit
+   590→* Registers
+   591→* Instruction cycle
+   592→* ISA
+   593→* Assembly
+   594→* Machine code
+   595→* Memory hierarchy
+   596→* Cache
+   597→* RAM
+   598→* ROM
+   599→* Virtual memory
+   600→* Pipelines
+   601→* Branch prediction
+   602→* Superscalar processors
+   603→* Out-of-order execution
+   604→* SIMD
+   605→* GPU architecture
+   606→* CPU vs GPU
+   607→* Parallel computing
+   608→* ARM
+   609→* x86
+   610→* RISC vs CISC
+   611→* Performance
+   612→* Modern processor architecture
+   613→
+   614→---
+   615→
+   616→# Stage 10 — Computer Networking
+   617→
+   618→Cover networking from fundamentals to advanced.
+   619→
+   620→Include:
+   621→
+   622→* Network fundamentals
+   623→* OSI model
+   624→* TCP/IP model
+   625→* Ethernet
+   626→* MAC
+   627→* IP
+   628→* IPv4
+   629→* IPv6
+   630→* Subnetting
+   631→* ARP
+   632→* DNS
+   633→* DHCP
+   634→* NAT
+   635→* TCP
+   636→* UDP
+   637→* HTTP
+   638→* HTTPS
+   639→* TLS
+   640→* HTTP/1.1
+   641→* HTTP/2
+   642→* HTTP/3
+   643→* QUIC
+   644→* WebSockets
+   645→* REST
+   646→* gRPC
+   647→* Proxies
+   648→* Reverse proxies
+   649→* Load balancers
+   650→* Firewalls
+   651→* VPN
+   652→* CDN
+   653→* Routing
+   654→* Switching
+   655→* Network security
+   656→* Network troubleshooting
+   657→* Network programming
+   658→
+   659→---
+   660→
+   661→# Stage 11 — Databases
+   662→
+   663→Cover databases comprehensively.
+   664→
+   665→Include:
+   666→
+   667→* Database fundamentals
+   668→* Relational databases
+   669→* SQL
+   670→* PostgreSQL
+   671→* MySQL
+   672→* SQLite
+   673→* Data modeling
+   674→* ER diagrams
+   675→* Normalization
+   676→* Transactions
+   677→* ACID
+   678→* Isolation levels
+   679→* Indexing
+   680→* Query optimization
+   681→* Joins
+   682→* Views
+   683→* Stored procedures
+   684→* Triggers
+   685→* Constraints
+   686→* PostgreSQL internals
+   687→* NoSQL
+   688→* MongoDB
+   689→* Redis
+   690→* Key-value databases
+   691→* Document databases
+   692→* Graph databases
+   693→* Search databases
+   694→* Vector databases
+   695→* Database scaling
+   696→* Replication
+   697→* Sharding
+   698→* Partitioning
+   699→* Backup
+   700→* Recovery
+   701→* Distributed databases
+   702→
+   703→---
+   704→
+   705→# Stage 12 — Software Engineering
+   706→
+   707→Cover professional software engineering.
+   708→
+   709→Include:
+   710→
+   711→* SDLC
+   712→* Requirements engineering
+   713→* Software architecture
+   714→* Clean code
+   715→* SOLID
+   716→* DRY
+   717→* KISS
+   718→* YAGNI
+   719→* Design patterns
+   720→* Refactoring
+   721→* Code review
+   722→* Testing
+   723→* Unit testing
+   724→* Integration testing
+   725→* End-to-end testing
+   726→* TDD
+   727→* BDD
+   728→* Debugging
+   729→* Logging
+   730→* Monitoring
+   731→* Documentation
+   732→* Version control
+   733→* Git
+   734→* GitHub
+   735→* Branching
+   736→* Pull requests
+   737→* CI/CD
+   738→* Code quality
+   739→* Security
+   740→* Performance
+   741→* Maintainability
+   742→
+   743→---
+   744→
+   745→# Stage 13 — APIs & Backend Engineering
+   746→
+   747→Cover backend engineering deeply.
+   748→
+   749→Include:
+   750→
+   751→* What is an API?
+   752→* API architecture
+   753→* REST
+   754→* HTTP
+   755→* Request/response
+   756→* Headers
+   757→* Status codes
+   758→* Authentication
+   759→* Authorization
+   760→* JWT
+   761→* OAuth
+   762→* Sessions
+   763→* Cookies
+   764→* API keys
+   765→* Rate limiting
+   766→* Pagination
+   767→* Filtering
+   768→* Sorting
+   769→* Validation
+   770→* Serialization
+   771→* Error handling
+   772→* API versioning
+   773→* Documentation
+   774→* OpenAPI
+   775→* Swagger
+   776→* WebSockets
+   777→* GraphQL
+   778→* gRPC
+   779→* Microservices
+   780→* Message queues
+   781→* Event-driven architecture
+   782→
+   783→---
+   784→
+   785→# Stage 14 — FastAPI
+   786→
+   787→Create a complete FastAPI curriculum.
+   788→
+   789→Include:
+   790→
+   791→* FastAPI fundamentals
+   792→* Project structure
+   793→* Routing
+   794→* Path parameters
+   795→* Query parameters
+   796→* Request bodies
+   797→* Pydantic
+   798→* Validation
+   799→* Response models
+   800→* Dependency injection
+   801→* Authentication
+   802→* Authorization
+   803→* JWT
+   804→* OAuth
+   805→* Middleware
+   806→* CORS
+   807→* Background tasks
+   808→* Async programming
+   809→* Database integration
+   810→* SQLAlchemy
+   811→* PostgreSQL
+   812→* Alembic
+   813→* Redis
+   814→* Celery/background workers
+   815→* WebSockets
+   816→* Testing
+   817→* OpenAPI
+   818→* Swagger
+   819→* Security
+   820→* Logging
+   821→* Docker
+   822→* Deployment
+   823→* Production architecture
+   824→* Performance
+   825→* Monitoring
+   826→
+   827→---
+   828→
+   829→# Stage 15 — Full-Stack Development
+   830→
+   831→Create a complete modern full-stack curriculum.
+   832→
+   833→## Frontend
+   834→
+   835→Include:
+   836→
+   837→* HTML
+   838→* Semantic HTML
+   839→* CSS
+   840→* Responsive design
+   841→* Flexbox
+   842→* Grid
+   843→* Animations
+   844→* Accessibility
+   845→* JavaScript
+   846→* DOM
+   847→* Events
+   848→* Fetch
+   849→* Async JavaScript
+   850→* Promises
+   851→* Modules
+   852→* TypeScript
+   853→* React
+   854→* React hooks
+   855→* State management
+   856→* Context
+   857→* Forms
+   858→* Routing
+   859→* API integration
+   860→* Authentication
+   861→* Performance
+   862→* Testing
+   863→
+   864→## Modern Frontend
+   865→
+   866→Include:
+   867→
+   868→* Next.js
+   869→* Server-side rendering
+   870→* Static generation
+   871→* Server components
+   872→* Client components
+   873→* Routing
+   874→* Middleware
+   875→* API routes
+   876→* Authentication
+   877→* Optimization
+   878→* SEO
+   879→* Deployment
+   880→
+   881→## Backend
+   882→
+   883→Include:
+   884→
+   885→* Node.js
+   886→* Express
+   887→* FastAPI
+   888→* Django
+   889→* REST
+   890→* WebSockets
+   891→* Databases
+   892→* Authentication
+   893→* Authorization
+   894→* Caching
+   895→* Queues
+   896→* Background jobs
+   897→
+   898→## Full-Stack
+   899→
+   900→Include:
+   901→
+   902→* Frontend/backend communication
+   903→* Authentication
+   904→* Authorization
+   905→* File uploads
+   906→* Payments
+   907→* Emails
+   908→* Search
+   909→* Notifications
+   910→* Real-time applications
+   911→* Dashboards
+   912→* Admin panels
+   913→* Deployment
+   914→* Production architecture
+   915→
+   916→---
+   917→
+   918→# Stage 16 — DevOps & Cloud
+   919→
+   920→Cover:
+   921→
+   922→* Linux
+   923→* Shell scripting
+   924→* Git
+   925→* GitHub
+   926→* CI/CD
+   927→* Docker
+   928→* Docker Compose
+   929→* Kubernetes
+   930→* Containers
+   931→* Nginx
+   932→* Reverse proxies
+   933→* Cloud fundamentals
+   934→* AWS
+   935→* Azure
+   936→* Google Cloud
+   937→* Compute
+   938→* Storage
+   939→* Databases
+   940→* Networking
+   941→* IAM
+   942→* Serverless
+   943→* Monitoring
+   944→* Logging
+   945→* Infrastructure as Code
+   946→* Terraform
+   947→* Secrets management
+   948→* Cloud security
+   949→
+   950→---
+   951→
+   952→# Stage 17 — System Design
+   953→
+   954→Create a complete system design curriculum.
+   955→
+   956→Start from fundamentals.
+   957→
+   958→Cover:
+   959→
+   960→* What is system design?
+   961→* Requirements
+   962→* Functional requirements
+   963→* Non-functional requirements
+   964→* Scalability
+   965→* Availability
+   966→* Reliability
+   967→* Performance
+   968→* Latency
+   969→* Throughput
+   970→* CAP theorem
+   971→* PACELC
+   972→* Consistency
+   973→* Availability
+   974→* Partition tolerance
+   975→* Load balancing
+   976→* Caching
+   977→* CDNs
+   978→* Databases
+   979→* Replication
+   980→* Sharding
+   981→* Partitioning
+   982→* Message queues
+   983→* Kafka
+   984→* Redis
+   985→* Distributed systems
+   986→* Microservices
+   987→* Event-driven architecture
+   988→* API gateways
+   989→* Service discovery
+   990→* Rate limiting
+   991→* Fault tolerance
+   992→* Observability
+   993→* Security
+   994→
+   995→Then design systems such as:
+   996→
+   997→* URL shortener
+   998→* Chat application
+   999→* Social media platform
+  1000→* Video streaming platform
+  1001→* Food delivery system
+  1002→* Ride-sharing system
+  1003→* E-commerce platform
+  1004→* Payment system
+  1005→* Notification system
+  1006→* Search engine
+  1007→* Recommendation system
+  1008→* File storage system
+  1009→* Distributed task scheduler
+  1010→* AI application
+  1011→* LLM application
+  1012→
+  1013→For every system design example explain:
+  1014→
+  1015→**Requirements → Architecture → Components → Data Flow → Database → APIs → Scaling → Failure Handling → Security → Trade-offs**
+  1016→
+  1017→---
+  1018→
+  1019→# Stage 18 — AI Foundations
+  1020→
+  1021→Cover:
+  1022→
+  1023→* What is AI?
+  1024→* AI history
+  1025→* Intelligent agents
+  1026→* Search
+  1027→* Planning
+  1028→* Knowledge representation
+  1029→* Logic
+  1030→* Probability
+  1031→* Optimization
+  1032→* Machine reasoning
+  1033→* AI problem solving
+  1034→* Classical AI
+  1035→* Symbolic AI
+  1036→* Expert systems
+  1037→* Neural networks
+  1038→* Modern AI
+  1039→
+  1040→---
+  1041→
+  1042→# Stage 19 — Machine Learning
+  1043→
+  1044→Create a complete ML curriculum.
+  1045→
+  1046→Include:
+  1047→
+  1048→* ML fundamentals
+  1049→* Supervised learning
+  1050→* Unsupervised learning
+  1051→* Semi-supervised learning
+  1052→* Self-supervised learning
+  1053→* Reinforcement learning fundamentals
+  1054→
+  1055→Algorithms:
+  1056→
+  1057→* Linear regression
+  1058→* Logistic regression
+  1059→* KNN
+  1060→* Naive Bayes
+  1061→* Decision trees
+  1062→* Random forests
+  1063→* Gradient boosting
+  1064→* XGBoost
+  1065→* LightGBM
+  1066→* CatBoost
+  1067→* SVM
+  1068→* K-Means
+  1069→* DBSCAN
+  1070→* Hierarchical clustering
+  1071→* PCA
+  1072→* Dimensionality reduction
+  1073→* Anomaly detection
+  1074→* Recommendation systems
+  1075→
+  1076→Also cover:
+  1077→
+  1078→* Feature engineering
+  1079→* Data preprocessing
+  1080→* Missing values
+  1081→* Encoding
+  1082→* Scaling
+  1083→* Feature selection
+  1084→* Cross-validation
+  1085→* Hyperparameter tuning
+  1086→* Metrics
+  1087→* Model selection
+  1088→* Bias/variance
+  1089→* Overfitting
+  1090→* Underfitting
+  1091→* Explainability
+  1092→* SHAP
+  1093→* LIME
+  1094→* Model deployment
+  1095→* ML pipelines
+  1096→* MLOps
+  1097→
+  1098→---
+  1099→
+  1100→# Stage 20 — Deep Learning
+  1101→
+  1102→Cover:
+  1103→
+  1104→* Neural networks
+  1105→* Perceptrons
+  1106→* Activation functions
+  1107→* Forward propagation
+  1108→* Backpropagation
+  1109→* Loss functions
+  1110→* Optimization
+  1111→* Gradient descent
+  1112→* Regularization
+  1113→* Batch normalization
+  1114→* Dropout
+  1115→* Initialization
+  1116→* CNN
+  1117→* RNN
+  1118→* LSTM
+  1119→* GRU
+  1120→* Autoencoders
+  1121→* GANs
+  1122→* Attention
+  1123→* Transformers
+  1124→* Vision Transformers
+  1125→* Transfer learning
+  1126→* Fine-tuning
+  1127→* PyTorch
+  1128→* TensorFlow
+  1129→* Model training
+  1130→* GPU computing
+  1131→* Distributed training
+  1132→* Deep learning deployment
+  1133→
+  1134→---
+  1135→
+  1136→# Stage 21 — Computer Vision
+  1137→
+  1138→Cover:
+  1139→
+  1140→* Image processing
+  1141→* OpenCV
+  1142→* Image classification
+  1143→* Object detection
+  1144→* Segmentation
+  1145→* CNN architectures
+  1146→* ResNet
+  1147→* EfficientNet
+  1148→* YOLO
+  1149→* Faster R-CNN
+  1150→* Mask R-CNN
+  1151→* Vision Transformers
+  1152→* CLIP
+  1153→* Feature extraction
+  1154→* Image embeddings
+  1155→* Image retrieval
+  1156→* OCR
+  1157→* Face recognition
+  1158→* Explainable AI
+  1159→* Grad-CAM
+  1160→* Medical imaging
+  1161→* Computer vision projects
+  1162→
+  1163→---
+  1164→
+  1165→# Stage 22 — NLP
+  1166→
+  1167→Cover:
+  1168→
+  1169→* Text processing
+  1170→* Tokenization
+  1171→* Stemming
+  1172→* Lemmatization
+  1173→* Bag of Words
+  1174→* TF-IDF
+  1175→* Word embeddings
+  1176→* Word2Vec
+  1177→* GloVe
+  1178→* FastText
+  1179→* RNNs
+  1180→* LSTMs
+  1181→* Attention
+  1182→* Transformers
+  1183→* BERT
+  1184→* Encoder models
+  1185→* Decoder models
+  1186→* Sequence-to-sequence
+  1187→* Text classification
+  1188→* NER
+  1189→* Sentiment analysis
+  1190→* Summarization
+  1191→* Translation
+  1192→* Question answering
+  1193→
+  1194→---
+  1195→
+  1196→# Stage 23 — LLMs
+  1197→
+  1198→Create a complete LLM engineering curriculum.
+  1199→
+  1200→Cover:
+  1201→
+  1202→* What is an LLM?
+  1203→* Language modeling
+  1204→* Tokenization
+  1205→* Vocabulary
+  1206→* Embeddings
+  1207→* Positional encoding
+  1208→* Attention
+  1209→* Self-attention
+  1210→* Multi-head attention
+  1211→* Transformer architecture
+  1212→* Encoder
+  1213→* Decoder
+  1214→* Causal language modeling
+  1215→* Pretraining
+  1216→* Fine-tuning
+  1217→* Instruction tuning
+  1218→* RLHF
+  1219→* DPO
+  1220→* Preference optimization
+  1221→* Quantization
+  1222→* LoRA
+  1223→* QLoRA
+  1224→* PEFT
+  1225→* Distillation
+  1226→* Inference
+  1227→* KV cache
+  1228→* Context windows
+  1229→* Long-context models
+  1230→* Multimodal models
+  1231→* Model evaluation
+  1232→* LLM benchmarks
+  1233→* LLM safety
+  1234→* LLM deployment
+  1235→* GPU inference
+  1236→* vLLM
+  1237→* Hugging Face
+  1238→* Transformers
+  1239→
+  1240→---
+  1241→
+  1242→# Stage 24 — Generative AI
+  1243→
+  1244→Cover:
+  1245→
+  1246→* Generative AI fundamentals
+  1247→* Text generation
+  1248→* Image generation
+  1249→* Audio generation
+  1250→* Video generation
+  1251→* Multimodal AI
+  1252→* Diffusion models
+  1253→* GANs
+  1254→* VAEs
+  1255→* Prompt engineering
+  1256→* Structured generation
+  1257→* Function calling
+  1258→* Tool use
+  1259→* RAG
+  1260→* Embeddings
+  1261→* Vector databases
+  1262→* Semantic search
+  1263→* Hybrid search
+  1264→* Reranking
+  1265→* Document processing
+  1266→* Chunking
+  1267→* Retrieval pipelines
+  1268→* RAG evaluation
+  1269→* Agentic RAG
+  1270→
+  1271→---
+  1272→
+  1273→# Stage 25 — AI Agents
+  1274→
+  1275→Cover:
+  1276→
+  1277→* What is an AI agent?
+  1278→* Agent architecture
+  1279→* Agent loop
+  1280→* Goals
+  1281→* Planning
+  1282→* Memory
+  1283→* Tools
+  1284→* Tool calling
+  1285→* Function calling
+  1286→* Reasoning
+  1287→* Reflection
+  1288→* Self-correction
+  1289→* State management
+  1290→* Short-term memory
+  1291→* Long-term memory
+  1292→* Agent evaluation
+  1293→* Multi-agent systems
+  1294→* Agent orchestration
+  1295→* Agent frameworks
+  1296→* MCP
+  1297→* Tool protocols
+  1298→* Browser agents
+  1299→* Coding agents
+  1300→* Research agents
+  1301→* Autonomous workflows
+  1302→
+  1303→---
+  1304→
+  1305→# Stage 26 — Agentic AI
+  1306→
+  1307→Go deeper than basic AI agents.
+  1308→
+  1309→Cover:
+  1310→
+  1311→* Agentic workflows
+  1312→* Autonomous systems
+  1313→* Planning agents
+  1314→* Execution agents
+  1315→* Supervisor agents
+  1316→* Worker agents
+  1317→* Multi-agent collaboration
+  1318→* Agent communication
+  1319→* Agent memory
+  1320→* Agent state
+  1321→* Tool orchestration
+  1322→* Workflow engines
+  1323→* Human-in-the-loop
+  1324→* Agent security
+  1325→* Prompt injection
+  1326→* Tool abuse
+  1327→* Sandboxing
+  1328→* Agent observability
+  1329→* Agent evaluation
+  1330→* Reliability
+  1331→* Cost optimization
+  1332→* Production agent architecture
+  1333→
+  1334→---
+  1335→
+  1336→# Stage 27 — AI Engineering & MLOps
+  1337→
+  1338→Cover:
+  1339→
+  1340→* ML pipelines
+  1341→* Data pipelines
+  1342→* Model registry
+  1343→* Experiment tracking
+  1344→* MLflow
+  1345→* DVC
+  1346→* Model serving
+  1347→* FastAPI
+  1348→* Docker
+  1349→* Kubernetes
+  1350→* CI/CD
+  1351→* Monitoring
+  1352→* Model monitoring
+  1353→* Drift detection
+  1354→* Feature stores
+  1355→* Vector databases
+  1356→* GPU infrastructure
+  1357→* Inference optimization
+  1358→* Quantization
+  1359→* Batch inference
+  1360→* Real-time inference
+  1361→* LLMOps
+  1362→* Evaluation pipelines
+  1363→* AI observability
+  1364→
+  1365→---
+  1366→
+  1367→# Stage 28 — Cybersecurity for Engineers
+  1368→
+  1369→Include:
+  1370→
+  1371→* Security fundamentals
+  1372→* Authentication
+  1373→* Authorization
+  1374→* Encryption
+  1375→* Hashing
+  1376→* TLS
+  1377→* Network security
+  1378→* Web security
+  1379→* OWASP Top 10
+  1380→* SQL injection
+  1381→* XSS
+  1382→* CSRF
+  1383→* SSRF
+  1384→* API security
+  1385→* Secrets management
+  1386→* Secure coding
+  1387→* Identity
+  1388→* Access control
+  1389→* Cloud security
+  1390→* AI/LLM security
+  1391→* Prompt injection
+  1392→* Data leakage
+  1393→* Model security
+  1394→
+  1395→---
+  1396→
+  1397→# Stage 29 — Engineering Tools
+  1398→
+  1399→Cover tools engineers should know.
+  1400→
+  1401→Include:
+  1402→
+  1403→* Git
+  1404→* GitHub
+  1405→* GitLab
+  1406→* VS Code
+  1407→* Linux
+  1408→* Bash
+  1409→* PowerShell
+  1410→* Docker
+  1411→* Kubernetes
+  1412→* Postman
+  1413→* Swagger
+  1414→* Jira
+  1415→* CI/CD
+  1416→* GitHub Actions
+  1417→* Terraform
+  1418→* AWS
+  1419→* Azure
+  1420→* GCP
+  1421→* PostgreSQL
+  1422→* Redis
+  1423→* MongoDB
+  1424→* Kafka
+  1425→* RabbitMQ
+  1426→* Elasticsearch/OpenSearch
+  1427→* MLflow
+  1428→* DVC
+  1429→* Hugging Face
+  1430→* PyTorch
+  1431→* TensorFlow
+  1432→* LangChain
+  1433→* LlamaIndex
+  1434→* agent frameworks
+  1435→* observability tools
+  1436→
+  1437→---
+  1438→
+  1439→# Stage 30 — Engineering Projects
+  1440→
+  1441→Create projects at every level.
+  1442→
+  1443→## Beginner
+  1444→
+  1445→* Calculator
+  1446→* CLI application
+  1447→* File manager
+  1448→* To-do application
+  1449→* Student management system
+  1450→* Library management system
+  1451→
+  1452→## Intermediate
+  1453→
+  1454→* REST API
+  1455→* Blog
+  1456→* Authentication system
+  1457→* E-commerce application
+  1458→* Chat application
+  1459→* Dashboard
+  1460→* Data analytics application
+  1461→
+  1462→## Advanced
+  1463→
+  1464→* Distributed application
+  1465→* Search engine
+  1466→* Recommendation system
+  1467→* Real-time application
+  1468→* Microservices application
+  1469→* Cloud-native application
+  1470→
+  1471→## AI/ML
+  1472→
+  1473→* ML prediction system
+  1474→* Recommendation engine
+  1475→* Computer vision application
+  1476→* NLP application
+  1477→* RAG application
+  1478→* LLM application
+  1479→* AI chatbot
+  1480→* AI search engine
+  1481→
+  1482→## Advanced AI
+  1483→
+  1484→* AI agent
+  1485→* Multi-agent system
+  1486→* Coding agent
+  1487→* Research agent
+  1488→* Autonomous workflow
+  1489→* Production-grade Agentic AI platform
+  1490→
+  1491→For every project provide:
+  1492→
+  1493→* Problem
+  1494→* Requirements
+  1495→* Architecture
+  1496→* Technologies
+  1497→* Database
+  1498→* APIs
+  1499→* Frontend
+  1500→* Backend
+  1501→* AI/ML components
+  1502→* Security
+  1503→* Testing
+  1504→* Deployment
+  1505→* Monitoring
+  1506→* GitHub structure
+  1507→* README requirements
+  1508→* Resume description
+  1509→* Interview explanation
+  1510→
+  1511→---
+  1512→
+  1513→# SUBJECT-LEVEL TEACHING FORMAT
+  1514→
+  1515→Whenever I request a subject, use this structure.
+  1516→
+  1517→## Subject Overview
+  1518→
+  1519→Explain:
+  1520→
+  1521→* What the subject is
+  1522→* Why it matters
+  1523→* Where it is used
+  1524→* How it connects to other subjects
+  1525→* Industry relevance
+  1526→* Career relevance
+  1527→
+  1528→## Complete Topic Map
+  1529→
+  1530→List every topic and subtopic before teaching.
+  1531→
+  1532→Do not skip important topics.
+  1533→
+  1534→## Prerequisites
+  1535→
+  1536→Clearly identify what I should already know.
+  1537→
+  1538→If prerequisites are missing, teach them briefly before proceeding.
+  1539→
+  1540→## Detailed Learning
+  1541→
+  1542→For EVERY topic explain:
+  1543→
+  1544→### Concept
+  1545→
+  1546→Explain in simple language.
+  1547→
+  1548→### Why It Matters
+  1549→
+  1550→Explain why engineers need it.
+  1551→
+  1552→### How It Works
+  1553→
+  1554→Explain the internal mechanism.
+  1555→
+  1556→### Syntax / API / Formula
+  1557→
+  1558→Where applicable.
+  1559→
+  1560→### Example
+  1561→
+  1562→Give practical examples.
+  1563→
+  1564→### Code
+  1565→
+  1566→Provide working code when appropriate.
+  1567→
+  1568→### Output
+  1569→
+  1570→Show expected output where useful.
+  1571→
+  1572→### Explanation
+  1573→
+  1574→Explain the code line by line when necessary.
+  1575→
+  1576→### Common Mistakes
+  1577→
+  1578→Show mistakes beginners commonly make.
+  1579→
+  1580→### Best Practices
+  1581→
+  1582→Explain industry-standard approaches.
+  1583→
+  1584→### Real-World Usage
+  1585→
+  1586→Explain where professionals use it.
+  1587→
+  1588→### Interview Perspective
+  1589→
+  1590→Explain how this topic appears in interviews.
+  1591→
+  1592→### Practice
+  1593→
+  1594→Give exercises.
+  1595→
+  1596→### Mini Project
+  1597→
+  1598→Give a project when appropriate.
+  1599→
+  1600→---
+  1601→
+  1602→# DEPTH REQUIREMENT
+  1603→
+  1604→Do NOT write shallow explanations.
+  1605→
+  1606→For example, do not simply write:
+  1607→
+  1608→> "Pointers store memory addresses."
+  1609→
+  1610→Instead explain:
+  1611→
+  1612→* What memory is
+  1613→* What an address is
+  1614→* What a pointer stores
+  1615→* Why pointers exist
+  1616→* Pointer declaration
+  1617→* Dereferencing
+  1618→* Pointer arithmetic
+  1619→* Stack vs heap
+  1620→* Arrays and pointers
+  1621→* Functions and pointers
+  1622→* Double pointers
+  1623→* Function pointers
+  1624→* Dynamic memory
+  1625→* Common errors
+  1626→* Dangling pointers
+  1627→* Null pointers
+  1628→* Memory leaks
+  1629→* Real-world applications
+  1630→
+  1631→Apply this same depth to EVERY major topic.
+  1632→
+  1633→---
+  1634→
+  1635→# CONNECTIONS BETWEEN SUBJECTS
+  1636→
+  1637→Explicitly show relationships.
+  1638→
+  1639→For example:
+  1640→
+  1641→C → Memory → OS → COA
+  1642→
+  1643→C++ → DSA → Algorithms → System Design
+  1644→
+  1645→Python → Data → ML → DL → AI
+  1646→
+  1647→Networking → APIs → Backend → Distributed Systems
+  1648→
+  1649→Databases → Backend → System Design
+  1650→
+  1651→Linear Algebra → ML → DL → Transformers
+  1652→
+  1653→Probability → ML → LLMs → AI Agents
+  1654→
+  1655→FastAPI → ML deployment → LLM APIs → AI applications
+  1656→
+  1657→LLMs → RAG → Agents → Agentic AI
+  1658→
+  1659→---
+  1660→
+  1661→# PRACTICAL ENGINEERING SKILLS
+  1662→
+  1663→Do not teach only theory.
+  1664→
+  1665→For every relevant subject include:
+  1666→
+  1667→* CLI usage
+  1668→* Git
+  1669→* GitHub
+  1670→* Debugging
+  1671→* Testing
+  1672→* Documentation
+  1673→* Project structure
+  1674→* Clean code
+  1675→* Security
+  1676→* Performance
+  1677→* Deployment
+  1678→* Monitoring
+  1679→* Collaboration
+  1680→* Code review
+  1681→* Production practices
+  1682→
+  1683→---
+  1684→
+  1685→# INTERVIEW PREPARATION
+  1686→
+  1687→For each subject include:
+  1688→
+  1689→* Beginner interview questions
+  1690→* Intermediate interview questions
+  1691→* Advanced interview questions
+  1692→* Conceptual questions
+  1693→* Coding questions
+  1694→* Debugging questions
+  1695→* System design questions where applicable
+  1696→* Scenario-based questions
+  1697→* Frequently asked questions
+  1698→* Trick questions
+  1699→* Model answers
+  1700→* Interview mistakes
+  1701→
+  1702→---
+  1703→
+  1704→# PRACTICE SYSTEM
+  1705→
+  1706→At the end of every major section provide:
+  1707→
+  1708→* Easy exercises
+  1709→* Medium exercises
+  1710→* Hard exercises
+  1711→* Coding problems
+  1712→* Debugging problems
+  1713→* Real-world tasks
+  1714→* Mini project
+  1715→* Challenge project
+  1716→
+  1717→Do not provide answers immediately unless requested.
+  1718→
+  1719→---
+  1720→
+  1721→# PROJECT-BASED LEARNING
+  1722→
+  1723→Every major subject must eventually lead to projects.
+  1724→
+  1725→Projects should progressively increase in complexity:
+  1726→
+  1727→**Toy Project → Beginner Project → Intermediate Project → Advanced Project → Production Project**
+  1728→
+  1729→---
+  1730→
+  1731→# INDUSTRY READINESS
+  1732→
+  1733→At the end of each subject provide:
+  1734→
+  1735→## Skills Checklist
+  1736→
+  1737→What I should be able to do.
+  1738→
+  1739→## Tools Checklist
+  1740→
+  1741→What tools I should know.
+  1742→
+  1743→## Portfolio Projects
+  1744→
+  1745→Which projects demonstrate competence.
+  1746→
+  1747→## Interview Readiness
+  1748→
+  1749→What I should be able to answer.
+  1750→
+  1751→## Job Readiness
+  1752→
+  1753→Which roles this subject contributes toward.
+  1754→
+  1755→## Weakness Detection
+  1756→
+  1757→List common gaps learners have after studying the subject.
+  1758→
+  1759→## Next Subject
+  1760→
+  1761→Explain which subject should come next and why.
+  1762→
+  1763→---
+  1764→
+  1765→# LEARNING ORDER
+  1766→
+  1767→Respect dependencies.
+  1768→
+  1769→Do not teach advanced AI before establishing the necessary foundations.
+  1770→
+  1771→The overall progression should roughly follow:
+  1772→
+  1773→**Computer Fundamentals**
+  1774→
+  1775→↓
+  1776→
+  1777→**C**
+  1778→
+  1779→↓
+  1780→
+  1781→**C++**
+  1782→
+  1783→↓
+  1784→
+  1785→**DSA in C++**
+  1786→
+  1787→↓
+  1788→
+  1789→**Python**
+  1790→
+  1791→↓
+  1792→
+  1793→**Java**
+  1794→
+  1795→↓
+  1796→
+  1797→**Mathematics**
+  1798→
+  1799→↓
+  1800→
+  1801→**Operating Systems**
+  1802→
+  1803→↓
+  1804→
+  1805→**COA**
+  1806→
+  1807→↓
+  1808→
+  1809→**Computer Networking**
+  1810→
+  1811→↓
+  1812→
+  1813→**Databases**
+  1814→
+  1815→↓
+  1816→
+  1817→**Software Engineering**
+  1818→
+  1819→↓
+  1820→
+  1821→**APIs & Backend**
+  1822→
+  1823→↓
+  1824→
+  1825→**FastAPI**
+  1826→
+  1827→↓
+  1828→
+  1829→**Full Stack**
+  1830→
+  1831→↓
+  1832→
+  1833→**System Design**
+  1834→
+  1835→↓
+  1836→
+  1837→**Linux / DevOps / Cloud**
+  1838→
+  1839→↓
+  1840→
+  1841→**AI Foundations**
+  1842→
+  1843→↓
+  1844→
+  1845→**Machine Learning**
+  1846→
+  1847→↓
+  1848→
+  1849→**Deep Learning**
+  1850→
+  1851→↓
+  1852→
+  1853→**Computer Vision / NLP**
+  1854→
+  1855→↓
+  1856→
+  1857→**LLMs**
+  1858→
+  1859→↓
+  1860→
+  1861→**Generative AI**
+  1862→
+  1863→↓
+  1864→
+  1865→**RAG**
+  1866→
+  1867→↓
+  1868→
+  1869→**AI Agents**
+  1870→
+  1871→↓
+  1872→
+  1873→**Agentic AI**
+  1874→
+  1875→↓
+  1876→
+  1877→**MLOps / LLMOps**
+  1878→
+  1879→↓
+  1880→
+  1881→**Production AI Systems**
+  1882→
+  1883→---
+  1884→
+  1885→# IMPORTANT RULES
+  1886→
+  1887→1. Never skip foundational concepts.
+  1888→
+  1889→2. Never assume advanced knowledge without stating prerequisites.
+  1890→
+  1891→3. Use simple language before introducing technical terminology.
+  1892→
+  1893→4. Introduce the technical term, then explain it clearly.
+  1894→
+  1895→5. Use practical examples.
+  1896→
+  1897→6. Use diagrams using text/ASCII when useful.
+  1898→
+  1899→7. Use tables for comparisons.
+  1900→
+  1901→8. Use code when appropriate.
+  1902→
+  1903→9. Explain code rather than dumping code.
+  1904→
+  1905→10. Include real-world engineering examples.
+  1906→
+  1907→11. Include interview preparation.
+  1908→
+  1909→12. Include projects.
+  1910→
+  1911→13. Include best practices.
+  1912→
+  1913→14. Include common mistakes.
+  1914→
+  1915→15. Include security considerations.
+  1916→
+  1917→16. Include performance considerations.
+  1918→
+  1919→17. Include scalability considerations where relevant.
+  1920→
+  1921→18. Distinguish theory from practical implementation.
+  1922→
+  1923→19. Distinguish beginner knowledge from professional knowledge.
+  1924→
+  1925→20. Clearly identify outdated technologies or approaches where relevant.
+  1926→
+  1927→21. Prefer modern industry practices.
+  1928→
+  1929→22. Do not overload one response by teaching multiple unrelated subjects.
+  1930→
+  1931→23. One subject at a time.
+  1932→
+  1933→24. Within a subject, cover every major topic systematically.
+  1934→
+  1935→25. Never silently omit an important topic.
+  1936→
+  1937→26. If a subject is too large, split it into Part 1, Part 2, Part 3, etc.
+  1938→
+  1939→27. Maintain continuity between parts.
+  1940→
+  1941→28. At the beginning of every part, state what has already been covered and what remains.
+  1942→
+  1943→29. At the end of every part, provide a progress checkpoint.
+  1944→
+  1945→30. Do not move to the next subject until I explicitly request it.
+  1946→
+  1947→---
+  1948→
+  1949→# MASTER CURRICULUM OUTPUT
+  1950→
+  1951→Your FIRST response to this prompt should NOT teach the subjects.
+  1952→
+  1953→Instead, produce:
+  1954→
+  1955→1. Complete Engineering Curriculum Map
+  1956→2. Subject sequence
+  1957→3. Dependencies between subjects
+  1958→4. Beginner → Intermediate → Advanced → Expert progression
+  1959→5. Approximate difficulty of every subject
+  1960→6. Prerequisites
+  1961→7. Major topics inside every subject
+  1962→8. Major tools associated with every subject
+  1963→9. Major projects associated with every subject
+  1964→10. Interview relevance
+  1965→11. Industry relevance
+  1966→12. Career paths supported by the curriculum
+  1967→
+  1968→Then stop.
+  1969→
+  1970→I will select the subject.
+  1971→
+  1972→When I say:
+  1973→
+  1974→> START SUBJECT: C
+  1975→
+  1976→begin teaching C only.
+  1977→
+  1978→When I say:
+  1979→
+  1980→> START SUBJECT: C++
+  1981→
+  1982→begin teaching C++ only.
+  1983→
+  1984→When I say:
+  1985→
+  1986→> START SUBJECT: DSA
+  1987→
+  1988→begin teaching DSA in C++ only.
+  1989→
+  1990→When I say:
+  1991→
+  1992→> CONTINUE
+  1993→
+  1994→continue the current subject from exactly where you stopped.
+  1995→
+  1996→When I say:
+  1997→
+  1998→> DEEP DIVE: [topic]
+  1999→
+  2000→go significantly deeper into that specific topic without changing subjects.
+
+[showing lines 1-2000 of 2009; use offset=2001 with limit to continue reading]
