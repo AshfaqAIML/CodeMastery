@@ -65,7 +65,7 @@ export class DBSearchService implements SearchService {
     const q = (query ?? "").trim()
     if (!q) return []
     const rows = await db.tutorial.findMany({
-      where: { published: true, title: { contains: q } },
+      where: { published: true, title: this.#mode ? { contains: q, ...this.#mode } : { contains: q } },
       select: { title: true },
       take: limit,
     })
