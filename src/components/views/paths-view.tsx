@@ -184,41 +184,45 @@ export function PathsView() {
       </div>
 
       {isLoading ? (
-        <div className="grid md:grid-cols-2 gap-4 mt-8">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-56 bg-muted/40 animate-pulse rounded-xl" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+          {Array.from({ length: 9 }).map((_, i) => (
+            <div key={i} className="h-64 rounded-xl skeleton-shimmer" />
           ))}
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 gap-4 mt-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
           {(paths ?? []).map((p, i) => (
-            <motion.div
+            <motion.button
               key={p.id}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: i * 0.05 }}
+              transition={{ duration: 0.25, delay: i * 0.03 }}
+              onClick={() => navigate("paths", { pathSlug: p.slug })}
+              className="text-left group"
             >
-              <Card
-                className="h-full cursor-pointer hover:shadow-md transition-shadow overflow-hidden"
-                onClick={() => navigate("paths", { pathSlug: p.slug })}
-              >
-                <div className="h-1.5" style={{ background: p.color }} />
+              <Card className="h-full hover:border-primary/40 hover:shadow-md transition-all overflow-hidden card-lift">
+                <div className="h-1.5 w-full" style={{ background: p.color }} />
                 <CardHeader>
                   <div className="flex items-start justify-between">
-                    <SubjectIcon name={p.icon} color={p.color} className="size-12 rounded-xl" />
+                    <SubjectIcon name={p.icon} color={p.color} className="size-11 rounded-xl" />
                     <DifficultyBadge difficulty={p.difficulty} />
                   </div>
-                  <CardTitle className="text-lg mt-3">{p.title}</CardTitle>
-                  <CardDescription>{p.description}</CardDescription>
+                  <CardTitle className="text-lg mt-3 group-hover:text-primary transition-colors">{p.title}</CardTitle>
+                  <CardDescription className="line-clamp-2 text-sm">{p.description}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1.5"><Compass className="size-3.5" /> {p.steps?.length ?? 0} steps</span>
-                    <span className="flex items-center gap-1.5"><Target className="size-3.5" /> {p.estimatedHours}h</span>
+                <CardContent className="pt-0">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <span className="flex items-center gap-4">
+                      <span className="flex items-center gap-1.5"><Compass className="size-3.5" /> {p.steps?.length ?? 0} steps</span>
+                      <span className="flex items-center gap-1.5"><Target className="size-3.5" /> {p.estimatedHours}h</span>
+                    </span>
+                    <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                      Explore →
+                    </span>
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </motion.button>
           ))}
         </div>
       )}

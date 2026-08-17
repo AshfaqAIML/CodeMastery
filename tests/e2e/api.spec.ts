@@ -154,7 +154,7 @@ test.describe("API Health", () => {
     expect(data.ok).toBe(true)
     const slugs = data.data.map((s: any) => s.slug)
     for (const expectSlug of ["html-foundations", "javascript-mastery", "css-design-systems",
-      "ai-from-scratch-vol5-agents", "python-dsa", "english"]) {
+      "ai-from-scratch", "python-dsa", "english"]) {
       expect(slugs).toContain(expectSlug)
     }
     const html = data.data.find((s: any) => s.slug === "html-foundations")

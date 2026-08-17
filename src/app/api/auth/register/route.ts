@@ -32,11 +32,18 @@ export async function POST(req: NextRequest) {
 
   const { name, email, password } = parsed.data
   const normalizedEmail = email.trim().toLowerCase()
-  const username = name.trim().replace(/\s+/g, "_").toLowerCase()
 
   const existing = await db.user.findUnique({ where: { email: normalizedEmail } })
   if (existing) {
     return err("An account with this email already exists.", 409)
+  }
+
+  const baseUsername = name.trim().replace(/\s+/g, "_").toLowerCase()
+  let username = baseUsername
+  for (let attempt = 2; attempt <= 100; attempt++) {
+    const taken = await db.user.findUnique({ where: { username } })
+    if (!taken) break
+    username = `${baseUsername}_${attempt}`
   }
 
   const user = await db.user.create({
