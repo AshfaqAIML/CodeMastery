@@ -13,6 +13,7 @@ export type ViewName =
   | "search"
   | "admin"
   | "certificates"
+  | "premium"
 
 export type NavParams = {
   subjectSlug?: string
@@ -85,6 +86,8 @@ export function viewLabel(view: ViewName): string {
       return "Admin"
     case "certificates":
       return "My Certificates"
+    case "premium":
+      return "Premium"
     default:
       return "previous page"
   }

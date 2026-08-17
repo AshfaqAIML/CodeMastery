@@ -2,6 +2,7 @@ import { db } from "@/lib/db"
 import { ok, unauthorized } from "@/lib/api"
 import { getCurrentUserWithStats } from "@/lib/session"
 import { levelFromXP, todayStr } from "@/lib/gamification"
+import { getAccessSummary } from "@/lib/entitlements/service"
 
 export async function GET() {
   const user = await getCurrentUserWithStats()
@@ -194,8 +195,12 @@ export async function GET() {
 
   const levelInfo = levelFromXP(user.totalXP)
 
+  // Access model summary (plan / trial / lifetime entitlement)
+  const access = await getAccessSummary(user.id)
+
   return ok({
     user,
+    access,
     stats: {
       totalXP: user.totalXP,
       points: user.points,

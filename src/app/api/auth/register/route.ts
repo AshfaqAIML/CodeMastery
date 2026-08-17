@@ -3,6 +3,7 @@ import { db } from "@/lib/db"
 import { hashPassword } from "@/lib/password"
 import { ok, err, rateLimit } from "@/lib/api"
 import { config } from "@/lib/config"
+import { getAccessSummary } from "@/lib/entitlements/service"
 import { z } from "zod"
 
 const schema = z.object({
@@ -46,20 +47,53 @@ export async function POST(req: NextRequest) {
     username = `${baseUsername}_${attempt}`
   }
 
-  const user = await db.user.create({
-    data: {
-      email: normalizedEmail,
-      name: name.trim(),
-      username,
-      passwordHash: hashPassword(password),
-      role: "USER",
+  const user = await db.$transaction(
+    async (tx) => {
+      const created = await tx.user.create({
+        data: {
+          email: normalizedEmail,
+          name: name.trim(),
+          username,
+          passwordHash: hashPassword(password),
+          role: "USER",
+        },
+        select: { id: true, email: true, name: true, username: true, role: true },
+      })
+
+      // Every new Normal account receives the 12-day Premium trial,
+      // created server-side at signup (never client-provided).
+      // Trial: startedAt = account creation, endsAt = +12 calendar days,
+      // ACTIVE status. Timestamp-based access control kicks in later.
+      const now = new Date()
+      const endsAt = new Date(now.getTime() + config.premium.trialDays * 24 * 60 * 60 * 1000)
+      await tx.premiumTrial.create({
+        data: {
+          userId: created.id,
+          startedAt: now,
+          endsAt,
+          status: "ACTIVE",
+          source: "SIGNUP",
+        },
+      })
+
+      await tx.entitlementAuditLog.create({
+        data: {
+          userId: created.id,
+          action: "TRIAL_GRANTED",
+          detail: `12-day Premium trial granted at signup (ends ${endsAt.toISOString()}).`,
+        },
+      })
+
+      await tx.activityLog.create({
+        data: { userId: created.id, type: "account_created", xpDelta: 0, pointsDelta: 0 },
+      })
+
+      return created
     },
-    select: { id: true, email: true, name: true, username: true, role: true },
-  })
+    { timeout: 30_000, maxWait: 10_000 }
+  )
 
-  await db.activityLog.create({
-    data: { userId: user.id, type: "account_created", xpDelta: 0, pointsDelta: 0 },
-  })
+  const access = await getAccessSummary(user.id)
 
-  return ok({ user }, { status: 201 })
+  return ok({ user, access }, { status: 201 })
 }

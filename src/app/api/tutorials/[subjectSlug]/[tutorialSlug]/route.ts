@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import { ok, notFound } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
+import { combineLevels, getContentAccess } from "@/lib/entitlements/service"
 
 function parseJSON<T>(raw: string | null | undefined, fallback: T): T {
   if (!raw) return fallback
@@ -34,6 +35,53 @@ export async function GET(
     },
   })
   if (!tutorial) return notFound("Tutorial not found.")
+
+  // Access model gate: PUBLIC / FREE / PREMIUM (subject + tutorial levels
+  // combine to the most restrictive). Content is NEVER sent when the user
+  // may only preview it — enforcement is server-side, not CSS hiding.
+  const effectiveLevel = combineLevels(
+    (tutorial as any).subject?.accessLevel,
+    (tutorial as any).accessLevel
+  )
+  const contentAccess = await getContentAccess(user?.id ?? null, effectiveLevel)
+
+  const accessInfo = {
+    level: effectiveLevel,
+    canRead: contentAccess.canRead,
+    previewOnly: contentAccess.previewOnly,
+    reason: contentAccess.reason ?? null,
+    guest: !user,
+    effectiveAccess: contentAccess.summary.effectiveAccess,
+    trialDaysRemaining: contentAccess.summary.trialDaysRemaining,
+  }
+
+  // Preview-only: metadata without the body, so the UI can show a lock
+  // screen with the right upsell. (200 keeps the client flow simple;
+  // the body is simply never transmitted.)
+  if (!contentAccess.canRead) {
+    return ok({
+      tutorial: null,
+      locked: accessInfo,
+      preview: {
+        title: tutorial.title,
+        summary: tutorial.summary,
+        difficulty: tutorial.difficulty,
+        estimatedMinutes: tutorial.estimatedMinutes,
+        tags: tutorial.tags,
+        subject: {
+          slug: (tutorial as any).subject.slug,
+          name: (tutorial as any).subject.name,
+          icon: (tutorial as any).subject.icon,
+          color: (tutorial as any).subject.color,
+        },
+      },
+      prev: null,
+      next: null,
+      progress: null,
+      bookmarked: false,
+      notes: [],
+    })
+  }
 
   // Sibling tutorials (prev/next) within subject, ordered
   const siblings = await db.tutorial.findMany({
@@ -106,5 +154,6 @@ export async function GET(
     progress,
     bookmarked,
     notes,
+    access: accessInfo,
   })
 }

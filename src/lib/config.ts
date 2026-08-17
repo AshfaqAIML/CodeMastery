@@ -131,6 +131,17 @@ export const config = {
     signatoryTitle:
       process.env.CERT_SIGNATORY_TITLE ?? "Authorized Signatory",
   },
+
+  /** Access model — 12-day Premium trial + one-time lifetime Premium */
+  premium: {
+    trialDays: Number(process.env.PREMIUM_TRIAL_DAYS ?? "12"),
+    priceUsd: Number(process.env.PREMIUM_PRICE_USD ?? "49"),
+    currency: process.env.PREMIUM_CURRENCY ?? "usd",
+    // HMAC secret protecting the payment webhook. Empty = webhook disabled.
+    webhookSecret: process.env.PREMIUM_WEBHOOK_SECRET ?? "",
+    // Reasonable per-user daily limit for the AI Tutor (trial and paid alike)
+    aiDailyLimit: Number(process.env.AI_DAILY_LIMIT ?? "60"),
+  },
 } as const
 
 export type AppConfig = typeof config

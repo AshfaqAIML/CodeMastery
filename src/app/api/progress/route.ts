@@ -1,10 +1,11 @@
 import { NextRequest } from "next/server"
 import { db } from "@/lib/db"
-import { ok, err, unauthorized } from "@/lib/api"
+import { ok, err, unauthorized, forbidden } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
 import { levelFromXP, todayStr, computeStreak, DAILY_XP_CAP } from "@/lib/gamification"
 import { issueSubjectCertificate } from "@/lib/certificates/issue"
 import { makeVerifyUrl } from "@/lib/certificates/types"
+import { combineLevels, getContentAccess } from "@/lib/entitlements/service"
 import { z } from "zod"
 
 const schema = z.object({
@@ -33,8 +34,19 @@ export async function POST(req: NextRequest) {
   if (!parsed.success) return err("Invalid input.", 422, parsed.error.flatten())
   const input = parsed.data
 
-  const tutorial = await db.tutorial.findUnique({ where: { id: input.tutorialId } })
+  const tutorial = await db.tutorial.findUnique({
+    where: { id: input.tutorialId },
+    include: { subject: { select: { accessLevel: true } } },
+  })
   if (!tutorial) return err("Tutorial not found.", 404)
+
+  // Access model: never record progress/XP on content the user cannot
+  // actually read (e.g. Premium tutorials after a trial expires). The
+  // body is never served to them, and neither is progress.
+  const level = combineLevels(tutorial.subject.accessLevel, tutorial.accessLevel)
+
+  const access = await getContentAccess(user.id, level)
+  if (!access.canRead) return forbidden(access.reason)
 
   const existing = await db.tutorialProgress.findUnique({
     where: { userId_tutorialId: { userId: user.id, tutorialId: tutorial.id } },

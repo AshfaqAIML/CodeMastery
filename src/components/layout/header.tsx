@@ -22,6 +22,7 @@ import { useAppStore, type ViewName } from "@/lib/store"
 import { LevelBadge } from "@/components/shared/level-badge"
 import { useMe } from "@/hooks/use-api"
 import { toast } from "sonner"
+import { Crown } from "lucide-react"
 
 const NAV_ITEMS: { view: ViewName; label: string; icon: any }[] = [
   { view: "browse", label: "Browse", icon: Compass },
@@ -128,6 +129,16 @@ export function Header() {
                   </Avatar>
                   {meData && (
                     <LevelBadge level={meData.stats.level} className="hidden sm:flex size-6 text-[10px]" />
+                  )}
+                  {meData?.access?.effectiveAccess === "PREMIUM" && (
+                    <span className="hidden sm:flex items-center gap-1 rounded-full bg-yellow-500/15 text-yellow-600 dark:text-yellow-400 px-2 py-0.5 text-[10px] font-semibold">
+                      <Crown className="size-3" /> Premium
+                    </span>
+                  )}
+                  {meData?.access?.effectiveAccess === "PREMIUM_TRIAL" && (
+                    <span className="hidden sm:flex items-center gap-1 rounded-full bg-primary/10 text-primary px-2 py-0.5 text-[10px] font-semibold">
+                      <Crown className="size-3" /> Trial
+                    </span>
                   )}
                   <ChevronDown className="size-3.5 text-muted-foreground hidden sm:block" />
                 </button>

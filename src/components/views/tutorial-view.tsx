@@ -3,7 +3,7 @@
 import * as React from "react"
 import {
   ArrowLeft, ArrowRight, Bookmark, Clock, ChevronRight, Loader2,
-  StickyNote, CheckCircle2, Sparkles, ListTree, Search,
+  StickyNote, CheckCircle2, Sparkles, ListTree, Search, Lock,
 } from "lucide-react"
 import { useAppStore, setCurrentPageLabel } from "@/lib/store"
 import {
@@ -187,6 +187,19 @@ export function TutorialView() {
           Back to browse
         </Button>
       </div>
+    )
+  }
+
+  // Premium/FREE content without access — the API sends metadata only,
+  // never the body. Render the lock screen with the right upsell.
+  if (data.locked) {
+    return (
+      <LockedTutorial
+        preview={data.preview}
+        locked={data.locked}
+        onUpgrade={() => navigate("premium")}
+        onBrowse={() => navigate("browse")}
+      />
     )
   }
 
@@ -521,6 +534,68 @@ export function TutorialView() {
         hasPrev={!!prev}
         hasNext={!!next}
       />
+    </div>
+  )
+}
+
+// ----------------------------------------------------------------
+// LOCKED TUTORIAL — content behind FREE/PREMIUM without access.
+// The API never sends the body here, only preview metadata.
+// ----------------------------------------------------------------
+function LockedTutorial({
+  preview,
+  locked,
+  onUpgrade,
+  onBrowse,
+}: {
+  preview: { title: string; summary: string; difficulty: string; estimatedMinutes: number; tags: string; subject: { slug: string; name: string; icon: string; color: string } }
+  locked: { level: string; canRead: boolean; previewOnly: boolean; reason: string | null; guest: boolean; effectiveAccess: string }
+  onUpgrade: () => void
+  onBrowse: () => void
+}) {
+  const isGuest = locked.effectiveAccess === "GUEST"
+  const isPremiumLevel = locked.level === "PREMIUM"
+
+  return (
+    <div className="mx-auto max-w-2xl px-4 sm:px-6 py-12">
+      <div className="flex flex-col items-center text-center">
+        <div className="size-16 rounded-2xl bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 flex items-center justify-center mb-6">
+          <Sparkles className="size-8" />
+        </div>
+        <div className="inline-flex items-center gap-1.5 rounded-full glass-pill px-3 py-1 text-xs font-medium text-muted-foreground mb-4">
+          <Lock className="size-3.5" /> {locked.level} content
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">{preview.title}</h1>
+        <p className="text-muted-foreground mb-2">{preview.summary}</p>
+        <div className="flex items-center gap-3 text-xs text-muted-foreground mb-8">
+          <DifficultyBadge difficulty={preview.difficulty} />
+          <span className="flex items-center gap-1"><Clock className="size-3.5" /> {preview.estimatedMinutes} min</span>
+        </div>
+        <p className="text-sm text-muted-foreground/90 max-w-md mb-8 leading-relaxed">
+          {locked.reason}
+        </p>
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          {isGuest ? (
+            <>
+              <Button className="shadow-glow-primary" onClick={() => useAppStore.getState().openAuth("register")}>
+                Create free account <ArrowRight className="ml-2 size-4" />
+              </Button>
+              <Button variant="outline" onClick={onBrowse}>
+                Browse free tutorials
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button className="shadow-glow-primary" onClick={onUpgrade}>
+                {isPremiumLevel ? "Unlock lifetime Premium" : "Unlock full tutorial"} <ArrowRight className="ml-2 size-4" />
+              </Button>
+              <Button variant="outline" onClick={onBrowse}>
+                Continue learning free
+              </Button>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

@@ -3,7 +3,7 @@
 import * as React from "react"
 import {
   ShieldCheck, Database, BookOpen, FileQuestion, Award, Route, Users,
-  Download, Upload, Loader2, BarChart3,
+  Download, Upload, Loader2, BarChart3, Crown,
 } from "lucide-react"
 import { useAppStore } from "@/lib/store"
 import { apiFetch } from "@/hooks/use-api"
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
 import { CertificatesAdmin } from "@/components/admin/certificates-admin"
+import { PremiumAdmin } from "@/components/admin/premium-admin"
 
 export function AdminView() {
   const { data: session } = useSession()
@@ -161,6 +162,14 @@ export function AdminView() {
           <Award className="size-5 text-primary" /> Certificates
         </h2>
         <CertificatesAdmin />
+      </div>
+
+      {/* Premium & access */}
+      <div className="mt-10">
+        <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+          <Crown className="size-5 text-yellow-500" /> Premium & access
+        </h2>
+        <PremiumAdmin />
       </div>
     </div>
   )

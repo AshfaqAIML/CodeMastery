@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ArrowLeft, Clock, ChevronRight, BookOpen, CheckCircle2, Circle, Award } from "lucide-react"
+import { ArrowLeft, Clock, ChevronRight, BookOpen, CheckCircle2, Circle, Award, Lock } from "lucide-react"
 import { useAppStore, setCurrentPageLabel } from "@/lib/store"
 import { useSubject, useSubjectCertificate } from "@/hooks/use-api"
 import { useSession } from "next-auth/react"
@@ -225,6 +225,7 @@ export function SubjectView() {
 function TutorialRow({ tutorial, onClick }: { tutorial: any; subjectSlug: string; onClick: () => void }) {
   const completed = tutorial.progress?.[0]?.completed
   const percent = tutorial.progress?.[0]?.percentRead ?? 0
+  const isPremium = (tutorial.accessLevel ?? "PUBLIC") === "PREMIUM"
   return (
     <button
       onClick={onClick}
@@ -254,6 +255,11 @@ function TutorialRow({ tutorial, onClick }: { tutorial: any; subjectSlug: string
           <span className="flex items-center gap-1">
             <Clock className="size-3" /> {tutorial.estimatedMinutes}m
           </span>
+          {isPremium && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 px-2 py-0.5 font-medium text-[10px]">
+              <Lock className="size-3" /> Premium
+            </span>
+          )}
           {percent > 0 && !completed && (
             <span className="text-primary font-medium">{percent}% read</span>
           )}

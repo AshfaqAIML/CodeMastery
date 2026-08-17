@@ -4,13 +4,15 @@ import * as React from "react"
 import {
   ArrowRight, Sparkles, Zap, Trophy, Flame, BookOpen, Compass, GraduationCap,
   Code2, Brain, Network, Layers, TrendingUp, Target, Rocket, CheckCircle2,
-  X,
+  X, Crown, LayoutDashboard,
 } from "lucide-react"
 import { motion } from "framer-motion"
+import { useSession } from "next-auth/react"
 import { useAppStore, type ViewName } from "@/lib/store"
 import { useSubjects, usePaths, useLeaderboard, useMe } from "@/hooks/use-api"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { DifficultyBadge } from "@/components/shared/difficulty-badge"
 import { LevelBadge } from "@/components/shared/level-badge"
@@ -26,6 +28,7 @@ const CATEGORIES = [
 
 export function HomeView() {
   const { navigate, openAuth } = useAppStore()
+  const { status } = useSession()
   const { data: subjects } = useSubjects({ withCounts: true })
   const { data: paths } = usePaths()
   const { data: lb } = useLeaderboard("weekly")
@@ -34,6 +37,7 @@ export function HomeView() {
   const featured = (subjects ?? []).slice(0, 8)
   const totalTutorials = (subjects ?? []).reduce((s, x) => s + (x.tutorialCount ?? 0), 0)
   const continueLearning = meData?.continueLearning ?? []
+  const access = meData?.access
 
   return (
     <div className="flex-1">
@@ -286,26 +290,69 @@ export function HomeView() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA — auth-state driven (guest vs signed in) */}
       <section className="border-t border-border/60 bg-muted/20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 py-16 sm:py-24 text-center">
-          <div className="inline-flex size-14 rounded-2xl bg-primary text-primary-foreground items-center justify-center mb-6">
-            <Rocket className="size-7" />
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Ready to start your journey?
-          </h2>
-          <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
-            Join CodeMastery today. Track your progress, earn achievements, and become a better engineer — one tutorial at a time.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button size="lg" className="h-12 px-7 text-base shadow-glow-primary" onClick={() => openAuth("register")}>
-              Create free account <ArrowRight className="ml-2 size-4" />
-            </Button>
-            <Button size="lg" variant="outline" className="h-12 px-6 text-base" onClick={() => navigate("browse")}>
-              Browse tutorials
-            </Button>
-          </div>
+          {status === "authenticated" && meData?.user ? (
+            <>
+              <div className="inline-flex size-14 rounded-2xl bg-primary text-primary-foreground items-center justify-center mb-6">
+                <GraduationCap className="size-7" />
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                Welcome back, {meData.user.name?.split(" ")[0] ?? "there"} 👋
+              </h2>
+              <p className="text-muted-foreground text-lg mb-6 max-w-xl mx-auto">
+                {access?.label === "Premium Member"
+                  ? "You're on Lifetime Premium. Keep building — your next achievement is waiting."
+                  : access?.label === "Premium Trial"
+                  ? `Enjoying Premium free — ${access.trialDaysRemaining} day${access.trialDaysRemaining === 1 ? "" : "s"} remaining in your trial.`
+                  : "Pick up where you left off and keep the streak alive."}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3 mb-5">
+                {access?.label === "Premium Member" && (
+                  <Badge className="gap-1.5"><Crown className="size-3.5" /> Premium Member</Badge>
+                )}
+                {access?.label === "Premium Trial" && (
+                  <Badge variant="secondary" className="gap-1.5">
+                    <Sparkles className="size-3.5 text-primary" /> Premium trial — {access.trialDaysRemaining}d left
+                  </Badge>
+                )}
+              </div>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <Button size="lg" className="h-12 px-7 text-base shadow-glow-primary" onClick={() => navigate("dashboard")}>
+                  <LayoutDashboard className="mr-2 size-4" /> Continue learning
+                </Button>
+                <Button size="lg" variant="outline" className="h-12 px-6 text-base" onClick={() => navigate("browse")}>
+                  Browse tutorials <ArrowRight className="ml-2 size-4" />
+                </Button>
+                {access?.label !== "Premium Member" && (
+                  <Button size="lg" variant="ghost" className="h-12 px-6 text-base" onClick={() => navigate("premium")}>
+                    <Crown className="mr-2 size-4 text-yellow-500" /> Explore Premium
+                  </Button>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="inline-flex size-14 rounded-2xl bg-primary text-primary-foreground items-center justify-center mb-6">
+                <Rocket className="size-7" />
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                Ready to start your journey?
+              </h2>
+              <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
+                Join CodeMastery today. Track your progress, earn achievements, and become a better engineer — one tutorial at a time. Plus, a free 12-day Premium trial on us.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <Button size="lg" className="h-12 px-7 text-base shadow-glow-primary" onClick={() => openAuth("register")}>
+                  Create free account <ArrowRight className="ml-2 size-4" />
+                </Button>
+                <Button size="lg" variant="outline" className="h-12 px-6 text-base" onClick={() => navigate("browse")}>
+                  Browse tutorials
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </section>
     </div>

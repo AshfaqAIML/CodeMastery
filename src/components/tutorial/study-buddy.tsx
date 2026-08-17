@@ -8,7 +8,9 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { useAICheck, apiFetch } from "@/hooks/use-api"
+import { useAICheck, apiFetch, useMe } from "@/hooks/use-api"
+import { useSession } from "next-auth/react"
+import { useAppStore } from "@/lib/store"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
@@ -34,6 +36,8 @@ export function StudyBuddy({ tutorialId, tutorialTitle }: { tutorialId?: string;
   const [messages, setMessages] = React.useState<Message[]>([])
   const [loading, setLoading] = React.useState(false)
   const { data: aiStatus } = useAICheck()
+  const { status } = useSession()
+  const { data: meData } = useMe()
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
 
@@ -49,7 +53,32 @@ export function StudyBuddy({ tutorialId, tutorialTitle }: { tutorialId?: string;
     setQuestion("")
   }, [tutorialId])
 
+  // Access model: the AI Tutor is a Premium feature (trial users get it,
+  // expired/free users see a locked affordance, guests see nothing here —
+  // they get sign-up prompts elsewhere). The server enforces regardless.
+  const access = meData?.access
+  const isPremiumish =
+    access?.effectiveAccess === "PREMIUM" ||
+    access?.effectiveAccess === "PREMIUM_TRIAL"
+
   if (!aiStatus?.enabled) return null
+  if (status !== "authenticated") return null
+
+  if (!isPremiumish) {
+    return (
+      <button
+        onClick={() => useAppStore.getState().navigate("premium")}
+        className="fixed bottom-6 left-6 z-40 flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 shadow-lg hover:shadow-xl transition-all hover:scale-105 group no-print"
+        aria-label="AI Tutor is a Premium feature"
+      >
+        <Sparkles className="size-5 text-primary group-hover:rotate-12 transition-transform" />
+        <span className="text-sm font-medium hidden sm:inline">AI Tutor — Premium</span>
+        <span className="text-[10px] font-semibold rounded-full bg-primary/10 text-primary px-1.5 py-0.5">
+          Unlock
+        </span>
+      </button>
+    )
+  }
 
   const ask = async (questionText?: string, action?: string) => {
     const q = (questionText ?? question).trim()

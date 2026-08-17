@@ -26,6 +26,7 @@ const ProfileView = dynamic(() => import("@/components/views/profile-view").then
 const PathsView = dynamic(() => import("@/components/views/paths-view").then(m => ({ default: m.PathsView })), { ssr: false })
 const AdminView = dynamic(() => import("@/components/views/admin-view").then(m => ({ default: m.AdminView })), { ssr: false })
 const CertificatesView = dynamic(() => import("@/components/views/certificates-view").then(m => ({ default: m.CertificatesView })), { ssr: false })
+const PremiumView = dynamic(() => import("@/components/views/premium-view").then(m => ({ default: m.PremiumView })), { ssr: false })
 
 export function AppShell() {
   const { view, navigate } = useAppStore()
@@ -103,6 +104,7 @@ function renderView(view: string) {
     case "paths": return <PathsView />
     case "admin": return <AdminView />
     case "certificates": return <CertificatesView />
+    case "premium": return <PremiumView />
     default: return <HomeView />
   }
 }

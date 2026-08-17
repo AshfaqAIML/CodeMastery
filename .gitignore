@@ -73,3 +73,6 @@ Books/
 # staging copy of the project (user-provided certificate module source)
 Module/
 
+
+# local sqlite dev database
+prisma/db/

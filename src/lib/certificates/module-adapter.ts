@@ -23,22 +23,15 @@ export async function getCertificateUserId(): Promise<string | null> {
 // getAccessContext — host DB lookup (README: "Implement
 // getAccessContext() with your DB (use resolveEntitlementState)")
 //
-// This app has no premium/trial/entitlement tables — every account is
-// a free account, so the context is always NORMAL with no trial.
-// Eligibility is the real gate; there is nothing to resolve here.
+// Built from the real access model: PremiumTrial (12-day trial granted
+// at signup, server-time-authoritative expiry) + PremiumEntitlement
+// (one-time lifetime purchase / admin grant). Trial users resolve to
+// NORMAL_TRIAL_ACTIVE and receive Premium-level certificate access
+// while their endsAt is in the future.
 // ----------------------------------------------------------------
 export async function buildAccessContext(userId: string | null): Promise<AccessContext | null> {
-  if (!userId) return null
-  const user = await db.user.findUnique({ where: { id: userId }, select: { id: true } })
-  if (!user) return null
-  return {
-    authenticated: true,
-    plan: "NORMAL",
-    entitlementState: "NORMAL_NO_TRIAL",
-    trialDaysRemaining: 0,
-    hasLifetimePremium: false,
-    suspended: false,
-  }
+  const { getAccessContext } = await import("@/lib/entitlements/service")
+  return getAccessContext(userId)
 }
 
 // ----------------------------------------------------------------

@@ -3,11 +3,12 @@
 import * as React from "react"
 import { useSession } from "next-auth/react"
 import {
-  LayoutDashboard, Flame, Zap, Trophy, BookOpen, GraduationCap,
+  LayoutDashboard, Flame, Zap, Trophy, BookOpen, GraduationCap, Crown, Sparkles,
 } from "lucide-react"
 import { useAppStore } from "@/lib/store"
 import { useMe } from "@/hooks/use-api"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { StatCard } from "@/components/dashboard/stat-card"
 import { ContinueLearning } from "@/components/dashboard/continue-learning"
 import { RecentActivity } from "@/components/dashboard/recent-activity"
@@ -24,7 +25,7 @@ import { LevelBadge } from "@/components/shared/level-badge"
 
 export function DashboardView() {
   const { data: session, status } = useSession()
-  const { openAuth } = useAppStore()
+  const { openAuth, navigate } = useAppStore()
   const { data: meData, isLoading } = useMe()
 
   if (status === "loading" || isLoading) {
@@ -61,9 +62,58 @@ export function DashboardView() {
   if (!meData) return null
 
   const { user, stats, continueLearning, recentActivity, recommendations = [], recentlyViewed = [] } = meData
+  const access = meData.access
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      {/* Access-model banner: trial countdown / expiry upsell / premium chip */}
+      {access?.effectiveAccess === "PREMIUM_TRIAL" && (
+        <div className="mb-6 flex flex-wrap items-center gap-3 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3">
+          <div className="size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+            <Sparkles className="size-5" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold">
+              Premium trial — {access.trialDaysRemaining} day{access.trialDaysRemaining === 1 ? "" : "s"} remaining
+            </p>
+            <p className="text-xs text-muted-foreground">
+              You're enjoying the full Premium experience for free. Lock it in forever with a one-time payment.
+            </p>
+          </div>
+          <Button size="sm" variant="outline" onClick={() => navigate("premium")}>
+            <Crown className="mr-1.5 size-4 text-yellow-500" /> Unlock lifetime
+          </Button>
+        </div>
+      )}
+
+      {access?.entitlementState === "NORMAL_TRIAL_EXPIRED" && (
+        <div className="mb-6 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-muted/30 px-4 py-3">
+          <div className="size-9 rounded-lg bg-muted text-muted-foreground flex items-center justify-center shrink-0">
+            <Crown className="size-5" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold">Your 12-day Premium trial has ended</p>
+            <p className="text-xs text-muted-foreground">
+              Your progress, streaks, XP, and achievements are all still here — you're just on the free tier now.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button size="sm" variant="ghost" onClick={() => navigate("browse")}>Continue with free</Button>
+            <Button size="sm" onClick={() => navigate("premium")}>
+              <Crown className="mr-1.5 size-4" /> Unlock lifetime Premium
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {access?.effectiveAccess === "PREMIUM" && (
+        <div className="mb-6">
+          <Badge className="gap-1.5">
+            <Crown className="size-3.5" /> Premium Member
+          </Badge>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
         <div className="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">

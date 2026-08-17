@@ -29,6 +29,11 @@ model User {
   role          String    @default("USER") // USER | ADMIN
   emailVerified DateTime?
 
+  // Access model (see below): every new Normal user receives a 12-day
+  // Premium trial. The base plan stays NORMAL forever — trial and
+  // lifetime Premium are separate entitlement records.
+  plan String @default("NORMAL") // NORMAL | PREMIUM (informational; lifetime entitlement is the gate)
+
   // Gamification
   totalXP       Int       @default(0)
   points        Int       @default(0)
@@ -60,6 +65,11 @@ model User {
   activityLogs    ActivityLog[]
   certificates    Certificate[]
   certificateAudits CertificateAuditLog[]
+  premiumTrials    PremiumTrial[]
+  premiumEntitlements PremiumEntitlement[]
+  payments         Payment[]
+  entitlementLogs  EntitlementAuditLog[] @relation("EntitlementTarget")
+  entitlementActions EntitlementAuditLog[] @relation("EntitlementActor")
 
   @@index([totalXP])
   @@index([points])
@@ -140,6 +150,8 @@ model Subject {
   domainId    String?  // FK to Domain (nullable for backwards compat)
   order       Int      @default(0)
   published   Boolean  @default(true)
+  // Access model: PUBLIC (guests read fully) | FREE (authenticated) | PREMIUM (trial/lifetime)
+  accessLevel String   @default("PUBLIC")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -152,6 +164,7 @@ model Subject {
   @@index([category])
   @@index([domainId])
   @@index([order])
+  @@index([accessLevel])
 }
 
 model Module {
@@ -187,6 +200,8 @@ model Tutorial {
   order       Int      @default(0)
   published   Boolean  @default(true)
   coverImage  String?
+  // Access model: PUBLIC (guests read fully) | FREE (authenticated) | PREMIUM (trial/lifetime)
+  accessLevel String   @default("PUBLIC")
   // --- Pedagogical metadata (curriculum-aware architecture) ---
   // JSON-encoded array of measurable learning objective strings, e.g.
   // ["Explain what a variable is","Create variables using valid syntax"]
@@ -547,6 +562,88 @@ model CertificateAuditLog {
   actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
 
   @@index([certificateId])
+  @@index([action])
+  @@index([actorId])
+}
+
+// ============================================================
+// ACCESS MODEL: GUEST / NORMAL / PREMIUM + 12-day Premium trial
+//
+// Account Plan (User.plan) stays NORMAL permanently — access tiers are
+// derived from these entitlement records:
+//   PremiumTrial        — 12-day trial granted at signup (ACTIVE → EXPIRED/CONVERTED)
+//   PremiumEntitlement  — one-time lifetime purchase (or admin grant)
+//   Payment             — transaction records with idempotency
+//   EntitlementAuditLog — audit trail for trial/payment/premium changes
+// ============================================================
+
+model PremiumTrial {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  startedAt DateTime
+  endsAt    DateTime
+  status    String   @default("ACTIVE") // ACTIVE | EXPIRED | CONVERTED
+  source    String   @default("SIGNUP") // SIGNUP | ADMIN | PROMOTION
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([endsAt])
+}
+
+model PremiumEntitlement {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  source      String   @default("PURCHASE") // PURCHASE | ADMIN_GRANT
+  paymentId   String?   @unique
+  status      String   @default("ACTIVE") // ACTIVE | REVOKED
+  grantedAt   DateTime @default(now())
+  revokedAt   DateTime?
+  revokedById String?
+  revokedReason String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payment Payment? @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+}
+
+model Payment {
+  id             String    @id @default(cuid())
+  userId         String
+  provider       String    // stripe | manual | admin | webhook
+  transactionId  String?   @unique
+  idempotencyKey String?   @unique
+  amount         Int       // cents
+  currency       String    @default("usd")
+  status         String    @default("PENDING") // PENDING | COMPLETED | FAILED | REFUNDED
+  error          String?
+  createdAt      DateTime  @default(now())
+  completedAt    DateTime?
+
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entitlement PremiumEntitlement?
+
+  @@index([userId])
+  @@index([status])
+}
+
+model EntitlementAuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  userId    String
+  action    String // TRIAL_GRANTED | TRIAL_EXPIRED | TRIAL_CONVERTED | PREMIUM_GRANTED | PREMIUM_REVOKED | PAYMENT_RECORDED | PAYMENT_COMPLETED | PAYMENT_DUPLICATE_REJECTED
+  detail    String?
+  createdAt DateTime @default(now())
+
+  actor User? @relation("EntitlementActor", fields: [actorId], references: [id], onDelete: SetNull)
+  user  User  @relation("EntitlementTarget", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
   @@index([action])
   @@index([actorId])
 }

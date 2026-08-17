@@ -4,6 +4,7 @@ import { ok, err, unauthorized } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
 import { getAI } from "@/lib/ai"
 import { config } from "@/lib/config"
+import { canUseAITutor, getAccessSummary } from "@/lib/entitlements/service"
 import { buildTutorialContext, buildSystemPrompt, QUICK_ACTIONS, type QuickAction } from "@/lib/ai/context"
 import { z } from "zod"
 
@@ -21,6 +22,17 @@ export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user) return unauthorized()
 
+  // Access model: AI Tutor is a Premium feature (trial-active users get
+  // the full set, within the daily limit; expired trials and Free users
+  // do not). Server-side only — never trust client flags.
+  const access = await getAccessSummary(user.id)
+  if (!canUseAITutor(access)) {
+    return err(
+      "The AI Tutor is a Premium feature. Your 12-day Premium trial has ended — unlock lifetime Premium to keep using it. You can keep learning for free.",
+      403
+    )
+  }
+
   if (!config.ai.enabled) {
     return err(
       "AI features are not enabled on this deployment. Set AI_ENABLED=true and configure a provider.",
@@ -31,6 +43,19 @@ export async function POST(req: NextRequest) {
   const ai = getAI()
   if (!ai.provider) {
     return err("AI provider is not configured.", 503)
+  }
+
+  // Fair-use daily limit (trial and paid alike).
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const usedToday = await db.activityLog.count({
+    where: { userId: user.id, type: "ai_query", createdAt: { gte: today } },
+  })
+  if (usedToday >= config.premium.aiDailyLimit) {
+    return err(
+      `You've reached the daily AI Tutor limit (${config.premium.aiDailyLimit} messages). Come back tomorrow!`,
+      429
+    )
   }
 
   let body: unknown

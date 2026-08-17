@@ -26,6 +26,7 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ slug: stri
               estimatedMinutes: true,
               tags: true,
               order: true,
+              accessLevel: true,
               ...(user
                 ? {
                     progress: {
@@ -50,6 +51,7 @@ export async function GET(_req: NextRequest, ctx: { params: Promise<{ slug: stri
           estimatedMinutes: true,
           tags: true,
           order: true,
+          accessLevel: true,
           ...(user
             ? {
                 progress: {

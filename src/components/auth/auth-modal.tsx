@@ -53,7 +53,9 @@ export function AuthModal() {
       setName("")
       setEmail("")
       setPassword("")
-      setTimeout(() => window.location.reload(), 400)
+      // No page reload: NextAuth broadcasts the session client-side, and
+      // React Query refetches /api/me once `status` flips to authenticated —
+      // the homepage and header update in place (see HomeView CTA).
     } catch (err: any) {
       toast.error(err.message ?? "Something went wrong.")
     } finally {
