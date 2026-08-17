@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "machine-learning-foundations",
+    "name": "Machine Learning Foundations",
+    "tagline": "Machine learning foundations — core concepts and intuition.",
+    "description": "Build strong ML foundations with supervised and unsupervised learning, model evaluation, and real-world workflows.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 75,
+    "level": "Book 1",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "machine-learning-foundations-path",
+    "title": "Machine Learning Foundations Roadmap",
+    "difficulty": "beginner",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

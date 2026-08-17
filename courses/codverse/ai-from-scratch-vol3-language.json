@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "ai-from-scratch-vol3-language",
+    "name": "AI From Scratch: Volume 3 - Language",
+    "tagline": "Language models and transformers — embeddings, attention, and NLP.",
+    "description": "Natural language processing from foundations to advanced: tokenization, text representation, word embeddings, plus a deep dive into transformers.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 58,
+    "level": "Volume 3",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "ai-from-scratch-vol3-language-path",
+    "title": "AI From Scratch: Volume 3 - Language Roadmap",
+    "difficulty": "intermediate",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

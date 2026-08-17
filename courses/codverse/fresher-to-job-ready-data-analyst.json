@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "fresher-to-job-ready-data-analyst",
+    "name": "Fresher to Job-Ready Data Analyst",
+    "tagline": "From fresher to job-ready data analyst — the complete roadmap.",
+    "description": "Move from beginner to job-ready data analyst with Excel, SQL, dashboards, projects and interview prep.",
+    "icon": "Database",
+    "color": "oklch(0.7 0.13 200)",
+    "category": "Data",
+    "order": 70,
+    "level": "Career Path",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "fresher-to-job-ready-data-analyst-path",
+    "title": "Fresher to Job-Ready Data Analyst Roadmap",
+    "difficulty": "intermediate",
+    "icon": "Database",
+    "color": "oklch(0.7 0.13 200)"
+  },
+  "domain": "data-science",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

@@ -690,6 +690,10 @@ def generate_seed(articles: list[Article], units: list[dict], cfg: dict, seed_pa
     for a in articles:
         slug_of[a.part] = tut_slug(a)
 
+    domain_slug = cfg.get("domain") or "computer-science"
+    module_difficulty = cfg.get("moduleDifficulty") or "beginner"
+    path_difficulty = cfg.get("path", {}).get("difficulty") or "beginner"
+
     def rec(a: Article, u_slug: str, u_title: str) -> str:
         nonlocal order
         o = order
@@ -755,7 +759,7 @@ def generate_seed(articles: list[Article], units: list[dict], cfg: dict, seed_pa
       title: {JD(u['title'])},
       summary: {JD(u.get("summary") or f"Parts {'-'.join(map(str, sorted(u['parts'])))} of this course.")},
       order: {ui + 1},
-      difficulty: "beginner",
+      difficulty: {JD(u.get("difficulty") or module_difficulty)},
       estimatedMinutes: {30 * len(tuts)},
       tutorials: [
 {chr(10).join(tuts)}
@@ -813,7 +817,7 @@ def generate_seed(articles: list[Article], units: list[dict], cfg: dict, seed_pa
     A("]")
     A("")
     A("async function main() {")
-    A('  const domain = await db.domain.findUnique({ where: { slug: "computer-science" } })')
+    A(f'  const domain = await db.domain.findUnique({{ where: {{ slug: {JD(domain_slug)} }} }})')
     A("  const srec = await db.subject.upsert({")
     A("    where: { slug: subject.slug },")
     A("    create: { slug: subject.slug, name: subject.name, tagline: subject.tagline, description: subject.description, icon: subject.icon, color: subject.color, category: subject.category, order: subject.order, published: true, domainId: domain?.id ?? null },")
@@ -839,8 +843,8 @@ def generate_seed(articles: list[Article], units: list[dict], cfg: dict, seed_pa
     A("")
     A("  const path = await db.learningPath.upsert({")
     A(f"    where: {{ slug: {JD(path_slug)} }},")
-    A(f"    create: {{ slug: {JD(path_slug)}, title: {JD(path_title)}, tagline: {JD(tagline)}, description: {JD(desc)}, icon: {JD(icon)}, color: {JD(color)}, difficulty: 'beginner', estimatedHours: {hours}, published: true }},")
-    A(f"    update: {{ title: {JD(path_title)}, tagline: {JD(tagline)}, description: {JD(desc)}, icon: {JD(icon)}, color: {JD(color)}, difficulty: 'beginner', estimatedHours: {hours} }},")
+    A(f"    create: {{ slug: {JD(path_slug)}, title: {JD(path_title)}, tagline: {JD(tagline)}, description: {JD(desc)}, icon: {JD(icon)}, color: {JD(color)}, difficulty: '{path_difficulty}', estimatedHours: {hours}, published: true }},")
+    A(f"    update: {{ title: {JD(path_title)}, tagline: {JD(tagline)}, description: {JD(desc)}, icon: {JD(icon)}, color: {JD(color)}, difficulty: '{path_difficulty}', estimatedHours: {hours} }},")
     A("  })")
     A("  await db.learningPathPart.deleteMany({ where: { pathId: path.id } })")
     A("  await db.learningPathStep.deleteMany({ where: { pathId: path.id } })")
@@ -886,7 +890,8 @@ BOX_MARKERS = re.compile(
 )
 
 
-def preflight(articles: list[Article], units: list[dict], seed_ts: str, tutorials_json: dict) -> tuple[list[str], bool, bool]:
+def preflight(articles: list[Article], units: list[dict], seed_ts: str, tutorials_json: dict,
+              skip_markers: bool = False) -> tuple[list[str], bool, bool]:
     """Run all validations. Returns (report_lines, ok, has_warnings)."""
     lines: list[str] = []
     hard_error = False
@@ -933,10 +938,12 @@ def preflight(articles: list[Article], units: list[dict], seed_ts: str, tutorial
         if not a.assessment and a.part is not None:
             a.add_warning("no self-assessment extracted")
             has_warnings = True
-        # reference-box markers must never appear in content
-        for m in BOX_MARKERS.finditer(a.markdown):
-            a.add_warning(f"reference-box marker {m.group(0)!r} found in content")
-            has_warnings = True
+        # reference-box markers must never appear in content (except
+        # pipelines that legitimately emit these headings, e.g. codverse)
+        if not skip_markers:
+            for m in BOX_MARKERS.finditer(a.markdown):
+                a.add_warning(f"reference-box marker {m.group(0)!r} found in content")
+                has_warnings = True
         # balanced code fences
         fences = 0
         for ln in a.markdown.split("\n"):

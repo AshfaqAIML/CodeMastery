@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "aiml-engineer",
+    "name": "AI/ML Engineering Mastery Handbook",
+    "tagline": "A full path to AI/ML engineering — 102 chapters from basics to professional practice.",
+    "description": "Complete Beginner-to-Professional AI Engineer Roadmap covering Python, Mathematics, SQL, Data Analysis, Machine Learning, Deep Learning, Computer Vision, NLP, LLMs, MLOps, and AI System Design.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 64,
+    "level": "Beginner to Professional",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "aiml-engineer-path",
+    "title": "AI/ML Engineering Mastery Handbook Roadmap",
+    "difficulty": "intermediate",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

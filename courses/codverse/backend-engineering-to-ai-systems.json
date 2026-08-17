@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "backend-engineering-to-ai-systems",
+    "name": "Backend Engineering to AI Systems",
+    "tagline": "From backend engineering to AI systems — the bridging roadmap.",
+    "description": "Connect backend engineering with AI systems, data pipelines, APIs and intelligent applications.",
+    "icon": "Code2",
+    "color": "oklch(0.66 0.16 160)",
+    "category": "Programming",
+    "order": 67,
+    "level": "Advanced",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "backend-engineering-to-ai-systems-path",
+    "title": "Backend Engineering to AI Systems Roadmap",
+    "difficulty": "advanced",
+    "icon": "Code2",
+    "color": "oklch(0.66 0.16 160)"
+  },
+  "domain": "software-engineering",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

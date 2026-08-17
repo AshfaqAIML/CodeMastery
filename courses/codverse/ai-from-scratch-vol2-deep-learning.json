@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "ai-from-scratch-vol2-deep-learning",
+    "name": "AI From Scratch: Volume 2 - Deep Learning",
+    "tagline": "Deep learning in depth — backprop, CNNs, and optimization.",
+    "description": "Deep learning from first principles: the perceptron, multi-layer networks, backpropagation, activation and loss functions, plus computer vision and speech & audio.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 57,
+    "level": "Volume 2",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "ai-from-scratch-vol2-deep-learning-path",
+    "title": "AI From Scratch: Volume 2 - Deep Learning Roadmap",
+    "difficulty": "intermediate",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "ai-from-scratch-vol4-llms",
+    "name": "AI From Scratch: Volume 4 - Large Language Models",
+    "tagline": "LLMs end to end — pretraining, fine-tuning, alignment, and RAG.",
+    "description": "Generative AI, reinforcement learning, building LLMs from scratch, and LLM engineering for production use.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 59,
+    "level": "Volume 4",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "ai-from-scratch-vol4-llms-path",
+    "title": "AI From Scratch: Volume 4 - Large Language Models Roadmap",
+    "difficulty": "intermediate",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

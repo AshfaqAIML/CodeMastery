@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "ai-ml-handbook-volume-1",
+    "name": "AI/ML Handbook Volume 1",
+    "tagline": "The complete AI/ML handbook — concepts, math, and models built from scratch.",
+    "description": "Python, mathematics, machine learning and deep learning foundations for AI/ML interview prep.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 62,
+    "level": "Foundations",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "ai-ml-handbook-volume-1-path",
+    "title": "AI/ML Handbook Volume 1 Roadmap",
+    "difficulty": "beginner",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

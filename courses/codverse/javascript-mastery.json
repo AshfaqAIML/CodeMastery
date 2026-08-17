@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "javascript-mastery",
+    "name": "JavaScript",
+    "tagline": "JavaScript in depth — fundamentals to advanced patterns, with exercises and MCQs.",
+    "description": "Learn JavaScript fundamentals, DOM work, functions, async code and practical browser programming.",
+    "icon": "Globe",
+    "color": "oklch(0.68 0.17 240)",
+    "category": "Web",
+    "order": 73,
+    "level": "Intermediate",
+    "codeLang": "js"
+  },
+  "path": {
+    "slug": "javascript-mastery-path",
+    "title": "JavaScript Roadmap",
+    "difficulty": "intermediate",
+    "icon": "Globe",
+    "color": "oklch(0.68 0.17 240)"
+  },
+  "domain": "software-engineering",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

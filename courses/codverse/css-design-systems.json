@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "css-design-systems",
+    "name": "CSS",
+    "tagline": "CSS in depth — layout, design systems, and production styling patterns.",
+    "description": "Study CSS layout, responsive design, Flexbox, Grid, motion and modern styling systems from the book.",
+    "icon": "Globe",
+    "color": "oklch(0.68 0.17 240)",
+    "category": "Web",
+    "order": 68,
+    "level": "Beginner",
+    "codeLang": "css"
+  },
+  "path": {
+    "slug": "css-design-systems-path",
+    "title": "CSS Roadmap",
+    "difficulty": "beginner",
+    "icon": "Globe",
+    "color": "oklch(0.68 0.17 240)"
+  },
+  "domain": "software-engineering",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

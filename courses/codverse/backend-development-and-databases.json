@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "backend-development-and-databases",
+    "name": "Backend Development and Databases",
+    "tagline": "Backend development with databases — SQL, design, and data modeling.",
+    "description": "Go deeper into backend development, database design, SQL, APIs and persistent data systems.",
+    "icon": "Code2",
+    "color": "oklch(0.66 0.16 160)",
+    "category": "Programming",
+    "order": 66,
+    "level": "Book 2",
+    "codeLang": "sql"
+  },
+  "path": {
+    "slug": "backend-development-and-databases-path",
+    "title": "Backend Development and Databases Roadmap",
+    "difficulty": "intermediate",
+    "icon": "Code2",
+    "color": "oklch(0.66 0.16 160)"
+  },
+  "domain": "software-engineering",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

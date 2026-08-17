@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "master-english-easily",
+    "name": "Master English Easily",
+    "tagline": "Master English easily — 40 chapters of practical language building.",
+    "description": "Learn English in a simple way with grammar, vocabulary, speaking and practice lessons.",
+    "icon": "Briefcase",
+    "color": "oklch(0.75 0.16 85)",
+    "category": "Career",
+    "order": 76,
+    "level": "Beginner",
+    "codeLang": "text"
+  },
+  "path": {
+    "slug": "master-english-easily-path",
+    "title": "Master English Easily Roadmap",
+    "difficulty": "beginner",
+    "icon": "Briefcase",
+    "color": "oklch(0.75 0.16 85)"
+  },
+  "domain": "software-engineering",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

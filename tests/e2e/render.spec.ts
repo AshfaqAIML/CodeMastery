@@ -47,3 +47,16 @@ test("project page renders overview and code", async ({ page }) => {
   await expect(page.getByText("Project Overview", { exact: true })).toBeVisible({ timeout: 15000 })
   await expect(page.locator("pre").first()).toBeVisible()
 })
+
+test("CodeVerse course page renders objectives and fenced code", async ({ page }) => {
+  await openTutorial(page, "HTML", "Introduction to Computers, Software, and the Internet")
+  const article = page.locator(".prose-tutorial")
+  await expect(article.getByRole("heading", { name: /Learning Objectives/ })).toBeVisible({ timeout: 15000 })
+  await expect(article.locator("ul li").first()).toBeVisible()
+  await expect(article.locator("h1").first()).toBeVisible()
+})
+
+test("CodeVerse AI course page renders py fences", async ({ page }) => {
+  await openTutorial(page, "Python Backend Foundation", "Python Fundamentals")
+  await expect(page.locator("pre").first()).toBeVisible({ timeout: 15000 })
+})

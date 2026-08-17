@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "ai-ml-handbook-volume-2",
+    "name": "AI/ML Handbook Volume 2",
+    "tagline": "Interview-ready AI/ML — deep dives with clear answers.",
+    "description": "Generative AI, MLOps, SQL, project discussion and interview question bank for AI/ML roles.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 63,
+    "level": "Interview Prep",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "ai-ml-handbook-volume-2-path",
+    "title": "AI/ML Handbook Volume 2 Roadmap",
+    "difficulty": "intermediate",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

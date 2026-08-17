@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "english",
+    "name": "English",
+    "tagline": "Essential English for developers — read, write, and communicate in tech.",
+    "description": "Build practical English reading, writing, vocabulary and communication skills.",
+    "icon": "Briefcase",
+    "color": "oklch(0.75 0.16 85)",
+    "category": "Career",
+    "order": 69,
+    "level": "Foundation",
+    "codeLang": "text"
+  },
+  "path": {
+    "slug": "english-path",
+    "title": "English Roadmap",
+    "difficulty": "beginner",
+    "icon": "Briefcase",
+    "color": "oklch(0.75 0.16 85)"
+  },
+  "domain": "software-engineering",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

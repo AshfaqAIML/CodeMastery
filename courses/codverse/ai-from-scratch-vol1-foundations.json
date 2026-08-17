@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "ai-from-scratch-vol1-foundations",
+    "name": "AI From Scratch: Volume 1 - Foundations",
+    "tagline": "AI from first principles — the math, data, and foundations of machine learning.",
+    "description": "Foundations for AI engineering: environment setup, the math (linear algebra, calculus, probability, statistics, optimization), and machine learning fundamentals.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 56,
+    "level": "Volume 1",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "ai-from-scratch-vol1-foundations-path",
+    "title": "AI From Scratch: Volume 1 - Foundations Roadmap",
+    "difficulty": "beginner",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

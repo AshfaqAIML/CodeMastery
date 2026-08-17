@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "advanced-backend-and-system-design",
+    "name": "Advanced Backend and System Design",
+    "tagline": "Designing robust backends — architecture, scaling, caching, and system design.",
+    "description": "Study advanced backend architecture, scaling, reliability, distributed systems and system design.",
+    "icon": "Server",
+    "color": "oklch(0.62 0.15 262)",
+    "category": "Systems",
+    "order": 54,
+    "level": "Book 3",
+    "codeLang": "text"
+  },
+  "path": {
+    "slug": "advanced-backend-and-system-design-path",
+    "title": "Advanced Backend and System Design Roadmap",
+    "difficulty": "advanced",
+    "icon": "Server",
+    "color": "oklch(0.62 0.15 262)"
+  },
+  "domain": "software-engineering",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

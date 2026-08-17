@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "html-foundations",
+    "name": "HTML",
+    "tagline": "Master HTML — structure, semantics, forms, and accessibility.",
+    "description": "Learn HTML structure, semantic layout, forms, accessibility and document foundations from the full course book.",
+    "icon": "Globe",
+    "color": "oklch(0.68 0.17 240)",
+    "category": "Web",
+    "order": 72,
+    "level": "Beginner",
+    "codeLang": "html"
+  },
+  "path": {
+    "slug": "html-foundations-path",
+    "title": "HTML Roadmap",
+    "difficulty": "beginner",
+    "icon": "Globe",
+    "color": "oklch(0.68 0.17 240)"
+  },
+  "domain": "software-engineering",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

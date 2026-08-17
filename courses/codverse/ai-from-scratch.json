@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "ai-from-scratch",
+    "name": "AI From Scratch",
+    "tagline": "The complete AI journey — from machine learning fundamentals to production systems.",
+    "description": "Learn artificial intelligence from first principles: Python, mathematics, data, machine learning, deep learning, vision, NLP, transformers, generative AI, RAG, agents, deployment and AI system design.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 55,
+    "level": "Beginner to Production",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "ai-from-scratch-path",
+    "title": "AI From Scratch Roadmap",
+    "difficulty": "intermediate",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

@@ -125,3 +125,56 @@ preflight reports these as warnings; `--force` writes the seed anyway.
 Compares the tutorials/modules/path declared in a seed file against the
 database (counts, slugs, orders) and prints a diff. Exit code 0 when they
 agree. Default compares `prisma/computer-science-foundations-seed.ts`.
+
+## codverse.py — CodeVerse Academy book JSONs
+
+For courses copied from the CodeVerse Academy site. The source books live
+in `codverse/books/*.json` (copied verbatim from the other site's
+`data/books/`) and are flat block lists of four types — heading /
+subheading / paragraph / list — so code and tables arrive flattened back
+into text runs.
+
+Usage:
+
+    py -X utf8 scripts/import-course/codverse.py <book> \
+      --config courses/codverse/<book>.json \
+      [--seed prisma/<slug>-seed.ts]   [--no-seed]  [--force]
+    py -X utf8 scripts/import-course/codverse.py --all --force
+
+Handling rules:
+
+- One subject per book JSON, one learning path with all chapters as steps,
+  and modules are fixed-size chunks of 12 chapters
+  (`part-1`, `part-2`, ... with chapter ranges in the titles).
+- Chapter slugs are `chapter-<n>-<slugified-title>`, renumbered sequentially
+  over chapters that actually contain content; chapters that are empty in
+  the source JSON (ToC stubs / part dividers, e.g. 5 in
+  backend-engineering-to-ai-systems) are skipped with an info line.
+- Section-aware metadata extraction (same section names as book.py):
+  Learning Objectives / Chapter Summary / Key Terms / MCQs / Chapter
+  Introduction / Why This Topic Matters. Metadata items may be lists OR
+  checkmark-prefixed subheadings — both are captured; lead-in phrases
+  ("After completing this chapter, you should be able to:") are dropped.
+- MCQs render as question + option list + `**Answer: X**` in content and
+  feed `selfAssessment` (`"Q (Answer: X)"`).
+- Code re-fencing: blocks that contain code hints (statements, `console.`,
+  braces, `def `, `array[n]`, HTML tags) become fenced blocks; the fence
+  language comes from content hints (`html`/`py`/`js`/`css`) with a
+  per-course fallback (`course.codeLang`, e.g. `"sql"`).
+- Summary is the Chapter Introduction prose; tags are the slugified
+  Key Terms.
+- NUL/control characters (`\u0000`, ...) embedded in the source JSON are
+  stripped — PostgreSQL rejects them.
+- Difficulty is derived from the book's `level` label (volumes 5–6,
+  "Professional", "Book 3" → advanced; "Interview Prep", "Practice Book",
+  "Complete Book" → intermediate; anything else → beginner), overridable
+  via `course.difficulties` or `course.level`.
+- Preflight runs with `skip_markers=True` since these books legitimately
+  emit the metadata headings that the DOCX pipelines treat as
+  contamination.
+- Estimated hours for the path are computed from tutorial minutes.
+
+Course config (`courses/codverse/<book>.json`) adds `domain` (one of the
+four DB domain slugs) and `chunkSize` to the shared schema;
+`generate_seed()` now reads `domain`, `moduleDifficulty`, and
+`path.difficulty` (defaults preserve the older seeds).

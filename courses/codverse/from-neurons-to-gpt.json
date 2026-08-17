@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "from-neurons-to-gpt",
+    "name": "From Neurons to GPT",
+    "tagline": "The history and inner workings of AI — from early neurons to GPT.",
+    "description": "Understand AI from biological neurons to large language models like GPT.",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)",
+    "category": "AI/ML",
+    "order": 71,
+    "level": "Beginner",
+    "codeLang": "text"
+  },
+  "path": {
+    "slug": "from-neurons-to-gpt-path",
+    "title": "From Neurons to GPT Roadmap",
+    "difficulty": "beginner",
+    "icon": "BrainCircuit",
+    "color": "oklch(0.65 0.2 305)"
+  },
+  "domain": "artificial-intelligence",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

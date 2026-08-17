@@ -1,0 +1,24 @@
+{
+  "course": {
+    "slug": "python-dsa",
+    "name": "Python DSA",
+    "tagline": "Data structures and algorithms in Python — intuition, practice, and interviews.",
+    "description": "Learn data structures and algorithms using Python with topic-wise explanations and practice.",
+    "icon": "Code2",
+    "color": "oklch(0.66 0.16 160)",
+    "category": "Programming",
+    "order": 79,
+    "level": "Practice Book",
+    "codeLang": "py"
+  },
+  "path": {
+    "slug": "python-dsa-path",
+    "title": "Python DSA Roadmap",
+    "difficulty": "intermediate",
+    "icon": "Code2",
+    "color": "oklch(0.66 0.16 160)"
+  },
+  "domain": "computer-science",
+  "chunkSize": 12,
+  "minutesDefault": 25
+}

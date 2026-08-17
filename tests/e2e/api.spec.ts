@@ -123,4 +123,41 @@ test.describe("API Health", () => {
     expect(slugs).toContain("project-3-to-do-list-application")
     expect(slugs).toContain("chapter-34-closures")
   })
+
+  test("CodeVerse HTML course tutorial fetches fully with metadata", async ({ request }) => {
+    const response = await request.get("/api/tutorials/html-foundations/chapter-1-introduction-to-computers-software-and-the-internet")
+    expect(response.ok()).toBeTruthy()
+    const data = await response.json()
+    expect(data.ok).toBe(true)
+    const t = data.data.tutorial
+    expect(t.slug).toContain("chapter-1-")
+    expect(t.content.length).toBeGreaterThan(3000)
+    expect(t.learningObjectives.length).toBeGreaterThan(0)
+    expect(t.content).toContain("## Learning Objectives")
+    expect(t.tags).toContain("html")
+  })
+
+  test("CodeVerse Python course tutorial renders code fences", async ({ request }) => {
+    const response = await request.get("/api/tutorials/python-backend-foundation/chapter-1-python-fundamentals")
+    expect(response.ok()).toBeTruthy()
+    const data = await response.json()
+    expect(data.ok).toBe(true)
+    const t = data.data.tutorial
+    expect(t.content).toContain("```py")
+    expect(t.content).toContain("```")
+  })
+
+  test("CodeVerse subjects browse exposes 27 new courses", async ({ request }) => {
+    const response = await request.get("/api/subjects?withCounts=true")
+    expect(response.ok()).toBeTruthy()
+    const data = await response.json()
+    expect(data.ok).toBe(true)
+    const slugs = data.data.map((s: any) => s.slug)
+    for (const expectSlug of ["html-foundations", "javascript-mastery", "css-design-systems",
+      "ai-from-scratch-vol5-agents", "python-dsa", "english"]) {
+      expect(slugs).toContain(expectSlug)
+    }
+    const html = data.data.find((s: any) => s.slug === "html-foundations")
+    expect(html.tutorialCount).toBe(37)
+  })
 })
