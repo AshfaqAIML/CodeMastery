@@ -3,6 +3,8 @@ import { db } from "@/lib/db"
 import { ok, err, unauthorized } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
 import { levelFromXP, todayStr, computeStreak, DAILY_XP_CAP } from "@/lib/gamification"
+import { issueSubjectCertificate } from "@/lib/certificates/issue"
+import { makeVerifyUrl } from "@/lib/certificates/types"
 import { z } from "zod"
 
 const schema = z.object({
@@ -91,8 +93,9 @@ export async function POST(req: NextRequest) {
   }
 
   // Persist progress + awards transactionally
-  const updated = await db.$transaction(async (tx) => {
-    const progress = await tx.tutorialProgress.upsert({
+  const updated = await db.$transaction(
+    async (tx) => {
+      const progress = await tx.tutorialProgress.upsert({
       where: { userId_tutorialId: { userId: user.id, tutorialId: tutorial.id } },
       create: {
         userId: user.id,
@@ -149,11 +152,35 @@ export async function POST(req: NextRequest) {
     }
 
     return progress
-  })
+    },
+    { timeout: 30_000, maxWait: 10_000 }
+  )
 
   // Re-evaluate achievements (outside transaction to keep it simple)
   if (awardTypes.length > 0) {
     await evaluateAchievements(user.id)
+  }
+
+  // Auto-issue a subject certificate on fresh completion: when ALL tutorials
+  // of the tutorial's subject are now completed, a certificate is created
+  // server-side (idempotent via the eligibility + duplicate checks).
+  let certificateIssued: {
+    number: string
+    title: string
+    verifyUrl: string
+  } | null = null
+  if (nowCompleted && !wasCompleted && tutorial.subjectId) {
+    const result = await issueSubjectCertificate({
+      userId: user.id,
+      subjectId: tutorial.subjectId,
+    })
+    if ("cert" in result) {
+      certificateIssued = {
+        number: result.cert.number,
+        title: result.cert.title,
+        verifyUrl: makeVerifyUrl(result.cert.number),
+      }
+    }
   }
 
   const freshStats = await db.user.findUnique({
@@ -173,6 +200,7 @@ export async function POST(req: NextRequest) {
     newStreak,
     streakIncremented: streakRes.incremented,
     stats: freshStats,
+    certificateIssued,
   })
 }
 

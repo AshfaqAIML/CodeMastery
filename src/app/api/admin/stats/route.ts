@@ -6,7 +6,7 @@ export async function GET() {
   const user = await getCurrentUser()
   if (!user || user.role !== "ADMIN") return forbidden()
 
-  const [users, subjects, tutorials, quizzes, achievements, paths, progress, quizAttempts] =
+  const [users, subjects, tutorials, quizzes, achievements, paths, progress, quizAttempts, certificates] =
     await Promise.all([
       db.user.count(),
       db.subject.count(),
@@ -16,9 +16,10 @@ export async function GET() {
       db.learningPath.count(),
       db.tutorialProgress.count(),
       db.quizAttempt.count(),
+      db.certificate.count(),
     ])
 
   return ok({
-    counts: { users, subjects, tutorials, quizzes, achievements, paths, progress, quizAttempts },
+    counts: { users, subjects, tutorials, quizzes, achievements, paths, progress, quizAttempts, certificates },
   })
 }
