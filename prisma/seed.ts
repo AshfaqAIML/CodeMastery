@@ -8393,20 +8393,30 @@ async function main() {
   }
   console.log(`  ✓ ${paths.length} learning paths`)
 
-  // Create an admin user if none exists
-  const adminEmail = "admin@codemastery.dev"
-  const existingAdmin = await db.user.findUnique({ where: { email: adminEmail } })
-  if (!existingAdmin) {
-    const { scryptSync, randomBytes } = await import("crypto")
-    const salt = randomBytes(16).toString("hex")
-    const hash = scryptSync("admin12345", salt, 64).toString("hex")
-    await db.user.create({
-      data: {
-        email: adminEmail, name: "Admin", username: "admin",
-        passwordHash: `scrypt:${salt}:${hash}`, role: "ADMIN", onboarded: true,
-      },
-    })
-    console.log(`  ✓ Admin user created (email: ${adminEmail}, password: admin12345)`)
+  // Bootstrap an admin user ONLY when SEED_ADMIN_EMAIL + SEED_ADMIN_PASSWORD are provided.
+  // Never print or hardcode the password — set SEED_ADMIN_PASSWORD locally via env.
+  const adminEmail = process.env.SEED_ADMIN_EMAIL
+  if (adminEmail) {
+    const existingAdmin = await db.user.findUnique({ where: { email: adminEmail } })
+    if (!existingAdmin) {
+      const adminPassword = process.env.SEED_ADMIN_PASSWORD
+      if (!adminPassword) {
+        console.warn(`  ! SEED_ADMIN_EMAIL is set but SEED_ADMIN_PASSWORD is missing — skipping admin bootstrap.`)
+      } else {
+        const { scryptSync, randomBytes } = await import("crypto")
+        const salt = randomBytes(16).toString("hex")
+        const hash = scryptSync(adminPassword, salt, 64).toString("hex")
+        await db.user.create({
+          data: {
+            email: adminEmail, name: "Admin", username: "admin",
+            passwordHash: `scrypt:${salt}:${hash}`, role: "ADMIN", onboarded: true,
+          },
+        })
+        console.log(`  ✓ Admin user created (email: ${adminEmail}) — password withheld`)
+      }
+    }
+  } else {
+    console.log("  - No SEED_ADMIN_EMAIL set; skipping admin bootstrap.")
   }
 
   const counts = {

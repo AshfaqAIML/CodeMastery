@@ -76,3 +76,6 @@ Module/
 
 # local sqlite dev database
 prisma/db/
+
+# Local tool output artifacts
+tool-results/

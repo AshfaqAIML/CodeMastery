@@ -49,7 +49,7 @@ Work Log:
 - Auth: NextAuth credentials provider, scrypt password hashing, register endpoint with rate limiting.
 - Gamification: server-side XP/level/streak computation in /api/progress with daily cap (DAILY_XP_CAP=500) and anti-farming. Achievements auto-evaluate against real metrics.
 - API routes: subjects, subject[slug], tutorials[subjectSlug][tutorialSlug] (with prev/next + user progress/bookmarks/notes), progress, bookmarks, notes, search (DB-backed, swappable), leaderboard, achievements, me, onboarding, paths, paths[slug], quizzes[id], quizzes[id]/attempt (server-scored), admin stats/export/import, health.
-- Seed: 20 subjects, 22 modules, 57 tutorials (real markdown, 800-2000 words each, with code examples), 15 quizzes, 45 questions, 16 achievements, 5 learning paths, admin user (admin@codemastery.dev / admin12345).
+- Seed: 20 subjects, 22 modules, 57 tutorials (real markdown, 800-2000 words each, with code examples), 15 quizzes, 45 questions, 16 achievements, 5 learning paths, optional admin bootstrap (env-driven, password never printed — see prisma/seed.ts).
 - Lint clean.
 
 Stage Summary:
@@ -1581,3 +1581,19 @@ Work Log:
 Stage Summary:
 - Turnover complete. Old admin account no longer has any admin capability; every admin API resolves permissions against the centralized AuthorizationService (cached client map is UI-only). Owner can still rotate/verify password on the new account via the normal app flows; MFA remains the recommended future hardening step.
 - Files touched: worklog.md only (DB change applied via scripts/roles.ts).
+
+---
+Task ID: SECURITY-CLEANUP
+Agent: Principal Architect (main)
+Task: Post-migration hygiene - test data, seed hardening, credential sweep
+
+Work Log:
+- Removed 270 e2e test users (email like *@test.dev) from the Neon DB. AuditLog/EntitlementAuditLog actor links set to NULL (onDelete: SetNull) so the audit trail is preserved. 30 real users remain; exactly one non-USER account: moeedkamraan1123@gmail.com (SUPER_ADMIN, ACTIVE).
+- Hardened prisma/seed.ts: admin bootstrap no longer hardcodes admin@codemastery.dev / admin12345. Now reads SEED_ADMIN_EMAIL + SEED_ADMIN_PASSWORD from env (skips with a warning if email set without password; skips entirely if unset). Password never printed to console. Documented in .env.example.
+- Sanitized worklog.md line that documented the demo admin credentials.
+- Untracked tool-results/ (stale tool output dumps, one of which contained the same credential line) - added to .gitignore, removed from index.
+- Sweep: rg for plaintext password patterns across tree = 0 matches (node_modules/.git excluded). Type check: 0 errors.
+
+Stage Summary:
+- No plaintext credentials remain in the working tree; test data cleaned; seed bootstraps admins only from env input. Full credential history scrubbing (git history rewrite) intentionally NOT performed - flag if desired.
+- Files touched: prisma/seed.ts, .env.example, .gitignore, worklog.md.
