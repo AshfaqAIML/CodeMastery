@@ -172,7 +172,7 @@ export function PathsView() {
 
   // List view
   return (
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
       <div className="flex items-center gap-3 mb-2">
         <div className="size-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
           <Route className="size-6" />
@@ -184,13 +184,13 @@ export function PathsView() {
       </div>
 
       {isLoading ? (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-          {Array.from({ length: 9 }).map((_, i) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          {Array.from({ length: 8 }).map((_, i) => (
             <div key={i} className="h-64 rounded-xl skeleton-shimmer" />
           ))}
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
           {(paths ?? []).map((p, i) => (
             <motion.button
               key={p.id}

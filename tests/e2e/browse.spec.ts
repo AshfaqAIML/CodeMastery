@@ -10,8 +10,8 @@ test.describe("Browse View", () => {
       await browseBtn.click()
       await page.waitForTimeout(3000)
     }
-    // Should show category filters
-    const categories = page.locator("text=/All|Programming|Data|Systems|AI\/ML|Web|Career/")
+    // Should show category filters for all 7 domains
+    const categories = page.locator("text=/All domains|Computer Science|Artificial Intelligence|Data Science|Web Development|Backend & Systems|Cloud, DevOps & Security|Career & Professional Skills/")
     expect(await categories.count()).toBeGreaterThan(0)
   })
 

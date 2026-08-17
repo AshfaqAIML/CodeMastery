@@ -31,12 +31,15 @@ test.describe("Auth Flow", () => {
 
   test("login API rejects invalid credentials", async ({ request }) => {
     const response = await request.post("/api/auth/callback/credentials", {
+      maxRedirects: 0,
       data: {
         email: "nonexistent@test.com",
         password: "wrongpassword",
       },
     })
-    // Should not return a successful redirect
+    // NextAuth redirects (302) to the sign-in error page on invalid credentials;
+    // a 200 success response would mean the login was accepted.
     expect(response.status()).not.toBe(200)
+    expect([302, 400, 401]).toContain(response.status())
   })
 })
