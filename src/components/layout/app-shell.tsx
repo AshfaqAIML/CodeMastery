@@ -25,6 +25,7 @@ const AchievementsView = dynamic(() => import("@/components/views/achievements-v
 const ProfileView = dynamic(() => import("@/components/views/profile-view").then(m => ({ default: m.ProfileView })), { ssr: false })
 const PathsView = dynamic(() => import("@/components/views/paths-view").then(m => ({ default: m.PathsView })), { ssr: false })
 const AdminView = dynamic(() => import("@/components/views/admin-view").then(m => ({ default: m.AdminView })), { ssr: false })
+const CertificatesView = dynamic(() => import("@/components/views/certificates-view").then(m => ({ default: m.CertificatesView })), { ssr: false })
 
 export function AppShell() {
   const { view, navigate } = useAppStore()
@@ -35,7 +36,7 @@ export function AppShell() {
 
   // Redirect protected views to home if not authed
   React.useEffect(() => {
-    if (status === "unauthenticated" && (view === "dashboard" || view === "profile" || view === "admin")) {
+    if (status === "unauthenticated" && (view === "dashboard" || view === "profile" || view === "admin" || view === "certificates")) {
       navigate("home")
     }
   }, [status, view, navigate])
@@ -101,6 +102,7 @@ function renderView(view: string) {
     case "profile": return <ProfileView />
     case "paths": return <PathsView />
     case "admin": return <AdminView />
+    case "certificates": return <CertificatesView />
     default: return <HomeView />
   }
 }

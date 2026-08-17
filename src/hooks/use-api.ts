@@ -335,3 +335,13 @@ export function useAICheck() {
     staleTime: 5 * 60 * 1000,
   })
 }
+
+// ---------- Certificates ----------
+export function useMyCertificates() {
+  const { status } = useSession()
+  return useQuery({
+    queryKey: ["my-certificates"],
+    queryFn: () => apiFetch<{ certificates: any[] }>(`/api/me/certificates`),
+    enabled: status === "authenticated",
+  })
+}
