@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
+import { CertificatesAdmin } from "@/components/admin/certificates-admin"
 
 export function AdminView() {
   const { data: session } = useSession()
@@ -113,6 +114,7 @@ export function AdminView() {
           <AdminStat icon={Route} label="Learning paths" value={counts?.paths ?? 0} color="oklch(0.68 0.2 30)" />
           <AdminStat icon={Database} label="Progress records" value={counts?.progress ?? 0} color="oklch(0.7 0.13 200)" />
           <AdminStat icon={FileQuestion} label="Quiz attempts" value={counts?.quizAttempts ?? 0} color="oklch(0.68 0.2 305)" />
+          <AdminStat icon={Award} label="Certificates" value={counts?.certificates ?? 0} color="oklch(0.62 0.15 162)" />
         </div>
       )}
 
@@ -151,6 +153,14 @@ export function AdminView() {
 
       <div className="mt-6 rounded-lg border border-border/60 bg-muted/30 p-4 text-xs text-muted-foreground">
         <strong className="text-foreground">Portability note:</strong> The export contains subjects, modules, tutorials, quizzes, achievements, and learning paths as portable JSON. This is engine-agnostic and can be imported into any CodeMastery instance regardless of the underlying database (SQLite or PostgreSQL).
+      </div>
+
+      {/* Certificates */}
+      <div className="mt-10">
+        <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+          <Award className="size-5 text-primary" /> Certificates
+        </h2>
+        <CertificatesAdmin />
       </div>
     </div>
   )
