@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="CodeMastery official seal">
+  <defs>
+    <path id="arc-top" d="M 84 256 A 172 172 0 0 1 428 256" />
+    <path id="arc-bottom" d="M 84 256 A 172 172 0 0 0 428 256" />
+  </defs>
+
+  <circle cx="256" cy="256" r="246" fill="#faf6ea" />
+  <circle cx="256" cy="256" r="244" fill="none" stroke="#b08d2f" stroke-width="5" />
+  <circle cx="256" cy="256" r="226" fill="none" stroke="#b08d2f" stroke-width="2" />
+  <circle cx="256" cy="256" r="212" fill="none" stroke="#d8c581" stroke-width="1.5" stroke-dasharray="7 7" />
+
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="30" letter-spacing="7.5" fill="#8a6d1f" text-anchor="middle">
+    <textPath href="#arc-top" startOffset="50%">CODEMASTERY  •  OFFICIAL CERTIFICATION</textPath>
+  </text>
+  <text font-family="Georgia, 'Times New Roman', serif" font-size="30" letter-spacing="7.5" fill="#8a6d1f" text-anchor="middle">
+    <textPath href="#arc-bottom" startOffset="50%">LEARNER ACHIEVEMENT  •  VERIFIED</textPath>
+  </text>
+
+  <circle cx="256" cy="256" r="138" fill="#fffdf5" stroke="#c9a94e" stroke-width="2" />
+
+  <polygon points="180,206 332,206 256,132" fill="#1f2937" />
+  <polygon points="204,234 308,234 332,206 180,206" fill="#374151" />
+  <circle cx="256" cy="168" r="9" fill="#b08d2f" />
+  <line x1="256" y1="168" x2="300" y2="238" stroke="#b08d2f" stroke-width="7" stroke-linecap="round" />
+  <circle cx="302" cy="240" r="11" fill="#b08d2f" />
+  <line x1="256" y1="168" x2="212" y2="238" stroke="#b08d2f" stroke-width="4" stroke-linecap="round" opacity="0.7" />
+  <circle cx="210" cy="240" r="6" fill="#c9a94e" />
+
+  <text x="256" y="310" font-family="Georgia, 'Times New Roman', serif" font-size="34" fill="#1f2937" text-anchor="middle" font-weight="bold">CodeMastery</text>
+  <text x="256" y="344" font-family="Georgia, 'Times New Roman', serif" font-size="19" letter-spacing="4" fill="#8a6d1f" text-anchor="middle">EST. 2025</text>
+</svg>

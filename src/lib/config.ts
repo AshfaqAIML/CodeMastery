@@ -117,6 +117,19 @@ export const config = {
     enabled: process.env.RATE_LIMIT_ENABLED !== "false",
     authMax: Number(process.env.RATE_LIMIT_AUTH_MAX ?? "10"),
     authWindowMs: Number(process.env.RATE_LIMIT_AUTH_WINDOW_MS ?? "60000"),
+    // Public certificate verification lookups (per IP)
+    verifyMax: Number(process.env.RATE_LIMIT_VERIFY_MAX ?? "30"),
+    verifyWindowMs: Number(
+      process.env.RATE_LIMIT_VERIFY_WINDOW_MS ?? "60000"
+    ),
+  },
+
+  /** Certificates — default signatory/issuer (overridable in admin settings) */
+  certificates: {
+    signatoryName:
+      process.env.CERT_SIGNATORY_NAME ?? "CodeMastery Certification Office",
+    signatoryTitle:
+      process.env.CERT_SIGNATORY_TITLE ?? "Authorized Signatory",
   },
 } as const
 
