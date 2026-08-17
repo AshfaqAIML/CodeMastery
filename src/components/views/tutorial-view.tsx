@@ -159,17 +159,23 @@ export function TutorialView() {
     })
   }
 
+  const pendingTutorial = data as { tutorial?: { id: string; title: string } } | undefined
+
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
-        <div className="h-8 w-40 bg-muted/40 animate-pulse rounded mb-6" />
-        <div className="h-12 bg-muted/40 animate-pulse rounded mb-3" />
-        <div className="space-y-3 mt-8">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="h-5 bg-muted/40 animate-pulse rounded" />
-          ))}
+      <>
+        {/* AI Study Buddy (renders immediately, even while the tutorial loads) */}
+        <StudyBuddy tutorialId={pendingTutorial?.tutorial?.id} tutorialTitle={pendingTutorial?.tutorial?.title} />
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8">
+          <div className="h-8 w-40 bg-muted/40 animate-pulse rounded mb-6" />
+          <div className="h-12 bg-muted/40 animate-pulse rounded mb-3" />
+          <div className="space-y-3 mt-8">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-5 bg-muted/40 animate-pulse rounded" />
+            ))}
+          </div>
         </div>
-      </div>
+      </>
     )
   }
 
@@ -505,9 +511,6 @@ export function TutorialView() {
         achievementUnlocked={celebration.achievement}
         onClose={() => setCelebration({ show: false, xp: 0, achievement: null })}
       />
-
-      {/* AI Study Buddy (only renders if AI_ENABLED) */}
-      <StudyBuddy tutorialId={tutorial.id} tutorialTitle={tutorial.title} />
 
       {/* Keyboard shortcuts */}
       <KeyboardShortcuts

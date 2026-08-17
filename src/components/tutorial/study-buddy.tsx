@@ -28,7 +28,7 @@ const QUICK_ACTIONS = [
   { id: "code", label: "Explain Code", icon: Code2, desc: "Line-by-line code explanation" },
 ] as const
 
-export function StudyBuddy({ tutorialId, tutorialTitle }: { tutorialId: string; tutorialTitle: string }) {
+export function StudyBuddy({ tutorialId, tutorialTitle }: { tutorialId?: string; tutorialTitle?: string }) {
   const [open, setOpen] = React.useState(false)
   const [question, setQuestion] = React.useState("")
   const [messages, setMessages] = React.useState<Message[]>([])
@@ -54,6 +54,10 @@ export function StudyBuddy({ tutorialId, tutorialTitle }: { tutorialId: string; 
   const ask = async (questionText?: string, action?: string) => {
     const q = (questionText ?? question).trim()
     if (!q || loading) return
+    if (!tutorialId) {
+      toast.info("The tutorial is still loading. Try again in a moment.")
+      return
+    }
 
     const userMsg: Message = { role: "user", content: q }
     const newMessages = [...messages, userMsg]
@@ -119,7 +123,9 @@ export function StudyBuddy({ tutorialId, tutorialTitle }: { tutorialId: string; 
               <div>
                 <div className="font-semibold text-sm">AI Tutor</div>
                 <div className="text-[11px] text-muted-foreground truncate max-w-[200px]">
-                  Knows: {tutorialTitle.slice(0, 30)}{tutorialTitle.length > 30 ? "..." : ""}
+                  {tutorialTitle
+                    ? `Knows: ${tutorialTitle.slice(0, 30)}${tutorialTitle.length > 30 ? "..." : ""}`
+                    : "Loading tutorial..."}
                 </div>
               </div>
             </div>
@@ -212,12 +218,12 @@ export function StudyBuddy({ tutorialId, tutorialTitle }: { tutorialId: string; 
                 placeholder="Ask about this tutorial..."
                 className="min-h-[44px] max-h-32 resize-none text-sm"
                 rows={1}
-                disabled={loading}
+                disabled={loading || !tutorialId}
               />
               <Button
                 size="icon"
                 onClick={() => ask()}
-                disabled={!question.trim() || loading}
+                disabled={!question.trim() || loading || !tutorialId}
                 className="shrink-0"
                 aria-label="Send question"
               >
@@ -230,7 +236,7 @@ export function StudyBuddy({ tutorialId, tutorialTitle }: { tutorialId: string; 
                   <button
                     key={action.id}
                     onClick={() => ask(action.desc, action.id)}
-                    disabled={loading}
+                    disabled={loading || !tutorialId}
                     className="text-[10px] rounded-full border border-border px-2 py-0.5 hover:bg-muted/60 hover:border-primary/40 transition-all flex items-center gap-1 shrink-0 disabled:opacity-50"
                     title={action.desc}
                   >
