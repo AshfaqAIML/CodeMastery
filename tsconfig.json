@@ -26,6 +26,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@codemastery/certificate-generator": [
+        "./modules/certificate-generator/src/index.ts"
       ]
     }
   },
@@ -40,6 +43,7 @@
     "node_modules",
     "examples",
     "skills",
+    "Module",
     "tests/e2e"
   ]
 }

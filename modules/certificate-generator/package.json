@@ -1,0 +1,45 @@
+{
+  "name": "@codemastery/certificate-generator",
+  "version": "1.0.0",
+  "description": "A portable, self-contained certificate generator module for Next.js. Generates beautiful PDF certificates with access control (guest/normal/premium/trial gating), verification QR codes, and pluggable templates. Drop it into any Next.js project.",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [
+    "src",
+    "README.md",
+    "examples"
+  ],
+  "keywords": [
+    "certificate",
+    "certificate-generator",
+    "pdf",
+    "nextjs",
+    "react",
+    "access-control",
+    "premium",
+    "trial",
+    "verification",
+    "qr-code"
+  ],
+  "scripts": {
+    "lint": "echo 'No standalone lint configured — run from host project'",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "next": ">=14",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}
