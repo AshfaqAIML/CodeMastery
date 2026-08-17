@@ -2,6 +2,8 @@ import { NextRequest } from "next/server"
 import { db } from "@/lib/db"
 import { ok, err, unauthorized, forbidden, zodErr } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
+import { assertPermission } from "@/lib/authorization/service"
+import { recordAuditSafe } from "@/lib/audit"
 import { z } from "zod"
 import { issueSubjectCertificate, toCertificateDto } from "@/lib/certificates/issue"
 import { CERT_STATUS } from "@/lib/certificates/types"
@@ -24,7 +26,8 @@ const issueSchema = z.object({
 export async function GET(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user) return unauthorized()
-  if (user.role !== "ADMIN") return forbidden()
+  const denied = await assertPermission(user, "certificates.view")
+  if (denied) return denied
 
   const parsed = listSchema.safeParse(
     Object.fromEntries(req.nextUrl.searchParams.entries())
@@ -71,7 +74,8 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user) return unauthorized()
-  if (user.role !== "ADMIN") return forbidden()
+  const denied = await assertPermission(user, "certificates.issue")
+  if (denied) return denied
 
   let body: unknown
   try {
@@ -92,6 +96,14 @@ export async function POST(req: NextRequest) {
   if ("skipped" in result) {
     return err(result.reason, 409)
   }
+
+  await recordAuditSafe({
+    actorId: user.id,
+    action: "CERT_ISSUED",
+    targetType: "certificate",
+    targetId: result.cert.id,
+    detail: `Manually issued certificate for user ${parsed.data.userId}.`,
+  })
 
   const full = await db.certificate.findUnique({
     where: { id: result.cert.id },

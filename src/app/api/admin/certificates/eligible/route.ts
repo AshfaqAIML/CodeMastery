@@ -2,6 +2,7 @@ import { NextRequest } from "next/server"
 import { db } from "@/lib/db"
 import { ok, err, unauthorized, forbidden, zodErr } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
+import { assertPermission } from "@/lib/authorization/service"
 import { z } from "zod"
 
 const schema = z.object({
@@ -16,7 +17,8 @@ const schema = z.object({
 export async function GET(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user) return unauthorized()
-  if (user.role !== "ADMIN") return forbidden()
+  const denied = await assertPermission(user, "certificates.issue")
+  if (denied) return denied
 
   const parsed = schema.safeParse(
     Object.fromEntries(req.nextUrl.searchParams.entries())

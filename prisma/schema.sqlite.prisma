@@ -26,8 +26,12 @@ model User {
   passwordHash  String?
   image         String?
   bio           String?
-  role          String    @default("USER") // USER | ADMIN
+  role          String    @default("USER") // USER | ADMIN | SUPER_ADMIN
   emailVerified DateTime?
+
+  // Account status for administration: ACTIVE (normal), SUSPENDED (temporary
+  // admin action), BANNED (permanent). Non-ACTIVE accounts cannot sign in.
+  status String @default("ACTIVE") // ACTIVE | SUSPENDED | BANNED
 
   // Access model (see below): every new Normal user receives a 12-day
   // Premium trial. The base plan stays NORMAL forever — trial and
@@ -70,6 +74,7 @@ model User {
   payments         Payment[]
   entitlementLogs  EntitlementAuditLog[] @relation("EntitlementTarget")
   entitlementActions EntitlementAuditLog[] @relation("EntitlementActor")
+  auditActions   AuditLog[] @relation("AuditActor")
 
   @@index([totalXP])
   @@index([points])
@@ -646,4 +651,50 @@ model EntitlementAuditLog {
   @@index([userId])
   @@index([action])
   @@index([actorId])
+}
+
+// ============================================================
+// ADMINISTRATION: centralized audit trail + platform settings
+// ============================================================
+
+// Generic admin audit trail. Covers admin login, role changes, account
+// status changes, entitlement grants/revocations, certificate operations,
+// content publication changes and platform configuration changes.
+// NEVER log passwords, tokens or secrets in `detail`/`metadata`.
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  action     String // ADMIN_LOGIN | ROLE_CHANGED | USER_STATUS_CHANGED | PREMIUM_GRANTED | PREMIUM_REVOKED | CERT_ISSUED | CERT_REVOKED | CERT_REISSUED | CERT_RESTORED | TUTORIAL_STATUS_CHANGED | SETTINGS_UPDATED | CONTENT_IMPORTED | CONTENT_EXPORTED | PAYMENT_ADJUSTED | LOGIN_FAILED_LOCKOUT
+  targetType String? // user | tutorial | subject | certificate | entitlement | settings | system
+  targetId   String?
+  result     String   @default("SUCCESS") // SUCCESS | FAILED
+  detail     String?
+  metadata   Json?
+  ip         String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([action])
+  @@index([actorId])
+  @@index([targetType, targetId])
+  @@index([createdAt])
+}
+
+// Key/value platform settings (admin-editable, database-backed).
+// `isSecret` values are never returned in full — only masked.
+// Environment variables remain authoritative for secrets (API keys etc.);
+// this store is for operational configuration and feature flags.
+model PlatformSetting {
+  id        String    @id @default(cuid())
+  key       String    @unique
+  value     String    @default("")
+  valueType String    @default("string") // string | number | boolean | json
+  isSecret  Boolean   @default(false)
+  group     String    @default("general") // general | branding | premium | gamification | certificates | ai | notifications | feature-flags
+  updatedAt DateTime  @updatedAt
+  updatedBy String?
+
+  @@index([group])
 }

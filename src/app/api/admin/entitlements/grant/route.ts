@@ -1,6 +1,8 @@
 import { NextRequest } from "next/server"
 import { ok, forbidden, unauthorized, err } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
+import { assertPermission } from "@/lib/authorization/service"
+import { recordAuditSafe } from "@/lib/audit"
 import { grantPremiumByAdmin } from "@/lib/entitlements/payments"
 import { z } from "zod"
 
@@ -13,7 +15,8 @@ const schema = z.object({
 export async function POST(req: NextRequest) {
   const me = await getCurrentUser()
   if (!me) return unauthorized()
-  if (me.role !== "ADMIN") return forbidden()
+  const denied = await assertPermission(me, "entitlements.manage")
+  if (denied) return denied
 
   let body: unknown
   try {
@@ -26,6 +29,15 @@ export async function POST(req: NextRequest) {
 
   const { userId, reason } = parsed.data
   const result = await grantPremiumByAdmin({ userId, actorId: me.id, reason })
+
+  await recordAuditSafe({
+    actorId: me.id,
+    action: "PREMIUM_GRANTED",
+    targetType: "user",
+    targetId: userId,
+    detail: reason ?? undefined,
+    metadata: { granted: result.granted },
+  })
 
   return ok(result, { status: result.granted ? 201 : 200 })
 }

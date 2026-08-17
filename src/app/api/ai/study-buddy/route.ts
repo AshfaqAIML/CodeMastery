@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/session"
 import { getAI } from "@/lib/ai"
 import { config } from "@/lib/config"
 import { canUseAITutor, getAccessSummary } from "@/lib/entitlements/service"
+import { getSettingValue } from "@/lib/settings"
 import { buildTutorialContext, buildSystemPrompt, QUICK_ACTIONS, type QuickAction } from "@/lib/ai/context"
 import { z } from "zod"
 
@@ -33,6 +34,21 @@ export async function POST(req: NextRequest) {
     )
   }
 
+  // Feature availability + fair-use daily limit — admin-tunable via
+  // PlatformSetting (falls back to env-driven config).
+  const [featureEnabled, dailyLimit, tierAccess] = await Promise.all([
+    getSettingValue("ai.features.enabled", true),
+    getSettingValue("ai.dailyLimit", config.premium.aiDailyLimit),
+    getSettingValue<"all" | "premium">("ai.tierAccess", "all"),
+  ])
+
+  if (!featureEnabled) {
+    return err("AI features are currently disabled by the platform administrator.", 503)
+  }
+  if (tierAccess === "premium" && !access.hasLifetimePremium) {
+    return err("The AI Tutor is currently restricted to Premium members.", 403)
+  }
+
   if (!config.ai.enabled) {
     return err(
       "AI features are not enabled on this deployment. Set AI_ENABLED=true and configure a provider.",
@@ -45,15 +61,14 @@ export async function POST(req: NextRequest) {
     return err("AI provider is not configured.", 503)
   }
 
-  // Fair-use daily limit (trial and paid alike).
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   const usedToday = await db.activityLog.count({
     where: { userId: user.id, type: "ai_query", createdAt: { gte: today } },
   })
-  if (usedToday >= config.premium.aiDailyLimit) {
+  if (usedToday >= dailyLimit) {
     return err(
-      `You've reached the daily AI Tutor limit (${config.premium.aiDailyLimit} messages). Come back tomorrow!`,
+      `You've reached the daily AI Tutor limit (${dailyLimit} messages). Come back tomorrow!`,
       429
     )
   }

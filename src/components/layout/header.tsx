@@ -160,7 +160,7 @@ export function Header() {
                 <DropdownMenuItem onClick={() => navigate("profile", { tab: "bookmarks" })}>
                   <Bookmark className="mr-2 size-4" /> Bookmarks
                 </DropdownMenuItem>
-                {session.user.role === "ADMIN" && (
+                {(session.user.role === "ADMIN" || session.user.role === "SUPER_ADMIN") && (
                   <DropdownMenuItem onClick={() => navigate("admin")}>
                     <Trophy className="mr-2 size-4" /> Admin
                   </DropdownMenuItem>

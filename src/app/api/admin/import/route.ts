@@ -2,10 +2,14 @@ import { NextRequest } from "next/server"
 import { db } from "@/lib/db"
 import { ok, err, forbidden } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
+import { assertPermission } from "@/lib/authorization/service"
+import { recordAuditSafe } from "@/lib/audit"
 
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
-  if (!user || user.role !== "ADMIN") return forbidden()
+  if (!user) return forbidden()
+  const denied = await assertPermission(user, "content.import")
+  if (denied) return denied
 
   let body: any
   try {
@@ -228,6 +232,13 @@ export async function POST(req: NextRequest) {
       created.steps++
     }
   }
+
+  await recordAuditSafe({
+    actorId: user.id,
+    action: "CONTENT_IMPORTED",
+    targetType: "system",
+    detail: `Imported ${created.subjects} subjects, ${created.tutorials} tutorials, ${created.achievements} achievements, ${created.paths} paths.`,
+  })
 
   return ok({ imported: created })
 }

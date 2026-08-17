@@ -1,6 +1,7 @@
 import { db } from "@/lib/db"
 import { ok, forbidden, unauthorized } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
+import { assertPermission } from "@/lib/authorization/service"
 import { getAccessContext } from "@/lib/entitlements/service"
 import { getEffectiveAccess } from "@codemastery/certificate-generator"
 
@@ -11,7 +12,8 @@ import { getEffectiveAccess } from "@codemastery/certificate-generator"
 export async function GET() {
   const me = await getCurrentUser()
   if (!me) return unauthorized()
-  if (me.role !== "ADMIN") return forbidden()
+  const denied = await assertPermission(me, "payments.view")
+  if (denied) return denied
 
   const users = await db.user.findMany({
     orderBy: { createdAt: "desc" },

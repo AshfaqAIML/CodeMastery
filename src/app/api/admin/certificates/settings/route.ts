@@ -2,6 +2,8 @@ import { NextRequest } from "next/server"
 import { db } from "@/lib/db"
 import { ok, err, unauthorized, forbidden, zodErr } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
+import { assertPermission } from "@/lib/authorization/service"
+import { recordAuditSafe } from "@/lib/audit"
 import { getCertificateSettings } from "@/lib/certificates/settings"
 import { updateCertificateSettings } from "@/lib/certificates/admin"
 import { getStorage } from "@/lib/storage"
@@ -30,14 +32,16 @@ const settingsSchema = z.object({
 export async function GET() {
   const user = await getCurrentUser()
   if (!user) return unauthorized()
-  if (user.role !== "ADMIN") return forbidden()
+  const denied = await assertPermission(user, "certificates.templates.manage")
+  if (denied) return denied
   return ok({ settings: await getCertificateSettings() })
 }
 
 export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user) return unauthorized()
-  if (user.role !== "ADMIN") return forbidden()
+  const denied = await assertPermission(user, "certificates.templates.manage")
+  if (denied) return denied
 
   let body: unknown
   try {
@@ -87,7 +91,20 @@ export async function POST(req: NextRequest) {
         detail: `Seal: ${seal ? "replaced" : clearSeal ? "cleared" : "unchanged"} · Signature: ${signature ? "replaced" : clearSignature ? "cleared" : "unchanged"}`,
       },
     })
+    await recordAuditSafe({
+      actorId: user.id,
+      action: "SETTINGS_UPDATED",
+      targetType: "certificate",
+      detail: "Certificate official assets changed.",
+    })
   }
+
+  await recordAuditSafe({
+    actorId: user.id,
+    action: "SETTINGS_UPDATED",
+    targetType: "settings",
+    detail: "Certificate settings updated.",
+  })
 
   return ok({ settings: await getCertificateSettings() })
 }

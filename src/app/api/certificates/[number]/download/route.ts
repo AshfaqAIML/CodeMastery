@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
 import { ok, err, unauthorized, notFound } from "@/lib/api"
 import { getCurrentUser } from "@/lib/session"
+import { hasPermission } from "@/lib/authorization/service"
 import { CERT_NUMBER_RE } from "@/lib/certificates/types"
 import { renderCertificatePdf } from "@/lib/certificates/pdf"
 
@@ -23,7 +24,7 @@ export async function GET(req: NextRequest, ctx: Ctx) {
     },
   })
   if (!cert) return notFound("Certificate not found.")
-  if (cert.userId !== user.id && user.role !== "ADMIN") {
+  if (cert.userId !== user.id && !hasPermission(user, "certificates.view")) {
     return err("This certificate belongs to another user.", 403)
   }
 

@@ -1,5 +1,6 @@
 import { ok } from "@/lib/api"
 import { getAI } from "@/lib/ai"
+import { getSettingValue } from "@/lib/settings"
 
 /**
  * Lightweight AI availability check.
@@ -8,10 +9,13 @@ import { getAI } from "@/lib/ai"
  */
 export async function GET() {
   const ai = getAI()
+  const featureEnabled = await getSettingValue("ai.features.enabled", ai.enabled)
+  const tierAccess = await getSettingValue<"all" | "premium">("ai.tierAccess", "all")
   return ok({
-    enabled: ai.enabled && !!ai.provider,
+    enabled: ai.enabled && !!ai.provider && featureEnabled,
     provider: ai.provider?.name ?? null,
-    features: ai.enabled ? [
+    tierAccess,
+    features: ai.enabled && featureEnabled ? [
       "tutorial-context",     // AI knows the current tutorial
       "user-progress",        // AI knows user's learning state
       "conversation",         // Multi-turn conversation
