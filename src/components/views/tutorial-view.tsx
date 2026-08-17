@@ -534,6 +534,9 @@ export function TutorialView() {
         hasPrev={!!prev}
         hasNext={!!next}
       />
+
+      {/* AI Study Buddy — always available on a loaded tutorial */}
+      <StudyBuddy tutorialId={tutorial.id} tutorialTitle={tutorial.title} />
     </div>
   )
 }

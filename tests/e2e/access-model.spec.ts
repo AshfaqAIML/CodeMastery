@@ -133,6 +133,9 @@ test.describe("Access model: content gating", () => {
       await openTutorial(page, tutorial.subjectName, tutorial.title, { signedIn: true })
       await expect(page.getByText(/PREMIUM content/)).toHaveCount(0)
       await expect(page.locator("h2").first()).toBeVisible()
+      // AI Tutor must persist after the tutorial finishes loading (regression:
+      // it used to render only in the loading branch and vanish on load)
+      await expect(page.getByRole("button", { name: "Open AI tutor" })).toBeVisible()
       const prog = await request.post("/api/progress", { data: { tutorialId: tutorial.id, percentRead: 10 } })
       expect(prog.status(), "trial user progress should be accepted").toBe(200)
     } finally {
