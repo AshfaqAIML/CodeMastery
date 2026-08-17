@@ -1567,3 +1567,17 @@ Work Log:
 Stage Summary:
 - Super Admin architecture complete: centralized server-authorized permissions, SUPER_ADMIN primary account provisioned, old admin preserved until owner verification, full audit trail, admin UI consolidated, no escalation paths for non-admins. Owner next steps: sign in with the new account, then `bun scripts/roles.ts demote admin@codemastery.dev` (or ask the assistant).
 - Files touched: prisma/schema.prisma, prisma/schema.sqlite.prisma, src/lib/authorization/service.ts (new), src/lib/authorization/client-permissions.ts (new), src/lib/audit.ts (new), src/lib/settings.ts (new), src/lib/auth.ts, src/lib/session.ts (unchanged), src/app/api/admin/{stats,users,users/[id],audit-logs,settings,ai,tutorials,tutorials/[id],entitlements/{route,grant,revoke},certificates/**}/route.ts, src/app/api/certificates/[number]/{route,download/route}.ts, src/app/api/ai/{study-buddy,status}/route.ts, src/app/api/auth/register/route.ts (unchanged), src/components/views/admin-view.tsx (rewritten), src/components/admin/{users-admin,audit-admin,ai-admin,settings-admin,tutorials-admin}.tsx (new), src/components/layout/header.tsx, src/components/admin/premium-admin.tsx, scripts/roles.ts (new), tests/e2e/admin-access.spec.ts (new), worklog.md.
+
+---
+Task ID: SUPER-ADMIN-TURNOVER
+Agent: Principal Architect (main)
+Task: Handover - old admin demoted after new Super Admin verified
+
+Work Log:
+- Verified moeedkamraan1123@gmail.com (SUPER_ADMIN, ACTIVE, emailVerified) in the DB via scripts/roles.ts status - unit and e2e suites already exercised real login/session/role-change flows for SUPER_ADMIN accounts.
+- Demoted admin@codemastery.dev ADMIN -> USER via scripts/roles.ts demote (writes its own ROLE_CHANGED AuditLog entry; refuses demoting the last active SUPER_ADMIN - not applicable here).
+- Single primary administrator state: moeedkamraan1123@gmail.com (SUPER_ADMIN). Old demo account retains normal reader account status only.
+
+Stage Summary:
+- Turnover complete. Old admin account no longer has any admin capability; every admin API resolves permissions against the centralized AuthorizationService (cached client map is UI-only). Owner can still rotate/verify password on the new account via the normal app flows; MFA remains the recommended future hardening step.
+- Files touched: worklog.md only (DB change applied via scripts/roles.ts).
