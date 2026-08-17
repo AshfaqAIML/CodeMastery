@@ -58,6 +58,8 @@ model User {
   achievements    UserAchievement[]
   pathProgress     LearningPathProgress[]
   activityLogs    ActivityLog[]
+  certificates    Certificate[]
+  certificateAudits CertificateAuditLog[]
 
   @@index([totalXP])
   @@index([points])
@@ -145,6 +147,7 @@ model Subject {
   modules       Module[]
   tutorials     Tutorial[]
   pathSteps     LearningPathStep[]
+  certificates  Certificate[]
 
   @@index([category])
   @@index([domainId])
@@ -477,4 +480,73 @@ model ActivityLog {
 
   @@index([userId, createdAt])
   @@index([type])
+}
+
+// ============================================================
+// CERTIFICATES: issuance, verification, audit
+// ============================================================
+
+model Certificate {
+  id                String    @id @default(cuid())
+  number            String    @unique // CM-YYYY-NNNNNN
+  type              String    @default("SUBJECT") // SUBJECT | QUIZ | PATH | COURSE | ...
+  status            String    @default("VALID") // VALID | REVOKED | SUPERSEDED | INVALID
+  title             String
+  userId            String
+  subjectId         String?
+  issueReason       String?
+  issuedById        String? // admin id for manual issues
+  createdBy         String    @default("AUTO") // AUTO | ADMIN
+  verificationToken String    @unique // cryptographically strong, separate from the number
+  issuedAt          DateTime  @default(now())
+  revokedAt         DateTime?
+  revokedById       String?
+  revokeReason      String?
+  supersededById    String? // certificate id of the newer version on reissue
+  version           Int       @default(1)
+  qrKey             String? // storage key of the QR image
+  pdfKey            String? // storage key of the PDF document
+  metadata          String? // JSON: counts, xp, hours, signatory snapshot
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subject Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([status])
+  @@index([issuedAt])
+}
+
+model CertificateSequence {
+  id   String @id @default("global")
+  year Int    @default(0) // year the current seq belongs to
+  seq  Int    @default(0) // last issued sequence number for that year
+}
+
+model CertificateSettings {
+  id             String   @id @default("global")
+  signatoryName  String   @default("CodeMastery Certification Office")
+  signatoryTitle String   @default("Authorized Signatory")
+  issuerName     String   @default("CodeMastery")
+  issuerWebsite  String   @default("")
+  sealKey        String?  // storage key; null = bundled asset
+  signatureKey   String?  // storage key; null = bundled asset
+  updatedAt      DateTime @updatedAt
+}
+
+model CertificateAuditLog {
+  id                String   @id @default(cuid())
+  actorId           String?
+  action            String // ISSUED | REVOKED | RESTORED | REISSUED | SETTINGS_UPDATED | ASSET_UPDATED
+  certificateId     String?
+  certificateNumber String?
+  detail            String?
+  createdAt         DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([certificateId])
+  @@index([action])
+  @@index([actorId])
 }
