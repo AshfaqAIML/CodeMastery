@@ -19,10 +19,9 @@ export class SMTPEmailService implements EmailService {
 
   private async getTransporter() {
     if (this.transporter) return this.transporter
-    // webpackIgnore keeps this an OPTIONAL runtime dependency: the bundler
-    // skips resolving it, so the app builds even when nodemailer is not
-    // installed (console provider). Enable SMTP with: bun add nodemailer
-    const nodemailer = await import(/* webpackIgnore: true */ "nodemailer")
+    // Lazy import so the SMTP client only loads when EMAIL_PROVIDER=smtp.
+    // nodemailer is a regular dependency (bundled by webpack/turbopack/esbuild).
+    const nodemailer = await import("nodemailer")
     this.transporter = nodemailer.createTransport({
       host: this.opts.host,
       port: this.opts.port,
