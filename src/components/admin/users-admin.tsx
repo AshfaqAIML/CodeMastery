@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Search, Loader2, ShieldCheck, ShieldAlert, Ban, RotateCcw, Crown, UserCog } from "lucide-react"
+import { Search, Loader2, ShieldCheck, ShieldAlert, Ban, RotateCcw, Crown, UserCog, Trash2 } from "lucide-react"
 import { apiFetch } from "@/hooks/use-api"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
@@ -44,6 +44,7 @@ const STATUS_LABEL: Record<string, { label: string; variant: "default" | "destru
 export function UsersAdmin() {
   const { data: session } = useSession()
   const meRole = session?.user?.role
+  const meId = session?.user?.id
   const [users, setUsers] = React.useState<AdminUser[]>([])
   const [total, setTotal] = React.useState(0)
   const [loading, setLoading] = React.useState(true)
@@ -85,6 +86,20 @@ export function UsersAdmin() {
       load()
     } catch (e: any) {
       toast.error(e.message ?? "Action failed")
+    } finally {
+      setBusyId(null)
+    }
+  }
+
+  const remove = async (u: AdminUser) => {
+    if (!window.confirm(`Permanently delete ${u.email}?\n\nThis removes their account, progress, achievements, notes and payment records. This cannot be undone.`)) return
+    setBusyId(u.id)
+    try {
+      await apiFetch(`/api/admin/users/${u.id}`, { method: "DELETE" })
+      toast.success(`${u.email} deleted`)
+      load()
+    } catch (e: any) {
+      toast.error(e.message ?? "Delete failed")
     } finally {
       setBusyId(null)
     }
@@ -185,6 +200,11 @@ export function UsersAdmin() {
                     {can(meRole, "users.roles.manage") && u.role === "ADMIN" && (
                       <Button size="sm" variant="outline" disabled={busyId === u.id} onClick={() => act(u.id, { role: "USER" }, `${u.email} demoted to USER`)}>
                         <ShieldCheck className="size-3.5 mr-1" /> Demote
+                      </Button>
+                    )}
+                    {can(meRole, "users.delete") && u.role === "USER" && u.id !== meId && (
+                      <Button size="sm" variant="destructive" disabled={busyId === u.id} onClick={() => remove(u)}>
+                        <Trash2 className="size-3.5 mr-1" /> Delete
                       </Button>
                     )}
                   </div>

@@ -117,6 +117,42 @@ export async function PATCH(req: NextRequest, ctx: Ctx) {
   return ok({ user: updated })
 }
 
+/**
+ * Admin — permanently delete a user (SUPER_ADMIN only).
+ * Guards:
+ * - You cannot delete your own account (use the account settings instead).
+ * - ADMIN/SUPER_ADMIN accounts are never deleted — demote/revoke first.
+ * - Deletion cascades to the user's progress, attempts, payments, etc.
+ *   Audit logs survive (actor/target links are SetNull).
+ * - The action is audited before the record is removed.
+ */
+export async function DELETE(_req: NextRequest, ctx: Ctx) {
+  const me = await getCurrentUser()
+  if (!me) return unauthorized()
+  const denied = await assertPermission(me, "users.delete")
+  if (denied) return denied
+
+  const { id } = await ctx.params
+  if (id === me.id) return forbidden("You cannot delete your own account.")
+
+  const target = await db.user.findUnique({ where: { id }, select: { id: true, email: true, role: true, status: true } })
+  if (!target) return err("User not found.", 404)
+  if (target.role !== ROLES.USER) {
+    return forbidden("ADMIN and SUPER_ADMIN accounts cannot be deleted — demote them first.")
+  }
+
+  await recordAuditSafe({
+    actorId: me.id,
+    action: "USER_DELETED",
+    targetType: "user",
+    targetId: id,
+    detail: `User deleted (email: ${target.email}).`,
+  })
+
+  await db.user.delete({ where: { id } })
+  return ok({ deleted: true })
+}
+
 /** Admin — full profile view: entitlements, payments, activity, progress. */
 export async function GET(_req: NextRequest, ctx: Ctx) {
   const me = await getCurrentUser()

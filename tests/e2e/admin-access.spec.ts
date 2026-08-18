@@ -158,6 +158,52 @@ test.describe("Admin access: audit trail", () => {
   })
 })
 
+test.describe("Admin access: user deletion", () => {
+  test("SUPER_ADMIN can delete a normal user; the account stops working immediately", async () => {
+    const ctx = await test.request.newContext()
+    const superAdmin = await registerAndSignIn(ctx, "Delete Super Admin", "SUPER_ADMIN")
+
+    const victimCtx = await test.request.newContext()
+    const victim = await registerAndSignIn(victimCtx, "Delete Victim")
+    expect((await victimCtx.get("/api/me")).status()).toBe(200)
+
+    // Deleting yourself is forbidden.
+    const selfDel = await ctx.delete(`/api/admin/users/${superAdmin.id}`)
+    expect(selfDel.status()).toBe(403)
+
+    // Deleting a SUPER_ADMIN / ADMIN account is forbidden (demote first).
+    const otherAdmin = await registerAndSignIn(await test.request.newContext(), "Admin Target", "ADMIN")
+    const adminDel = await ctx.delete(`/api/admin/users/${otherAdmin.id}`)
+    expect(adminDel.status()).toBe(403)
+
+    // Deleting a plain user works and is enforced immediately.
+    const del = await ctx.delete(`/api/admin/users/${victim.id}`)
+    expect(del.status()).toBe(200)
+    expect(await db.user.findUnique({ where: { id: victim.id } })).toBeNull()
+    expect((await victimCtx.get("/api/me")).status()).toBe(401)
+    expect((await victimCtx.get("/api/admin/stats")).status()).toBe(403)
+
+    // The deletion is audited (USER_DELETED).
+    const auditLog = await db.auditLog.findFirst({
+      where: { action: "USER_DELETED", targetId: victim.id, actorId: superAdmin.id },
+      orderBy: { createdAt: "desc" },
+    })
+    expect(auditLog).not.toBeNull()
+    await ctx.dispose()
+    await victimCtx.dispose()
+  })
+
+  test("ADMIN cannot delete users", async () => {
+    const ctx = await test.request.newContext()
+    const admin = await registerAndSignIn(ctx, "No-Delete Admin", "ADMIN")
+    const normal = await registerAndSignIn(await test.request.newContext(), "Would-Be Victim")
+    const del = await ctx.delete(`/api/admin/users/${normal.id}`)
+    expect(del.status()).toBe(403)
+    expect(await db.user.findUnique({ where: { id: normal.id } })).not.toBeNull()
+    await ctx.dispose()
+  })
+})
+
 test.describe("Admin access: content lifecycle", () => {
   test("unpublishing hides a tutorial from the public API; republishing restores it", async () => {
     const ctx = await test.request.newContext()

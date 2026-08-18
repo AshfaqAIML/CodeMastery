@@ -1597,3 +1597,17 @@ Work Log:
 Stage Summary:
 - No plaintext credentials remain in the working tree; test data cleaned; seed bootstraps admins only from env input. Full credential history scrubbing (git history rewrite) intentionally NOT performed - flag if desired.
 - Files touched: prisma/seed.ts, .env.example, .gitignore, worklog.md.
+
+---
+Task ID: USER-DELETE
+Agent: Principal Architect (main)
+Task: Admin panel user deletion
+
+Work Log:
+- Added DELETE /api/admin/users/[id] (src/app/api/admin/users/[id]/route.ts): requires users.delete permission (SUPER_ADMIN only - deliberately NOT granted to ADMIN since it destroys data, unlike suspend/ban), cannot delete own account, ADMIN/SUPER_ADMIN targets rejected (must be demoted to USER first), USER_DELETED audit written before removal, cascade cleans progress/attempts/payments/notes while AuditLog/EntitlementAuditLog actor+target links survive (SetNull).
+- UsersAdmin UI (src/components/admin/users-admin.tsx): destructive Trash2 Delete button row per user - shown only to users.delete holders, only for USER-role targets, never for the signed-in admin's own row; window.confirm warning lists exactly what gets removed.
+- Tests (tests/e2e/admin-access.spec.ts +2): SUPER_ADMIN deletes a normal user (record gone, /api/me 401 and admin 403 immediately, USER_DELETED audit present, self-delete 403, admin-target delete 403); ADMIN cannot delete (403, user survives). Suite now 10 tests, all passing. tsc clean.
+- Note: dev server had died during the long test run (P1017, empty error log) - restarted with logs attached; suite green after restart.
+
+Stage Summary:
+- User deletion available in Admin > Users with server-side guards and audit trail. Verified 10/10 admin e2e. Files touched: users/[id]/route.ts, users-admin.tsx, admin-access.spec.ts, worklog.md.
