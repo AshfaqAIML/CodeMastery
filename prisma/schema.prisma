@@ -6,7 +6,8 @@
 // with the `db:push:sqlite` / `db:seed:sqlite` npm scripts.
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "queryCompiler"
 }
 
 datasource db {
