@@ -79,3 +79,5 @@ prisma/db/
 
 # Local tool output artifacts
 tool-results/
+.vercel
+.env*
