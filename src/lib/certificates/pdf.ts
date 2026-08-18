@@ -37,6 +37,10 @@ export async function renderCertificatePdf(input: PdfInput): Promise<Buffer> {
   const settings = await getCertificateSettings()
   const seal = await loadAsset("seal", settings.sealKey)
   const signature = await loadAsset("signature", settings.signatureKey)
+  // Digital seal is optional — only rendered when the admin uploaded one.
+  const digitalSeal = settings.digitalSealKey
+    ? await loadAsset("seal", settings.digitalSealKey)
+    : undefined
 
   const data: CertificateData = {
     recipientName: userName,
@@ -62,6 +66,7 @@ export async function renderCertificatePdf(input: PdfInput): Promise<Buffer> {
     accentColor: CERT_ACCENT,
     sealImage: seal,
     signatureImage: signature,
+    digitalSealImage: digitalSeal,
     verificationUrl: config.appUrl,
   }
 

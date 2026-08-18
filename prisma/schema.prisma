@@ -75,6 +75,7 @@ model User {
   entitlementLogs  EntitlementAuditLog[] @relation("EntitlementTarget")
   entitlementActions EntitlementAuditLog[] @relation("EntitlementActor")
   auditActions   AuditLog[] @relation("AuditActor")
+  passwordResetTokens PasswordResetToken[]
 
   @@index([totalXP])
   @@index([points])
@@ -552,6 +553,7 @@ model CertificateSettings {
   issuerWebsite  String   @default("")
   sealKey        String?  // storage key; null = bundled asset
   signatureKey   String?  // storage key; null = bundled asset
+  digitalSealKey String?  // storage key for the optional digital seal (null = not shown)
   updatedAt      DateTime @updatedAt
 }
 
@@ -697,4 +699,19 @@ model PlatformSetting {
   updatedBy String?
 
   @@index([group])
+}
+
+// Password reset tokens: short-lived, single-use, stored HASHED (sha256).
+// The raw token is only ever shown in the emailed reset link.
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

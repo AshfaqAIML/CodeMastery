@@ -98,16 +98,16 @@ interface AppState {
   params: NavParams
   history: HistoryEntry[]
   authModalOpen: boolean
-  authMode: "login" | "register"
+  authMode: "login" | "register" | "forgot" | "reset"
   searchOpen: boolean
   setView: (view: ViewName, params?: NavParams) => void
   navigate: (view: ViewName, params?: NavParams) => void
   back: () => void
   /** Clear all history (e.g. after sign-out). */
   clearHistory: () => void
-  openAuth: (mode?: "login" | "register") => void
+  openAuth: (mode?: "login" | "register" | "forgot" | "reset") => void
   closeAuth: () => void
-  setAuthMode: (mode: "login" | "register") => void
+  setAuthMode: (mode: "login" | "register" | "forgot" | "reset") => void
   setSearchOpen: (open: boolean) => void
 }
 

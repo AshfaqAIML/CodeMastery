@@ -1611,3 +1611,39 @@ Work Log:
 
 Stage Summary:
 - User deletion available in Admin > Users with server-side guards and audit trail. Verified 10/10 admin e2e. Files touched: users/[id]/route.ts, users-admin.tsx, admin-access.spec.ts, worklog.md.
+
+---
+
+Task ID: AUTH-RESET-GOOGLE
+Agent: Principal Architect (main)
+Task: Password reset and Google sign-in
+
+Work Log:
+- PasswordResetToken model added to both Prisma schemas (tokenHash sha256 @unique, 1h expiry, single active token per user, cascade, @@index userId), pushed to Neon + SQLite clients regenerated.
+- /api/auth/forgot-password: rate-limited (5/min/IP, in-memory), anti-enumeration (identical response whether or not email exists; devLink only returned when NODE_ENV != production), token stored hashed (sha256) so a DB leak alone cannot reset accounts, PASSWORD_RESET_REQUESTED audit.
+- /api/auth/reset-password: single-use token, 1h TTL, invalidates all other tokens for the user in the same transaction, replaces the hash, PASSWORD_RESET audit, rate-limited.
+- Email service fixed for build: getEmail() now async with lazy SMTP import; smtp.ts requires nodemailer with /* webpackIgnore: true */ so the optional dep stops breaking production builds (module-not-found).
+- Auth modal rewritten as 4-mode state machine (login/register/forgot/reset) with deep link ?auth=reset&token=... (scrubbed via history.replaceState); store authMode extended.
+- Google: GoogleProvider registered only when GOOGLE_CLIENT_ID + GOOGLE_CLIENT_SECRET set; signIn callback refuses to link a Google account into an existing one that has no emailVerified (account-takeover guard); jwt callback provisions first-time OAuth users via src/lib/oauth-provision.ts (username slug, 12-day trial + TRIAL_GRANTED audit, account_created activity, emailVerified set - Google pre-verifies). 401 flow uses credentials; sessions/JWT remain the same store.
+- .env: GOOGLE_CLIENT_ID + NEXT_PUBLIC_GOOGLE_CLIENT_ID set (owner provided) - GOOGLE_CLIENT_SECRET STILL PENDING from Google Cloud Console; .env.example documents all Google vars + redirect URI http://localhost:3000/api/auth/callback/google.
+- Tests: tests/e2e/password-reset.spec.ts (forgot -> email link -> reset -> sign-in with new password; anti-enumeration) 2/2 green. tests/e2e/auth-ui.spec.ts (Google button renders when configured; forgot-password modal navigation) 2/2 green. Note: NextAuth 302-following makes wrong-password attempts HTML 200 - assertions use verifyPassword() on stored hash instead of HTTP status.
+
+Stage Summary:
+- Password reset + Continue with Google fully implemented and tested (5 new tests, all green; full 25-test regression green; tsc clean). Live Google sign-in blocked on GOOGLE_CLIENT_SECRET + registered redirect URI - owner action. Files touched: schema x2, src/app/api/auth/{forgot-password,reset-password}/route.ts, oauth-provision.ts, src/lib/auth.ts, auth-modal.tsx, src/lib/store.ts, email/{index,smtp}.ts, .env.example, tests/e2e/{password-reset,auth-ui}.spec.ts, worklog.md.
+
+---
+
+Task ID: CERTS-SEAL
+Agent: Principal Architect (main)
+Task: Fix certificate asset upload; add digital seal
+
+Work Log:
+- Root cause of owner's upload failure: settingsSchema required all four text fields with min(1) and .url() on issuerWebsite - asset-only payloads failed Zod before reaching storage; 2MB cap also too small for screenshot-sized scans.
+- Fixed: all text fields optional (empty tolerated, getter falls back to env); MAX_ASSET_BYTES 2MB -> 8MB; updateCertificateSettings accepts Partial<SettingsInput> so partial payloads no longer clobber other fields; route persists only provided keys.
+- Digital seal feature: CertificateSettings.digitalSealKey added (both schemas; pushed to Neon; client regenerated - dev server stopped first for the query-engine file lock). Settings route accepts digitalSeal (asset) and clearDigitalSeal (reset); settings.ts exposes digitalSealKey; pdf.ts loads and passes digitalSealImage to the generator.
+- Generator: GenerateOptions.digitalSealImage + RenderContext.digitalSeal; classical template draws it as a bottom-left stamp (center 185,95, size 60) mirroring the official seal layout - a third layer distinct from seal/signature.
+- UI: certificates-admin.tsx third asset row (Upload/Reset) for the digital seal; uploading-state type extended; toast label fixed to the right asset.
+- Tests: tests/e2e/certificate-settings.spec.ts - digital seal upload round-trips + clear resets it + other assets/text fields preserved (regression for the clobber bug); partial text-only update succeeds + >8MB asset rejected 400. 2/2 green (one first-run flake re-passed). Full regression 25/25 green, tsc clean.
+
+Stage Summary:
+- Upload bug fixed; digital seal available end-to-end (storage -> settings API -> PDF generator -> admin UI). All suites green. Files touched: certificates/settings/route.ts, certificates-admin.tsx, certificates/{settings,admin,pdf}.ts, generator {types,generate}.ts, schema x2, certificate-settings.spec.ts, worklog.md.

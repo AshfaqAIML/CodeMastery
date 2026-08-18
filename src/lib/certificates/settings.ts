@@ -9,6 +9,8 @@ export type CertSettings = {
   /** Storage keys of admin-uploaded assets (null = bundled public assets). */
   sealKey: string | null
   signatureKey: string | null
+  /** Storage key of the optional admin-uploaded digital seal (null = not shown). */
+  digitalSealKey: string | null
 }
 
 /**
@@ -40,5 +42,6 @@ export async function getCertificateSettings(): Promise<CertSettings> {
         : config.appUrl,
     sealKey: row?.sealKey ?? null,
     signatureKey: row?.signatureKey ?? null,
+    digitalSealKey: row?.digitalSealKey ?? null,
   }
 }

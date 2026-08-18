@@ -101,6 +101,7 @@ export async function generateCertificate(
     signatureImage,
     sealImage,
     inkpadSealImage,
+    digitalSealImage,
     verificationUrl,
   } = opts
 
@@ -255,6 +256,31 @@ export async function generateCertificate(
     }
   }
 
+  // --- Embed optional digital seal image ---
+  // A second, clearly distinct stamp (e.g. holographic/QR-style badge)
+  // placed bottom-left, mirroring the official seal on the right.
+  let digitalSealEmbed: { width: number; height: number; draw: (x: number, y: number, scale: number) => void } | null = null
+  if (digitalSealImage) {
+    try {
+      const bytes = typeof digitalSealImage === "string"
+        ? base64ToBytes(digitalSealImage)
+        : digitalSealImage
+      const isPng = typeof digitalSealImage === "string"
+        ? digitalSealImage.includes("image/png") || digitalSealImage.startsWith("iVBOR")
+        : true
+      const img = isPng
+        ? await pdfDoc.embedPng(bytes)
+        : await pdfDoc.embedJpg(bytes)
+      digitalSealEmbed = {
+        width: img.width,
+        height: img.height,
+        draw: (x, y, scale) => page.drawImage(img, { x, y, width: img.width * scale, height: img.height * scale }),
+      }
+    } catch (e) {
+      console.warn("[certificate-generator] Failed to embed digital seal image:", e)
+    }
+  }
+
   // --- Render the chosen template ---
   const accent = hexToRgb(accentColor)
   const renderCtx: RenderContext = {
@@ -273,6 +299,7 @@ export async function generateCertificate(
     signature: signatureEmbed,
     seal: sealEmbed,
     inkpadSeal: inkpadSealEmbed,
+    digitalSeal: digitalSealEmbed,
     qr: qrEmbed,
   }
 
@@ -321,6 +348,7 @@ interface RenderContext {
   signature: { width: number; height: number; draw: (x: number, y: number, scale: number) => void } | null
   seal: { width: number; height: number; draw: (x: number, y: number, scale: number) => void } | null
   inkpadSeal: { width: number; height: number; draw: (x: number, y: number, scale: number, opacity?: number) => void } | null
+  digitalSeal: { width: number; height: number; draw: (x: number, y: number, scale: number) => void } | null
   qr: { width: number; height: number; draw: (x: number, y: number, scale: number) => void } | null
 }
 
@@ -603,6 +631,19 @@ function renderClassic(ctx: RenderContext): void {
   page.drawText(dateStr, {
     x: 70, y: 76, size: 12, font: bold, color: COLORS.darkText,
   })
+
+  // Digital seal (bottom-left, mirroring the official seal on the right).
+  // Optional — drawn only when an admin uploaded one. Sits beside the issue
+  // date without overlapping it.
+  if (ctx.digitalSeal) {
+    const dsSize = Math.min(60, width * 0.07)
+    const dsCenterX = 185
+    const dsCenterY = 95
+    const dsScale = Math.min(dsSize / ctx.digitalSeal.width, dsSize / ctx.digitalSeal.height)
+    const dsDrawW = ctx.digitalSeal.width * dsScale
+    const dsDrawH = ctx.digitalSeal.height * dsScale
+    ctx.digitalSeal.draw(dsCenterX - dsDrawW / 2, dsCenterY - dsDrawH / 2, dsScale)
+  }
 
   // Signature (bottom center-left)
   const sigX = width / 2 - 100

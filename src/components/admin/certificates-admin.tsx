@@ -269,9 +269,10 @@ function SettingsCard() {
   const [form, setForm] = React.useState({ signatoryName: "", signatoryTitle: "", issuerName: "", issuerWebsite: "" })
   const [saving, setSaving] = React.useState(false)
   const [loaded, setLoaded] = React.useState(false)
-  const [uploading, setUploading] = React.useState<"seal" | "signature" | null>(null)
+  const [uploading, setUploading] = React.useState<"seal" | "signature" | "digitalSeal" | null>(null)
   const sealRef = React.useRef<HTMLInputElement>(null)
   const signatureRef = React.useRef<HTMLInputElement>(null)
+  const digitalSealRef = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
     apiFetch<any>("/api/admin/certificates/settings")
@@ -300,7 +301,7 @@ function SettingsCard() {
     }
   }
 
-  const uploadAsset = async (kind: "seal" | "signature", file: File) => {
+  const uploadAsset = async (kind: "seal" | "signature" | "digitalSeal", file: File) => {
     setUploading(kind)
     try {
       const reader = new FileReader()
@@ -313,7 +314,7 @@ function SettingsCard() {
         method: "POST",
         body: JSON.stringify({ ...form, [kind]: { name: file.name, mime: file.type || "image/png", base64 } }),
       })
-      toast.success(`${kind === "seal" ? "Seal" : "Signature"} updated`)
+      toast.success(`${kind === "digitalSeal" ? "Digital seal" : kind === "seal" ? "Seal" : "Signature"} updated`)
     } catch (e: any) {
       toast.error(e.message ?? "Upload failed")
     } finally {
@@ -321,13 +322,13 @@ function SettingsCard() {
     }
   }
 
-  const clearAsset = async (kind: "seal" | "signature") => {
+  const clearAsset = async (kind: "seal" | "signature" | "digitalSeal") => {
     try {
       await apiFetch<any>("/api/admin/certificates/settings", {
         method: "POST",
         body: JSON.stringify({ ...form, [`clear${kind[0].toUpperCase()}${kind.slice(1)}`]: true }),
       })
-      toast.success(`Reverted to bundled ${kind === "seal" ? "seal" : "signature"}`)
+      toast.success(`Reverted to bundled ${kind === "digitalSeal" ? "digital seal (hidden)" : kind}`)
     } catch (e: any) {
       toast.error(e.message ?? "Action failed")
     }
@@ -377,8 +378,14 @@ function SettingsCard() {
                 Upload signature
               </Button>
               <input ref={signatureRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadAsset("signature", f); e.target.value = "" }} />
+              <Button variant="outline" onClick={() => digitalSealRef.current?.click()} disabled={uploading !== null}>
+                {uploading === "digitalSeal" ? <Loader2 className="mr-2 size-4 animate-spin" /> : <Upload className="mr-2 size-4" />}
+                Upload digital seal
+              </Button>
+              <input ref={digitalSealRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) uploadAsset("digitalSeal", f); e.target.value = "" }} />
               <Button variant="ghost" size="sm" onClick={() => clearAsset("seal")}>Reset seal</Button>
               <Button variant="ghost" size="sm" onClick={() => clearAsset("signature")}>Reset signature</Button>
+              <Button variant="ghost" size="sm" onClick={() => clearAsset("digitalSeal")}>Reset digital seal</Button>
             </div>
           </>
         )}

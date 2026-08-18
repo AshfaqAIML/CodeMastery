@@ -186,9 +186,13 @@ export type SettingsInput = {
  * optionally, replaced asset keys. All inside one transaction.
  */
 export async function updateCertificateSettings(
-  input: SettingsInput & { sealKey?: string | null; signatureKey?: string | null }
+  input: Partial<SettingsInput> & {
+    sealKey?: string | null
+    signatureKey?: string | null
+    digitalSealKey?: string | null
+  }
 ): Promise<void> {
-  const { sealKey, signatureKey, ...fields } = input
+  const { sealKey, signatureKey, digitalSealKey, ...fields } = input
   await db.$transaction(async (tx) => {
     await tx.certificateSettings.upsert({
       where: { id: "global" },
@@ -196,13 +200,20 @@ export async function updateCertificateSettings(
         ...fields,
         ...(sealKey !== undefined ? { sealKey } : {}),
         ...(signatureKey !== undefined ? { signatureKey } : {}),
+        ...(digitalSealKey !== undefined ? { digitalSealKey } : {}),
       },
-      create: { id: "global", ...fields, sealKey: sealKey ?? null, signatureKey: signatureKey ?? null },
+      create: {
+        id: "global",
+        ...fields,
+        sealKey: sealKey ?? null,
+        signatureKey: signatureKey ?? null,
+        digitalSealKey: digitalSealKey ?? null,
+      },
     })
     await tx.certificateAuditLog.create({
       data: {
         action: "SETTINGS_UPDATED",
-        detail: `Signatory: ${input.signatoryName} · ${input.signatoryTitle}`,
+        detail: `Signatory: ${input.signatoryName ?? "(unchanged)"} · ${input.signatoryTitle ?? "(unchanged)"}`,
       },
     })
   })

@@ -142,6 +142,8 @@ export interface GenerateOptions {
   signatureImage?: Uint8Array | string
   /** Optional digital seal image (the official circular seal). */
   sealImage?: Uint8Array | string
+  /** Optional second "digital seal" (hologram/QR-style badge), drawn bottom-left. */
+  digitalSealImage?: Uint8Array | string
   /** Optional inkpad/wax seal image (the raw stamped seal texture). Placed behind the digital seal for a realistic "pressed" effect. */
   inkpadSealImage?: Uint8Array | string
   /** Verification URL base (for the QR code). e.g. "https://yoursite.com/verify" */
