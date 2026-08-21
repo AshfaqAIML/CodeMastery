@@ -42,8 +42,8 @@ export const config = {
   storage: {
     provider: (process.env.STORAGE_PROVIDER ?? "local") as "local" | "s3",
     local: {
-      uploadDir: process.env.STORAGE_LOCAL_DIR ?? "./uploads",
-      publicBase: process.env.STORAGE_PUBLIC_BASE ?? "/uploads",
+      uploadDir: process.env.STORAGE_LOCAL_DIR ?? "/tmp/uploads",
+      publicBase: process.env.STORAGE_PUBLIC_BASE ?? "/tmp/uploads",
     },
     s3: {
       endpoint: process.env.STORAGE_ENDPOINT ?? "",
