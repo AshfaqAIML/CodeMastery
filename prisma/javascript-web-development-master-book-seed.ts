@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client"
+import { PrismaPg } from "@prisma/adapter-pg"
+import "dotenv/config"
 
-const db = new PrismaClient()
+const db = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }) })
 
 // ============================================================
 // JavaScript for Web Development Master Book - imported by scripts/import-course/pipeline.py

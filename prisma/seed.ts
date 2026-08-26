@@ -8,8 +8,10 @@
  * and imported elsewhere.
  */
 import { PrismaClient } from "@prisma/client"
+import { PrismaPg } from "@prisma/adapter-pg"
+import "dotenv/config"
 
-const db = new PrismaClient()
+const db = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }) })
 
 type SubjectInput = {
   slug: string
