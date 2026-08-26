@@ -15,7 +15,7 @@ const FALLBACK_DOMAIN = { slug: "_uncategorised", name: "Other", color: "oklch(0
 
 export function BrowseView() {
   const { navigate } = useAppStore()
-  const { data: subjects, isLoading } = useSubjects({ withCounts: true, withProgress: true })
+  const { data: subjects, isLoading, isError, error } = useSubjects({ withCounts: true, withProgress: true }) as any
   const [domainFilter, setDomainFilter] = React.useState<string>("all")
   const [q, setQ] = React.useState("")
   const debounced = useDebounced(q, 250)
@@ -126,7 +126,15 @@ export function BrowseView() {
             ))}
           </div>
 
-          {isLoading ? (
+          {isError ? (
+            <div className="rounded-xl border border-destructive/40 bg-destructive/5 p-6 text-center">
+              <p className="text-sm font-medium text-destructive">Failed to load subjects</p>
+              <p className="text-xs text-muted-foreground mt-1">{String((error as any)?.message ?? error ?? "Unknown error")}</p>
+              <Button variant="outline" size="sm" className="mt-3" onClick={() => window.location.reload()}>
+                Retry
+              </Button>
+            </div>
+          ) : isLoading ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {Array.from({ length: 9 }).map((_, i) => (
                 <div key={i} className="h-44 rounded-xl skeleton-shimmer" />
@@ -189,14 +197,18 @@ function DomainChip({
 }
 
 function SubjectGrid({ items, navigate }: { items: any[]; navigate: any }) {
+  if (items.length === 0) {
+    return (
+      <div className="col-span-full py-8 text-center text-sm text-muted-foreground">
+        No subjects in this domain.
+      </div>
+    )
+  }
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {items.map((s: any, i) => (
-        <motion.button
+      {items.map((s: any) => (
+        <button
           key={s.id}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25, delay: i * 0.03 }}
           onClick={() => navigate("subject", { subjectSlug: s.slug })}
           className="text-left group"
         >
@@ -238,7 +250,7 @@ function SubjectGrid({ items, navigate }: { items: any[]; navigate: any }) {
               )}
             </CardContent>
           </Card>
-        </motion.button>
+        </button>
       ))}
     </div>
   )
