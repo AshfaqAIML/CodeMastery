@@ -1,12 +1,12 @@
 import { NextRequest } from "next/server"
 import { db } from "@/lib/db"
 import { ok, err, unauthorized, forbidden, zodErr } from "@/lib/api"
-import { getCurrentUser } from "@/lib/session"
 import { assertPermission } from "@/lib/authorization/service"
 import { recordAuditSafe } from "@/lib/audit"
 import { getCertificateSettings } from "@/lib/certificates/settings"
 import { updateCertificateSettings } from "@/lib/certificates/admin"
 import { getStorage } from "@/lib/storage"
+import { getToken } from "next-auth/jwt"
 import { z } from "zod"
 
 const MAX_ASSET_BYTES = 8 * 1024 * 1024 // 8MB (screenshots/PNGs commonly exceed 2MB)
@@ -24,7 +24,7 @@ const settingsSchema = z.object({
   signatoryName: z.string().max(200).optional(),
   signatoryTitle: z.string().max(200).optional(),
   issuerName: z.string().max(200).optional(),
-  issuerWebsite: z.string().url().max(300).optional(),
+  issuerWebsite: z.string().max(300).optional(),
   seal: assetSchema.optional(),
   signature: assetSchema.optional(),
   digitalSeal: assetSchema.optional(),
@@ -35,6 +35,7 @@ const settingsSchema = z.object({
 
 /** Admin: read or update certificate settings + official assets. */
 export async function GET() {
+  const { getCurrentUser } = await import("@/lib/session")
   const user = await getCurrentUser()
   if (!user) return unauthorized()
   const denied = await assertPermission(user, "certificates.templates.manage")
@@ -43,8 +44,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await getCurrentUser()
-  if (!user) return unauthorized()
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+  if (!token?.id) return unauthorized()
+  const user = { id: token.id as string, role: (token.role as string) ?? "USER" }
   const denied = await assertPermission(user, "certificates.templates.manage")
   if (denied) return denied
 
