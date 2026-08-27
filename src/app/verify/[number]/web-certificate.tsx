@@ -89,57 +89,51 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
             </div>
           )}
 
-          <div className="flex items-start gap-6 flex-col sm:flex-row">
-            {/* Seal */}
-            <img
-              src="/certificates/seal.png"
-              alt="CodeMastery seal"
-              className="size-20 sm:size-28 shrink-0 hidden sm:block"
-            />
-            <div className="flex-1 text-center sm:text-left">
-              <p className="text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#8a6d1f] font-semibold">
-                {cert.issuerName} presents this certificate to
-              </p>
-              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mt-1 font-serif">
-                {cert.userName}
-              </h1>
-              <p className="text-sm sm:text-base text-[#4b5563] mt-3">
-                for successfully completing
-              </p>
-              <p className="text-xl sm:text-3xl font-bold font-serif text-[#b08d2f] mt-1">
-                {cert.subjectName ?? cert.title}
-              </p>
-              {cert.completedCount && cert.totalCount ? (
-                <div className="mt-4 flex flex-wrap gap-2 justify-center sm:justify-start">
-                  <span className="rounded-full bg-[#1f2937] text-white text-[11px] px-3 py-1">
-                    {cert.completedCount}/{cert.totalCount} tutorials completed
+          {/* Centered text */}
+          <div className="text-center">
+            <p className="text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#8a6d1f] font-semibold">
+              {cert.issuerName} presents this certificate to
+            </p>
+            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mt-2 font-serif">
+              {cert.userName}
+            </h1>
+            <p className="text-sm sm:text-base text-[#4b5563] mt-3">
+              for successfully completing
+            </p>
+            <p className="text-xl sm:text-3xl font-bold font-serif text-[#b08d2f] mt-1">
+              {cert.subjectName ?? cert.title}
+            </p>
+            {cert.completedCount && cert.totalCount ? (
+              <div className="mt-4 flex flex-wrap gap-2 justify-center">
+                <span className="rounded-full bg-[#1f2937] text-white text-[11px] px-3 py-1">
+                  {cert.completedCount}/{cert.totalCount} tutorials completed
+                </span>
+                {cert.xpAwarded !== null && cert.xpAwarded > 0 && (
+                  <span className="rounded-full bg-[#e9e2c8] text-[#6b5427] text-[11px] px-3 py-1">
+                    {cert.xpAwarded} XP earned
                   </span>
-                  {cert.xpAwarded !== null && cert.xpAwarded > 0 && (
-                    <span className="rounded-full bg-[#e9e2c8] text-[#6b5427] text-[11px] px-3 py-1">
-                      {cert.xpAwarded} XP earned
-                    </span>
-                  )}
-                  {cert.estimatedHours !== null && cert.estimatedHours > 0 && (
-                    <span className="rounded-full bg-[#e9e2c8] text-[#6b5427] text-[11px] px-3 py-1">
-                      {cert.estimatedHours}h of material
-                    </span>
-                  )}
-                </div>
-              ) : (
-                <p className="mt-3 text-xs text-[#6b7280]">
-                  {cert.issuedReason ?? "Awarded for outstanding academic achievement."}
-                </p>
-              )}
-              <p className="text-xs text-[#6b7280] mt-4">
-                Issued on {cert.issuedAt}
-                {cert.version > 1 ? ` · Version ${cert.version}` : ""}
+                )}
+                {cert.estimatedHours !== null && cert.estimatedHours > 0 && (
+                  <span className="rounded-full bg-[#e9e2c8] text-[#6b5427] text-[11px] px-3 py-1">
+                    {cert.estimatedHours}h of material
+                  </span>
+                )}
+              </div>
+            ) : (
+              <p className="mt-3 text-xs text-[#6b7280]">
+                {cert.issuedReason ?? "Awarded for outstanding academic achievement."}
               </p>
-            </div>
+            )}
+            <p className="text-xs text-[#6b7280] mt-4">
+              Issued on {cert.issuedAt}
+              {cert.version > 1 ? ` · Version ${cert.version}` : ""}
+            </p>
           </div>
 
-          {/* Signature + QR row */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-8">
-            <div className="flex flex-col sm:flex-row items-start gap-4 flex-1 w-full sm:w-auto">
+          {/* Signature + Inkpad Seal + Digital Seal + QR row */}
+          <div className="mt-10 flex flex-col sm:flex-row items-end justify-between gap-6">
+            {/* Left: Signature + Inkpad Seal */}
+            <div className="flex items-end gap-4">
               <div>
                 <img
                   src="/certificates/signature.png"
@@ -151,21 +145,29 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
                 <p className="text-xs text-[#6b7280]">{cert.signatoryTitle ?? "Authorized Signatory"}</p>
               </div>
               <img
-                src="/certificates/digital-seal.png"
-                alt="CodeMastery digital seal"
-                className="size-16 sm:size-20 object-contain self-end hidden sm:block"
+                src="/certificates/seal.png"
+                alt="CodeMastery inkpad seal"
+                className="size-20 sm:size-24 object-contain hidden sm:block"
               />
             </div>
 
-            <div className="flex flex-col items-center gap-1.5">
+            {/* Right: Digital Seal + QR */}
+            <div className="flex items-end gap-4">
               <img
-                src={`/api/certificates/${cert.number}/qr`}
-                alt={`QR code verifying certificate ${cert.number}`}
-                width={104}
-                height={104}
-                className="bg-white p-1 border border-[#c9a94e] rounded"
+                src="/certificates/digital-seal.png"
+                alt="CodeMastery digital seal"
+                className="size-16 sm:size-20 object-contain hidden sm:block"
               />
-              <p className="text-[10px] text-[#6b7280]">Scan to verify</p>
+              <div className="flex flex-col items-center gap-1.5">
+                <img
+                  src={`/api/certificates/${cert.number}/qr`}
+                  alt={`QR code verifying certificate ${cert.number}`}
+                  width={104}
+                  height={104}
+                  className="bg-white p-1 border border-[#c9a94e] rounded"
+                />
+                <p className="text-[10px] text-[#6b7280]">Scan to verify</p>
+              </div>
             </div>
           </div>
 
