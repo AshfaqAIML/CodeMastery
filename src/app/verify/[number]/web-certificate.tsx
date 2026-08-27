@@ -145,7 +145,7 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
             </div>
 
             {/* Right: Inkpad Seal + Digital Seal + QR with equal spacing */}
-            <div className="flex items-end gap-6 -ml-16">
+            <div className="flex items-end gap-6 -ml-24">
               <img
                 src="/certificates/seal.png"
                 alt="CodeMastery inkpad seal"
