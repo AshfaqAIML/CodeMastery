@@ -37,10 +37,8 @@ export async function renderCertificatePdf(input: PdfInput): Promise<Buffer> {
   const settings = await getCertificateSettings()
   const seal = await loadAsset("seal", settings.sealKey)
   const signature = await loadAsset("signature", settings.signatureKey)
-  // Digital seal is optional — only rendered when the admin uploaded one.
-  const digitalSeal = settings.digitalSealKey
-    ? await loadAsset("seal", settings.digitalSealKey)
-    : undefined
+  // Digital seal — try admin storage key first, then bundled fallback
+  const digitalSeal = await loadAsset("digital-seal", settings.digitalSealKey)
 
   const data: CertificateData = {
     recipientName: userName,
@@ -79,15 +77,15 @@ export async function renderCertificatePdf(input: PdfInput): Promise<Buffer> {
  * fall back to the bundled public asset. Returns bytes or undefined.
  */
 export async function loadAsset(
-  kind: "seal" | "signature" | "logo",
+  kind: "seal" | "signature" | "logo" | "digital-seal",
   storageKey: string | null
 ): Promise<Uint8Array | undefined> {
-  const fallback = path.join(
-    process.cwd(),
-    "public",
-    "certificates",
-    kind === "seal" ? "seal.png" : kind === "signature" ? "signature.png" : "logo.svg"
-  )
+  const fallbackName =
+    kind === "seal" ? "seal.png" :
+    kind === "signature" ? "signature.png" :
+    kind === "digital-seal" ? "digital-seal.png" :
+    "logo.svg"
+  const fallback = path.join(process.cwd(), "public", "certificates", fallbackName)
   if (storageKey) {
     try {
       const fromStorage = await getStorage().provider.read(storageKey)
