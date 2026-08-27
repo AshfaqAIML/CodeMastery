@@ -21,7 +21,7 @@
     "db:push:sqlite": "prisma db push --schema=prisma/schema.sqlite.prisma --accept-data-loss",
     "db:generate:sqlite": "prisma generate --schema=prisma/schema.sqlite.prisma",
     "db:seed:sqlite": "DATABASE_URL='file:./db/custom.db' bun run prisma/seed.ts",
-    "vercel-build": "prisma generate && next build"
+    "vercel-build": "prisma generate && next build && node scripts/copy-standalone.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1111.0",

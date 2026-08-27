@@ -85,18 +85,33 @@ export async function loadAsset(
     kind === "signature" ? "signature.png" :
     kind === "digital-seal" ? "digital-seal.png" :
     "logo.svg"
-  const fallback = path.join(process.cwd(), "public", "certificates", fallbackName)
+
+  // 1. Try admin-managed storage key
   if (storageKey) {
     try {
       const fromStorage = await getStorage().provider.read(storageKey)
       if (fromStorage) return new Uint8Array(fromStorage)
     } catch {
-      // fall through to the bundled asset
+      // fall through
     }
   }
+
+  // 2. Try reading from the filesystem
   try {
-    return await fs.readFile(fallback)
+    const fallback = path.join(process.cwd(), "public", "certificates", fallbackName)
+    const data = await fs.readFile(fallback)
+    if (data.length > 0) return data
   } catch {
-    return undefined
+    // fall through
   }
+
+  // 3. Try relative path (different cwd on some serverless runtimes)
+  try {
+    const data = await fs.readFile(path.join("public", "certificates", fallbackName))
+    if (data.length > 0) return data
+  } catch {
+    // fall through
+  }
+
+  return undefined
 }
