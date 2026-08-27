@@ -104,7 +104,7 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
               {cert.subjectName ?? cert.title}
             </p>
             {cert.completedCount && cert.totalCount ? (
-              <div className="mt-4 flex flex-wrap gap-2 justify-center">
+              <div className="mt-4 flex flex-wrap gap-3 justify-center">
                 <span className="rounded-full bg-[#1f2937] text-white text-[11px] px-3 py-1">
                   {cert.completedCount}/{cert.totalCount} tutorials completed
                 </span>
