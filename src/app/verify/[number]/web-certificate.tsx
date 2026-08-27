@@ -130,10 +130,10 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
             </p>
           </div>
 
-          {/* Signature + Inkpad Seal + Digital Seal + QR row */}
-          <div className="mt-10 flex flex-col sm:flex-row items-end gap-6">
+          {/* Signature + Seal + Digital Seal + QR row — equally spaced */}
+          <div className="mt-10 grid grid-cols-4 items-end gap-4">
             {/* Signature */}
-            <div className="flex-shrink-0">
+            <div>
               <img
                 src="/certificates/signature.png"
                 alt=""
@@ -144,28 +144,34 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
               <p className="text-xs text-[#6b7280]">{cert.signatoryTitle ?? "Authorized Signatory"}</p>
             </div>
 
-            {/* Inkpad Seal + Digital Seal + QR with equal spacing */}
-            <div className="flex items-end gap-6">
+            {/* Inkpad Seal */}
+            <div className="flex justify-center">
               <img
                 src="/certificates/seal.png"
                 alt="CodeMastery inkpad seal"
                 className="size-20 sm:size-24 object-contain hidden sm:block"
               />
+            </div>
+
+            {/* Digital Seal */}
+            <div className="flex justify-center">
               <img
                 src="/certificates/digital-seal.png"
                 alt="CodeMastery digital seal"
                 className="size-20 sm:size-24 object-contain hidden sm:block"
               />
-              <div className="flex flex-col items-center gap-1.5">
-                <img
-                  src={`/api/certificates/${cert.number}/qr`}
-                  alt={`QR code verifying certificate ${cert.number}`}
-                  width={104}
-                  height={104}
-                  className="bg-white p-1 border border-[#c9a94e] rounded"
-                />
-                <p className="text-[10px] text-[#6b7280]">Scan to verify</p>
-              </div>
+            </div>
+
+            {/* QR */}
+            <div className="flex flex-col items-center gap-1.5">
+              <img
+                src={`/api/certificates/${cert.number}/qr`}
+                alt={`QR code verifying certificate ${cert.number}`}
+                width={104}
+                height={104}
+                className="bg-white p-1 border border-[#c9a94e] rounded"
+              />
+              <p className="text-[10px] text-[#6b7280]">Scan to verify</p>
             </div>
           </div>
 
