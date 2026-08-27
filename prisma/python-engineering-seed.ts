@@ -4,13 +4,13 @@ import { PrismaPg } from "@prisma/adapter-pg"
 const db = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }) })
 
 // ============================================================
-// Python Mastery - imported by scripts/import-course/pipeline.py
+// Advanced Python - imported by scripts/import-course/pipeline.py
 // Idempotent via upsert. Regenerate with the pipeline, never hand-edit.
 // ============================================================
 
 const subject = {
   slug: "python-engineering",
-  name: "Python Mastery",
+  name: "Advanced Python",
   tagline: "Professional Python engineering — tools, patterns, and production skills.",
   description: "Write cleaner, stronger Python with engineering practices, architecture and maintainable code.",
   icon: "Code2",
