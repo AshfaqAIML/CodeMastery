@@ -6,7 +6,7 @@ import { authOptions } from "@/lib/auth"
 
 export async function POST(req: NextRequest) {
   const cookieHeader = req.headers.get("cookie") ?? "none"
-  const allCookies = Array.from(req.cookies.entries()).map(([k]) => k)
+  const allCookies = req.cookies.getAll().map((c) => c.name)
 
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
   const session = await getServerSession(authOptions)
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   const cookieHeader = req.headers.get("cookie") ?? "none"
-  const allCookies = Array.from(req.cookies.entries()).map(([k]) => k)
+  const allCookies = req.cookies.getAll().map((c) => c.name)
 
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
   const session = await getServerSession(authOptions)

@@ -1,19 +1,20 @@
 import { NextRequest } from "next/server"
 import { ok, err, unauthorized } from "@/lib/api"
+import { getCurrentUser } from "@/lib/session"
 import { getStorage } from "@/lib/storage"
 import { db } from "@/lib/db"
 import { recordAuditSafe } from "@/lib/audit"
 import { updateCertificateSettings } from "@/lib/certificates/admin"
-import { getToken } from "next-auth/jwt"
 import { assertPermission } from "@/lib/authorization/service"
+
+export const dynamic = "force-dynamic"
 
 const MAX_ASSET_BYTES = 8 * 1024 * 1024
 
 export async function POST(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-  if (!token?.id) return unauthorized()
+  const user = await getCurrentUser()
+  if (!user) return unauthorized()
 
-  const user = { id: token.id as string, role: (token.role as string) ?? "USER" }
   const denied = await assertPermission(user, "certificates.templates.manage")
   if (denied) return denied
 
