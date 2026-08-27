@@ -132,18 +132,20 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
 
           {/* Signature + Inkpad Seal + Digital Seal + QR row */}
           <div className="mt-10 flex flex-col sm:flex-row items-end justify-between gap-6">
-            {/* Left: Signature + Inkpad Seal + Digital Seal */}
-            <div className="flex items-end gap-4">
-              <div>
-                <img
-                  src="/certificates/signature.png"
-                  alt=""
-                  className="h-14 object-contain mb-1 grayscale"
-                />
-                <div className="border-t border-[#6b7280]/60 w-56 max-w-full" />
-                <p className="font-semibold text-sm mt-2">{cert.signatoryName ?? "CodeMastery Certification Office"}</p>
-                <p className="text-xs text-[#6b7280]">{cert.signatoryTitle ?? "Authorized Signatory"}</p>
-              </div>
+            {/* Left: Signature */}
+            <div className="flex-1 w-full sm:w-auto">
+              <img
+                src="/certificates/signature.png"
+                alt=""
+                className="h-14 object-contain mb-1 grayscale"
+              />
+              <div className="border-t border-[#6b7280]/60 w-56 max-w-full" />
+              <p className="font-semibold text-sm mt-2">{cert.signatoryName ?? "CodeMastery Certification Office"}</p>
+              <p className="text-xs text-[#6b7280]">{cert.signatoryTitle ?? "Authorized Signatory"}</p>
+            </div>
+
+            {/* Right: Inkpad Seal + Digital Seal + QR with equal spacing */}
+            <div className="flex items-end gap-8">
               <img
                 src="/certificates/seal.png"
                 alt="CodeMastery inkpad seal"
@@ -154,18 +156,16 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
                 alt="CodeMastery digital seal"
                 className="size-20 sm:size-24 object-contain hidden sm:block"
               />
-            </div>
-
-            {/* Right: QR */}
-            <div className="flex flex-col items-center gap-1.5 mb-4">
-              <img
-                src={`/api/certificates/${cert.number}/qr`}
-                alt={`QR code verifying certificate ${cert.number}`}
-                width={104}
-                height={104}
-                className="bg-white p-1 border border-[#c9a94e] rounded"
-              />
-              <p className="text-[10px] text-[#6b7280]">Scan to verify</p>
+              <div className="flex flex-col items-center gap-1.5">
+                <img
+                  src={`/api/certificates/${cert.number}/qr`}
+                  alt={`QR code verifying certificate ${cert.number}`}
+                  width={104}
+                  height={104}
+                  className="bg-white p-1 border border-[#c9a94e] rounded"
+                />
+                <p className="text-[10px] text-[#6b7280]">Scan to verify</p>
+              </div>
             </div>
           </div>
 
