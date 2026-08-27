@@ -304,16 +304,18 @@ function SettingsCard() {
   const uploadAsset = async (kind: "seal" | "signature" | "digitalSeal", file: File) => {
     setUploading(kind)
     try {
-      const reader = new FileReader()
-      const base64 = await new Promise<string>((resolve, reject) => {
-        reader.onload = () => resolve(String(reader.result).split(",")[1])
-        reader.onerror = reject
-        reader.readAsDataURL(file)
-      })
-      await apiFetch<any>("/api/admin/certificates/settings", {
+      const fd = new FormData()
+      fd.append("kind", kind)
+      fd.append("file", file)
+      const res = await fetch("/api/admin/certificates/upload", {
         method: "POST",
-        body: JSON.stringify({ ...form, [kind]: { name: file.name, mime: file.type || "image/png", base64 } }),
+        credentials: "include",
+        body: fd,
       })
+      const data = await res.json().catch(() => ({ ok: false, error: "Invalid response" }))
+      if (!res.ok || data?.ok === false) {
+        throw new Error(data?.error ?? `Upload failed (${res.status})`)
+      }
       toast.success(`${kind === "digitalSeal" ? "Digital seal" : kind === "seal" ? "Seal" : "Signature"} updated`)
     } catch (e: any) {
       toast.error(e.message ?? "Upload failed")
