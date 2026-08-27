@@ -131,9 +131,9 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
           </div>
 
           {/* Signature + Inkpad Seal + Digital Seal + QR row */}
-          <div className="mt-10 flex flex-col sm:flex-row items-end justify-between gap-6">
-            {/* Left: Signature */}
-            <div className="flex-1 w-full sm:w-auto">
+          <div className="mt-10 flex flex-col sm:flex-row items-end gap-6">
+            {/* Signature */}
+            <div className="flex-shrink-0">
               <img
                 src="/certificates/signature.png"
                 alt=""
@@ -144,8 +144,8 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
               <p className="text-xs text-[#6b7280]">{cert.signatoryTitle ?? "Authorized Signatory"}</p>
             </div>
 
-            {/* Right: Inkpad Seal + Digital Seal + QR with equal spacing */}
-            <div className="flex items-end gap-6 -ml-24">
+            {/* Inkpad Seal + Digital Seal + QR with equal spacing */}
+            <div className="flex items-end gap-6">
               <img
                 src="/certificates/seal.png"
                 alt="CodeMastery inkpad seal"
