@@ -61,7 +61,7 @@ export function SubjectCertificate({
 
           <div className="p-8 text-center">
             <div className="flex justify-center mb-4">
-              <img src="/certificates/seal.svg" alt="CodeMastery seal" className="size-20" />
+              <img src="/certificates/seal.png" alt="CodeMastery seal" className="size-20" />
             </div>
 
             <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#8a6d1f] mb-1">

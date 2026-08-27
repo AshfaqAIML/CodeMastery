@@ -92,7 +92,7 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
           <div className="flex items-start gap-6 flex-col sm:flex-row">
             {/* Seal */}
             <img
-              src="/certificates/seal.svg"
+              src="/certificates/seal.png"
               alt="CodeMastery seal"
               className="size-20 sm:size-28 shrink-0 hidden sm:block"
             />
@@ -139,15 +139,22 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
 
           {/* Signature + QR row */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-8">
-            <div className="flex-1 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-start gap-4 flex-1 w-full sm:w-auto">
+              <div>
+                <img
+                  src="/certificates/signature.png"
+                  alt=""
+                  className="h-14 object-contain mb-1 grayscale"
+                />
+                <div className="border-t border-[#6b7280]/60 w-56 max-w-full" />
+                <p className="font-semibold text-sm mt-2">{cert.signatoryName ?? "CodeMastery Certification Office"}</p>
+                <p className="text-xs text-[#6b7280]">{cert.signatoryTitle ?? "Authorized Signatory"}</p>
+              </div>
               <img
-                src="/certificates/signature.png"
-                alt=""
-                className="h-14 object-contain mb-1 grayscale"
+                src="/certificates/digital-seal.png"
+                alt="CodeMastery digital seal"
+                className="size-16 sm:size-20 object-contain self-end hidden sm:block"
               />
-              <div className="border-t border-[#6b7280]/60 w-56 max-w-full" />
-              <p className="font-semibold text-sm mt-2">{cert.signatoryName ?? "CodeMastery Certification Office"}</p>
-              <p className="text-xs text-[#6b7280]">{cert.signatoryTitle ?? "Authorized Signatory"}</p>
             </div>
 
             <div className="flex flex-col items-center gap-1.5">
