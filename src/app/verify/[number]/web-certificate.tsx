@@ -104,17 +104,17 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
               {cert.subjectName ?? cert.title}
             </p>
             {cert.completedCount && cert.totalCount ? (
-              <div className="mt-4 flex flex-wrap gap-3 justify-center">
-                <span className="rounded-full bg-[#1f2937] text-white text-[11px] px-3 py-1">
+              <div className="mt-5 flex flex-wrap gap-4 justify-center">
+                <span className="rounded-full bg-[#1f2937] text-white text-xs px-4 py-1.5">
                   {cert.completedCount}/{cert.totalCount} tutorials completed
                 </span>
                 {cert.xpAwarded !== null && cert.xpAwarded > 0 && (
-                  <span className="rounded-full bg-[#e9e2c8] text-[#6b5427] text-[11px] px-3 py-1">
+                  <span className="rounded-full bg-[#e9e2c8] text-[#6b5427] text-xs px-4 py-1.5">
                     {cert.xpAwarded} XP earned
                   </span>
                 )}
                 {cert.estimatedHours !== null && cert.estimatedHours > 0 && (
-                  <span className="rounded-full bg-[#e9e2c8] text-[#6b5427] text-[11px] px-3 py-1">
+                  <span className="rounded-full bg-[#e9e2c8] text-[#6b5427] text-xs px-4 py-1.5">
                     {cert.estimatedHours}h of material
                   </span>
                 )}
