@@ -152,13 +152,15 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
             </div>
 
             {/* Right: Digital Seal + QR */}
-            <div className="flex items-end gap-4">
-              <img
-                src="/certificates/digital-seal.png"
-                alt="CodeMastery digital seal"
-                className="size-24 sm:size-28 object-contain hidden sm:block"
-              />
-              <div className="flex flex-col items-center gap-1.5 mb-2">
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-end gap-3">
+                <img
+                  src="/certificates/digital-seal.png"
+                  alt="CodeMastery digital seal"
+                  className="size-24 sm:size-28 object-contain hidden sm:block ml-4"
+                />
+              </div>
+              <div className="flex flex-col items-center gap-1.5">
                 <img
                   src={`/api/certificates/${cert.number}/qr`}
                   alt={`QR code verifying certificate ${cert.number}`}
