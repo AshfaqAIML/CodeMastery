@@ -26,6 +26,7 @@ playwright.config.ts
 
 # Screenshots & tooling
 *.png
+!public/certificates/*.png
 tool-results/
 download/
 agent-ctx/
