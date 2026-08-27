@@ -91,16 +91,16 @@ export function WebCertificate({ cert }: { cert: PublicCertificate }) {
 
           {/* Centered text */}
           <div className="text-center">
-            <p className="text-[10px] sm:text-xs tracking-[0.35em] uppercase text-[#8a6d1f] font-semibold">
+            <p className="text-sm sm:text-lg tracking-[0.35em] uppercase text-[#8a6d1f] font-bold">
               {cert.issuerName} presents this certificate to
             </p>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight mt-2 font-serif">
+            <h1 className="text-4xl sm:text-6xl font-black tracking-tight mt-2 font-serif">
               {cert.userName}
             </h1>
-            <p className="text-sm sm:text-base text-[#4b5563] mt-3">
+            <p className="text-base sm:text-xl font-semibold text-[#4b5563] mt-3">
               for successfully completing
             </p>
-            <p className="text-xl sm:text-3xl font-bold font-serif text-[#b08d2f] mt-1">
+            <p className="text-2xl sm:text-4xl font-black font-serif text-[#b08d2f] mt-1">
               {cert.subjectName ?? cert.title}
             </p>
             {cert.completedCount && cert.totalCount ? (
