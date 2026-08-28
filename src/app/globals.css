@@ -244,10 +244,69 @@
 
   /* Card hover lift */
   .card-lift {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
   }
   .card-lift:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px color-mix(in oklch, var(--foreground) 10%, transparent), 0 8px 16px -4px color-mix(in oklch, var(--foreground) 6%, transparent);
+  }
+
+  /* Course card premium styles */
+  .course-card {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+  }
+  .course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px -12px color-mix(in oklch, var(--foreground) 12%, transparent), 0 12px 24px -8px color-mix(in oklch, var(--foreground) 8%, transparent);
+    border-color: color-mix(in oklch, var(--primary) 30%, transparent);
+  }
+  .course-card:hover .course-card-header {
+    filter: brightness(1.05);
+  }
+  .course-card:hover .course-card-icon {
+    transform: scale(1.08);
+  }
+  .course-card:hover .course-card-cta {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .course-card:hover .course-card-pattern {
+    opacity: 0.12;
+  }
+
+  .course-card-header {
+    transition: filter 0.3s ease;
+  }
+
+  .course-card-icon {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .course-card-cta {
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .course-card-pattern {
+    transition: opacity 0.3s ease;
+  }
+
+  /* Difficulty badge colors */
+  .badge-beginner {
+    background: color-mix(in oklch, #22c55e 12%, transparent);
+    color: color-mix(in oklch, #22c55e 90%, transparent);
+    border: 1px solid color-mix(in oklch, #22c55e 20%, transparent);
+  }
+  .badge-intermediate {
+    background: color-mix(in oklch, #f59e0b 12%, transparent);
+    color: color-mix(in oklch, #f59e0b 90%, transparent);
+    border: 1px solid color-mix(in oklch, #f59e0b 20%, transparent);
+  }
+  .badge-advanced {
+    background: color-mix(in oklch, #ef4444 12%, transparent);
+    color: color-mix(in oklch, #ef4444 90%, transparent);
+    border: 1px solid color-mix(in oklch, #ef4444 20%, transparent);
   }
 
   /* Smooth fade-in for content */

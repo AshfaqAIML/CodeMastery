@@ -4,7 +4,7 @@ import * as React from "react"
 import {
   ArrowRight, Sparkles, Zap, Trophy, Flame, BookOpen, Compass, GraduationCap,
   Code2, Brain, Network, Layers, TrendingUp, Target, Rocket, CheckCircle2,
-  X, Crown, LayoutDashboard,
+  X, Crown, LayoutDashboard, BookOpen as BookIcon,
 } from "lucide-react"
 import { motion } from "framer-motion"
 import { useSession } from "next-auth/react"
@@ -119,7 +119,7 @@ export function HomeView() {
             View all <ArrowRight className="ml-1.5 size-4" />
           </Button>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           {featured.map((s, i) => (
             <motion.button
               key={s.id}
@@ -129,35 +129,58 @@ export function HomeView() {
               onClick={() => navigate("subject", { subjectSlug: s.slug })}
               className="group text-left"
             >
-              <Card className="h-full hover:border-primary/40 hover:shadow-md transition-all overflow-hidden card-lift">
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <SubjectIcon name={s.icon} color={s.color} className="size-11 rounded-xl" />
+              <div className="course-card relative h-full rounded-2xl border border-border/60 bg-card overflow-hidden shadow-sm">
+                {/* Gradient header */}
+                <div
+                  className="course-card-header relative h-24 overflow-hidden"
+                  style={{
+                    background: `linear-gradient(135deg, color-mix(in oklch, ${s.color} 18%, transparent) 0%, color-mix(in oklch, ${s.color} 8%, transparent) 50%, color-mix(in oklch, ${s.color} 3%, transparent) 100%)`,
+                  }}
+                >
+                  <div
+                    className="absolute -top-6 -right-6 size-20 rounded-full opacity-20 blur-2xl"
+                    style={{ background: s.color }}
+                  />
+                  <div className="absolute bottom-2.5 left-3.5">
+                    <SubjectIcon
+                      name={s.icon}
+                      color={s.color}
+                      className="course-card-icon size-10 rounded-xl shadow-sm border border-white/20 dark:border-white/5"
+                    />
+                  </div>
+                  <div className="absolute top-2.5 right-2.5">
                     {s.status === "COMPLETE" && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="inline-flex items-center gap-1 text-[9px] font-semibold rounded-full px-1.5 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        <CheckCircle2 className="size-2.5" />
                         Complete
                       </span>
                     )}
                     {s.status === "COMING_SOON" && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                      <span className="inline-flex items-center gap-1 text-[9px] font-semibold rounded-full px-1.5 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
                         Coming Soon
                       </span>
                     )}
                   </div>
-                  <CardTitle className="text-base mt-3 group-hover:text-primary transition-colors">
+                </div>
+
+                {/* Content */}
+                <div className="p-3.5 pt-3">
+                  <h3 className="text-sm font-semibold leading-snug tracking-tight text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 min-h-[2rem]">
                     {s.name}
-                  </CardTitle>
-                  <CardDescription className="line-clamp-2 text-xs">
+                  </h3>
+                  <p className="text-[11px] text-muted-foreground mt-1 line-clamp-2 min-h-[1.75rem]">
                     {s.tagline}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>{s.tutorialCount ?? 0} tutorials</span>
-                    <ArrowRight className="size-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </p>
+                  <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-border/40">
+                    <span className="text-[10px] text-muted-foreground font-medium">
+                      {s.tutorialCount ?? 0} lessons
+                    </span>
+                    <span className="course-card-cta inline-flex items-center gap-1 text-[10px] font-medium text-primary">
+                      Explore <ArrowRight className="size-2.5" />
+                    </span>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </motion.button>
           ))}
         </div>

@@ -1,11 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { Search, Compass, Loader2, BookX, CheckCircle, Clock, Sparkles } from "lucide-react"
+import { Search, Compass, Loader2, BookX, CheckCircle, Clock, Sparkles, ArrowRight, BookOpen, Layers } from "lucide-react"
 import { motion } from "framer-motion"
 import { useAppStore } from "@/lib/store"
 import { useSubjects, useSearch } from "@/hooks/use-api"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { SubjectIcon } from "@/components/shared/subject-icon"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -99,22 +98,24 @@ export function BrowseView() {
               action={<Button variant="outline" size="sm" onClick={() => setQ("")}>Clear search</Button>}
             />
           ) : (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {searchHits.map((hit) => (
-                <Card
+                <button
                   key={hit.id}
-                  className="cursor-pointer hover:border-primary/40 hover:shadow-md transition-all card-lift"
                   onClick={() => navigate("tutorial", { subjectSlug: hit.subjectSlug, tutorialSlug: hit.slug })}
+                  className="text-left group w-full"
                 >
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <SubjectIcon name={hit.icon} color={hit.subjectColor} className="size-6 rounded" />
-                      {hit.subjectName}
+                  <div className="course-card relative h-full rounded-2xl border border-border/60 bg-card overflow-hidden shadow-sm p-4">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                      <SubjectIcon name={hit.icon} color={hit.subjectColor} className="size-6 rounded-lg" />
+                      <span className="font-medium">{hit.subjectName}</span>
                     </div>
-                    <CardTitle className="text-base mt-2">{hit.title}</CardTitle>
-                    <CardDescription className="line-clamp-2 text-xs">{hit.summary}</CardDescription>
-                  </CardHeader>
-                </Card>
+                    <h3 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                      {hit.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2 mt-1">{hit.summary}</p>
+                  </div>
+                </button>
               ))}
             </div>
           )}
@@ -150,9 +151,22 @@ export function BrowseView() {
               </Button>
             </div>
           ) : isLoading ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {Array.from({ length: 9 }).map((_, i) => (
-                <div key={i} className="h-44 rounded-xl skeleton-shimmer" />
+                <div key={i} className="rounded-2xl border border-border/60 bg-card overflow-hidden shadow-sm">
+                  <div className="h-32 skeleton-shimmer" />
+                  <div className="p-4 space-y-3">
+                    <div className="h-4 w-3/4 rounded-lg skeleton-shimmer" />
+                    <div className="space-y-1.5">
+                      <div className="h-3 w-full rounded skeleton-shimmer" />
+                      <div className="h-3 w-2/3 rounded skeleton-shimmer" />
+                    </div>
+                    <div className="flex gap-1.5">
+                      <div className="h-5 w-16 rounded-full skeleton-shimmer" />
+                      <div className="h-5 w-20 rounded-full skeleton-shimmer" />
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           ) : domainFilter === "all" ? (
@@ -236,6 +250,133 @@ function StatusBadge({ status }: { status: string }) {
   )
 }
 
+function DifficultyChip({ difficulty }: { difficulty?: string }) {
+  const d = difficulty ?? "beginner"
+  const cls = d === "advanced" ? "badge-advanced" : d === "intermediate" ? "badge-intermediate" : "badge-beginner"
+  return (
+    <span className={`inline-flex items-center text-[10px] font-semibold rounded-full px-2 py-0.5 ${cls}`}>
+      {d.charAt(0).toUpperCase() + d.slice(1)}
+    </span>
+  )
+}
+
+function CourseCard({ subject, navigate }: { subject: any; navigate: any }) {
+  const s = subject
+  const hasProgress = s.progressPct !== undefined && s.progressPct > 0
+  const tutorialCount = s.tutorialCount ?? 0
+
+  // Generate a subtle pattern based on the course color
+  const patternId = `pattern-${s.id}`
+
+  return (
+    <button
+      onClick={() => navigate("subject", { subjectSlug: s.slug })}
+      className="text-left group w-full"
+    >
+      <div className="course-card relative h-full rounded-2xl border border-border/60 bg-card overflow-hidden shadow-sm">
+        {/* Gradient header area */}
+        <div
+          className="course-card-header relative h-32 overflow-hidden"
+          style={{
+            background: `linear-gradient(135deg, color-mix(in oklch, ${s.color} 18%, transparent) 0%, color-mix(in oklch, ${s.color} 8%, transparent) 50%, color-mix(in oklch, ${s.color} 3%, transparent) 100%)`,
+          }}
+        >
+          {/* Subtle dot pattern overlay */}
+          <svg className="course-card-pattern absolute inset-0 h-full w-full opacity-[0.06]" aria-hidden>
+            <defs>
+              <pattern id={patternId} x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="1" r="0.8" fill="currentColor" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+          </svg>
+
+          {/* Decorative gradient orb */}
+          <div
+            className="absolute -top-8 -right-8 size-24 rounded-full opacity-20 blur-2xl"
+            style={{ background: s.color }}
+          />
+
+          {/* Icon */}
+          <div className="absolute bottom-3 left-4">
+            <SubjectIcon
+              name={s.icon}
+              color={s.color}
+              className="course-card-icon size-12 rounded-xl shadow-sm border border-white/20 dark:border-white/5"
+            />
+          </div>
+
+          {/* Status badge top-right */}
+          <div className="absolute top-3 right-3">
+            <StatusBadge status={s.status ?? "COMING_SOON"} />
+          </div>
+        </div>
+
+        {/* Content area */}
+        <div className="p-4 pt-3.5 flex flex-col flex-1">
+          {/* Title */}
+          <h3 className="text-[15px] font-semibold leading-snug tracking-tight text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 min-h-[2.5rem]">
+            {s.name}
+          </h3>
+
+          {/* Description */}
+          <p className="text-xs text-muted-foreground leading-relaxed mt-1.5 line-clamp-2 min-h-[2rem]">
+            {s.description}
+          </p>
+
+          {/* Metadata chips */}
+          <div className="flex items-center gap-1.5 mt-3 flex-wrap">
+            <DifficultyChip difficulty="beginner" />
+            <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground bg-muted/50 rounded-full px-2 py-0.5">
+              <BookOpen className="size-2.5" />
+              {tutorialCount} lessons
+            </span>
+            <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground bg-muted/50 rounded-full px-2 py-0.5">
+              <Layers className="size-2.5" />
+              {s.domain?.name ?? s.category}
+            </span>
+          </div>
+
+          {/* Spacer to push footer down */}
+          <div className="flex-1 min-h-2" />
+
+          {/* Progress or CTA footer */}
+          <div className="mt-3 pt-3 border-t border-border/40">
+            {hasProgress ? (
+              <div>
+                <div className="flex items-center justify-between text-[11px] mb-1.5">
+                  <span className="text-muted-foreground">
+                    {s.completedCount}/{tutorialCount} completed
+                  </span>
+                  <span className="font-semibold text-foreground">{s.progressPct}%</span>
+                </div>
+                <div className="h-1.5 rounded-full bg-muted/60 overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all duration-500 ease-out"
+                    style={{
+                      width: `${s.progressPct}%`,
+                      background: `linear-gradient(90deg, ${s.color}, color-mix(in oklch, ${s.color} 70%, white))`,
+                    }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  Start learning
+                </span>
+                <span className="course-card-cta inline-flex items-center gap-1 text-xs font-medium text-primary">
+                  Explore <ArrowRight className="size-3" />
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </button>
+  )
+}
+
 function SubjectGrid({ items, navigate }: { items: any[]; navigate: any }) {
   if (items.length === 0) {
     return (
@@ -245,50 +386,9 @@ function SubjectGrid({ items, navigate }: { items: any[]; navigate: any }) {
     )
   }
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {items.map((s: any) => (
-        <button
-          key={s.id}
-          onClick={() => navigate("subject", { subjectSlug: s.slug })}
-          className="text-left group"
-        >
-          <Card className="h-full hover:border-primary/40 hover:shadow-md transition-all overflow-hidden card-lift">
-            <div className="h-1.5 w-full" style={{ background: s.color }} />
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <SubjectIcon name={s.icon} color={s.color} className="size-11 rounded-xl" />
-                <StatusBadge status={s.status ?? "COMING_SOON"} />
-              </div>
-              <CardTitle className="text-lg mt-3 group-hover:text-primary transition-colors">
-                {s.name}
-              </CardTitle>
-              <CardDescription className="line-clamp-2 text-sm">{s.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="pt-0">
-              {s.progressPct !== undefined && s.progressPct > 0 ? (
-                <div className="mb-2">
-                  <div className="flex items-center justify-between text-[11px] text-muted-foreground mb-1">
-                    <span>{s.completedCount}/{s.tutorialCount} completed</span>
-                    <span className="text-primary font-medium">{s.progressPct}%</span>
-                  </div>
-                  <div className="h-1 rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all"
-                      style={{ width: `${s.progressPct}%`, background: s.color }}
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>{s.tutorialCount ?? 0} tutorials</span>
-                  <span className="text-primary opacity-0 group-hover:opacity-100 transition-opacity font-medium">
-                    Explore →
-                  </span>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </button>
+        <CourseCard key={s.id} subject={s} navigate={navigate} />
       ))}
     </div>
   )
