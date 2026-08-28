@@ -220,7 +220,7 @@ export function MarkdownRenderer({ content }: { content: string }) {
             <h4 className="text-base font-semibold mt-4 mb-2 text-foreground/90">{children}</h4>
           ),
           p: ({ children }) => (
-            <p className="leading-7 mb-4 text-foreground/90">{children}</p>
+            <p className="leading-7 mb-4 text-foreground/90 text-justify">{children}</p>
           ),
           ul: ({ children }) => (
             <ul className="my-4 space-y-1.5 pl-1 list-disc pl-6 marker:text-muted-foreground">{children}</ul>
