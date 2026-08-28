@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Search, Compass, Loader2, BookX, CheckCircle, Clock, Sparkles, ArrowRight, BookOpen, Layers } from "lucide-react"
-import { motion } from "framer-motion"
+import { Search, Compass, Loader2, BookX, CheckCircle, Clock, Sparkles, ArrowRight } from "lucide-react"
 import { useAppStore } from "@/lib/store"
 import { useSubjects, useSearch } from "@/hooks/use-api"
 import { SubjectIcon } from "@/components/shared/subject-icon"
@@ -20,7 +19,6 @@ export function BrowseView() {
   const debounced = useDebounced(q, 250)
   const { data: searchRes, isLoading: searching } = useSearch(debounced)
 
-  // Derive domain list + grouping from subjects (each subject now carries its domain)
   const { domains, grouped } = React.useMemo(() => {
     const list = subjects ?? []
     const map = new Map<string, { slug: string; name: string; color: string; order: number }>()
@@ -33,14 +31,9 @@ export function BrowseView() {
       const arr = groups.get(d.slug) ?? []
       arr.push(s)
       groups.set(d.slug, arr)
-
-      // Collect COMPLETE courses for the virtual "Completed" domain
-      if (s.status === "COMPLETE") {
-        completedCourses.push(s)
-      }
+      if (s.status === "COMPLETE") completedCourses.push(s)
     }
 
-    // Add virtual "Completed" domain at the end
     if (completedCourses.length > 0) {
       map.set("completed", { slug: "completed", name: "Completed", color: "oklch(0.65 0.18 145)", order: 999 })
       groups.set("completed", completedCourses)
@@ -71,7 +64,6 @@ export function BrowseView() {
         </p>
       </div>
 
-      {/* Search */}
       <div className="relative mb-6">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
         <Input
@@ -105,7 +97,7 @@ export function BrowseView() {
                   onClick={() => navigate("tutorial", { subjectSlug: hit.subjectSlug, tutorialSlug: hit.slug })}
                   className="text-left group w-full"
                 >
-                  <div className="course-card relative h-full rounded-2xl border border-border/60 bg-card overflow-hidden shadow-sm p-4">
+                  <div className="cc p-5">
                     <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                       <SubjectIcon name={hit.icon} color={hit.subjectColor} className="size-6 rounded-lg" />
                       <span className="font-medium">{hit.subjectName}</span>
@@ -122,7 +114,6 @@ export function BrowseView() {
         </div>
       ) : (
         <>
-          {/* Domain filter */}
           <div className="flex flex-wrap gap-2 mb-10">
             <DomainChip
               label="All domains"
@@ -153,31 +144,27 @@ export function BrowseView() {
           ) : isLoading ? (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {Array.from({ length: 9 }).map((_, i) => (
-                <div key={i} className="rounded-2xl border border-border/60 bg-card overflow-hidden shadow-sm">
-                  <div className="h-32 skeleton-shimmer" />
-                  <div className="p-4 space-y-3">
-                    <div className="h-4 w-3/4 rounded-lg skeleton-shimmer" />
+                <div key={i} className="rounded-2xl border border-border/60 bg-card overflow-hidden">
+                  <div className="h-[180px] skeleton-shimmer" />
+                  <div className="p-5 space-y-3">
+                    <div className="h-2.5 w-16 rounded skeleton-shimmer" />
+                    <div className="h-5 w-3/4 rounded skeleton-shimmer" />
                     <div className="space-y-1.5">
                       <div className="h-3 w-full rounded skeleton-shimmer" />
                       <div className="h-3 w-2/3 rounded skeleton-shimmer" />
-                    </div>
-                    <div className="flex gap-1.5">
-                      <div className="h-5 w-16 rounded-full skeleton-shimmer" />
-                      <div className="h-5 w-20 rounded-full skeleton-shimmer" />
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           ) : domainFilter === "all" ? (
-            /* Grouped by domain — each domain gets a section header */
             <div className="space-y-12">
               {domains.map((d) => {
                 const items = grouped.get(d.slug) ?? []
                 if (items.length === 0) return null
                 return (
                   <section key={d.slug} aria-label={d.name}>
-                    <div className="flex items-center gap-2.5 mb-4">
+                    <div className="flex items-center gap-2.5 mb-5">
                       <span
                         className="inline-block size-2.5 rounded-full"
                         style={{ background: d.color }}
@@ -225,37 +212,27 @@ function DomainChip({
   )
 }
 
-function StatusBadge({ status }: { status: string }) {
+function StatusPill({ status }: { status: string }) {
   if (status === "COMPLETE") {
     return (
-      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-        <CheckCircle className="size-3" />
+      <span className="cc-badge bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
+        <CheckCircle className="inline size-2.5 mr-1 -mt-px" />
         Complete
       </span>
     )
   }
   if (status === "IN_PROGRESS") {
     return (
-      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
-        <Clock className="size-3" />
+      <span className="cc-badge bg-amber-500/20 text-amber-700 dark:text-amber-300">
+        <Clock className="inline size-2.5 mr-1 -mt-px" />
         In Progress
       </span>
     )
   }
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
-      <Sparkles className="size-3" />
+    <span className="cc-badge bg-white/25 text-white dark:bg-black/25 dark:text-white/90">
+      <Sparkles className="inline size-2.5 mr-1 -mt-px" />
       Coming Soon
-    </span>
-  )
-}
-
-function DifficultyChip({ difficulty }: { difficulty?: string }) {
-  const d = difficulty ?? "beginner"
-  const cls = d === "advanced" ? "badge-advanced" : d === "intermediate" ? "badge-intermediate" : "badge-beginner"
-  return (
-    <span className={`inline-flex items-center text-[10px] font-semibold rounded-full px-2 py-0.5 ${cls}`}>
-      {d.charAt(0).toUpperCase() + d.slice(1)}
     </span>
   )
 }
@@ -264,114 +241,109 @@ function CourseCard({ subject, navigate }: { subject: any; navigate: any }) {
   const s = subject
   const hasProgress = s.progressPct !== undefined && s.progressPct > 0
   const tutorialCount = s.tutorialCount ?? 0
+  const category = s.domain?.name ?? s.category ?? ""
 
-  // Generate a subtle pattern based on the course color
-  const patternId = `pattern-${s.id}`
+  const hash = s.id.split("").reduce((a: number, c: string) => a + c.charCodeAt(0), 0)
+  const arcSize1 = 120 + (hash % 60)
+  const arcSize2 = 80 + ((hash * 3) % 50)
+  const arcTop = -20 + (hash % 30)
+  const arcRight = -10 + ((hash * 7) % 40)
 
   return (
     <button
       onClick={() => navigate("subject", { subjectSlug: s.slug })}
       className="text-left group w-full"
     >
-      <div className="course-card relative h-full rounded-2xl border border-border/60 bg-card overflow-hidden shadow-sm">
-        {/* Gradient header area */}
+      <div className="cc h-full">
+        {/* Cover */}
         <div
-          className="course-card-header relative h-32 overflow-hidden"
+          className="cc-cover"
           style={{
-            background: `linear-gradient(135deg, color-mix(in oklch, ${s.color} 18%, transparent) 0%, color-mix(in oklch, ${s.color} 8%, transparent) 50%, color-mix(in oklch, ${s.color} 3%, transparent) 100%)`,
+            background: `
+              radial-gradient(ellipse 80% 60% at 30% 20%, color-mix(in oklch, ${s.color} 22%, transparent), transparent),
+              radial-gradient(ellipse 60% 50% at 80% 70%, color-mix(in oklch, ${s.color} 10%, transparent), transparent),
+              linear-gradient(145deg, color-mix(in oklch, ${s.color} 8%, var(--card)) 0%, var(--card) 100%)
+            `,
           }}
         >
-          {/* Subtle dot pattern overlay */}
-          <svg className="course-card-pattern absolute inset-0 h-full w-full opacity-[0.06]" aria-hidden>
-            <defs>
-              <pattern id={patternId} x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
-                <circle cx="1" cy="1" r="0.8" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill={`url(#${patternId})`} />
-          </svg>
-
-          {/* Decorative gradient orb */}
           <div
-            className="absolute -top-8 -right-8 size-24 rounded-full opacity-20 blur-2xl"
-            style={{ background: s.color }}
+            className="cc-arc"
+            style={{
+              width: arcSize1,
+              height: arcSize1,
+              top: arcTop,
+              right: arcRight,
+              borderColor: s.color,
+            }}
+          />
+          <div
+            className="cc-arc"
+            style={{
+              width: arcSize2,
+              height: arcSize2,
+              bottom: -arcSize2 / 3,
+              left: -arcSize2 / 4,
+              borderColor: s.color,
+            }}
           />
 
-          {/* Icon */}
-          <div className="absolute bottom-3 left-4">
+          <div className="cc-icon size-16 rounded-2xl opacity-35">
             <SubjectIcon
               name={s.icon}
               color={s.color}
-              className="course-card-icon size-12 rounded-xl shadow-sm border border-white/20 dark:border-white/5"
+              className="size-16 rounded-2xl"
             />
           </div>
+          <SubjectIcon
+            name={s.icon}
+            color={s.color}
+            className="cc-icon size-14 rounded-2xl"
+          />
 
-          {/* Status badge top-right */}
-          <div className="absolute top-3 right-3">
-            <StatusBadge status={s.status ?? "COMING_SOON"} />
-          </div>
+          <StatusPill status={s.status ?? "COMING_SOON"} />
         </div>
 
-        {/* Content area */}
-        <div className="p-4 pt-3.5 flex flex-col flex-1">
-          {/* Title */}
-          <h3 className="text-[15px] font-semibold leading-snug tracking-tight text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 min-h-[2.5rem]">
-            {s.name}
-          </h3>
+        {/* Body */}
+        <div className="cc-body">
+          <span className="cc-cat">{category}</span>
+          <h3 className="cc-title">{s.name}</h3>
+          <p className="cc-desc">{s.description}</p>
 
-          {/* Description */}
-          <p className="text-xs text-muted-foreground leading-relaxed mt-1.5 line-clamp-2 min-h-[2rem]">
-            {s.description}
-          </p>
+          <div className="cc-spacer" />
 
-          {/* Metadata chips */}
-          <div className="flex items-center gap-1.5 mt-3 flex-wrap">
-            <DifficultyChip difficulty="beginner" />
-            <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground bg-muted/50 rounded-full px-2 py-0.5">
-              <BookOpen className="size-2.5" />
-              {tutorialCount} lessons
-            </span>
-            <span className="inline-flex items-center gap-1 text-[10px] text-muted-foreground bg-muted/50 rounded-full px-2 py-0.5">
-              <Layers className="size-2.5" />
-              {s.domain?.name ?? s.category}
-            </span>
+          <div className="cc-meta">
+            <span>{tutorialCount} lessons</span>
+            <span className="cc-meta-dot" />
+            <span>{category}</span>
           </div>
 
-          {/* Spacer to push footer down */}
-          <div className="flex-1 min-h-2" />
-
-          {/* Progress or CTA footer */}
-          <div className="mt-3 pt-3 border-t border-border/40">
+          <div className="cc-cta">
             {hasProgress ? (
-              <div>
-                <div className="flex items-center justify-between text-[11px] mb-1.5">
-                  <span className="text-muted-foreground">
-                    {s.completedCount}/{tutorialCount} completed
-                  </span>
-                  <span className="font-semibold text-foreground">{s.progressPct}%</span>
-                </div>
-                <div className="h-1.5 rounded-full bg-muted/60 overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all duration-500 ease-out"
-                    style={{
-                      width: `${s.progressPct}%`,
-                      background: `linear-gradient(90deg, ${s.color}, color-mix(in oklch, ${s.color} 70%, white))`,
-                    }}
-                  />
-                </div>
-              </div>
+              <span className="text-xs text-muted-foreground">
+                {s.completedCount}/{tutorialCount} completed · <span className="font-semibold text-foreground">{s.progressPct}%</span>
+              </span>
             ) : (
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  Start learning
-                </span>
-                <span className="course-card-cta inline-flex items-center gap-1 text-xs font-medium text-primary">
-                  Explore <ArrowRight className="size-3" />
-                </span>
-              </div>
+              <span />
             )}
+            <span className="cc-cta-text">
+              {hasProgress ? "Continue" : "Start learning"}
+              <ArrowRight className="cc-cta-arrow size-3.5" />
+            </span>
           </div>
         </div>
+
+        {/* Progress bar */}
+        {hasProgress && (
+          <div className="cc-progress">
+            <div
+              className="cc-progress-bar"
+              style={{
+                width: `${s.progressPct}%`,
+                background: `linear-gradient(90deg, ${s.color}, color-mix(in oklch, ${s.color} 60%, white))`,
+              }}
+            />
+          </div>
+        )}
       </div>
     </button>
   )

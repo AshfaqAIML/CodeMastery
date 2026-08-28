@@ -129,55 +129,42 @@ export function HomeView() {
               onClick={() => navigate("subject", { subjectSlug: s.slug })}
               className="group text-left"
             >
-              <div className="course-card relative h-full rounded-2xl border border-border/60 bg-card overflow-hidden shadow-sm">
-                {/* Gradient header */}
+              <div className="cc h-full">
                 <div
-                  className="course-card-header relative h-24 overflow-hidden"
+                  className="cc-cover"
                   style={{
-                    background: `linear-gradient(135deg, color-mix(in oklch, ${s.color} 18%, transparent) 0%, color-mix(in oklch, ${s.color} 8%, transparent) 50%, color-mix(in oklch, ${s.color} 3%, transparent) 100%)`,
+                    height: 120,
+                    background: `
+                      radial-gradient(ellipse 80% 60% at 30% 20%, color-mix(in oklch, ${s.color} 22%, transparent), transparent),
+                      linear-gradient(145deg, color-mix(in oklch, ${s.color} 8%, var(--card)) 0%, var(--card) 100%)
+                    `,
                   }}
                 >
-                  <div
-                    className="absolute -top-6 -right-6 size-20 rounded-full opacity-20 blur-2xl"
-                    style={{ background: s.color }}
-                  />
-                  <div className="absolute bottom-2.5 left-3.5">
+                  <div className="cc-icon size-12 rounded-xl opacity-30">
                     <SubjectIcon
                       name={s.icon}
                       color={s.color}
-                      className="course-card-icon size-10 rounded-xl shadow-sm border border-white/20 dark:border-white/5"
+                      className="size-12 rounded-xl"
                     />
                   </div>
-                  <div className="absolute top-2.5 right-2.5">
-                    {s.status === "COMPLETE" && (
-                      <span className="inline-flex items-center gap-1 text-[9px] font-semibold rounded-full px-1.5 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                        <CheckCircle2 className="size-2.5" />
-                        Complete
-                      </span>
-                    )}
-                    {s.status === "COMING_SOON" && (
-                      <span className="inline-flex items-center gap-1 text-[9px] font-semibold rounded-full px-1.5 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
-                        Coming Soon
-                      </span>
-                    )}
-                  </div>
+                  <SubjectIcon
+                    name={s.icon}
+                    color={s.color}
+                    className="cc-icon size-10 rounded-xl"
+                  />
+                  {s.status === "COMPLETE" && (
+                    <span className="cc-badge bg-emerald-500/20 text-emerald-700 dark:text-emerald-300">
+                      <CheckCircle2 className="inline size-2.5 mr-1 -mt-px" />
+                      Complete
+                    </span>
+                  )}
                 </div>
-
-                {/* Content */}
-                <div className="p-3.5 pt-3">
-                  <h3 className="text-sm font-semibold leading-snug tracking-tight text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 min-h-[2rem]">
-                    {s.name}
-                  </h3>
-                  <p className="text-[11px] text-muted-foreground mt-1 line-clamp-2 min-h-[1.75rem]">
-                    {s.tagline}
-                  </p>
-                  <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-border/40">
-                    <span className="text-[10px] text-muted-foreground font-medium">
-                      {s.tutorialCount ?? 0} lessons
-                    </span>
-                    <span className="course-card-cta inline-flex items-center gap-1 text-[10px] font-medium text-primary">
-                      Explore <ArrowRight className="size-2.5" />
-                    </span>
+                <div className="cc-body">
+                  <span className="cc-cat">{s.domain?.name ?? ""}</span>
+                  <h3 className="cc-title" style={{ fontSize: 14, minHeight: "2em" }}>{s.name}</h3>
+                  <div className="cc-spacer" />
+                  <div className="cc-meta">
+                    <span>{s.tutorialCount ?? 0} lessons</span>
                   </div>
                 </div>
               </div>
