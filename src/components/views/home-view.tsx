@@ -133,7 +133,12 @@ export function HomeView() {
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between">
                     <SubjectIcon name={s.icon} color={s.color} className="size-11 rounded-xl" />
-                    {s.domain?.slug !== "completed" && s.status === "COMING_SOON" && (
+                    {s.status === "COMPLETE" && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        Complete
+                      </span>
+                    )}
+                    {s.status === "COMING_SOON" && (
                       <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
                         Coming Soon
                       </span>

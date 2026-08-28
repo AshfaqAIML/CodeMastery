@@ -93,19 +93,19 @@ export function SubjectView() {
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{subject.name}</h1>
             <div className="flex items-center gap-3 mt-1">
               <p className="text-lg text-muted-foreground">{subject.tagline}</p>
-              {subject.domain?.slug !== "completed" && subject.status === "COMPLETE" && (
+              {subject.status === "COMPLETE" && (
                 <span className="inline-flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                   <CheckCircle2 className="size-3.5" />
                   Complete
                 </span>
               )}
-              {subject.domain?.slug !== "completed" && subject.status === "IN_PROGRESS" && (
+              {subject.status === "IN_PROGRESS" && (
                 <span className="inline-flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                   <Clock className="size-3.5" />
                   In Progress
                 </span>
               )}
-              {subject.domain?.slug !== "completed" && subject.status === "COMING_SOON" && (
+              {subject.status === "COMING_SOON" && (
                 <span className="inline-flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
                   <Sparkles className="size-3.5" />
                   Coming Soon
