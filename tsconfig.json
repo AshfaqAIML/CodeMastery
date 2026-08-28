@@ -44,6 +44,7 @@
     "examples",
     "skills",
     "Module",
-    "tests/e2e"
+    "tests/e2e",
+    "scripts"
   ]
 }
