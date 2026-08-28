@@ -58,6 +58,7 @@ export async function GET(req: NextRequest) {
         color: s.color,
         category: s.category,
         order: s.order,
+        status: (s as any).status ?? "COMING_SOON",
         domain: s.domain
           ? {
               slug: s.domain.slug,

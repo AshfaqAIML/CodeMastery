@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ArrowLeft, Clock, ChevronRight, BookOpen, CheckCircle2, Circle, Award, Lock } from "lucide-react"
+import { ArrowLeft, Clock, ChevronRight, BookOpen, CheckCircle2, Circle, Award, Lock, Sparkles } from "lucide-react"
 import { useAppStore, setCurrentPageLabel } from "@/lib/store"
 import { useSubject, useSubjectCertificate } from "@/hooks/use-api"
 import { useSession } from "next-auth/react"
@@ -91,7 +91,27 @@ export function SubjectView() {
           <SubjectIcon name={subject.icon} color={subject.color} className="size-14 rounded-2xl shrink-0" />
           <div className="flex-1">
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{subject.name}</h1>
-            <p className="text-lg text-muted-foreground mt-1">{subject.tagline}</p>
+            <div className="flex items-center gap-3 mt-1">
+              <p className="text-lg text-muted-foreground">{subject.tagline}</p>
+              {subject.status === "COMPLETED" && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                  <CheckCircle2 className="size-3.5" />
+                  Completed
+                </span>
+              )}
+              {subject.status === "IN_PROGRESS" && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                  <Clock className="size-3.5" />
+                  In Progress
+                </span>
+              )}
+              {subject.status === "COMING_SOON" && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                  <Sparkles className="size-3.5" />
+                  Coming Soon
+                </span>
+              )}
+            </div>
             <p className="text-sm text-muted-foreground mt-3 max-w-2xl">{subject.description}</p>
             {subject.overallProgress && subject.overallProgress.total > 0 && (
               <div className="mt-4 flex items-center gap-3 max-w-md">

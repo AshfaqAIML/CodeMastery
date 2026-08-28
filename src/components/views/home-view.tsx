@@ -131,7 +131,19 @@ export function HomeView() {
             >
               <Card className="h-full hover:border-primary/40 hover:shadow-md transition-all overflow-hidden card-lift">
                 <CardHeader className="pb-3">
-                  <SubjectIcon name={s.icon} color={s.color} className="size-11 rounded-xl" />
+                  <div className="flex items-start justify-between">
+                    <SubjectIcon name={s.icon} color={s.color} className="size-11 rounded-xl" />
+                    {s.status === "COMPLETED" && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        Completed
+                      </span>
+                    )}
+                    {s.status === "COMING_SOON" && (
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                        Coming Soon
+                      </span>
+                    )}
+                  </div>
                   <CardTitle className="text-base mt-3 group-hover:text-primary transition-colors">
                     {s.name}
                   </CardTitle>

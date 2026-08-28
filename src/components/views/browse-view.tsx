@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Search, Compass, Loader2, BookX } from "lucide-react"
+import { Search, Compass, Loader2, BookX, CheckCircle, Clock, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
 import { useAppStore } from "@/lib/store"
 import { useSubjects, useSearch } from "@/hooks/use-api"
@@ -196,6 +196,31 @@ function DomainChip({
   )
 }
 
+function StatusBadge({ status }: { status: string }) {
+  if (status === "COMPLETED") {
+    return (
+      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+        <CheckCircle className="size-3" />
+        Completed
+      </span>
+    )
+  }
+  if (status === "IN_PROGRESS") {
+    return (
+      <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+        <Clock className="size-3" />
+        In Progress
+      </span>
+    )
+  }
+  return (
+    <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+      <Sparkles className="size-3" />
+      Coming Soon
+    </span>
+  )
+}
+
 function SubjectGrid({ items, navigate }: { items: any[]; navigate: any }) {
   if (items.length === 0) {
     return (
@@ -217,9 +242,12 @@ function SubjectGrid({ items, navigate }: { items: any[]; navigate: any }) {
             <CardHeader>
               <div className="flex items-start justify-between">
                 <SubjectIcon name={s.icon} color={s.color} className="size-11 rounded-xl" />
-                <span className="text-xs text-muted-foreground bg-muted/60 rounded-full px-2 py-0.5">
-                  {s.domain?.name ?? s.category}
-                </span>
+                <div className="flex flex-col items-end gap-1">
+                  <StatusBadge status={s.status ?? "COMING_SOON"} />
+                  <span className="text-xs text-muted-foreground bg-muted/60 rounded-full px-2 py-0.5">
+                    {s.domain?.name ?? s.category}
+                  </span>
+                </div>
               </div>
               <CardTitle className="text-lg mt-3 group-hover:text-primary transition-colors">
                 {s.name}
