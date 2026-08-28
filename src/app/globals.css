@@ -283,6 +283,7 @@
   /* Reading content typography */
   .prose-tutorial {
     max-width: 72ch;
+    text-align: justify;
   }
   .prose-tutorial h2 {
     scroll-margin-top: 6rem;
