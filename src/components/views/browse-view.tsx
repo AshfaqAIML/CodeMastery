@@ -26,19 +26,34 @@ export function BrowseView() {
     const list = subjects ?? []
     const map = new Map<string, { slug: string; name: string; color: string; order: number }>()
     const groups = new Map<string, any[]>()
+    const completedCourses: any[] = []
+
     for (const s of list) {
       const d = s.domain ?? FALLBACK_DOMAIN
       if (!map.has(d.slug)) map.set(d.slug, { slug: d.slug, name: d.name, color: d.color, order: 0 })
       const arr = groups.get(d.slug) ?? []
       arr.push(s)
       groups.set(d.slug, arr)
+
+      // Collect COMPLETE courses for the virtual "Completed" domain
+      if (s.status === "COMPLETE") {
+        completedCourses.push(s)
+      }
     }
-    const doms = Array.from(map.values())
+
+    // Add virtual "Completed" domain at the end
+    if (completedCourses.length > 0) {
+      map.set("completed", { slug: "completed", name: "Completed", color: "oklch(0.65 0.18 145)", order: 999 })
+      groups.set("completed", completedCourses)
+    }
+
+    const doms = Array.from(map.values()).sort((a, b) => a.order - b.order)
     return { domains: doms, grouped: groups }
   }, [subjects])
 
   const filteredSubjects = React.useMemo(() => {
     if (domainFilter === "all") return subjects ?? []
+    if (domainFilter === "completed") return (subjects ?? []).filter((s: any) => s.status === "COMPLETE")
     return (subjects ?? []).filter((s: any) => (s.domain?.slug ?? FALLBACK_DOMAIN.slug) === domainFilter)
   }, [subjects, domainFilter])
 
