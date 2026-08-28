@@ -93,10 +93,10 @@ export function SubjectView() {
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">{subject.name}</h1>
             <div className="flex items-center gap-3 mt-1">
               <p className="text-lg text-muted-foreground">{subject.tagline}</p>
-              {subject.status === "COMPLETED" && (
+              {subject.status === "COMPLETE" && (
                 <span className="inline-flex items-center gap-1 text-xs font-semibold rounded-full px-2.5 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                   <CheckCircle2 className="size-3.5" />
-                  Completed
+                  Complete
                 </span>
               )}
               {subject.status === "IN_PROGRESS" && (

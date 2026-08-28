@@ -197,11 +197,11 @@ function DomainChip({
 }
 
 function StatusBadge({ status }: { status: string }) {
-  if (status === "COMPLETED") {
+  if (status === "COMPLETE") {
     return (
       <span className="inline-flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-0.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
         <CheckCircle className="size-3" />
-        Completed
+        Complete
       </span>
     )
   }

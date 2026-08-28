@@ -159,7 +159,7 @@ model Subject {
   published   Boolean  @default(true)
   // Access model: PUBLIC (guests read fully) | FREE (authenticated) | PREMIUM (trial/lifetime)
   accessLevel String   @default("PUBLIC")
-  // Course status: COMPLETED (>10 tutorials) | COMING_SOON (stub/placeholder) | IN_PROGRESS (actively being built)
+  // Course status: COMPLETE (>10 tutorials) | COMING_SOON (stub/placeholder) | IN_PROGRESS (actively being built)
   status      String   @default("COMING_SOON")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
