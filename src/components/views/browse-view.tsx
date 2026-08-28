@@ -242,12 +242,7 @@ function SubjectGrid({ items, navigate }: { items: any[]; navigate: any }) {
             <CardHeader>
               <div className="flex items-start justify-between">
                 <SubjectIcon name={s.icon} color={s.color} className="size-11 rounded-xl" />
-                <div className="flex flex-col items-end gap-1">
-                  <StatusBadge status={s.status ?? "COMING_SOON"} />
-                  <span className="text-xs text-muted-foreground bg-muted/60 rounded-full px-2 py-0.5">
-                    {s.domain?.name ?? s.category}
-                  </span>
-                </div>
+                <StatusBadge status={s.status ?? "COMING_SOON"} />
               </div>
               <CardTitle className="text-lg mt-3 group-hover:text-primary transition-colors">
                 {s.name}
