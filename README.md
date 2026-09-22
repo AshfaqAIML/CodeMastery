@@ -449,6 +449,20 @@ Detailed guide: [`docs/migration.md`](docs/migration.md).
 
 ---
 
+---
+
+## 👤 Let's Connect
+
+**Ishfaq Dar | Data Analyst & Developer**
+
+📧 Email: [dar1.ishfaq36@gmail.com](https://mail.google.com/mail/?view=cm&fs=1&to=dar1.ishfaq36@gmail.com)  
+💼 LinkedIn: [Ishfaq Dar](https://www.linkedin.com/in/ishfaq-dar-aaa277240/)  
+🐙 GitHub: [AshfaqAIML](https://github.com/AshfaqAIML)  
+🌐 Portfolio 1: [AI & ML Portfolio](https://ai-and-ml-portfolio.vercel.app/)  
+🌐 Portfolio 2: [My Portfolio Website](https://dar-ishfaq-1.github.io/My_Portfolio_Website/)
+
+---
+
 ## License
 
 MIT — this project belongs to the project owner and is free to use, modify, and deploy anywhere.
