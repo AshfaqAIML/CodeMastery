@@ -63,9 +63,9 @@ from pipeline import (
 MONO_FONTS = {"consolas", "courier new", "courier", "lucida console", "monaco",
               "menlo", "monospace", "cascadia mono", "droid sans mono", "dejavu sans mono"}
 
-PART_HEAD_RE = re.compile(r"^\s*PART\s+(\d+)\s*[—-]\s*(.+?)\s*$", re.I)
-CHAPTER_HEAD_RE = re.compile(r"^\s*Chapter\s+(\d+)\s*[—-]\s*(.+?)\s*$", re.I)
-PROJECT_HEAD_RE = re.compile(r"^\s*Project\s+(\d+)\s*[—-]\s*(.+?)\s*$", re.I)
+PART_HEAD_RE = re.compile(r"^\s*PART\s+(\d+)\s*[—\-:]\s*(.+?)\s*$", re.I)
+CHAPTER_HEAD_RE = re.compile(r"^\s*Chapter\s+(\d+)\s*[—\-:]\s*(.+?)\s*$", re.I)
+PROJECT_HEAD_RE = re.compile(r"^\s*Project\s+(\d+)\s*[—\-:]\s*(.+?)\s*$", re.I)
 PROGRESS_HEAD_RE = re.compile(r"^\s*(?:Part|PART)\s+\d+\s+Progress\s*$")
 DROP_LINE_RE = re.compile(r"^(✅|⏳|Type NEXT(?: to continue)?\s*[.!]?)$")
 OUTPUT_LABEL_RE = re.compile(r"^\s*(?:Output|Error|Result|Note|Warning|Tip)\s*:\s*$", re.I)
@@ -75,16 +75,35 @@ CODE_HINT_RE = re.compile(
     r"|\bconsole\.[A-Za-z_]"
     r"|^\s*(?:let|const|var)\s+[A-Za-z_$]"
     r"|^\s*(?:function|class|import|export|async)\b"
+    r"|^\s*#include\b"          # C/C++ include
+    r"|\bcout\s*<<|\bcin\s*>>"  # C++ streams
+    r"|\bstd::|\busing\s+namespace\b"
     r"|[{}]"        # braces
 )
 DIAGRAM_RE = re.compile(r"[→↓↑←⇒┌┐└┘├┤┬┴┼│─]")
 
-OBJECTIVE_SECTIONS = {"Learning Objectives"}
-TAKEAWAY_SECTIONS = {"Chapter Summary"}
+# Fence language for real code blocks. Overridden per course via
+# cfg["codeLang"] (e.g. "cpp"); mirrors codverse.py behaviour.
+CODE_LANG = "js"
+
+
+def fence_lang(lines: list[str]) -> str | None:
+    """CODE_LANG for real code, 'text' for outputs/diagrams, None for prose."""
+    joined = "\n".join(lines).strip()
+    if not joined:
+        return None
+    if DIAGRAM_RE.search(joined):
+        return "text"
+    if CODE_HINT_RE.search(joined):
+        return CODE_LANG
+    return None
+
+OBJECTIVE_SECTIONS = {"Learning Objectives", "What You Will Learn"}
+TAKEAWAY_SECTIONS = {"Chapter Summary", "Key Takeaways", "Readiness Check"}
 TAGS_SECTIONS = {"Key Terms"}
 QUESTION_SECTIONS = {"MCQs"}
-INTRO_SECTIONS = {"Chapter Introduction"}
-WHY_SECTIONS = {"Why This Topic Matters"}
+INTRO_SECTIONS = {"Chapter Introduction", "Why This Matters for DSA"}
+WHY_SECTIONS = {"Why This Topic Matters", "Why This Matters for DSA"}
 
 MODULE_TITLE_RE = re.compile(r"^\s*Part\s+\d+\s*[-—]\s*", re.I)
 
@@ -166,18 +185,6 @@ def table_to_md(tb: Table) -> str:
     for r in rows[1:]:
         out.append("| " + " | ".join(esc(c) for c in r) + " |")
     return "\n".join(out)
-
-
-def fence_lang(lines: list[str]) -> str | None:
-    """'js' for real code, 'text' for outputs/diagrams, None for prose."""
-    joined = "\n".join(lines).strip()
-    if not joined:
-        return None
-    if DIAGRAM_RE.search(joined):
-        return "text"
-    if CODE_HINT_RE.search(joined):
-        return "js"
-    return None
 
 
 # ---------------------------------------------------------------- model
@@ -395,12 +402,14 @@ def parse_book(docx_path: Path) -> tuple[list[Tutorial], list[dict], list[str]]:
         style_lower = (it.para.style.name or "").lower() if it.para is not None else ""
         is_list = "list" in style_lower
 
-        # list paragraphs render as bullets
+        # list paragraphs render as bullets — except inside metadata-only
+        # sections (objectives/takeaways live in fields, not content)
         if is_list:
-            for ln in it.lines:
-                t = ln.strip()
-                if t:
-                    out.append(f"- {t}")
+            if cur_section not in (OBJECTIVE_SECTIONS | TAKEAWAY_SECTIONS):
+                for ln in it.lines:
+                    t = ln.strip()
+                    if t:
+                        out.append(f"- {t}")
             i += 1
             continue
 
@@ -502,15 +511,16 @@ def tutorials_to_articles(tutorials: list[Tutorial], cfg: dict) -> list[Article]
     """Build Article objects so generate_seed() can produce the seed TS."""
     cfg_course = cfg.get("course", {})
     default_minutes = int(cfg.get("minutesDefault") or 25)
+    default_tags = cfg.get("defaultTags") or ["javascript"]
     articles: list[Article] = []
     for t in tutorials:
         words = t.words
         minutes = max(10, min(90, round(words / 180))) if t.words else default_minutes
         tags = [slugify(x) for x in (t.terms or [])]
         if not tags and t.kind == "Project":
-            tags = ["javascript", "project"]
+            tags = [*default_tags, "project"]
         if not tags:
-            tags = ["javascript"]
+            tags = list(default_tags)
         tags = list(dict.fromkeys(tags))[:24]
 
         # summary from Chapter Introduction (first 2 sentences / ~240 chars)
@@ -574,8 +584,21 @@ def main() -> int:
     course_cfg = cfg.get("course", {})
     subject_slug = course_cfg.get("slug") or "plain-chapter-course"
 
+    global CODE_LANG
+    CODE_LANG = cfg.get("codeLang") or course_cfg.get("codeLang") or "js"
+
     tutorials, modules, info = parse_book(Path(args.docx))
     print("\n".join(info))
+
+    # Books without PART headings (e.g. a straight run of chapters) get a
+    # single module holding every tutorial, so unit/seed generation works.
+    if not modules and tutorials:
+        modules = [{
+            "number": 1,
+            "title": f"Part 1 - {course_cfg.get('name') or 'Course'}",
+            "parts": [t.seq for t in tutorials],
+        }]
+        info.append(f"no PART headings: single-module fallback with {len(tutorials)} tutorials")
 
     # unit declarations: default = one unit per parsed module
     part_difficulties = cfg.get("difficulties") or {}

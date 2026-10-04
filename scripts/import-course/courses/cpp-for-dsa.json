@@ -1,0 +1,26 @@
+{
+  "course": {
+    "slug": "cpp-for-dsa",
+    "name": "CPP For DSA",
+    "tagline": "Logic building and C++ prerequisites for DSA - think like a programmer, then code it.",
+    "description": "A guided foundations course for DSA readiness: thinking like a programmer, your first C++ programs, variables and operations, conditions, and loops. Every chapter explains each term on first use, with worked examples, dry runs, practice problems, self-checks, and DSA connections.",
+    "icon": "Code2",
+    "color": "oklch(0.65 0.18 250)",
+    "category": "Programming Languages",
+    "order": 4
+  },
+  "path": {
+    "slug": "cpp-for-dsa-path",
+    "title": "CPP For DSA Roadmap",
+    "tagline": "The complete roadmap for CPP For DSA - all chapters in order.",
+    "description": "Follow the course exactly as written: programming thinking, first C++ programs, variables, conditions, and loops. Each step is one chapter of the CPP For DSA subject.",
+    "icon": "Code2",
+    "color": "oklch(0.65 0.18 250)",
+    "difficulty": "beginner",
+    "estimatedHours": 8
+  },
+  "domain": "computer-science",
+  "codeLang": "cpp",
+  "defaultTags": ["cpp", "dsa", "logic-building", "programming"],
+  "minutesDefault": 25
+}
