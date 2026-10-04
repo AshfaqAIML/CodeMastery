@@ -296,7 +296,10 @@ Your Turn: Write the numbered steps to solve this.
 
 (Think about it before looking at the solution below).
 
-Click to see the solution
+<details>
+
+<summary>Click to see the solution</summary>
+
 
 Algorithm: Swap Two Glasses
 
@@ -311,6 +314,9 @@ Algorithm: Swap Two Glasses
 - Stop.
 
 Note: This "Temp" variable concept is one of the most fundamental ideas in all of computer science. You will use it constantly in DSA.
+
+
+</details>
 
 ## Independent Practice
 
@@ -350,7 +356,15 @@ Algorithm: Make Toast
 
 What went wrong?
 
-Click to see the answer Step 5 happens too late! The toaster needs to be plugged in (Step 5) *before* you push the lever (Step 2). Because the steps are out of order, the toaster won't heat up, and you'll be waiting forever for the toast to pop up. This is a **Sequential Logic Error**.
+<details>
+
+<summary>Click to see the answer</summary>
+
+Step 5 happens too late! The toaster needs to be plugged in (Step 5) *before* you push the lever (Step 2). Because the steps are out of order, the toaster won't heat up, and you'll be waiting forever for the toast to pop up. This is a **Sequential Logic Error**.
+
+
+
+</details>
 
 ## Predict the Output
 
@@ -368,7 +382,15 @@ Trace the following logical steps on paper. What is the final value of \`X\`?
 
 What is the final value of \`X\`?
 
-Click to see the answer 1. X = 5, Y = 3 2. X = 5 + 3 = 8 3. X = 8 * 2 = 16 4. X = 16 - 3 = 13. Final value of X is **13**.
+<details>
+
+<summary>Click to see the answer</summary>
+
+1. X = 5, Y = 3 2. X = 5 + 3 = 8 3. X = 8 * 2 = 16 4. X = 16 - 3 = 13. Final value of X is **13**.
+
+
+
+</details>
 
 ## Think Before You Code
 
@@ -496,8 +518,8 @@ int main() {
 }
 
 
-## First Example
 \`\`\`
+## First Example
 
 Let's write the traditional first program: printing "Hello, World!" to the screen.
 
@@ -511,8 +533,8 @@ int main() {
 }
 
 
-### Line-by-Line Explanation
 \`\`\`
+### Line-by-Line Explanation
 
 Line 1: \`#include <iostream>\`
 
@@ -620,6 +642,7 @@ cin >> a >> b; // User types: 10 20
 // 'a' becomes 10, 'b' becomes 20
 
 
+\`\`\`
 ## Common Beginner Mistakes
 
 - Forgetting the semicolon ;
@@ -653,7 +676,6 @@ cin >> a >> b; // User types: 10 20
 - Why: Single quotes are strictly for a single character (like 'A'). Text (strings) must use double quotes "Hello".
 
 ## Edge Cases
-\`\`\`
 
 What happens if a program expects a number, but the user types a letter?
 
@@ -673,8 +695,12 @@ Task: Modify the "Hello, World!" program to print the following exact output:
 
 Hint: You will need two \`cout\` statements, or one \`cout\` statement with an \`\\n\` (newline character) or \`endl\` in the middle.
 
+<details>
+
+<summary>Click to see the solution</summary>
+
 \`\`\`cpp
-Click to see the solution #include <iostream>
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -684,8 +710,11 @@ int main() {
 }
 
 
-## Independent Practice
 \`\`\`
+
+</details>
+
+## Independent Practice
 
 Problem: Write a complete C++ program that does the following:
 
@@ -725,7 +754,10 @@ The following program has three syntax errors. Find them, explain why they are w
 
 - }
 
-- Click to see the solution
+<details>
+
+<summary>Click to see the solution</summary>
+
 
 - using namespace std is missing a semicolon at the end. It should be using namespace std;
 
@@ -736,6 +768,9 @@ The following program has three syntax errors. Find them, explain why they are w
 - endl is missing a semicolon at the end of the line. It should be endl;
 
 (Note: There were actually 4 errors here, a common trick in debugging!)
+
+
+</details>
 
 ## Predict the Output
 
@@ -752,12 +787,20 @@ int main() {
     cout << "D" << endl;
     return 0;
 }
- Click to see the solution AB
+\`\`\`
+<details>
+
+<summary>Click to see the solution</summary>
+
+AB
+
 CD
 
-\`\`\`
 
 Explanation: "A" and "B" are printed on the same line. \`endl\` forces a new line. "C" and "D" are printed on the next line, followed by another new line.
+
+
+</details>
 
 ## Think Before You Code
 
@@ -933,6 +976,7 @@ int main() {
 }
 
 
+\`\`\`
 ### Line-by-Line Explanation
 
 - int length = 10;: Creates an integer box named length and immediately puts the value 10 inside it.
@@ -960,7 +1004,6 @@ int main() {
 - It returns 0 and ends.
 
 ## Dry Run
-\`\`\`
 
 Let's trace a program that updates a variable. This is a fundamental pattern in programming called accumulation or updating.
 
@@ -1088,8 +1131,12 @@ Problem: Write a program that calculates the final price of an item after a 15% 
 
 Hint: 15% is 0.15 in decimal. The discount amount is \`original_price * 0.15\`.
 
+<details>
+
+<summary>Click to see the solution</summary>
+
 \`\`\`cpp
-Click to see the solution #include <iostream>
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -1102,8 +1149,11 @@ int main() {
 }
 
 
-## Independent Practice
 \`\`\`
+
+</details>
+
+## Independent Practice
 
 Problem: Write a C++ program that converts a temperature from Celsius to Fahrenheit. Formula: \`Fahrenheit = (Celsius * 9.0 / 5.0) + 32\` Task: Declare a \`double\` variable for Celsius, initialize it to \`25.0\`, calculate the Fahrenheit equivalent, and print both values clearly.
 
@@ -1117,7 +1167,30 @@ Problem: You are given a 3-digit number, for example, \`452\`. Using only the \`
 
 Hint: Think about what happens when you divide an integer by 10, and what happens when you modulo an integer by 10.
 
-Click to see Hint 1 What is the remainder when ANY number is divided by 10? (e.g., 452 % 10) Click to see Hint 2 What happens to the decimal part when you divide an integer by 10? (e.g., 452 / 10) Click to see the solution \`#include <iostream>\`
+<details>
+
+<summary>Click to see Hint 1</summary>
+
+What is the remainder when ANY number is divided by 10? (e.g., 452 % 10)
+
+
+</details>
+
+<details>
+
+<summary>Click to see Hint 2</summary>
+
+What happens to the decimal part when you divide an integer by 10? (e.g., 452 / 10)
+
+
+</details>
+
+<details>
+
+<summary>Click to see the solution</summary>
+
+\`#include <iostream>\`
+
 \`using namespace std;\`
 
 \`int main() {\`
@@ -1134,6 +1207,9 @@ Click to see Hint 1 What is the remainder when ANY number is divided by 10? (e.g
 
 This logic (using \`% 10\` to get the last digit and \`/ 10\` to remove it) is the foundational algorithm for reversing numbers or summing digits, which you will use constantly in DSA.
 
+
+</details>
+
 ## Debugging Practice
 
 The following program is supposed to calculate the average of two numbers, but it has a logical flaw. Find it and fix it.
@@ -1149,14 +1225,20 @@ int main() {
     cout << "Average: " << average << endl;
     return 0;
 }
- Click to see the solution
 \`\`\`
+<details>
+
+<summary>Click to see the solution</summary>
+
 
 The Bug: Operator precedence and integer division. The code calculates \`b / 2\` first (2 / 2 = 1), then adds \`a\` (7 + 1 = 8). The output is 8, but the true average of 7 and 2 is 4.5.
 
 The Fix: Use parentheses to force addition first, and use \`double\` to prevent integer division truncation.
 
 \`double average = (a + b) / 2.0; \`
+
+
+</details>
 
 ## Predict the Output
 
@@ -1177,7 +1259,11 @@ int main() {
     cout << "x: " << x << ", y: " << y << endl;
     return 0;
 }
- Click to see the solution
+\`\`\`
+<details>
+
+<summary>Click to see the solution</summary>
+
 
 - x = 10, y = 3
 
@@ -1186,9 +1272,11 @@ int main() {
 - y = 1 * 2 -> y becomes 2. (x is still 1)
 
 - x = 1 + 2 -> x becomes 3.
-\`\`\`
 
 Output: \`x: 3, y: 2\`
+
+
+</details>
 
 ## Think Before You Code
 
@@ -1342,8 +1430,8 @@ else {
 }
 
 
-## First Example
 \`\`\`
+## First Example
 
 Let's write a program that checks if a number is positive, negative, or zero.
 
@@ -1369,6 +1457,7 @@ int main() {
 }
 
 
+\`\`\`
 ### Line-by-Line Explanation
 
 - int number = -5;: We create a variable and give it a value.
@@ -1398,7 +1487,6 @@ int main() {
 - Return 0 and end.
 
 ## Dry Run
-\`\`\`
 
 Let's dry run a program that determines if a student passes or fails, and if they get an 'A' grade.
 
@@ -1464,6 +1552,7 @@ if (age >= 18 && hasTicket == true) {
 }
 
 
+\`\`\`
 ## Common Beginner Mistakes
 
 - Using = instead of ==
@@ -1499,7 +1588,6 @@ if (age >= 18 && hasTicket == true) {
 - }
 
 ## Edge Cases
-\`\`\`
 
 When writing conditions, always ask: "What happens at the boundaries?"
 
@@ -1523,8 +1611,12 @@ Problem: Write a program that takes an integer \`score\` (0 to 100) and prints t
 
 Hint: You can check the highest condition first. If it fails, you automatically know the score is lower than that threshold.
 
+<details>
+
+<summary>Click to see the solution</summary>
+
 \`\`\`cpp
-Click to see the solution #include <iostream>
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -1547,6 +1639,9 @@ int main() {
 
 Notice we don't need to write \`score >= 80 && score < 90\`. Because the \`if (score >= 90)\` already failed, we already know \`score\` is less than 90!
 
+
+</details>
+
 ## Independent Practice
 
 Problem: Write a program to check if a given year is a Leap Year. Rules for Leap Year:
@@ -1559,7 +1654,39 @@ Problem: Write a program to check if a given year is a Leap Year. Rules for Leap
 
 Task: Declare an \`int year = 2024;\` and use \`if-else\` and logical operators (\`&&\`, \`||\`, \`%\`) to print "Leap Year" or "Not a Leap Year".
 
-Click to see Hint 1 First, check the most specific rule: Is it divisible by 400? (\`year % 400 == 0\`) Click to see Hint 2 If not, check the exception: Is it divisible by 100? If yes, it's NOT a leap year. Click to see Hint 3 If not, check the basic rule: Is it divisible by 4? Click to see the solution \`#include <iostream>\`
+<details>
+
+<summary>Click to see Hint 1</summary>
+
+First, check the most specific rule: Is it divisible by 400? (\`year % 400 == 0\`)
+
+
+</details>
+
+<details>
+
+<summary>Click to see Hint 2</summary>
+
+If not, check the exception: Is it divisible by 100? If yes, it's NOT a leap year.
+
+
+</details>
+
+<details>
+
+<summary>Click to see Hint 3</summary>
+
+If not, check the basic rule: Is it divisible by 4?
+
+
+</details>
+
+<details>
+
+<summary>Click to see the solution</summary>
+
+\`#include <iostream>\`
+
 \`using namespace std;\`
 
 \`int main() {\`
@@ -1579,6 +1706,9 @@ Click to see Hint 1 First, check the most specific rule: Is it divisible by 400?
 \`}\`
 
 (Alternative advanced one-liner logic: \`if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))\`)
+
+
+</details>
 
 ## Challenge Problems
 
@@ -1605,14 +1735,20 @@ int main() {
     }
     return 0;
 }
- Click to see the solution
+\`\`\`
+<details>
+
+<summary>Click to see the solution</summary>
+
 
 - Logical Error: 1 <= x <= 10 is invalid logic in C++. It evaluates as (1 <= x) <= 10. If x is 5, (1 <= 5) is true (which is 1). Then 1 <= 10 is true. It will incorrectly say "in range" even for x = 100 (because 1 <= 100 is true (1), and 1 <= 10 is true).
 
 - The Fix: You must split this into two conditions joined by &&: if (x >= 1 && x <= 10)
 
+
+</details>
+
 ## Predict the Output
-\`\`\`
 
 What will this program print? Trace it carefully, paying attention to the \`!\` (NOT) operator.
 
@@ -1632,7 +1768,11 @@ int main() {
 
     return 0;
 }
- Click to see the solution
+\`\`\`
+<details>
+
+<summary>Click to see the solution</summary>
+
 
 - Evaluate a > b: 10 > 20 is false.
 
@@ -1641,9 +1781,11 @@ int main() {
 - Evaluate a + b == 30: 10 + 20 == 30 is true.
 
 - Evaluate true && true: The result is true.
-\`\`\`
 
 Output: \`Condition Met\`
+
+
+</details>
 
 ## Think Before You Code
 
@@ -1837,6 +1979,7 @@ int main() {
 }
 
 
+\`\`\`
 ### Line-by-Line Explanation
 
 - int i = 1;: Initialization. Creates a counter variable i and sets it to 1. This happens only once.
@@ -1870,7 +2013,6 @@ int main() {
 - Print "Loop finished!".
 
 ## Dry Run
-\`\`\`
 
 Dry running loops is the most critical skill you will develop in this chapter. Let's trace a \`while\` loop that calculates the sum of numbers from 1 to 4.
 
@@ -1931,6 +2073,7 @@ do {
 cout << "You entered: " << number << endl;
 
 
+\`\`\`
 ## Common Beginner Mistakes
 
 - The Infinite Loop (Forgetting the Update)
@@ -1980,14 +2123,17 @@ cout << "You entered: " << number << endl;
 - Negative steps: A loop can count backward! for (int i = 5; i >= 1; i--) is perfectly valid.
 
 ## Guided Practice
-\`\`\`
 
 Problem: Write a program that prints all even numbers from 1 to 20.
 
 Understand: We need to iterate through numbers 1 to 20 and only print the even ones. Approach: We can use a \`for\` loop from 1 to 20, and an \`if\` condition inside to check \`i % 2 == 0\`. Alternatively, we can start at 2 and increment by 2 (\`i = i + 2\`). Let's use the second, more efficient approach.
 
+<details>
+
+<summary>Click to see the solution</summary>
+
 \`\`\`cpp
-Click to see the solution #include <iostream>
+#include <iostream>
 using namespace std;
 
 int main() {
@@ -2000,8 +2146,11 @@ int main() {
 }
 
 
-## Independent Practice
 \`\`\`
+
+</details>
+
+## Independent Practice
 
 Problem: Write a C++ program that calculates the sum of all odd numbers between 1 and a given number \`N\` (inclusive).
 
@@ -2019,7 +2168,24 @@ Problem: The Fibonacci Sequence. The Fibonacci sequence starts with 0 and 1. Eac
 
 - Use variables to keep track of the "previous" and "current" numbers, and update them inside a loop.
 
-Click to see Hint 1 You need three variables: \`a\` (starts at 0), \`b\` (starts at 1), and \`nextTerm\`. Click to see Hint 2 Inside the loop, \`nextTerm = a + b\`. Then, you must shift the values: \`a\` becomes \`b\`, and \`b\` becomes \`nextTerm\`.
+<details>
+
+<summary>Click to see Hint 1</summary>
+
+You need three variables: \`a\` (starts at 0), \`b\` (starts at 1), and \`nextTerm\`.
+
+
+</details>
+
+<details>
+
+<summary>Click to see Hint 2</summary>
+
+Inside the loop, \`nextTerm = a + b\`. Then, you must shift the values: \`a\` becomes \`b\`, and \`b\` becomes \`nextTerm\`.
+
+
+
+</details>
 
 ## Debugging Practice
 
@@ -2035,7 +2201,11 @@ int main() {
     }
     return 0;
 }
- Click to see the solution
+\`\`\`
+<details>
+
+<summary>Click to see the solution</summary>
+
 
 - Logical Error (Infinite Loop): The loop starts at 5 and the condition is i > 0. But the update is i++ (increasing). i will become 6, 7, 8... forever. It will never be <= 0.
 
@@ -2045,8 +2215,10 @@ int main() {
 
 - }
 
+
+</details>
+
 ## Predict the Output
-\`\`\`
 
 What will this program print? Trace the nested loops carefully.
 
@@ -2063,8 +2235,11 @@ int main() {
     }
     return 0;
 }
- Click to see the solution
 \`\`\`
+<details>
+
+<summary>Click to see the solution</summary>
+
 
 **Output:**
 
@@ -2073,6 +2248,9 @@ int main() {
 - 2,1 2,2 2,3
 
 Explanation: The outer loop (\`i\`) runs twice. For each iteration of \`i\`, the inner loop (\`j\`) runs completely from 1 to 3. The \`cout << endl\` is outside the inner loop, so it only triggers after the inner loop finishes.
+
+
+</details>
 
 ## Think Before You Code
 

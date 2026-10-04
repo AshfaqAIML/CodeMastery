@@ -15,8 +15,13 @@ books such as "COMPLETE JAVASCRIPT FOR ABSOLUTE BEGINNERS". Layout:
 Design notes
 ------------
 * Code paragraphs are detected by the monospace run font. A paragraph whose
-  runs are ~all-mono becomes one fenced block: ``js`` for real code,
-  ``text`` for outputs/ASCII diagrams/arrow flows.
+  runs are ~all-mono becomes one fenced block: ``cpp``/``js`` (per-course
+  `codeLang`) for real code, ``text`` for outputs/ASCII diagrams/arrow flows.
+* "Click to see the solution / answer / Hint N" toggle paragraphs
+  (chat-orchestration UI flattened into the book) are folded into
+  <details> disclosures, so answers stay hidden until clicked. This
+  also repairs toggles glued onto code-fence lines and headings
+  swallowed inside unclosed fences.
 * Prose paragraphs that contain short newline-separated lines (a formatting
   quirk of these books) become bullet lists; longer ones stay paragraphs
   with the line breaks preserved.
@@ -85,6 +90,191 @@ DIAGRAM_RE = re.compile(r"[→↓↑←⇒┌┐└┘├┤┬┴┼│─]")
 # Fence language for real code blocks. Overridden per course via
 # cfg["codeLang"] (e.g. "cpp"); mirrors codverse.py behaviour.
 CODE_LANG = "js"
+
+
+# ---------------------------------------------------------------- toggle folding
+#
+# Books orchestrated in chat flatten toggle UI ("Click to see the
+# solution / answer / Hint N" + hidden answer) into plain paragraphs:
+# the label and the answer end up visible, sometimes even glued onto
+# code-fence lines. fold_toggles() restores the disclosure as a
+# <details> block (styled as a premium collapsible by the renderer),
+# so answers stay hidden until clicked.
+
+TOGGLE_LABEL_RE = r"Click to see (?:the (?:solution|answer)|Hint \d+)"
+TOGGLE_LINE_RE = re.compile(
+    rf"^\s*(?:[-*]\s+)?({TOGGLE_LABEL_RE})\b\s?(.*)$", re.I
+)
+TOGGLE_SPLIT_RE = re.compile(rf"({TOGGLE_LABEL_RE})", re.I)
+MD_HEADING_RE = re.compile(r"^#{1,4}\s")
+MD_LIFTABLE_HEADING_RE = re.compile(r"^#{2,4}\s")
+MD_FENCE_RE = re.compile(r"^ {0,3}```")
+
+
+def _split_toggle_rest(rest: str) -> list[tuple[str | None, str]]:
+    """Split 'body Click to see X body2 ...' into [(None, body0),
+    (label1, body1), ...]. The leading body (possibly empty) belongs to
+    the currently open details block."""
+    parts = TOGGLE_SPLIT_RE.split(rest)
+    out: list[tuple[str | None, str]] = []
+    if parts and parts[0].strip():
+        out.append((None, parts[0].strip()))
+    for i in range(1, len(parts), 2):
+        label = parts[i].strip()
+        body = parts[i + 1].strip() if i + 1 < len(parts) else ""
+        out.append((label, body))
+    return out
+
+
+def fold_toggles(md: str) -> str:
+    """Fold 'Click to see ...' toggles into <details> disclosures.
+
+    - bare toggle line -> body is the following lines until the next
+      heading, the next toggle, or the end of the tutorial.
+    - 'label + answer' on one line -> the rest of the line is the body.
+    - several toggles on one line (Hint 1 ... Hint 2 ... solution) ->
+      one details block per toggle.
+    - label glued as the first line of a code fence -> hoisted out as
+      the summary; the fence keeps only code.
+    - toggle inside a fence -> the fence is closed first; its original
+      closing marker is dropped (balance is preserved).
+    - a heading swallowed inside a fence is lifted back out.
+    """
+    lines = md.split("\n")
+    out: list[str] = []
+    in_fence = False
+    in_details = False
+    expect_closer = False  # dropped closer pending after an early split
+
+    def open_details(label: str) -> None:
+        out.append("<details>")
+        out.append("")
+        out.append(f"<summary>{label.strip()}</summary>")
+        out.append("")
+
+    def close_details() -> None:
+        out.append("")
+        out.append("</details>")
+        out.append("")
+
+    def handle_toggle(label: str, rest: str) -> None:
+        nonlocal in_details
+        if in_details:
+            close_details()
+            in_details = False
+        open_details(label)
+        in_details = True
+        for lab, body in _split_toggle_rest(rest):
+            if lab is None:
+                if body:
+                    out.append(body)
+                    out.append("")
+            else:
+                close_details()
+                open_details(lab)
+                if body:
+                    out.append(body)
+                    out.append("")
+
+    i, n = 0, len(lines)
+    while i < n:
+        line = lines[i]
+        is_fence = bool(MD_FENCE_RE.match(line))
+        is_heading = bool(MD_HEADING_RE.match(line))
+        m_toggle = None if is_fence else TOGGLE_LINE_RE.match(line)
+        if m_toggle is None and (not is_fence or in_fence):
+            # mid-line toggle ("code... Click to see ...") or a toggle
+            # inside an open fence: split off any leading content first.
+            m_any = re.search(TOGGLE_LABEL_RE, line, re.I) if not is_heading else None
+            if m_any and not (is_fence and not in_fence):
+                before = line[: m_any.start()].strip()
+                if before and not re.match(r"^[-*]\s*$", before):
+                    if in_fence:
+                        out.append("```")
+                        in_fence = False
+                        expect_closer = True
+                    if in_details:
+                        close_details()
+                        in_details = False
+                    out.append(before)
+                    out.append("")
+                m_toggle = TOGGLE_LINE_RE.match(line[m_any.start() :].strip())
+
+        if is_fence and in_fence and m_toggle is None:
+            out.append(line)
+            in_fence = False
+            i += 1
+            continue
+
+        if is_fence and in_fence and m_toggle is not None:
+            # toggle inside a fence: close the fence, then fold the toggle.
+            out.append("```")
+            in_fence = False
+            expect_closer = True
+            handle_toggle(m_toggle.group(1), m_toggle.group(2))
+            i += 1
+            continue
+
+        if is_fence and not in_fence:
+            if expect_closer:
+                # stray closer left by a split above: drop it (balance kept).
+                expect_closer = False
+                i += 1
+                continue
+            # fence open: hoist a toggle label glued as its first line.
+            nxt = lines[i + 1] if i + 1 < n else ""
+            m_next = TOGGLE_LINE_RE.match(nxt)
+            if m_next:
+                handle_toggle(m_next.group(1), "")
+                out.append(line)
+                rest = m_next.group(2).strip()
+                if rest:
+                    out.append(rest)  # code stays fenced inside the disclosure
+                in_fence = True
+                i += 2
+                continue
+            out.append(line)
+            in_fence = True
+            i += 1
+            continue
+
+        if is_heading:
+            # A ##/###/#### heading inside an open fence was swallowed by a
+            # fence the parser never closed (mono paragraph followed directly
+            # by a heading, no blank between). Lift it back out: close the
+            # fence first so the following ``` regains its opener role.
+            # Single-# lines are left alone (# comments exist in code).
+            if in_fence and MD_LIFTABLE_HEADING_RE.match(line):
+                out.append("```")
+                in_fence = False
+                expect_closer = True  # the fence's original closer is now stray
+            if in_details:
+                close_details()
+                in_details = False
+            out.append(line)
+            i += 1
+            continue
+
+        if m_toggle is not None:
+            if in_fence and not is_fence:
+                # toggle line while a fence is still open (e.g. an answer
+                # glued right after code with no blank between): close the
+                # fence first so the disclosure is real markup, not code text.
+                out.append("```")
+                in_fence = False
+                expect_closer = True  # the fence's original closer is now stray
+            handle_toggle(m_toggle.group(1), m_toggle.group(2))
+            i += 1
+            continue
+
+        out.append(line)
+        i += 1
+
+    if in_fence:
+        out.append("```")
+    if in_details:
+        close_details()
+    return "\n".join(out)
 
 
 def fence_lang(lines: list[str]) -> str | None:
@@ -493,12 +683,14 @@ def parse_book(docx_path: Path) -> tuple[list[Tutorial], list[dict], list[str]]:
 
     end_tutorial()
 
-    # close any dangling open fence in every tutorial (defensive)
+    # close any dangling open fence in every tutorial (defensive),
+    # then fold "Click to see ..." toggles into <details> disclosures.
     for t in tutorials:
         lines = t.markdown.split("\n")
         opens = sum(1 for l in lines if re.match(r"^```", l))
         if opens % 2:
             t.markdown = t.markdown.rstrip() + "\n```"
+        t.markdown = fold_toggles(t.markdown)
         t.words = max(1, len(re.findall(r"\S+", t.markdown)))
 
     info.append(f"parsed {len(tutorials)} tutorials (chapters+projects) across {len(modules)} parts")
