@@ -101,11 +101,11 @@ CODE_LANG = "js"
 # <details> block (styled as a premium collapsible by the renderer),
 # so answers stay hidden until clicked.
 
-TOGGLE_LABEL_RE = r"Click to see (?:the (?:solution|answer)|Hint \d+)"
+TOGGLE_LABEL_RE = r"Click to see (?:the )?(?:[\w+]+? )*(?:solution|answer|hint \d+)"
 TOGGLE_LINE_RE = re.compile(
-    rf"^\s*(?:[-*]\s+)?({TOGGLE_LABEL_RE})\b\s?(.*)$", re.I
+    rf"^\s*(?:[-*]\s+)?({TOGGLE_LABEL_RE})(?=\s|$)\s?(.*)$", re.I
 )
-TOGGLE_SPLIT_RE = re.compile(rf"({TOGGLE_LABEL_RE})", re.I)
+TOGGLE_SPLIT_RE = re.compile(rf"({TOGGLE_LABEL_RE})(?=\s|$)", re.I)
 MD_HEADING_RE = re.compile(r"^#{1,4}\s")
 MD_LIFTABLE_HEADING_RE = re.compile(r"^#{2,4}\s")
 MD_FENCE_RE = re.compile(r"^ {0,3}```")
