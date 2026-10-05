@@ -292,8 +292,8 @@ OBJECTIVE_SECTIONS = {"Learning Objectives", "What You Will Learn"}
 TAKEAWAY_SECTIONS = {"Chapter Summary", "Key Takeaways", "Readiness Check"}
 TAGS_SECTIONS = {"Key Terms"}
 QUESTION_SECTIONS = {"MCQs"}
-INTRO_SECTIONS = {"Chapter Introduction", "Why This Matters for DSA"}
-WHY_SECTIONS = {"Why This Topic Matters", "Why This Matters for DSA"}
+INTRO_SECTIONS = {"Chapter Introduction", "Why This Matters for DSA", "Why This Matters"}
+WHY_SECTIONS = {"Why This Topic Matters", "Why This Matters for DSA", "Why This Matters"}
 
 MODULE_TITLE_RE = re.compile(r"^\s*Part\s+\d+\s*[-—]\s*", re.I)
 

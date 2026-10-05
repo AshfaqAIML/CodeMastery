@@ -1,0 +1,26 @@
+{
+  "course": {
+    "slug": "system-design",
+    "name": "System Design",
+    "tagline": "Design systems that scale - from requests and clients to trade-offs and capacity thinking.",
+    "description": "A guided foundations course on system design: what systems are made of, how the web and backend systems work, and how to think about requirements and capacity. Every chapter explains each term on first use, with real-world problems, architecture diagrams, worked examples, trade-off analysis, and interview questions.",
+    "icon": "Network",
+    "color": "oklch(0.68 0.2 30)",
+    "category": "Backend",
+    "order": 10
+  },
+  "path": {
+    "slug": "system-design-path",
+    "title": "System Design Roadmap",
+    "tagline": "The complete roadmap for System Design - all chapters in order.",
+    "description": "Follow the course exactly as written: system design foundations, web and backend systems, and requirements and capacity thinking. Each step is one chapter of the System Design subject.",
+    "icon": "Network",
+    "color": "oklch(0.68 0.2 30)",
+    "difficulty": "beginner",
+    "estimatedHours": 6
+  },
+  "domain": "backend-systems",
+  "codeLang": "text",
+  "defaultTags": ["system-design", "backend", "architecture", "scalability"],
+  "minutesDefault": 25
+}
