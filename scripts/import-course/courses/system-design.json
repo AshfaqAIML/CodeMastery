@@ -21,6 +21,7 @@
   },
   "domain": "backend-systems",
   "codeLang": "text",
+  "contentStartAfter": "End of outline.",
   "defaultTags": ["system-design", "backend", "architecture", "scalability"],
   "minutesDefault": 25
 }

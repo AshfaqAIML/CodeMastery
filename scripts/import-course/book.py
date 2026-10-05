@@ -398,11 +398,25 @@ class Tutorial:
     source: str = ""
 
 
-def parse_book(docx_path: Path) -> tuple[list[Tutorial], list[dict], list[str]]:
-    """Returns (tutorials, modules[{number,title,parts}], info_lines)."""
+def parse_book(docx_path: Path, start_after: str | None = None) -> tuple[list[Tutorial], list[dict], list[str]]:
+    """Returns (tutorials, modules[{number,title,parts}], info_lines).
+
+    start_after: optional front-matter cut point. When set, every item up
+    to and including the first paragraph containing this text (e.g. an
+    "End of outline." marker) is dropped, so a book outline that repeats
+    chapter titles never creates stub tutorials or triggers the
+    duplicate-segment skip for the real chapters.
+    """
     doc = docx.Document(str(docx_path))
     items = normalize(doc)
     info: list[str] = []
+    if start_after:
+        cut = next((k for k, it in enumerate(items) if start_after in (it.text or "")), None)
+        if cut is None:
+            info.append(f"WARNING: contentStartAfter {start_after!r} not found - parsing whole book")
+        else:
+            info.append(f"front matter dropped: {cut} items before {start_after!r}")
+            items = items[cut + 1:]
 
     modules: list[dict] = []
     cur_unit: int | None = None
@@ -779,7 +793,9 @@ def main() -> int:
     global CODE_LANG
     CODE_LANG = cfg.get("codeLang") or course_cfg.get("codeLang") or "js"
 
-    tutorials, modules, info = parse_book(Path(args.docx))
+    tutorials, modules, info = parse_book(
+        Path(args.docx), start_after=cfg.get("contentStartAfter")
+    )
     print("\n".join(info))
 
     # Books without PART headings (e.g. a straight run of chapters) get a
